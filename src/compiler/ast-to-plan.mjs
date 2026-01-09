@@ -28,6 +28,80 @@ function resolveAttributeId(attrKey, context) {
   return context.idStore.getDenseId(ConceptKind.Attribute, conceptId);
 }
 
+function normalizeComparatorLiteral(op) {
+  const raw = String(op).toLowerCase().trim();
+  switch (raw) {
+    case "greaterthan":
+    case "greater than":
+      return "greater than";
+    case "lessthan":
+    case "less than":
+      return "less than";
+    case "equalto":
+    case "equal to":
+      return "equal to";
+    case "notequalto":
+    case "not equal to":
+      return "not equal to";
+    case "greaterthanorequalto":
+    case "greater than or equal to":
+      return "greater than or equal to";
+    case "lessthanorequalto":
+    case "less than or equal to":
+      return "less than or equal to";
+    case "contains":
+      return "contains";
+    case "notcontains":
+    case "does not contain":
+      return "does not contain";
+    default:
+      return raw;
+  }
+}
+
+function recordError(context, code, message, token) {
+  if (!context?.errors) return;
+  context.errors.push({
+    code,
+    name: "CompilerError",
+    message,
+    severity: "error",
+    primaryToken: token ?? "EOF",
+    hint: "Check BaseDictionary declarations.",
+  });
+}
+
+function checkAttributeComparator(attrKey, comparator, context) {
+  if (!context?.dictionary || !attrKey || !context.validateDictionary) return;
+  const key = attrKey.replace(/^A:/, "");
+  const attrDef = context.dictionary.attributes.get(key);
+  if (!attrDef || attrDef.comparators.size === 0) return;
+  const normalized = normalizeComparatorLiteral(comparator);
+  if (!attrDef.comparators.has(normalized)) {
+    recordError(context, "CMP012", "Comparator not allowed for attribute.", key);
+  }
+}
+
+function checkAttributeNumeric(attrKey, context) {
+  if (!context?.dictionary || !attrKey || !context.validateDictionary) return;
+  const key = attrKey.replace(/^A:/, "");
+  const attrDef = context.dictionary.attributes.get(key);
+  if (!attrDef) return;
+  if (attrDef.valueType && attrDef.valueType !== "numeric") {
+    recordError(context, "CMP016", "Comparator requires numeric attribute.", key);
+  }
+}
+
+function checkAttributeEntity(attrKey, context) {
+  if (!context?.dictionary || !attrKey || !context.validateDictionary) return;
+  const key = attrKey.replace(/^A:/, "");
+  const attrDef = context.dictionary.attributes.get(key);
+  if (!attrDef) return;
+  if (attrDef.valueType && attrDef.valueType !== "entity") {
+    recordError(context, "CMP017", "Entity filter requires entity-valued attribute.", key);
+  }
+}
+
 function verbGroupKey(verbGroup) {
   if (!verbGroup) return null;
   const parts = [];
@@ -100,8 +174,11 @@ function compileRelativeClause(node, context) {
       if (predicate && predicate.kind === "RelPredicateComparison") {
         const right = predicate.right;
         if (right.kind === "NumberLiteral") {
+          checkAttributeNumeric(attrKey, context);
+          checkAttributeComparator(attrKey, predicate.comparator.op, context);
           return Plans.numFilter(attrId, predicate.comparator.op, right.value);
         }
+        checkAttributeEntity(attrKey, context);
         return Plans.attrEntityFilter(attrId, objectToSetPlan(right, context));
       }
       return Plans.allEntities();
@@ -161,10 +238,14 @@ function compileAssertionToSetPlan(assertion, context) {
       const attrId = resolveAttributeId(attrKey, context);
       if (attrId === null || !assertion.value) return subjectPlan;
       const value = assertion.value;
-      const filter =
-        value.kind === "NumberLiteral"
-          ? Plans.numFilter(attrId, "eq", value.value)
-          : Plans.attrEntityFilter(attrId, objectToSetPlan(value, context));
+      let filter = null;
+      if (value.kind === "NumberLiteral") {
+        checkAttributeNumeric(attrKey, context);
+        filter = Plans.numFilter(attrId, "eq", value.value);
+      } else {
+        checkAttributeEntity(attrKey, context);
+        filter = Plans.attrEntityFilter(attrId, objectToSetPlan(value, context));
+      }
       return Plans.intersect([subjectPlan, filter]);
     }
     case "ComparisonAssertion": {
@@ -173,6 +254,8 @@ function compileAssertionToSetPlan(assertion, context) {
       const attrKey = left?.kind === "Name" ? `A:${left.value}` : null;
       const attrId = resolveAttributeId(attrKey, context);
       if (attrId === null || right.kind !== "NumberLiteral") return subjectPlan;
+      checkAttributeNumeric(attrKey, context);
+      checkAttributeComparator(attrKey, assertion.comparator.op, context);
       const filter = Plans.numFilter(attrId, assertion.comparator.op, right.value);
       return Plans.intersect([subjectPlan, filter]);
     }
@@ -215,8 +298,73 @@ export function compileRuleBody(node, context) {
   return compileCondition(node, Plans.allEntities(), context);
 }
 
-export function compileRuleHead(node) {
-  return node;
+export function compileRuleHead(node, context) {
+  if (!node) return null;
+  if (node.kind === "AssertionSentence") {
+    return compileEmitFromAssertion(node.assertion, context);
+  }
+  if (node.kind === "BecauseSentence") {
+    return compileEmitFromAssertion(node.assertion, context);
+  }
+  return null;
+}
+
+function compileEmitFromAssertion(assertion, context) {
+  if (!assertion) return null;
+  const subjectPlan = assertion.subject ? compileNP(assertion.subject, context) : null;
+  switch (assertion.kind) {
+    case "CopulaPredicateAssertion": {
+      const unaryCore = unaryKeyFromComplement(assertion.complement);
+      if (!unaryCore) return null;
+      const unaryId = resolveUnaryIdFromCore(unaryCore, context);
+      if (unaryId === null) return null;
+      return { kind: "UnaryEmit", unaryId, subjectPlan };
+    }
+    case "ActiveRelationAssertion": {
+      const predId = resolvePredicateId(verbGroupKey(assertion.verbGroup), context);
+      if (predId === null) return null;
+      return {
+        kind: "BinaryEmit",
+        predId,
+        objectSet: objectToSetPlan(assertion.object, context),
+        subjectPlan,
+      };
+    }
+    case "PassiveRelationAssertion": {
+      const predId = resolvePredicateId(passiveKey(assertion.verb, assertion.preposition), context);
+      if (predId === null) return null;
+      return {
+        kind: "BinaryEmit",
+        predId,
+        objectSet: objectToSetPlan(assertion.object, context),
+        subjectPlan,
+      };
+    }
+    case "AttributeAssertion": {
+      const attrKey = assertion.attribute ? `A:${assertion.attribute.core.join(" ")}` : null;
+      const attrId = resolveAttributeId(attrKey, context);
+      if (attrId === null || !assertion.value) return null;
+      const value = assertion.value;
+      if (value.kind === "NumberLiteral") {
+        return { kind: "AttrEmit", attrId, valueType: "numeric", value: value.value, subjectPlan };
+      }
+      let projectPredId = null;
+      if (context?.projectEntityAttributes && attrKey) {
+        const dictionaryKey = attrKey.replace(/^A:/, "");
+        projectPredId = resolvePredicateId(`P:has_attr|${dictionaryKey}`, context);
+      }
+      return {
+        kind: "AttrEmit",
+        attrId,
+        valueType: "entity",
+        valueSet: objectToSetPlan(value, context),
+        subjectPlan,
+        projectPredId,
+      };
+    }
+    default:
+      return null;
+  }
 }
 
 export function compileCommand(node, context) {

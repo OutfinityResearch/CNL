@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pragmatics: Query</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Pragmatics</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Pragmatic Mode</span>
+        <h1>Query</h1>
+        <p>Find and retrieve entities that match structured conditions.</p>
+      </section>
+
+      <section class="section">
+        <h2>Concept</h2>
+        <p>
+          The <strong>Query</strong> pragmatic is the read-only interface to the Knowledge Base. It takes a condition (defined in standard CNL syntax) and returns the set of all entities that satisfy it. Unlike SQL, which thinks in tables, CNL Query thinks in Sets and logical intersections.
+        </p>
+
+        <h2>Syntax</h2>
+        <div class="code-block">
+<pre>
+// Return a simple list of names
+Return the name of every user who is active.
+
+// Return a structured count
+Return the number of servers that have high load.
+
+// Verify a boolean condition (Is the set empty?)
+Verify that no user is an admin and a guest.
+</pre>
+        </div>
+
+        <h2>Execution Logic</h2>
+        <p>
+          The AST is compiled into a <strong>SetPlan</strong>.
+        </p>
+        <ul class="list">
+          <li><code>User</code> -> Scans the `User` unary bitset.</li>
+          <li><code>who is active</code> -> Scans the `Active` unary bitset.</li>
+          <li><code>User who is active</code> -> Computes <code>Bitset(User) & Bitset(Active)</code>.</li>
+        </ul>
+        <p>
+          The result is a raw Bitset. The engine then "hydrates" this bitset by looking up the <code>name</code> attribute for each ID in the set, returning a JSON array of strings.
+        </p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "comp-001",
+    "input": "Truck_A is a truck.\nTruck_A has a capacity of 1000.",
+    "expected": {
+      "unaryFacts": 1,
+      "binaryFacts": 0,
+      "numericFacts": 1,
+      "entityAttrFacts": 0
+    }
+  },
+  {
+    "id": "comp-002",
+    "input": "--- CONTEXT: BaseDictionary ---\n\"status\" is an entity attribute.\n--- CONTEXT: Core ---\nTruck_A has a status of Active.",
+    "expected": {
+      "unaryFacts": 0,
+      "binaryFacts": 0,
+      "numericFacts": 0,
+      "entityAttrFacts": 1
+    }
+  }
+]

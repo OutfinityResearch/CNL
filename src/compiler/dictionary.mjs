@@ -156,7 +156,7 @@ function handleComparator(subject, complement, state) {
   }
 
   const def = getOrCreateAttribute(state, attrKey);
-  def.comparators.add(comparatorText);
+  def.comparators.add(comparatorText.toLowerCase());
   return true;
 }
 

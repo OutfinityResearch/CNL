@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pragmatics: Simulate</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Pragmatics</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Pragmatic Mode</span>
+        <h1>Simulate</h1>
+        <p>Run state transitions over time to model future states.</p>
+      </section>
+
+      <section class="section">
+        <h2>Concept</h2>
+        <p>
+          <strong>Simulate</strong> is used to see "what happens next". It applies transition rules iteratively for N steps. Unlike "Plan" (which seeks a goal), Simulate simply evolves the system based on its current physics/rules.
+        </p>
+
+        <h2>Syntax</h2>
+        <div class="code-block">
+<pre>
+Simulate for 10 steps.
+</pre>
+        </div>
+
+        <h2>Execution Logic</h2>
+        <p>
+          The engine identifies all <strong>Active Actions</strong> (actions whose preconditions are currently met).
+        </p>
+        <ul class="list">
+          <li><strong>Step 1:</strong> Identify enabled actions (e.g., "Timer Ticks", "Process Queue").</li>
+          <li><strong>Step 2:</strong> Apply effects (update bitsets).</li>
+          <li><strong>Step 3:</strong> Re-evaluate preconditions for the next step.</li>
+        </ul>
+        <p>
+          This turns the KB into a State Machine. The output is a trace of state changes over time.
+        </p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

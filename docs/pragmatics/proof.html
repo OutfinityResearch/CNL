@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pragmatics: Proof</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Pragmatics</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Pragmatic Mode</span>
+        <h1>Proof</h1>
+        <p>Validate statements and derive truth with full justification.</p>
+      </section>
+
+      <section class="section">
+        <h2>Concept</h2>
+        <p>
+          The <strong>Proof</strong> pragmatic (often invoked via <code>Verify that...</code>) does more than check if a bit is set. It attempts to <em>derive</em> why it is set. If the fact isn't explicitly in the database, the engine runs <strong>RulePlans</strong> (forward chaining or backward chaining) to see if the fact is implied by other facts.
+        </p>
+
+        <h2>Syntax</h2>
+        <div class="code-block">
+<pre>
+Verify that John has access to the database.
+</pre>
+        </div>
+
+        <h2>Execution Logic</h2>
+        <p>
+          1. <strong>Direct Lookup:</strong> Check if <code>(John, access, DB)</code> exists in the relation matrix.
+          <br>2. <strong>Deduction:</strong> If not found, look for rules like <em>"If a user is admin, then the user has access..."</em>.
+          <br>3. <strong>Recursion:</strong> Check if <code>John is admin</code>. If true, the proof succeeds.
+        </p>
+        <p>
+          The output is not just <code>true/false</code> but a <strong>Proof Trace</strong>: "Verified. Rule #42 (AdminAccess) applied to Fact #10 (John is Admin)."
+        </p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

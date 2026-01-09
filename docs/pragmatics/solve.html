@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pragmatics: Solve</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Pragmatics</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Pragmatic Mode</span>
+        <h1>Solve</h1>
+        <p>Resolve constraints and find valid variable assignments.</p>
+      </section>
+
+      <section class="section">
+        <h2>Concept</h2>
+        <p>
+          The <strong>Solve</strong> pragmatic treats the CNL input as a <strong>Constraint Satisfaction Problem (CSP)</strong>. It is used when you don't know <em>who</em> or <em>what</em> fits, but you know the <em>rules</em> they must follow.
+        </p>
+
+        <h2>Syntax</h2>
+        <div class="code-block">
+<pre>
+Find a schedule where every task is assigned to a user
+and the user has the skill for the task
+and no user has more than 5 tasks.
+</pre>
+        </div>
+
+        <h2>Execution Logic</h2>
+        <p>
+          The compiler identifies the variables (<code>schedule</code>, <code>task</code>, <code>user</code>) and the constraints.
+        </p>
+        <p>
+          1. <strong>Domain Definition:</strong> <code>User</code> is the set of all users in KB. <code>Task</code> is the set of tasks.
+          <br>2. <strong>Constraint Propagation:</strong> "User has skill" filters the domain of possible assignments.
+          <br>3. <strong>Solver Backend:</strong> The problem is often handed off to an SMT solver (like Z3) or a backtracking solver to find a valid assignment matrix.
+        </p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

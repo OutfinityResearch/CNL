@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pragmatics: Plan</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Pragmatics</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Pragmatic Mode</span>
+        <h1>Plan</h1>
+        <p>Generate ordered action sequences to achieve goals.</p>
+      </section>
+
+      <section class="section">
+        <h2>Concept</h2>
+        <p>
+          The <strong>Plan</strong> pragmatic transforms CNL from a query language into an AI agent. Given a <strong>Goal State</strong> (defined as a condition), it searches for a sequence of <strong>Actions</strong> (defined in Action Blocks) that will transition the world from the current state to the goal state.
+        </p>
+
+        <h2>Syntax</h2>
+        <div class="code-block">
+<pre>
+Plan to achieve the system is active.
+</pre>
+        </div>
+
+        <h2>Execution Logic</h2>
+        <p>
+          The engine treats the Goal ("system is active") as the destination in a state-space graph.
+        </p>
+        <ul class="list">
+          <li>It looks at available actions (e.g., <code>StartSystem</code>).</li>
+          <li>It checks preconditions: <code>StartSystem</code> requires <code>Power is On</code>.</li>
+          <li>It recurses: "Plan to achieve Power is On".</li>
+          <li>It finds <code>TurnOnPower</code> action.</li>
+        </ul>
+        <p>
+          The result is a linear plan: <code>[TurnOnPower(), StartSystem()]</code>. This uses <strong>ActionPlan</strong> IR and heuristic search (A* or BFS).
+        </p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

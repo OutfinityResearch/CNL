@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pragmatics: Explain</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Pragmatics</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Pragmatic Mode</span>
+        <h1>Explain</h1>
+        <p>Surface causality and trace the "Why" behind any fact.</p>
+      </section>
+
+      <section class="section">
+        <h2>Concept</h2>
+        <p>
+          In complex systems, knowing <em>that</em> something is true is less useful than knowing <em>why</em>. The <strong>Explain</strong> pragmatic traverses the <strong>Justification DAG</strong> (Directed Acyclic Graph) maintained by the reasoning engine.
+        </p>
+
+        <h2>Syntax</h2>
+        <div class="code-block">
+<pre>
+Explain why the user has access.
+</pre>
+        </div>
+
+        <h2>Execution Logic</h2>
+        <p>
+          The engine looks up the target fact ID (e.g., <code>UserHasAccess</code>). It then retrieves the <strong>Justification Record</strong>:
+        </p>
+        <div class="code-block">
+<pre>
+Fact(UserHasAccess)
+  CREATED_BY Rule(AdminRule)
+    SUPPORTED_BY Fact(UserIsAdmin)
+      CREATED_BY Fact(ConfigLoader)
+</pre>
+        </div>
+        <p>
+          It recursively formats this tree into human-readable CNL text:
+          <br/><em>"The user has access because Rule 'AdminRule' applies. Rule 'AdminRule' applies because the user is an Admin."</em>
+        </p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

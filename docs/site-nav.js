@@ -63,13 +63,14 @@ function buildHeaderMenu(root) {
 }
 
 function injectHeaderNav() {
-  // Only inject if specific marker is present or if we need to polyfill a missing header
-  // For CNL, most pages have hardcoded headers. This is mostly for mdview.html or new pages.
   const header = document.querySelector("header");
   if (!header) return;
 
-  // If header already has navigation, don't double inject (unless it's the specific placeholder in mdview)
-  if (header.querySelector(".nav") || header.querySelector(".site-nav")) return;
+  if (header.querySelector(".site-nav")) return;
+
+  // Clean up old hardcoded navs if present
+  const oldNav = header.querySelector(".nav");
+  if (oldNav) oldNav.remove();
 
   const root = computeDocsRoot();
   const row = document.createElement("div");
@@ -80,13 +81,41 @@ function injectHeaderNav() {
   header.appendChild(row);
 }
 
+function injectFooter() {
+  const main = document.querySelector("main");
+  const existingFooter = document.querySelector("footer.site-footer");
+  
+  if (existingFooter) existingFooter.remove(); // Remove old footer to replace with standard one
+  if (!main && !document.body) return;
+
+  const footer = document.createElement("footer");
+  footer.className = "site-footer";
+  footer.innerHTML = `
+    <div class="footer-inner">
+      <div class="footer-content">
+        <p>Research conducted by <a href="https://www.axiologic.net">Axiologic Research</a> as part of the European research project <a href="https://www.achilles-project.eu/">Achilles</a>.</p>
+        <p><strong>Disclaimer:</strong> This documentation was generated with AI assistance (LLMs) and may contain errors or hallucinations. The system is open source—verify claims by examining the code, evaluation suites, and automated tests.</p>
+      </div>
+    </div>
+  `;
+  
+  // Insert after main, or at the end of body
+  if (main) {
+    main.parentNode.insertBefore(footer, main.nextSibling);
+  } else {
+    document.body.appendChild(footer);
+  }
+}
+
 try {
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       injectHeaderNav();
+      injectFooter();
     });
   } else {
     injectHeaderNav();
+    injectFooter();
   }
 } catch {
   // ignore

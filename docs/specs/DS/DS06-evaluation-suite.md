@@ -12,18 +12,21 @@ Defines the evaluation suites for CNL-PL, including parsing benchmarks and reaso
 - Parsing suite: inputs mapped to expected AST summaries or hashes.
 - Reasoning suite: inputs mapped to expected outputs and explanation traces.
 - Pragmatics suite: query, plan, solve, and simulate scenarios with expected results.
+- Compiler suite: inputs mapped to KB summary counts (no inference).
 
 ## Output Expectations
 - Parsing: AST hash or structured JSON match.
 - Reasoning: boolean success with optional proof trace.
 - Planning: ordered action list with justification.
 - Solving: variable bindings that satisfy constraints.
+- Compiler: KB summary counts for unary/binary/numeric/entity-attr facts.
 
 ## Dataset Structure
 - `evals/parsing/` - case files and expected AST outputs.
 - `evals/reasoning/` - proof and explanation cases.
 - `evals/planning/` - action plan scenarios.
 - `evals/solve/` - CSP scenarios.
+- `evals/reasoning/compiler.v1.json` - compiler output summaries.
 
 ## Parsing Evaluation Summary
 The parsing suite includes canonical corpora with both valid and invalid cases:

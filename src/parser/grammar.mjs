@@ -763,9 +763,15 @@ function parseAssertionFromTokens(tokens) {
       return { kind: "PassiveRelationAssertion", subject, copula, verb, preposition, object };
     }
 
-    const complement = isStartOfNounPhrase(stream.peek(), stream.peek(1))
-      ? parseNounPhrase(stream)
-      : parseName(stream);
+    let complement = null;
+    const nextToken = stream.peek();
+    if (nextToken.type === "string" || nextToken.type === "number") {
+      complement = parseExpr(stream);
+    } else if (nextToken.type === "word" && (nextToken.lower === "true" || nextToken.lower === "false")) {
+      complement = parseExpr(stream);
+    } else {
+      complement = isStartOfNounPhrase(nextToken, stream.peek(1)) ? parseNounPhrase(stream) : parseName(stream);
+    }
     if (!stream.done()) {
       throw createError("SYN001", stream.peek().raw);
     }

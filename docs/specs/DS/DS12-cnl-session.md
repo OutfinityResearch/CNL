@@ -19,6 +19,7 @@ CNLSession manages:
 
 ## Session Options
 - `projectEntityAttributes`: when true, entity-valued attributes are also projected into derived binary predicates `has_attr|<AttrKey>`.
+- `validateDictionary`: when true, compiler enforces BaseDictionary constraints (arity, attribute types, comparators).
 
 ## Lifecycle
 1. Initialize with optional dictionary and bitset implementation.

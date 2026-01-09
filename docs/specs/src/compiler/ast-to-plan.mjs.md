@@ -9,6 +9,9 @@ Compiles AST nodes into Plan IR fragments (SetPlan, RelationPlan, BoolPlan, Numb
 - Compile rule bodies and heads into RulePlan structures.
 - Compile command nodes into executable plans.
 
+## Notes
+- Rule heads are emitted as UnaryEmit/BinaryEmit/AttrEmit objects aligned with DS16.
+
 ## Key Interfaces
 - `compileNP(node)`
 - `compileCondition(node, universePlan)`

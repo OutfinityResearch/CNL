@@ -15,7 +15,7 @@ function createError(code, message) {
 
 export class CNLSession {
   constructor(options = {}) {
-    this.options = { projectEntityAttributes: false, ...options };
+    this.options = { projectEntityAttributes: false, validateDictionary: true, ...options };
     this.state = createCompilerState(this.options);
     this.sources = [];
   }

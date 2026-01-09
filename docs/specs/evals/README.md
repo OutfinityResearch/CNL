@@ -10,6 +10,9 @@ Evaluation suites validate end-to-end parsing and reasoning behavior. They are l
 - `evals/solve/` - constraint solving scenarios.
   - BaseDictionary parsing and compiler cases live alongside the parsing/reasoning suites.
 
+## Compiler Evaluation
+- `evals/reasoning/compiler.v1.json` is executed by `evals/runCompilerEval.mjs`.
+
 ## Canonical Parsing Corpus
 - `evals/parsing/cnl-pl-parser.v1.json` provides the baseline valid/invalid parser cases.
 - `evals/parsing/cnl-pl-actions-and-labels.v1.json` adds action block and label syntax cases.

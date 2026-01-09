@@ -11,6 +11,7 @@ Top-level compiler entrypoint that transforms a deterministic AST into compiled 
 - Optionally project entity-valued attributes into derived predicates.
 - Emit RulePlan, ActionPlan, and CommandPlan artifacts.
 - Return a single CompiledArtifacts bundle.
+- Enforce dictionary constraints when validation is enabled.
 
 ## Key Interfaces
 - `compileProgram(ast, options)`

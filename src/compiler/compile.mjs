@@ -58,6 +58,102 @@ function canonicalPassiveKey(verb, preposition) {
   return `P:passive:${verb}|${preposition}`;
 }
 
+function dictionaryPredicateKeyFromVerb(key) {
+  if (!key) return null;
+  return key.replace(/^P:/, "");
+}
+
+function dictionaryUnaryKeyFromComplement(complement) {
+  if (!complement) return null;
+  if (complement.kind === "Name") return complement.value;
+  if (complement.kind === "NounPhrase") return complement.core.join(" ");
+  return null;
+}
+
+function normalizeComparatorLiteral(op) {
+  const raw = String(op).toLowerCase().trim();
+  switch (raw) {
+    case "greaterthan":
+    case "greater_than":
+    case "greater than":
+      return "greater than";
+    case "lessthan":
+    case "less_than":
+    case "lessthanorequalto":
+    case "less than":
+      return "less than";
+    case "equalto":
+    case "equal to":
+      return "equal to";
+    case "notequalto":
+    case "not equal to":
+      return "not equal to";
+    case "contains":
+      return "contains";
+    case "notcontains":
+    case "does not contain":
+      return "does not contain";
+    case "greaterthanorequalto":
+    case "greater than or equal to":
+      return "greater than or equal to";
+    case "lessthanorequalto":
+    case "less than or equal to":
+      return "less than or equal to";
+    default:
+      return raw.replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase();
+  }
+}
+
+function checkDictionaryComparator(attrDef, comparator, state, attrKey) {
+  if (!state.validateDictionary) return;
+  if (!attrDef || attrDef.comparators.size === 0) return;
+  const normalized = normalizeComparatorLiteral(comparator);
+  if (!attrDef.comparators.has(normalized)) {
+    state.errors.push(
+      createError("CMP012", "Comparator not allowed for attribute.", attrKey)
+    );
+  }
+}
+
+function hasTypeMembership(state, entityId, typeKey) {
+  const unaryKey = `U:${typeKey}`;
+  const conceptId = state.idStore.internConcept(ConceptKind.UnaryPredicate, unaryKey);
+  const unaryId = state.idStore.getDenseId(ConceptKind.UnaryPredicate, conceptId);
+  const set = state.kb.kb.unaryIndex[unaryId];
+  return Boolean(set && set.hasBit(entityId));
+}
+
+function validateDomainRange(state, predDef, subjectId, objectId) {
+  if (!state.validateDictionary) return;
+  if (!predDef) return;
+  const domain = predDef.domain ?? [];
+  const range = predDef.range ?? [];
+
+  if (domain.length > 0) {
+    const anyKnown = domain.some((typeKey) => {
+      const conceptId = state.idStore.internConcept(ConceptKind.UnaryPredicate, `U:${typeKey}`);
+      const unaryId = state.idStore.getDenseId(ConceptKind.UnaryPredicate, conceptId);
+      const set = state.kb.kb.unaryIndex[unaryId];
+      return set && !set.isEmpty();
+    });
+    if (anyKnown && !domain.some((typeKey) => hasTypeMembership(state, subjectId, typeKey))) {
+      state.errors.push(createError("CMP013", "Domain constraint violated.", predDef.key));
+    }
+  }
+
+  if (range.length > 0) {
+    const anyKnown = range.some((typeKey) => {
+      const conceptId = state.idStore.internConcept(ConceptKind.UnaryPredicate, `U:${typeKey}`);
+      const unaryId = state.idStore.getDenseId(ConceptKind.UnaryPredicate, conceptId);
+      const set = state.kb.kb.unaryIndex[unaryId];
+      return set && !set.isEmpty();
+    });
+    if (anyKnown && !range.some((typeKey) => hasTypeMembership(state, objectId, typeKey))) {
+      state.errors.push(createError("CMP014", "Range constraint violated.", predDef.key));
+    }
+  }
+}
+
 function formatObject(node) {
   if (!node) return "";
   if (node.kind === "Name") return node.value;
@@ -113,7 +209,7 @@ function handleAttributeAssertion(assertion, state, options) {
   const attrDef = state.dictionary.attributes.get(dictionaryKey);
 
   if (value && value.kind === "NumberLiteral") {
-    if (attrDef && attrDef.valueType && attrDef.valueType !== "numeric") {
+    if (state.validateDictionary && attrDef && attrDef.valueType && attrDef.valueType !== "numeric") {
       state.errors.push(createError("CMP003", "Attribute expects entity value.", attrKey));
       return;
     }
@@ -126,12 +222,12 @@ function handleAttributeAssertion(assertion, state, options) {
     return;
   }
 
-  if (attrDef && attrDef.valueType && attrDef.valueType !== "entity") {
+  if (state.validateDictionary && attrDef && attrDef.valueType && attrDef.valueType !== "entity") {
     state.errors.push(createError("CMP003", "Attribute expects numeric value.", attrKey));
     return;
   }
 
-  if (!attrDef && value.kind !== "NumberLiteral") {
+  if (state.validateDictionary && !attrDef && value.kind !== "NumberLiteral") {
     state.errors.push(createError("CMP005", "Non-numeric attribute without dictionary.", attrKey));
     return;
   }
@@ -162,6 +258,15 @@ function handleAssertion(assertion, state, options) {
       }
       const predKey = canonicalVerbKey(assertion.verbGroup);
       const predId = resolvePredId(predKey, state);
+      if (state.validateDictionary) {
+        const dictKey = dictionaryPredicateKeyFromVerb(predKey);
+        const predDef = state.dictionary.predicates.get(dictKey);
+        if (predDef && predDef.arity && predDef.arity !== "binary") {
+          state.errors.push(createError("CMP015", "Predicate arity mismatch.", dictKey));
+          return;
+        }
+        validateDomainRange(state, predDef, subjectId, objectId);
+      }
       state.kb.insertBinary(subjectId, predId, objectId);
       return;
     }
@@ -174,6 +279,15 @@ function handleAssertion(assertion, state, options) {
       }
       const predKey = canonicalPassiveKey(assertion.verb, assertion.preposition);
       const predId = resolvePredId(predKey, state);
+      if (state.validateDictionary) {
+        const dictKey = dictionaryPredicateKeyFromVerb(predKey);
+        const predDef = state.dictionary.predicates.get(dictKey);
+        if (predDef && predDef.arity && predDef.arity !== "binary") {
+          state.errors.push(createError("CMP015", "Predicate arity mismatch.", dictKey));
+          return;
+        }
+        validateDomainRange(state, predDef, subjectId, objectId);
+      }
       state.kb.insertBinary(subjectId, predId, objectId);
       return;
     }
@@ -182,6 +296,16 @@ function handleAssertion(assertion, state, options) {
       if (subjectId === null) {
         state.errors.push(createError("CMP008", "Non-ground copula subject.", "subject"));
         return;
+      }
+      if (state.validateDictionary) {
+        const unaryKey = dictionaryUnaryKeyFromComplement(assertion.complement);
+        if (unaryKey) {
+          const predDef = state.dictionary.predicates.get(unaryKey);
+          if (predDef && predDef.arity && predDef.arity !== "unary") {
+            state.errors.push(createError("CMP015", "Predicate arity mismatch.", unaryKey));
+            return;
+          }
+        }
       }
       const unaryId = resolveUnaryId(assertion.complement, state);
       if (unaryId === null) {
@@ -195,6 +319,16 @@ function handleAssertion(assertion, state, options) {
       handleAttributeAssertion(assertion, state, options);
       return;
     case "ComparisonAssertion": {
+      if (state.validateDictionary && assertion.left?.kind === "Name") {
+        const attrDef = state.dictionary.attributes.get(assertion.left.value);
+        if (attrDef) {
+          if (attrDef.valueType && attrDef.valueType !== "numeric") {
+            state.errors.push(createError("CMP016", "Comparator requires numeric attribute.", assertion.left.value));
+            return;
+          }
+          checkDictionaryComparator(attrDef, assertion.comparator.op, state, assertion.left.value);
+        }
+      }
       state.formulaStore.addFormula({ kind: "Comparison", ...assertion });
       return;
     }
@@ -215,7 +349,7 @@ function compileSentence(sentence, state, options) {
   }
   if (sentence.kind === "ConditionalSentence") {
     const plan = compileRuleBody(sentence.condition, state);
-    const head = compileRuleHead(sentence.then);
+    const head = compileRuleHead(sentence.then, state);
     state.ruleStore.addRule({ kind: "RulePlan", body: plan, head });
   }
 }
@@ -231,12 +365,14 @@ export function createCompilerState(options = {}) {
     commandStore: options.commandStore ?? [],
     justificationStore: options.justificationStore ?? createJustificationStore(),
     errors: [],
+    validateDictionary: options.validateDictionary ?? true,
+    projectEntityAttributes: options.projectEntityAttributes ?? false,
   };
 }
 
 export function compileProgram(ast, options = {}) {
   const state = options.state ?? createCompilerState(options);
-  const projectEntityAttributes = options.projectEntityAttributes ?? false;
+  const projectEntityAttributes = options.projectEntityAttributes ?? state.projectEntityAttributes ?? false;
   let currentContext = null;
 
   if (!ast || ast.kind !== "Program") {
@@ -266,7 +402,7 @@ export function compileProgram(ast, options = {}) {
       case "RuleStatement":
         if (item.sentence?.kind === "ConditionalSentence") {
           const plan = compileRuleBody(item.sentence.condition, state);
-          const head = compileRuleHead(item.sentence.then);
+          const head = compileRuleHead(item.sentence.then, state);
           state.ruleStore.addRule({ kind: "RulePlan", body: plan, head });
         } else {
           state.ruleStore.addRule({ kind: "RuleAst", sentence: item.sentence });
