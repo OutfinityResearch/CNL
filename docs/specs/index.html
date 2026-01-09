@@ -3,9 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CNL-PL Specs</title>
-  <meta name="description" content="Design specifications, file maps, and evaluation suites for CNL-PL." />
+  <title>CNL-PL Specification Matrix</title>
+  <meta name="description" content="Complete matrix of all Design Specs, Runtime Specs, Tests, and Evaluations for CNL-PL." />
   <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    /* Custom styles for the matrix tables */
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    .matrix-table th, .matrix-table td {
+      border: 1px solid #d6d0c6;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .matrix-table th {
+      background-color: #efe7da;
+      font-weight: 600;
+    }
+    .matrix-table tr:nth-child(even) {
+      background-color: #fbfaf7;
+    }
+    .matrix-table tr:hover {
+      background-color: #f0f0eb;
+    }
+    .status-done {
+      color: #2f5d50;
+      font-weight: bold;
+    }
+    .path-col {
+      font-family: "IBM Plex Mono", monospace;
+      color: #5a534b;
+    }
+  </style>
 </head>
 <body>
   <div class="page">
@@ -32,132 +64,316 @@
     <main>
       <section class="hero">
         <div>
-          <span class="tag">Specs</span>
-          <h1>Design specifications and living references.</h1>
+          <span class="tag">Specification Matrix</span>
+          <h1>The complete project index.</h1>
           <p>
-            The DS series captures vision, implementation plans, syntax, semantics, testing,
-            and evaluation suites. Each runtime file mirrors a specification in docs/specs/src.
+            This page tracks every specification file in the repository, organized by category.
+            All files are viewable directly in the browser.
           </p>
         </div>
-        <div class="hero-card">
-          <h3>Spec structure</h3>
-          <ul class="list">
-            <li><strong>DS</strong>: Core design specs (vision to evaluation).</li>
-            <li><strong>src</strong>: File-level mirrored design notes.</li>
-            <li><strong>tests</strong>: Test plan and test file descriptions.</li>
-            <li><strong>evals</strong>: Parsing and reasoning evaluation suites.</li>
-          </ul>
-        </div>
       </section>
 
       <section class="section">
-        <h2>Core Design Specifications (DS)</h2>
-        <div class="grid">
-          <a class="card" href="../mdview.html?file=specs/DS/DS01-vision.md">
-            <span class="tag">DS01</span>
-            <h3>Vision</h3>
-            <p>Goals, philosophy, and the pragmatic modes of CNL-PL.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS02-implementation-plan.md">
-            <span class="tag">DS02</span>
-            <h3>Implementation plan</h3>
-            <p>File map, milestones, and architecture alignment.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS03-syntax-cnl.md">
-            <span class="tag">DS03</span>
-            <h3>Syntax</h3>
-            <p>Grammar, lexical rules, and AST schema.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS04-semantics.md">
-            <span class="tag">DS04</span>
-            <h3>Semantics</h3>
-            <p>Pragmatic interpretation and runtime behavior.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS05-testing-plan.md">
-            <span class="tag">DS05</span>
-            <h3>Testing plan</h3>
-            <p>Automated testing strategy and coverage matrix.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS06-evaluation-suite.md">
-            <span class="tag">DS06</span>
-            <h3>Evaluation suite</h3>
-            <p>Parsing and reasoning benchmarks and expected outputs.</p>
-          </a>
-        </div>
+        <h2>1. Design Specifications (DS)</h2>
+        <p>The authoritative design documents that define the language and system behavior.</p>
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title / Description</th>
+              <th>Path</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>DS01</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS01-vision.md">Vision & Goals</a></td>
+              <td class="path-col">specs/DS/DS01-vision.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS02</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS02-implementation-plan.md">Implementation Plan</a></td>
+              <td class="path-col">specs/DS/DS02-implementation-plan.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS03</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS03-syntax-cnl.md">Syntax & Grammar</a></td>
+              <td class="path-col">specs/DS/DS03-syntax-cnl.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS04</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS04-semantics.md">Semantics & Pragmatics</a></td>
+              <td class="path-col">specs/DS/DS04-semantics.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS05</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS05-testing-plan.md">Testing Plan</a></td>
+              <td class="path-col">specs/DS/DS05-testing-plan.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS06</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS06-evaluation-suite.md">Evaluation Suite</a></td>
+              <td class="path-col">specs/DS/DS06-evaluation-suite.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS07</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS07-error-handling.md">Error Handling</a></td>
+              <td class="path-col">specs/DS/DS07-error-handling.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS08</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS08-conceptual-ids.md">Conceptual IDs</a></td>
+              <td class="path-col">specs/DS/DS08-conceptual-ids.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS09</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS09-compiled-kb.md">Compiled Knowledge Base</a></td>
+              <td class="path-col">specs/DS/DS09-compiled-kb.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS10</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS10-ast-to-kb-compilation.md">AST to KB Compilation</a></td>
+              <td class="path-col">specs/DS/DS10-ast-to-kb-compilation.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS11</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS11-reasoning-primitives.md">Reasoning Primitives</a></td>
+              <td class="path-col">specs/DS/DS11-reasoning-primitives.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS12</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS12-cnl-session.md">CNL Session API</a></td>
+              <td class="path-col">specs/DS/DS12-cnl-session.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS13</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS13-base-dictionary.md">Base Dictionary</a></td>
+              <td class="path-col">specs/DS/DS13-base-dictionary.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS14</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS14-base-theories.md">Base Theories</a></td>
+              <td class="path-col">specs/DS/DS14-base-theories.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS15</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS15-compiler-contract.md">Compiler Contract</a></td>
+              <td class="path-col">specs/DS/DS15-compiler-contract.md</td>
+            </tr>
+            <tr>
+              <td><strong>DS16</strong></td>
+              <td><a href="../mdview.html?file=specs/DS/DS16-plan-ir.md">Plan IR</a></td>
+              <td class="path-col">specs/DS/DS16-plan-ir.md</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section class="section">
-        <h2>Advanced Specs & Internals</h2>
-        <div class="grid">
-          <a class="card" href="../mdview.html?file=specs/DS/DS07-error-handling.md">
-            <span class="tag">DS07</span>
-            <h3>Error handling</h3>
-            <p>Canonical error format and normative error codes.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS08-conceptual-ids.md">
-            <span class="tag">DS08</span>
-            <h3>Conceptual IDs</h3>
-            <p>Stable identifiers and dense runtime universes.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS09-compiled-kb.md">
-            <span class="tag">DS09</span>
-            <h3>Compiled KB</h3>
-            <p>Bitset-friendly storage and inverse indices.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS10-ast-to-kb-compilation.md">
-            <span class="tag">DS10</span>
-            <h3>AST to KB compilation</h3>
-            <p>Deterministic compilation pipeline and grounding rules.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS11-reasoning-primitives.md">
-            <span class="tag">DS11</span>
-            <h3>Reasoning primitives</h3>
-            <p>Bitset operations for deduction, abduction, and more.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS12-cnl-session.md">
-            <span class="tag">DS12</span>
-            <h3>CNLSession API</h3>
-            <p>Session lifecycle, learn(), and pragmatic entrypoints.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS13-base-dictionary.md">
-            <span class="tag">DS13</span>
-            <h3>Base dictionary</h3>
-            <p>CNL declarations for predicates, attributes, and types.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS14-base-theories.md">
-            <span class="tag">DS14</span>
-            <h3>Base theories</h3>
-            <p>Common sense core theories and module layout.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS15-compiler-contract.md">
-            <span class="tag">DS15</span>
-            <h3>Compiler contract</h3>
-            <p>Deterministic AST to KB compilation and plan artifacts.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/DS/DS16-plan-ir.md">
-            <span class="tag">DS16</span>
-            <h3>Plan IR</h3>
-            <p>Set, relation, and constraint plan operators.</p>
-          </a>
-        </div>
+        <h2>2. Runtime Mirrors (src)</h2>
+        <p>Documentation mirroring the actual source code structure. See <a href="../mdview.html?file=specs/src/README.md">src/README.md</a>.</p>
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Module</th>
+              <th>Component</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>actions</strong></td>
+              <td>Store</td>
+              <td><a href="../mdview.html?file=specs/src/actions/store.mjs.md">store.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>ast</strong></td>
+              <td>Nodes Schema</td>
+              <td><a href="../mdview.html?file=specs/src/ast/nodes.mjs.md">nodes.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>compiler</strong></td>
+              <td>AST to Plan</td>
+              <td><a href="../mdview.html?file=specs/src/compiler/ast-to-plan.mjs.md">ast-to-plan.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Compile Main</td>
+              <td><a href="../mdview.html?file=specs/src/compiler/compile.mjs.md">compile.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Dictionary</td>
+              <td><a href="../mdview.html?file=specs/src/compiler/dictionary.mjs.md">dictionary.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>formulas</strong></td>
+              <td>Store</td>
+              <td><a href="../mdview.html?file=specs/src/formulas/store.mjs.md">store.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>ids</strong></td>
+              <td>Interners</td>
+              <td><a href="../mdview.html?file=specs/src/ids/interners.mjs.md">interners.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>kb</strong></td>
+              <td>Bitset</td>
+              <td><a href="../mdview.html?file=specs/src/kb/bitset.mjs.md">bitset.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Entity Attrs</td>
+              <td><a href="../mdview.html?file=specs/src/kb/entity-attrs.mjs.md">entity-attrs.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>KB Core</td>
+              <td><a href="../mdview.html?file=specs/src/kb/kb.mjs.md">kb.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Numeric Index</td>
+              <td><a href="../mdview.html?file=specs/src/kb/numeric-index.mjs.md">numeric-index.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>lexer</strong></td>
+              <td>Tokenizer</td>
+              <td><a href="../mdview.html?file=specs/src/lexer/tokenizer.mjs.md">tokenizer.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>parser</strong></td>
+              <td>Grammar</td>
+              <td><a href="../mdview.html?file=specs/src/parser/grammar.mjs.md">grammar.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>plans</strong></td>
+              <td>Execute</td>
+              <td><a href="../mdview.html?file=specs/src/plans/execute.mjs.md">execute.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>IR</td>
+              <td><a href="../mdview.html?file=specs/src/plans/ir.mjs.md">ir.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>pragmatics</strong></td>
+              <td>Commands</td>
+              <td><a href="../mdview.html?file=specs/src/pragmatics/commands.mjs.md">commands.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>provenance</strong></td>
+              <td>Justifications</td>
+              <td><a href="../mdview.html?file=specs/src/provenance/justifications.mjs.md">justifications.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>rules</strong></td>
+              <td>Store</td>
+              <td><a href="../mdview.html?file=specs/src/rules/store.mjs.md">store.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>runtime</strong></td>
+              <td>Engine</td>
+              <td><a href="../mdview.html?file=specs/src/runtime/engine.mjs.md">engine.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>session</strong></td>
+              <td>CNL Session</td>
+              <td><a href="../mdview.html?file=specs/src/session/cnl-session.mjs.md">cnl-session.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>theories</strong></td>
+              <td>Loader</td>
+              <td><a href="../mdview.html?file=specs/src/theories/loader.mjs.md">loader.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>validator</strong></td>
+              <td>Errors</td>
+              <td><a href="../mdview.html?file=specs/src/validator/errors.mjs.md">errors.mjs.md</a></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section class="section">
-        <h2>Supporting specs</h2>
-        <div class="grid">
-          <a class="card" href="../mdview.html?file=specs/src/README.md">
-            <h3>Source map</h3>
-            <p>Mirror of runtime source files, documented per module.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/tests/README.md">
-            <h3>Test descriptions</h3>
-            <p>Unit and developer testing references per module.</p>
-          </a>
-          <a class="card" href="../mdview.html?file=specs/evals/README.md">
-            <h3>Evaluation suites</h3>
-            <p>Parsing, reasoning, and result verification suites.</p>
-          </a>
-        </div>
+        <h2>3. Tests & Evaluations</h2>
+        <p>Verification plans, unit test specs, and evaluation suites.</p>
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Suite / Test</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Tests (Root)</strong></td>
+              <td>Developer Testing</td>
+              <td><a href="../mdview.html?file=specs/tests/developer-testing.md">developer-testing.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Unit Testing</td>
+              <td><a href="../mdview.html?file=specs/tests/unit-testing.md">unit-testing.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>README</td>
+              <td><a href="../mdview.html?file=specs/tests/README.md">README.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>Tests (Modules)</strong></td>
+              <td>Developer Smoke Test</td>
+              <td><a href="../mdview.html?file=specs/tests/developer/smoke.test.mjs.md">smoke.test.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Lexer Tokenizer</td>
+              <td><a href="../mdview.html?file=specs/tests/lexer/tokenizer.test.mjs.md">tokenizer.test.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Parser Grammar</td>
+              <td><a href="../mdview.html?file=specs/tests/parser/grammar.test.mjs.md">grammar.test.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Pragmatics Commands</td>
+              <td><a href="../mdview.html?file=specs/tests/pragmatics/commands.test.mjs.md">commands.test.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Validator Errors</td>
+              <td><a href="../mdview.html?file=specs/tests/validator/errors.test.mjs.md">errors.test.mjs.md</a></td>
+            </tr>
+            <tr>
+              <td><strong>Evaluations</strong></td>
+              <td>README</td>
+              <td><a href="../mdview.html?file=specs/evals/README.md">README.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Parsing Basic Cases</td>
+              <td><a href="../mdview.html?file=specs/evals/parsing/basic.cases.md">parsing/basic.cases.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Planning Basic Cases</td>
+              <td><a href="../mdview.html?file=specs/evals/planning/basic.cases.md">planning/basic.cases.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Reasoning Basic Cases</td>
+              <td><a href="../mdview.html?file=specs/evals/reasoning/basic.cases.md">reasoning/basic.cases.md</a></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Solve Basic Cases</td>
+              <td><a href="../mdview.html?file=specs/evals/solve/basic.cases.md">solve/basic.cases.md</a></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </main>
 
