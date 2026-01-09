@@ -9,6 +9,7 @@ const cases = JSON.parse(raw);
 const colors = {
   green: "\x1b[32m",
   red: "\x1b[31m",
+  yellow: "\x1b[33m",
   reset: "\x1b[0m",
 };
 
@@ -23,6 +24,39 @@ function summarizeInput(input) {
   const firstLine = lines[0].trim();
   if (!firstLine) return "...";
   return firstLine + " ...";
+}
+
+function padCell(text, width) {
+  return String(text ?? "").padEnd(width);
+}
+
+function renderTable(title, columns, rows, colors) {
+  const widths = columns.map((column) => column.label.length);
+  for (const row of rows) {
+    for (let i = 0; i < columns.length; i += 1) {
+      const key = columns[i].key;
+      const value = row[key] ?? "";
+      widths[i] = Math.max(widths[i], String(value).length);
+    }
+  }
+
+  if (title) console.log(`\n${title}`);
+  const header = columns.map((column, i) => padCell(column.label, widths[i])).join(" | ");
+  const separator = widths.map((width) => "-".repeat(width)).join("-+-");
+  console.log(header);
+  console.log(separator);
+
+  for (const row of rows) {
+    const line = columns.map((column, i) => {
+      const value = String(row[column.key] ?? "");
+      if (column.key === "status") {
+        const color = value === "PASS" ? colors.green : value === "FAIL" ? colors.red : colors.yellow;
+        return `${color}${padCell(value, widths[i])}${colors.reset}`;
+      }
+      return padCell(value, widths[i]);
+    }).join(" | ");
+    console.log(line);
+  }
 }
 
 function summarize(kbState) {
@@ -49,30 +83,91 @@ function summarize(kbState) {
   return { unaryFacts, binaryFacts, numericFacts, entityAttrFacts };
 }
 
+function formatSummary(summary) {
+  if (!summary) return "";
+  return `U${summary.unaryFacts} B${summary.binaryFacts} N${summary.numericFacts} A${summary.entityAttrFacts}`;
+}
+
 let passed = 0;
 let failed = 0;
+const rows = [];
 
 for (const testCase of cases) {
-  const ast = parseProgram(testCase.input);
-  const state = compileProgram(ast);
   const preview = summarizeInput(testCase.input);
-  const purpose = testCase.purpose ? ` purpose: ${testCase.purpose}` : "";
+  if (!testCase.purpose) {
+    failed += 1;
+    rows.push({
+      status: "FAIL",
+      purpose: "(missing)",
+      case: preview,
+      note: "missing purpose",
+    });
+    continue;
+  }
+  let ast = null;
+  try {
+    ast = parseProgram(testCase.input);
+  } catch (error) {
+    failed += 1;
+    const message = error?.message ?? "parse error";
+    rows.push({
+      status: "FAIL",
+      purpose: testCase.purpose,
+      case: preview,
+      note: `parse error: ${message}`,
+    });
+    continue;
+  }
+
+  const state = compileProgram(ast);
   if (state.errors.length > 0) {
     failed += 1;
-    console.log(`${colors.red}FAIL${colors.reset} ${testCase.id} -${purpose} - compiler errors: \"${preview}\"`);
+    rows.push({
+      status: "FAIL",
+      purpose: testCase.purpose,
+      case: preview,
+      note: `compiler errors (${state.errors.length})`,
+    });
     continue;
   }
   const actual = summarize(state.kb.kb);
   const expected = testCase.expected;
+  if (!expected) {
+    failed += 1;
+    rows.push({
+      status: "FAIL",
+      purpose: testCase.purpose,
+      case: preview,
+      note: "missing expected summary",
+    });
+    continue;
+  }
   const match = Object.keys(expected).every((key) => expected[key] === actual[key]);
   if (!match) {
     failed += 1;
-    console.log(`${colors.red}FAIL${colors.reset} ${testCase.id} -${purpose} - summary mismatch: \"${preview}\"`);
+    rows.push({
+      status: "FAIL",
+      purpose: testCase.purpose,
+      case: preview,
+      note: `summary mismatch: exp ${formatSummary(expected)} got ${formatSummary(actual)}`,
+    });
     continue;
   }
   passed += 1;
-  console.log(`${colors.green}PASS${colors.reset} ${testCase.id} -${purpose} - \"${preview}\"`);
+  rows.push({
+    status: "PASS",
+    purpose: testCase.purpose,
+    case: preview,
+    note: `summary ${formatSummary(actual)}`,
+  });
 }
+
+renderTable("Compiler suite", [
+  { key: "status", label: "Status" },
+  { key: "purpose", label: "Purpose" },
+  { key: "case", label: "Case" },
+  { key: "note", label: "Note" },
+], rows, colors);
 
 console.log(`Passed: ${passed}`);
 console.log(`Failed: ${failed}`);

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theory: End-to-End Reasoning Flow</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Theory</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Theory Part 6</span>
+        <h1>End-to-End Reasoning Flow</h1>
+        <p>How CNL text becomes a compiled KB, rule plans, and explainable results.</p>
+      </section>
+
+      <section class="section">
+        <h2 id="diagram">Pipeline Diagram</h2>
+        <p>
+          The pipeline is deterministic: each stage produces a single output or a single error.
+          The diagram below shows the canonical flow used by all pragmatics.
+        </p>
+        <div class="diagram">
+          <svg viewBox="0 0 960 180" role="img" aria-labelledby="title desc">
+            <title id="title">CNL-PL pipeline</title>
+            <desc id="desc">CNL text is tokenized, parsed into an AST, compiled into a KB and plans, and executed by pragmatics to produce results.</desc>
+            <defs>
+              <marker id="arrow" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
+                <path d="M0,0 L10,4 L0,8 Z" fill="#1f2a36" />
+              </marker>
+            </defs>
+            <rect x="20" y="50" width="130" height="60" rx="10" fill="#f7f0e8" stroke="#1f2a36" />
+            <rect x="170" y="50" width="130" height="60" rx="10" fill="#e8f3f7" stroke="#1f2a36" />
+            <rect x="320" y="50" width="130" height="60" rx="10" fill="#f6f7e8" stroke="#1f2a36" />
+            <rect x="470" y="50" width="150" height="60" rx="10" fill="#eef1f9" stroke="#1f2a36" />
+            <rect x="640" y="50" width="150" height="60" rx="10" fill="#f7eaf1" stroke="#1f2a36" />
+            <rect x="810" y="50" width="130" height="60" rx="10" fill="#eaf6ee" stroke="#1f2a36" />
+
+            <text x="85" y="85" text-anchor="middle" font-size="14" fill="#1f2a36">CNL Text</text>
+            <text x="235" y="85" text-anchor="middle" font-size="14" fill="#1f2a36">Tokens</text>
+            <text x="385" y="85" text-anchor="middle" font-size="14" fill="#1f2a36">AST</text>
+            <text x="545" y="85" text-anchor="middle" font-size="14" fill="#1f2a36">KB + Plans</text>
+            <text x="715" y="85" text-anchor="middle" font-size="14" fill="#1f2a36">Pragmatics</text>
+            <text x="875" y="85" text-anchor="middle" font-size="14" fill="#1f2a36">Results</text>
+
+            <line x1="150" y1="80" x2="170" y2="80" stroke="#1f2a36" stroke-width="2" marker-end="url(#arrow)" />
+            <line x1="300" y1="80" x2="320" y2="80" stroke="#1f2a36" stroke-width="2" marker-end="url(#arrow)" />
+            <line x1="450" y1="80" x2="470" y2="80" stroke="#1f2a36" stroke-width="2" marker-end="url(#arrow)" />
+            <line x1="620" y1="80" x2="640" y2="80" stroke="#1f2a36" stroke-width="2" marker-end="url(#arrow)" />
+            <line x1="790" y1="80" x2="810" y2="80" stroke="#1f2a36" stroke-width="2" marker-end="url(#arrow)" />
+          </svg>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 id="scenario">Scenario: packages, weight, and priority</h2>
+        <p>
+          The example below includes numeric attributes, a rule, and a query. It shows how the same
+          AST leads to both KB inserts and rule plans, and how explain uses provenance.
+        </p>
+        <pre><code>Every package whose weight is greater than 500 is heavy.
+Every package that is heavy and that is assigned to a route is priority.
+
+Package_1 has a weight of 600.
+Package_2 has a weight of 300.
+Package_1 is assigned to Route_9.
+Package_2 is assigned to Route_9.
+
+Command: Return the name of every package that is priority.
+Command: Explain why Package_1 is priority.
+</code></pre>
+      </section>
+
+      <section class="section">
+        <h2 id="compilation">What compilation produces</h2>
+        <p>
+          Compilation splits the input into ground facts and non-ground plans. The facts update the
+          KB immediately, while the rules and commands compile into executable plans.
+        </p>
+        <ul class="list">
+          <li>Numeric facts insert into the <strong>NumericIndex</strong> for the attribute <em>weight</em>.</li>
+          <li>The rule on <em>heavy</em> compiles into a numeric filter plan using a comparator.</li>
+          <li>The rule on <em>priority</em> compiles into a join between <em>heavy</em> and <em>assigned to</em>.</li>
+          <li>The return command compiles into a SetPlan that filters packages by <em>priority</em>.</li>
+          <li>The explain command targets the justification chain for <em>priority(Package_1)</em>.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2 id="reasoning">Reasoning steps</h2>
+        <p>
+          During reasoning, the runtime uses bitsets for speed and determinism:
+        </p>
+        <ul class="list">
+          <li>Compute <em>Heavy</em> by filtering packages where weight &gt; 500.</li>
+          <li>Compute <em>Priority</em> by intersecting Heavy with the preimage of <em>assigned to</em>.</li>
+          <li>Return the resulting entity set, then project the name field for output.</li>
+          <li>For explain, walk the justification DAG that records the rule and its premises.</li>
+        </ul>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Theory</div></footer>
+  </div>
+</body>
+</html>

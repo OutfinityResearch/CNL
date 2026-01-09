@@ -56,6 +56,39 @@ function summarizeInput(input) {
   return firstLine + " ...";
 }
 
+function padCell(text, width) {
+  return String(text ?? "").padEnd(width);
+}
+
+function renderTable(title, columns, rows, colors) {
+  const widths = columns.map((column) => column.label.length);
+  for (const row of rows) {
+    for (let i = 0; i < columns.length; i += 1) {
+      const key = columns[i].key;
+      const value = row[key] ?? "";
+      widths[i] = Math.max(widths[i], String(value).length);
+    }
+  }
+
+  if (title) console.log(`\n${title}`);
+  const header = columns.map((column, i) => padCell(column.label, widths[i])).join(" | ");
+  const separator = widths.map((width) => "-".repeat(width)).join("-+-");
+  console.log(header);
+  console.log(separator);
+
+  for (const row of rows) {
+    const line = columns.map((column, i) => {
+      const value = String(row[column.key] ?? "");
+      if (column.key === "status") {
+        const color = value === "PASS" ? colors.green : value === "FAIL" ? colors.red : colors.yellow;
+        return `${color}${padCell(value, widths[i])}${colors.reset}`;
+      }
+      return padCell(value, widths[i]);
+    }).join(" | ");
+    console.log(line);
+  }
+}
+
 export async function runCaseSuite({ fileUrl, title }) {
   const raw = await readFile(fileUrl, "utf8");
   const cases = parseCases(raw);
@@ -68,15 +101,19 @@ export async function runCaseSuite({ fileUrl, title }) {
 
   let passed = 0;
   let failed = 0;
+  const rows = [];
 
   for (const testCase of cases) {
     const input = testCase.input ?? "";
     const preview = summarizeInput(input);
-    const purpose = testCase.purpose ? ` purpose: ${testCase.purpose}` : "";
-
     if (!testCase.purpose) {
       failed += 1;
-      console.log(`${colors.red}FAIL${colors.reset} ${title} - missing purpose: "${preview}"`);
+      rows.push({
+        status: "FAIL",
+        purpose: "(missing)",
+        case: preview,
+        note: "missing purpose",
+      });
       continue;
     }
 
@@ -86,23 +123,45 @@ export async function runCaseSuite({ fileUrl, title }) {
     } catch (error) {
       failed += 1;
       const message = error?.message ?? "parse error";
-      console.log(`${colors.red}FAIL${colors.reset} ${title} -${purpose} - parse error: ${message}`);
+      rows.push({
+        status: "FAIL",
+        purpose: testCase.purpose,
+        case: preview,
+        note: `parse error: ${message}`,
+      });
       continue;
     }
 
     const state = compileProgram(ast);
     if (state.errors.length > 0) {
       failed += 1;
-      console.log(`${colors.red}FAIL${colors.reset} ${title} -${purpose} - compiler errors: "${preview}"`);
+      rows.push({
+        status: "FAIL",
+        purpose: testCase.purpose,
+        case: preview,
+        note: `compiler errors (${state.errors.length})`,
+      });
       continue;
     }
 
     passed += 1;
     const note = testCase.expect && !String(testCase.expect).includes("placeholder")
-      ? " (pending expectation)"
+      ? "pending expectation"
       : "";
-    console.log(`${colors.green}PASS${colors.reset} ${title} -${purpose} - "${preview}"${note}`);
+    rows.push({
+      status: "PASS",
+      purpose: testCase.purpose,
+      case: preview,
+      note,
+    });
   }
+
+  renderTable(`${title} suite`, [
+    { key: "status", label: "Status" },
+    { key: "purpose", label: "Purpose" },
+    { key: "case", label: "Case" },
+    { key: "note", label: "Note" },
+  ], rows, colors);
 
   console.log(`Passed: ${passed}`);
   console.log(`Failed: ${failed}`);
