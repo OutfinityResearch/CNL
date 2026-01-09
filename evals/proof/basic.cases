@@ -1,0 +1,8 @@
+# Proof Evaluation Cases
+
+- input: "Server1 handles Payments.\nVerify that Server1 handles Payments."
+  purpose: "Direct proof of a binary fact."
+  expect: "true"
+- input: "User1 is a user.\nVerify that every user is a user."
+  purpose: "Universal proof over unary predicate."
+  expect: "true"

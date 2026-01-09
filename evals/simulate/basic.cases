@@ -1,0 +1,5 @@
+# Simulation Evaluation Cases
+
+- input: "When a job occurs, then a job is processed.\nSimulate 2 steps."
+  purpose: "Transition rule simulation with fixed steps."
+  expect: "state trace placeholder"

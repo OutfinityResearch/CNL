@@ -1,7 +1,7 @@
-# evals/solve/basic.cases
+# evals/proof/basic.cases
 
 ## Summary
-Solve cases that exercise Find commands with constraints.
+Proof cases that exercise Verify commands and logical conditions.
 
 ## Notes
 Each case includes a `purpose` field describing the scenario under test.

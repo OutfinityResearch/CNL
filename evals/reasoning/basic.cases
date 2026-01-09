@@ -1,5 +1,6 @@
 # Reasoning Evaluation Cases
 
 - input: "Verify that every server that handles payments is encrypted."
+  purpose: "Universal proof over relation filter."
   expect: "true"
   trace: "proof trace placeholder"

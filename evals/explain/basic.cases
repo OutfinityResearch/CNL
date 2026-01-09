@@ -1,0 +1,5 @@
+# Explain Evaluation Cases
+
+- input: "Server1 handles Payments.\nRule: If Server1 handles Payments, then Server1 is encrypted.\nExplain why Server1 is encrypted."
+  purpose: "Explain derived unary fact from a rule."
+  expect: "explanation placeholder"

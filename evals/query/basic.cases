@@ -1,0 +1,8 @@
+# Query Evaluation Cases
+
+- input: "User1 is a user.\nUser1 has a role of Admin.\nReturn the name of every user whose role is Admin."
+  purpose: "Query with unary base and entity-valued attribute filter."
+  expect: "User1"
+- input: "Server1 handles Payments.\nReturn the name of every server that handles Payments."
+  purpose: "Query with preimage relation filter."
+  expect: "Server1"

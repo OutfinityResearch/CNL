@@ -1,7 +1,7 @@
 # evals/reasoning/basic.cases
 
-## Purpose
-Reasoning cases for proof and explanation workflows.
+## Summary
+Reasoning cases that exercise proof-style commands over relations.
 
 ## Notes
-- Include expected truth values and trace placeholders.
+Each case includes a `purpose` field describing the scenario under test.

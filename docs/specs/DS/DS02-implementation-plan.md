@@ -1,42 +1,63 @@
 # DS02 - Implementation Plan
 
 ## Summary
-This document maps the intended runtime structure to mirrored design specs and outlines the delivery milestones for CNL-PL.
+This document maps the runtime structure to mirrored design specs and defines the documentation and delivery milestones for CNL-PL. It is a living map of the repository layout.
 
-## Planned Repository Layout
+## Current Repository Layout
+The codebase is organized by responsibility and mirrored by specs:
+
 - `src/`
-  - `lexer/` - tokenization, keyword matching, and spans
-  - `parser/` - grammar implementation and AST construction
-  - `ast/` - AST node definitions and serialization
-  - `validator/` - grammar and determinism errors
-  - `pragmatics/` - query, proof, plan, solve, simulate, explain
-  - `runtime/` - execution adapters and orchestration
+  - `actions/` - action blocks, preconditions, and effects
+  - `ast/` - AST node helpers and minimal constructors
+  - `compiler/` - AST compilation and plan building
+  - `formulas/` - formula store for compound propositions
+  - `ids/` - interners and ConceptualID/dense ID mapping
+  - `kb/` - compiled KB structures, bitsets, numeric indexes
+  - `lexer/` - tokenization, keywords, and spans
+  - `parser/` - grammar and AST construction
+  - `plans/` - plan IR and plan execution
+  - `pragmatics/` - command-level planning (query/proof/solve/etc)
+  - `provenance/` - justification tracking for explain
+  - `rules/` - rule store and rule execution support
+  - `runtime/` - engine orchestration
+  - `session/` - session-level API and orchestration
+  - `theories/` - base theories and reusable axioms
+
 - `tests/`
-  - `lexer/`, `parser/`, `validator/`, `pragmatics/`
+  - `compiler/`, `kb/`, `lexer/`, `parser/`, `pragmatics/`, `rules/`, `validator/`
+  - `developer/` and `plans/` for integration-level coverage
+
 - `evals/`
-  - parsing suites, reasoning suites, expected outputs
+  - `parsing/`, `reasoning/`, `planning/`, `solve/` suites and expected outputs
+
+- `docs/`
+  - Presentation pages, theory, architecture, syntax, wiki, and specs
 
 ## Specs Mirroring
-Each runtime file will have a mirrored design note:
-- `src/**/file.ext` has a documentation mirror at `docs/specs/src/**/file.ext.md`.
-- `tests/**/file.ext` has a documentation mirror at `docs/specs/tests/**/file.ext.md`.
-- `evals/**/suite.ext` has a documentation mirror at `docs/specs/evals/**/suite.ext.md`.
+Each runtime file has a mirrored design note:
+- `src/**/file.ext` -> `docs/specs/src/**/file.ext.md`
+- `tests/**/file.ext` -> `docs/specs/tests/**/file.ext.md`
+- `evals/**/suite.ext` -> `docs/specs/evals/**/suite.ext.md`
+
+Design specs in `docs/specs/DS/` define the normative behavior for each subsystem.
+
+## Documentation Maintenance Rules
+- When a new runtime module is added, add a mirrored spec file.
+- When a runtime module is removed or renamed, update DS02 and the mirror index.
+- If the repository layout changes, DS02 is the first document to update.
 
 ## Milestones
-1. Grammar implementation: lexer + parser + AST schema.
-2. Validation layer: error detection for determinism rules.
-3. Pragmatic command parsing for Query/Proof/Plan/Solve/Simulate/Optimize/Explain.
-4. Core runtime adapters for a minimal query and proof pipeline.
-5. Test suite coverage and evaluation benchmarks.
+1. Grammar and AST stabilization (lexer + parser + determinism validation).
+2. Compiler contract and KB layout (DS08-DS11 + DS15).
+3. Pragmatic engines (query, proof, solve, plan, simulate, optimize, explain).
+4. Provenance and justification support for explain/proof.
+5. Full coverage with unit tests and eval suites.
 
-## Deliverables
-- Grammar and AST implementation aligned with DS03.
-- Semantic interpretation plan aligned with DS04.
-- Automated testing plan aligned with DS05.
-- Evaluation suite aligned with DS06.
-- Error handling spec aligned with DS07.
+## Resolved Decisions
+- Implementation language: JavaScript with `.mjs` modules.
+- Deterministic parsing: no heuristic rewrites, no synonym expansion.
 
 ## Open Questions
-- Runtime language (implementation platform) selection.
-- Primary target backend for proof/solve.
-- Format for evaluation expected outputs (JSON vs CNL).
+- Which reasoning backend to prioritize (custom forward chaining vs external).
+- Long-term persistence format for ConceptualID and dense ID maps.
+- Standard output format for proof and explain traces.

@@ -1,12 +1,13 @@
 # DS11 - Reasoning Primitives and Engines
 
 ## Summary
-Defines the primitive operations on the compiled KB and how they compose into deduction, abduction, induction, and the other pragmatics (query, proof, explain, solve, plan, simulate, optimize).
+Defines the primitive operations on the compiled KB and how they compose into deduction, abduction, induction, and the pragmatics (query, proof, explain, solve, plan, simulate, optimize).
 
 ## Scope
 - Bitset and matrix primitives.
-- Deduced fact generation (forward chaining).
-- Proof, explain, and abduction flows.
+- Deduction and proof.
+- Explain and abduction flows.
+- Induction (rule mining) templates.
 - Constraint solving, planning, simulation, and optimization.
 
 ## Core Primitives
@@ -18,68 +19,91 @@ All reasoning modes depend on a small set of primitives:
 
 `image` uses `relations[pred]`; `preimage` uses `invRelations[pred]` (DS09).
 
+Example:
+- `image(likes, {Alice, Bob})` returns all objects liked by Alice or Bob.
+- `preimage(likes, {Pizza})` returns all subjects who like Pizza.
+
 ## Deduction (Forward Chaining)
-- Rules compile into bitset plans (DS10).
-- Use semi-naive evaluation with delta facts to avoid recomputing closure.
-- For unary heads: set bits in `unaryIndex[UnaryPredID]`.
-- For binary heads: set bits in `relations[pred].rows[s]` and `invRelations[pred].rows[o]`.
-- Store justifications as RuleID + FactID list for each derived fact.
+Rules compile into bitset plans (DS10). Deduction is performed by forward chaining:
+- Use semi-naive evaluation with delta facts to avoid recomputation.
+- Unary heads set bits in `unaryIndex[UnaryPredID]`.
+- Binary heads set bits in `relations[pred].rows[s]` and `invRelations[pred].rows[o]`.
+
+Derived facts carry justifications as `RuleID + premise FactIDs` (DS09/DS15).
 
 ## Proof
-Proof is a membership check in the materialized closure:
+Proof reduces to membership checks in the materialized closure:
 - Atomic fact: check bit presence or unary membership.
-- Universal form: compute the counterexample set using set difference and test emptiness.
+- Universal form: compute counterexamples via set difference and test emptiness.
 - Aggregations: compute numeric values from Bitset projections.
 
-## Explain and Justifications
+Example:
+```
+Verify that every server that handles payments is encrypted.
+```
+This is evaluated as:
+`Servers ∩ preimage(handles, {payments}) ⊆ Encrypted`.
+
+## Explain
+Explain traverses the justification DAG:
 - Base facts are labeled `observed`.
-- Derived facts store a justification DAG:
-  - Node: FactID or RuleID.
-  - Edge: "derived from" with premise FactIDs.
-- Explanation selects a path with minimal cost (number of premises or weighted cost).
+- Derived facts link to a `RuleID` and its premises.
+- The engine returns a minimal-cost path (default: fewest premises).
 
 ## Abduction
-- Build an AND/OR proof graph for a goal.
-- Missing ground premises are marked as abducible hypotheses.
-- Search for minimal hypothesis sets with greedy or bounded BFS.
-- Each candidate hypothesis is validated by re-running the proof plan.
+Abduction constructs an AND/OR proof graph for a goal:
+- OR nodes: alternative rules that could derive the goal.
+- AND nodes: all premises required by a rule.
+- Missing ground premises are abducible hypotheses.
+
+Minimal hypothesis sets can be found with greedy search or bounded BFS.
 
 ## Induction (Rule Mining)
-Rule candidates are generated from templates, then scored:
-- Support: number of facts in both body result and head predicate.
-- Confidence: support / body result size.
-- Head coverage: support / head size.
+Rule induction uses templates and bitset scoring:
+- Template: `R(x,y) and Q(y,z) -> P(x,z)`
+- Compute `C = compose(R, Q)`.
+- Support = pairs in `C` that are also in `P`.
+- Confidence = support / size(C).
+- Head coverage = support / size(P).
 
-Compositions such as `R(x,y) and Q(y,z) -> P(x,z)` are computed with `compose` and Bitset intersections.
+Candidate generation is constrained by thresholds to keep search tractable.
 
 ## Query
-Queries compile to Bitset filters:
+Queries compile to set plans:
 - Unary filters: `unaryIndex[U]`.
 - Binary filters: `preimage(pred, objectsSet)`.
-- Relative clauses: intersect the current candidate set with filter results.
+- Relative clauses: intersect with additional filters.
+
+Example:
+```
+Return the name of every user who is active and who knows Python.
+```
+This becomes: `Users ∩ Active ∩ preimage(knows, {Python})`.
 
 ## Solve (Constraints)
 Each variable has a domain Bitset. For a binary constraint `R(X,Y)`:
 - `Xdom = Xdom and preimage(R, Ydom)`
 - `Ydom = Ydom and image(R, Xdom)`
-Use AC-3 style propagation until fixpoint.
+
+Use AC-3 style propagation until fixpoint or failure.
 
 ## Plan and Simulate
 State is represented as a base KB plus delta overlays:
 - Preconditions are Bitset queries on the current state.
-- Effects add/remove bits in the delta layers.
-- Simulation iterates state transitions for N steps.
+- Effects add/remove bits or update attributes in the delta layer.
+- Simulation iterates transition rules for N steps.
 
 ## Optimize
 Optimization combines Solve with an objective:
 - Objective is derived from Bitset cardinality or numeric aggregates.
-- Use branch-and-bound with fast upper/lower bounds from Bitset counts.
+- Use branch-and-bound with fast bounds from Bitset counts.
 
 ## Propositions and Modal Constraints
-Compound propositions are stored as a separate formula store:
+Compound propositions are stored in a separate formula store:
 - PropID reifies NOT/AND/OR/IMPLIES over FactIDs or other PropIDs.
 - Modal or constraint statements compile to formula nodes.
-Proof and explain compile formula nodes into Bitset plans or proof graphs on demand.
+
+Proof and explain compile formula nodes into bitset plans or proof graphs on demand.
 
 ## References
 - DS09 for KB storage layout.

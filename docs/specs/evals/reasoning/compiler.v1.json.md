@@ -9,6 +9,7 @@ Each case expects a summary object:
 - `binaryFacts`: total bits set in binary relations.
 - `numericFacts`: number of subjects with numeric values.
 - `entityAttrFacts`: total bits set in entity-valued attributes.
+- `purpose`: short description of the scenario under test.
 
 ## Notes
 These summaries validate compilation without executing rule inference.

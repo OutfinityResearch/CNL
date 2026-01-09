@@ -1,0 +1,18 @@
+# Reasoning Mini-Theory Cases
+
+- input: "Server1 handles Payments.\nRule: If Server1 handles Payments, then Server1 is encrypted.\nVerify that Server1 is encrypted."
+  purpose: "Forward rule: binary fact implies unary membership."
+  expect: "true"
+  trace: "proof trace placeholder"
+- input: "Truck_A is a truck.\nTruck_A has a capacity of 1000.\nReturn the name of every truck whose capacity is greater than 500."
+  purpose: "Query with unary base set and numeric filter."
+  expect: "Truck_A"
+- input: "User1 is a user.\nUser2 is a user.\nUser1 has a role of Admin.\nUser2 has a role of Guest.\nReturn the name of every user whose role is Admin."
+  purpose: "Query with entity-valued attribute filter."
+  expect: "User1"
+- input: "Task1 is assigned to Worker1.\nTask2 is assigned to Worker2.\nVerify that Task1 is assigned to Worker1."
+  purpose: "Direct proof of a binary relation."
+  expect: "true"
+- input: "Package1 is a package.\nPackage2 is a package.\nPackage1 is delivered.\nPackage2 is delivered.\nVerify that every package that is delivered is delivered."
+  purpose: "Universal proof via subset check."
+  expect: "true"

@@ -12,6 +12,19 @@ const colors = {
   reset: "\x1b[0m",
 };
 
+function summarizeInput(input) {
+  const normalized = input.replace(/\r\n/g, "\n").trimEnd();
+  const lines = normalized.split("\n");
+  if (lines.length === 1) {
+    const line = lines[0].trim();
+    if (line.length <= 90) return line;
+    return line.slice(0, 87) + "...";
+  }
+  const firstLine = lines[0].trim();
+  if (!firstLine) return "...";
+  return firstLine + " ...";
+}
+
 function summarize(kbState) {
   let unaryFacts = 0;
   for (const set of kbState.unaryIndex) {
@@ -42,9 +55,11 @@ let failed = 0;
 for (const testCase of cases) {
   const ast = parseProgram(testCase.input);
   const state = compileProgram(ast);
+  const preview = summarizeInput(testCase.input);
+  const purpose = testCase.purpose ? ` purpose: ${testCase.purpose}` : "";
   if (state.errors.length > 0) {
     failed += 1;
-    console.log(`${colors.red}FAIL${colors.reset} ${testCase.id} - compiler errors`);
+    console.log(`${colors.red}FAIL${colors.reset} ${testCase.id} -${purpose} - compiler errors: \"${preview}\"`);
     continue;
   }
   const actual = summarize(state.kb.kb);
@@ -52,11 +67,11 @@ for (const testCase of cases) {
   const match = Object.keys(expected).every((key) => expected[key] === actual[key]);
   if (!match) {
     failed += 1;
-    console.log(`${colors.red}FAIL${colors.reset} ${testCase.id} - summary mismatch`);
+    console.log(`${colors.red}FAIL${colors.reset} ${testCase.id} -${purpose} - summary mismatch: \"${preview}\"`);
     continue;
   }
   passed += 1;
-  console.log(`${colors.green}PASS${colors.reset} ${testCase.id}`);
+  console.log(`${colors.green}PASS${colors.reset} ${testCase.id} -${purpose} - \"${preview}\"`);
 }
 
 console.log(`Passed: ${passed}`);

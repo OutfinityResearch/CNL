@@ -1,4 +1,5 @@
 # Solve Evaluation Cases
 
 - input: "Find a schedule for every meeting such that no meeting overlaps with another meeting."
+  purpose: "Solve command parsing and compilation."
   expect: "binding placeholder"

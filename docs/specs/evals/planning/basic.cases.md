@@ -1,7 +1,7 @@
 # evals/planning/basic.cases
 
-## Purpose
-Planning cases that validate action sequencing against goals.
+## Summary
+Planning cases that exercise Plan commands.
 
 ## Notes
-- Record expected plan structure and key actions.
+Each case includes a `purpose` field describing the scenario under test.

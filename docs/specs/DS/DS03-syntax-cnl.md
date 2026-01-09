@@ -1,7 +1,7 @@
 # DS03 - Syntax (CNL-PL v1.1)
 
 ## Summary
-This document defines the syntax-only contract for CNL-PL: deterministic parsing, explicit grouping rules, and a lossless AST shape. It is the authoritative reference for lexical rules, grammar, and validation requirements.
+This document defines the deterministic, syntax-only contract for CNL-PL. It specifies the lexical rules, grammar, and the lossless AST shape that the parser must produce. There is no semantic interpretation here; DS04 and DS15 cover meaning and compilation.
 
 ## Scope
 - Syntax only (no semantic or runtime meaning).
@@ -9,105 +9,173 @@ This document defines the syntax-only contract for CNL-PL: deterministic parsing
 - Lossless AST suitable for tooling and serialization.
 
 ## Lexical Rules
-- Encoding: UTF-8.
-- Whitespace separates tokens; newline is whitespace except inside ActionBlock fields.
-- Comments: `//` to end of line.
-- Tokens: IDENT, NUMBER, STRING, BOOLEAN, punctuation (`.`, `:`, `,`, `(`, `)`).
-- Prepositions are reserved structural tokens (`of`, `to`, `at`, `in`, `on`, `with`, `for`, `from`, `into`, `between`, `among`, `over`, `under`).
-- Keywords are case-insensitive and cannot be used as IDENT.
-- Longest-match applies to multi-word keywords (for example, `it is not the case that`).
+### Tokens
+- Words (IDENT): `[A-Za-z_][A-Za-z0-9_]*`
+- Numbers: integers or decimals
+- Strings: double-quoted with escape sequences
+- Booleans: `true` and `false` (case-insensitive)
+- Punctuation: `.`, `:`, `,`, `(`, `)`
 
-## Determinism Rules
-- Mixed AND/OR chains at the same level are invalid without explicit grouping.
-- Noun Phrase vs Name is disambiguated by the prefix:
-  - Name: bare IDENT.
-  - Noun Phrase: must start with determiner or quantifier.
-- `has` is possessive only when followed immediately by `a|an|the|another`.
-- Single-letter uppercase identifiers (A..Z) are allowed as Name tokens in contexts where a Name is expected, even if they collide with determiners in lowercase.
-- Aggregation set references accept a bare head noun (for example `the number of packages`); the parser canonicalizes it to a NounPhrase with an implicit `the`.
+### Whitespace and Comments
+- Whitespace separates tokens.
+- Line comments start with `//` and run to end of line.
 
-## Atomic Sentence and Typed Predicates
-The atomic sentence is the unit of determinism. A predicate is not free text; it is one of a fixed set of typed templates:
-- Copula predicate: `X is Y`.
-- Comparison predicate: `X is greater than Y` (copula + comparator).
-- Attribute predicate: `X has a capacity of 1000` (has + determiner + attribute + optional value).
-- Passive relation: `X is assigned to Y` (copula + verb + preposition).
-- Active relation: `X overlaps with Y`, optionally with auxiliary (`has logged in`).
+### Keywords and Case
+- Keywords are case-insensitive and reserved.
+- Non-keyword words preserve original case in the AST.
 
-This typing prevents ambiguity about where the verb ends and the object begins.
+### Controlled Prepositions
+Only the following prepositions are allowed in verb particles and PP modifiers:
+`of`, `to`, `at`, `in`, `on`, `with`, `for`, `from`, `into`, `between`, `among`,
+`over`, `under`, `by`, `during`, `through`, `within`, `around`, `across`,
+`about`, `after`, `before`, `without`.
 
-## Canonical Triplet Mapping
-Every atomic sentence deterministically maps to a structured SVO triplet:
-- Subject: the atomic subject term (Name, NounPhrase, Literal, Aggregation).
-- VerbPhrase: a structured object that preserves predicate type and parts.
-- Object: the complement or object term.
+## Determinism Rules (Critical)
+CNL-PL rejects inputs that could be parsed in multiple ways.
 
-The verb phrase is not a string. It is a structured record that captures copula/comparator, verb/particles, or attribute form, so two implementations always produce the same triplet.
+1. Mixed `and` and `or` at the same level is invalid unless grouped.
+2. Parentheses are permitted for explicit grouping of conditions.
+3. Noun phrases must start with a determiner or quantifier; bare words become Names.
+4. `has` is disambiguated by a strict rule: it is possessive only when followed by a determiner.
 
-### Examples
-- `temperature is greater than 20` -> subject: `temperature`, verbPhrase: `is + GreaterThan`, object: `20`.
-- `route is valid` -> subject: `route`, verbPhrase: `is`, object: `valid`.
-- `meeting overlaps with another meeting` -> subject: `meeting`, verbPhrase: `overlaps + with`, object: `another meeting`.
-- `user has logged in today` -> subject: `user`, verbPhrase: `has + logged + in`, object: `today`.
+These rules are enforced by validation errors (see DS07).
 
-## Attribute Assertion Representation
-For attribute assertions, the canonical form preserves the attribute and value separately:
-- Subject: the owner entity.
-- VerbPhrase: a typed `HAS_ATTR` (or `has` with attribute type).
-- Object: the attribute term (for example `capacity`).
-- Value: stored in a dedicated `value` field when present.
+## Noun Phrases and Names
+A noun phrase (NP) is a structured term used for subjects or objects.
 
-This avoids collapsing the attribute into the verb and keeps the structure lossless.
+### Determiners and Quantifiers
+Allowed NP starts:
+- Determiners: `a`, `an`, `the`, `another`
+- Quantifiers: `every`, `all`, `no`, `some`
+- Numeric quantifiers: `at least <number>`, `at most <number>`
 
-## Relative Clauses and Implicit Subjects
-Relative clauses introduce atomic sentences with an implicit subject that is the head of the noun phrase.
-- `a user who knows Python` is canonicalized to `(user, knows, Python)`.
-- `whose score is greater than 10` is represented as a `RelAttributeLike` predicate anchored to the head, with a comparator predicate on the attribute.
+### Name Tokens
+A Name is a single word token without a determiner. It represents a proper name or symbol.
 
-Relative chains must repeat the pronoun for each condition.
+Example:
+```
+Truck_A is assigned to Warehouse_7.
+```
+Here `Truck_A` and `Warehouse_7` are Names, not noun phrases.
 
-## Structural Nodes vs Triples
-`Rule:`, `Command:`, `If ... then ...`, `Either ... or ...`, and block labels are structural nodes. They are not triplets. Only atomic assertions map to SVO triplets; structural nodes merely organize them.
-
-## Grammar (High-Level)
-- Program is a sequence of top-level items: statements, rules, commands, action blocks.
-- Statements end with `.`.
-- Assertions are controlled triplets:
-  - comparison, attribute, copula predicate, passive relation, active relation.
-- Conditions are boolean trees with explicit grouping.
-- Pragmatic commands include `return`, `verify that`, `plan to achieve`, `find`, `simulate`, `maximize`, `minimize`, `explain why`.
-- ActionBlock is a multi-line structure with required `action` and `agent` fields.
-- Conditional sentences allow both:
-  - Prefix: `if <condition>, then <sentence>`.
-  - Postfix: `<sentence> if <condition>` (desugared to the prefix form).
+### Implicit Noun Phrases (Aggregation Only)
+Aggregation sets may use a bare head noun:
+```
+The number of packages is greater than 10.
+```
+The parser canonicalizes `packages` into an implicit noun phrase equivalent to `the packages`.
 
 ## Relative Clauses
-- Relative pronouns are required for each clause (`who`, `that`, `which`, `whose`, `where`).
-- Chains must repeat the pronoun for each condition.
+Relative clauses must be explicit and cannot omit the pronoun. Each clause in a chain repeats the pronoun.
 
-## AST Requirements
-- AST nodes are normalized but preserve spans.
-- Conditions keep explicit forms (BothAnd, EitherOr, NeitherNor) without semantic rewriting.
-- Aggregations are explicit nodes (NumberOf, SumOf, AverageOf, TotalOf).
-- Statement wraps a Sentence node.
-- AssertionSentence is a wrapper node with a single `assertion` field.
-- ConditionalSentence uses `condition` and `then` fields.
-- Name nodes use a `value` field for the identifier.
-- Case scopes for `it is the case that` and `it is not the case that` use a `CaseScope` node with `mode` and `operand`.
-- AttributeAssertion uses an `AttributeRef` with `core` and `pp` fields, plus an optional `value` term.
-- RelativeClause bodies use typed nodes such as `RelCopulaPredicate`, `RelActiveRelation`, `RelPassiveRelation`, `RelComparison`, and `RelAttributeLike`.
+Valid:
+```
+A user who is active and who knows Python.
+```
+Invalid:
+```
+A user who is active and knows Python.
+```
+
+Relative clauses attach only to noun phrases. A bare Name followed by a relative pronoun is rejected.
+
+## Predicate Templates (Typed Verb Phrases)
+Predicates are not free text. Each atomic sentence uses one of the fixed predicate templates below.
+
+### Copula + Comparator
+```
+X is greater than Y.
+X was equal to Y.
+```
+Comparator phrases include:
+- `equal to`, `not equal to`
+- `greater than`, `less than`
+- `greater than or equal to`, `less than or equal to`
+- `contains`, `does not contain`
+
+### Attribute Predicate (Possessive)
+```
+X has a capacity of 1000.
+```
+Rule: `has` is possessive only when followed by a determiner. The optional `of <value>` is allowed.
+
+### Copula + Preposition (Passive Relation)
+```
+X is assigned to Y.
+X is located at Y.
+```
+
+### Copula + Complement
+```
+X is valid.
+X is a vehicle.
+```
+
+### Verb Group + Object (Active Relation)
+```
+X overlaps with Y.
+X logs in today.
+```
+Verb groups may include prepositional particles (from the controlled preposition list).
+
+## Atomic Sentence and Triplet Mapping
+Every atomic sentence maps deterministically to a structured SVO triplet:
+- Subject: a Term (Name, noun phrase, literal, or aggregation).
+- VerbPhrase: a typed predicate record (not a plain string).
+- Object: the complement or object term.
+
+Example:
+```
+temperature is greater than 20.
+```
+Becomes:
+- Subject: `temperature`
+- VerbPhrase: `copula + comparator(gt)`
+- Object: `20`
+
+## Boolean Conditions
+Conditions are boolean trees. There is no implicit precedence.
+
+Allowed grouping patterns:
+- Parentheses: `(A and B) or C`
+- `both A and B`
+- `either A or B`
+- `neither A nor B`
+- `it is the case that` / `it is not the case that`
+
+Invalid without grouping:
+```
+A or B and C.
+```
+
+## Top-Level Forms
+- Statements end with `.`
+- `Rule:` and `Command:` lines end with `.`
+- `When ... occurs, then ...` is a transition rule.
+- Action blocks are multi-line with labels: `Action:`, `Agent:`, `Precondition:`, `Effect:`, `Intent:`.
+
+Example action block:
+```
+Action: deliver package.
+Agent: a driver.
+Precondition: the package is ready.
+Effect: the package is delivered.
+```
+
+## AST Requirements (High-Level)
+- AST nodes preserve spans for diagnostics.
+- Conditions preserve explicit structure (Either/Neither/Both/Group).
+- Predicates are typed (copula, comparison, attribute, relation).
+- Relative clauses carry an implicit subject reference to the NP head.
+
+See DS15 for the compiler contract and the exact plan-level mappings.
 
 ## Validation Errors (Must Detect)
-- MixedBooleanOperatorsError
-- MissingTerminatorError
-- HasFormDeterminismError
-- InvalidNounPhraseStartError
-- RelativePronounRepetitionError
-- ActionBlockMissingRequiredFieldError
+- Mixed boolean operators without explicit grouping.
+- Missing sentence terminator `.`
+- Ambiguous `has` usage.
+- Invalid noun phrase start.
+- Relative pronoun repetition errors.
+- Action block missing required field.
 
 See DS07 for the canonical error codes and standard error format.
-
-## References
-- See DS04 for semantics and runtime interpretation rules.
-- See DS05 for testing coverage of syntax and validation.
-- See DS07 for error code definitions.
