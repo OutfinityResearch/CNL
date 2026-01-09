@@ -122,6 +122,18 @@ function checkDictionaryComparator(attrDef, comparator, state, attrKey) {
   }
 }
 
+function recordBaseBinary(state, predId, subjectId, objectId) {
+  if (!state.justificationStore) return;
+  const factId = state.justificationStore.makeFactId(predId, subjectId, objectId);
+  state.justificationStore.addBaseFact(factId, { kind: "BaseFact" });
+}
+
+function recordBaseUnary(state, unaryId, subjectId) {
+  if (!state.justificationStore) return;
+  const factId = state.justificationStore.makeUnaryFactId(unaryId, subjectId);
+  state.justificationStore.addBaseFact(factId, { kind: "BaseFact" });
+}
+
 function hasTypeMembership(state, entityId, typeKey) {
   const unaryKey = `U:${typeKey}`;
   const conceptId = state.idStore.internConcept(ConceptKind.UnaryPredicate, unaryKey);
@@ -265,6 +277,7 @@ function handleAssertion(assertion, state, options) {
         validateDomainRange(state, predDef, subjectId, objectId);
       }
       state.kb.insertBinary(subjectId, predId, objectId);
+      recordBaseBinary(state, predId, subjectId, objectId);
       return;
     }
     case "PassiveRelationAssertion": {
@@ -286,6 +299,7 @@ function handleAssertion(assertion, state, options) {
         validateDomainRange(state, predDef, subjectId, objectId);
       }
       state.kb.insertBinary(subjectId, predId, objectId);
+      recordBaseBinary(state, predId, subjectId, objectId);
       return;
     }
     case "CopulaPredicateAssertion": {
@@ -310,6 +324,7 @@ function handleAssertion(assertion, state, options) {
         return;
       }
       state.kb.insertUnary(unaryId, subjectId);
+      recordBaseUnary(state, unaryId, subjectId);
       return;
     }
     case "AttributeAssertion":
