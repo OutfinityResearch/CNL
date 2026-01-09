@@ -32,6 +32,10 @@
           a pragmatic plan. Each stage is strict and repeatable, which is essential for reasoning
           and explainability.
         </p>
+        <p>
+          For a full scenario and a visual pipeline diagram, see
+          <a href="../../theory/06-end-to-end-flow.html">Theory Part 6</a>.
+        </p>
       </section>
 
       <section class="section">
@@ -58,35 +62,6 @@
             <p>Execute query/proof/plan/solve with bitset primitives on the KB.</p>
           </article>
         </div>
-      </section>
-
-      <section class="section">
-        <h2 id="example">Minimal example</h2>
-        <p>Input program:</p>
-        <pre><code>Every server that handles payments is encrypted.
-Server_1 handles payments.
-Verify that Server_1 is encrypted.
-</code></pre>
-        <p>What happens:</p>
-        <ul class="list">
-          <li>The first line becomes a rule plan that derives unary membership in <em>encrypted</em>.</li>
-          <li>The second line inserts a binary fact into the KB.</li>
-          <li>The verify command checks whether the derived unary bit is set for Server_1.</li>
-        </ul>
-      </section>
-
-      <section class="section">
-        <h2 id="grounding">Ground facts vs plans</h2>
-        <p>
-          Ground facts are inserted only when all terms resolve to concrete entities or literals.
-          Sentences with quantifiers or relative clauses are compiled into set plans and rules.
-        </p>
-        <pre><code>Ground:
-Truck_A is assigned to Warehouse_7.
-
-Non-ground:
-Every truck that is assigned to a warehouse is ready.
-</code></pre>
       </section>
 
       <section class="section">
