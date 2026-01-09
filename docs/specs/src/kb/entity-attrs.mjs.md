@@ -6,6 +6,7 @@ Stores entity-valued attributes per subject.
 ## Responsibilities
 - Maintain per-subject bitsets of entity values.
 - Support filters that match any value in a target set.
+- Optional: expose values for projection into derived binary predicates.
 
 ## Key Interfaces
 - `addValue(subjectId, entityId)`

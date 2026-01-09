@@ -47,6 +47,7 @@ Non-ground sentences become rule templates or query plans and are not inserted a
   - Numeric value stored in `numericIndex[capacity]`.
 - `X has a status of Active`:
   - Entity-valued attribute stored in `entAttrIndex[status]`.
+  - Optional: project into a derived predicate `has_attr|status` for join-heavy rules.
 
 ### Comparison Predicate
 Comparators (`greater than`, `less than`, `equal to`) do not become predicates.
