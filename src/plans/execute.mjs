@@ -1,42 +1,61 @@
-import { createBitset, createFullBitset } from "../kb/bitset.mjs";
+import { createBitset } from "../kb/bitset.mjs";
 import { SetOp, RelationOp, BoolOp, NumberOp } from "./ir.mjs";
 
 function resolveKb(kb) {
   return kb && kb.kb ? kb.kb : kb;
 }
 
+function bitsetFactoryFor(kbState) {
+  return kbState.bitsetFactory ?? createBitset;
+}
+
 function emptySet(kbState) {
-  return createBitset(kbState.entitiesCount);
+  return bitsetFactoryFor(kbState)(kbState.entitiesCount);
+}
+
+function fullSet(kbState) {
+  const set = bitsetFactoryFor(kbState)(kbState.entitiesCount);
+  for (let i = 0; i < kbState.entitiesCount; i += 1) {
+    set.setBit(i);
+  }
+  return set;
 }
 
 function normalizeComparator(comparator) {
-  const raw = String(comparator).toLowerCase().trim();
+  const rawValue = comparator && typeof comparator === "object" && comparator.op ? comparator.op : comparator;
+  const raw = String(rawValue).toLowerCase().trim();
   switch (raw) {
     case "gt":
     case ">":
     case "greater than":
+    case "greaterthan":
       return "gt";
     case "gte":
     case ">=":
     case "greater than or equal to":
+    case "greaterthanorequalto":
     case "at least":
       return "gte";
     case "lt":
     case "<":
     case "less than":
+    case "lessthan":
       return "lt";
     case "lte":
     case "<=":
     case "less than or equal to":
+    case "lessthanorequalto":
     case "at most":
       return "lte";
     case "eq":
     case "=":
     case "equal to":
+    case "equalto":
       return "eq";
     case "neq":
     case "!=":
     case "not equal to":
+    case "notequalto":
       return "neq";
     default:
       return null;
@@ -70,13 +89,13 @@ export function executeSet(plan, kb) {
 
   switch (plan.op) {
     case SetOp.AllEntities:
-      return createFullBitset(kbState.entitiesCount);
+      return fullSet(kbState);
     case SetOp.UnarySet: {
       const set = kbState.unaryIndex[plan.unaryId];
       return set ? set.clone() : emptySet(kbState);
     }
     case SetOp.EntitySet: {
-      const set = createBitset(kbState.entitiesCount);
+      const set = bitsetFactoryFor(kbState)(kbState.entitiesCount);
       if (plan.entityId < kbState.entitiesCount) {
         set.setBit(plan.entityId);
       }
@@ -152,7 +171,7 @@ export function executeRelation(plan, kb) {
       const relation = executeRelation(plan.relation, kbState);
       const subjectSet = executeSet(plan.subjectSet, kbState);
       const rows = relation.rows.map((row, subjectId) => {
-        if (!subjectSet.hasBit(subjectId)) return createBitset(kbState.entitiesCount);
+        if (!subjectSet.hasBit(subjectId)) return bitsetFactoryFor(kbState)(kbState.entitiesCount);
         return row.clone();
       });
       return { rows };
@@ -168,7 +187,7 @@ export function executeRelation(plan, kb) {
       const right = executeRelation(plan.right, kbState);
       const rows = [];
       for (let subjectId = 0; subjectId < left.rows.length; subjectId += 1) {
-        let acc = createBitset(kbState.entitiesCount);
+        let acc = bitsetFactoryFor(kbState)(kbState.entitiesCount);
         left.rows[subjectId].iterateSetBits((mid) => {
           acc = acc.or(right.rows[mid]);
         });

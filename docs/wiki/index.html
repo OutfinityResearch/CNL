@@ -54,29 +54,14 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>SVO</strong></td>
-              <td>Linguistics</td>
-              <td><strong>Subject-Verb-Object</strong>. The fixed structure of any atomic sentence in CNL. <br/><em>Example: "John (S) knows (V) Python (O)."</em></td>
+              <td><strong>API</strong></td>
+              <td>Software</td>
+              <td><strong>Application Programming Interface</strong>. Defines how external systems interact with the CNL session, learn new theories, or execute pragmatic commands.</td>
             </tr>
             <tr>
-              <td><strong>Pragmatics</strong></td>
-              <td>Architecture</td>
-              <td>The "intent" or execution mode applied to a sentence. The same text can be a Question (Query), a Verification (Verify), or a Goal (Plan).</td>
-            </tr>
-            <tr>
-              <td><strong>Bitset</strong></td>
-              <td>Technical</td>
-              <td>A high-performance data structure used by the CNL engine to store relations and sets of entities, enabling near-instant queries.</td>
-            </tr>
-            <tr>
-              <td><strong>Interning</strong></td>
+              <td><strong>AST</strong></td>
               <td>Compiler</td>
-              <td>The process of converting repetitive strings (like entity names or predicates) into unique integer IDs to optimize memory and speed.</td>
-            </tr>
-            <tr>
-              <td><strong>FactID</strong></td>
-              <td>Runtime</td>
-              <td>A unique identifier (usually a hash) for a specific fact (SVO triplet) in the Knowledge Base, used for provenance and explaining "why" something is true.</td>
+              <td><strong>Abstract Syntax Tree</strong>. The tree-like structure that represents the grammatical structure of the CNL code after parsing. In CNL-PL, the AST is "lossless" (preserves spans) and deterministic.</td>
             </tr>
             <tr>
               <td><strong>Action Block</strong></td>
@@ -84,14 +69,104 @@
               <td>A multi-line structure that defines an action's signature, the agent performing it, its preconditions, and its effects.</td>
             </tr>
             <tr>
+              <td><strong>BFS</strong></td>
+              <td>Algorithm</td>
+              <td><strong>Breadth-First Search</strong>. An algorithm used in reasoning primitives (e.g., finding shortest proof paths or minimal hypothesis sets).</td>
+            </tr>
+            <tr>
+              <td><strong>Bitset</strong></td>
+              <td>Technical</td>
+              <td>A high-performance data structure used by the CNL engine to store relations and sets of entities, enabling near-instant queries.</td>
+            </tr>
+            <tr>
+              <td><strong>CI</strong></td>
+              <td>DevOps</td>
+              <td><strong>Continuous Integration</strong>. The automated testing pipeline that verifies CNL-PL's correctness on every change (see DS05 Testing Plan).</td>
+            </tr>
+            <tr>
+              <td><strong>CNL-PL</strong></td>
+              <td>Project</td>
+              <td><strong>Controlled Natural Language Programming Language</strong>. The name of this language and system, designed to be readable like English but executable like logic.</td>
+            </tr>
+            <tr>
+              <td><strong>CSP</strong></td>
+              <td>Solving</td>
+              <td><strong>Constraint Satisfaction Problem</strong>. A mathematical problem defined by a set of objects whose state must satisfy a number of constraints or limitations (used in the 'Solve' pragmatic).</td>
+            </tr>
+            <tr>
               <td><strong>Canonical Form</strong></td>
               <td>Theory</td>
               <td>The standardized internal representation of a sentence. For example, "X > Y" is canonicalized to "X is greater than Y".</td>
             </tr>
             <tr>
-              <td><strong>AST</strong></td>
+              <td><strong>DAG</strong></td>
+              <td>Structure</td>
+              <td><strong>Directed Acyclic Graph</strong>. Used to represent justification chains in proofs and explanations, preventing circular reasoning.</td>
+            </tr>
+            <tr>
+              <td><strong>DS</strong></td>
+              <td>Specs</td>
+              <td><strong>Design Specification</strong>. The prefix for formal design documents (e.g., DS01, DS03) that define the authoritative behavior of the system.</td>
+            </tr>
+            <tr>
+              <td><strong>EBNF</strong></td>
+              <td>Syntax</td>
+              <td><strong>Extended Backus-Naur Form</strong>. A notation used to formally describe the grammar rules of CNL-PL (see DS03).</td>
+            </tr>
+            <tr>
+              <td><strong>EOF</strong></td>
+              <td>Parser</td>
+              <td><strong>End Of File</strong>. A token marking the end of the input stream, important for validation rules.</td>
+            </tr>
+            <tr>
+              <td><strong>FactID</strong></td>
+              <td>Runtime</td>
+              <td>A unique identifier (usually a hash) for a specific fact (SVO triplet) in the Knowledge Base, used for provenance and explaining "why" something is true.</td>
+            </tr>
+            <tr>
+              <td><strong>IDENT</strong></td>
+              <td>Lexer</td>
+              <td>A token type representing an identifier (name, attribute, or noun core), distinct from keywords and literals.</td>
+            </tr>
+            <tr>
+              <td><strong>IR</strong></td>
               <td>Compiler</td>
-              <td><strong>Abstract Syntax Tree</strong>. The tree-like structure that represents the grammatical structure of the CNL code after parsing.</td>
+              <td><strong>Intermediate Representation</strong>. A specialized format (Plan IR) used between the AST and the runtime execution engine (see DS16).</td>
+            </tr>
+            <tr>
+              <td><strong>Interning</strong></td>
+              <td>Compiler</td>
+              <td>The process of converting repetitive strings (like entity names or predicates) into unique integer IDs to optimize memory and speed.</td>
+            </tr>
+            <tr>
+              <td><strong>JSON</strong></td>
+              <td>Data</td>
+              <td><strong>JavaScript Object Notation</strong>. The format used for AST snapshots, configuration, and evaluation suite outputs.</td>
+            </tr>
+            <tr>
+              <td><strong>KB</strong></td>
+              <td>Runtime</td>
+              <td><strong>Knowledge Base</strong>. The in-memory database that stores compiled facts, relations, and indices (DS09).</td>
+            </tr>
+            <tr>
+              <td><strong>Pragmatics</strong></td>
+              <td>Architecture</td>
+              <td>The "intent" or execution mode applied to a sentence. The same text can be a Question (Query), a Verification (Verify), or a Goal (Plan).</td>
+            </tr>
+            <tr>
+              <td><strong>SMT</strong></td>
+              <td>Backend</td>
+              <td><strong>Satisfiability Modulo Theories</strong>. A powerful class of solvers that can be used as a backend for the 'Proof' and 'Solve' pragmatics.</td>
+            </tr>
+            <tr>
+              <td><strong>SVO</strong></td>
+              <td>Linguistics</td>
+              <td><strong>Subject-Verb-Object</strong>. The fixed structure of any atomic sentence in CNL. <br/><em>Example: "John (S) knows (V) Python (O)."</em></td>
+            </tr>
+            <tr>
+              <td><strong>UTF-8</strong></td>
+              <td>Encoding</td>
+              <td>The standard character encoding used for all CNL source files and inputs.</td>
             </tr>
           </tbody>
         </table>

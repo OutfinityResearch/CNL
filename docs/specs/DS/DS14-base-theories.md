@@ -20,7 +20,7 @@ Base theories live under:
 - `theories/base/`
 
 Proposed files:
-- `theories/base/00-dictionary.cnl` (dictionary context only)
+- `theories/base/00-base-dictionary.cnl` (BaseDictionary context only)
 - `theories/base/01-core-types.cnl`
 - `theories/base/02-core-relations.cnl`
 - `theories/base/03-time.cnl`

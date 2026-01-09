@@ -17,6 +17,9 @@ CNLSession manages:
 - Optional base dictionary declarations (predicate/attribute typing).
 - Source map: theory file -> list of asserted facts and rules.
 
+## Session Options
+- `projectEntityAttributes`: when true, entity-valued attributes are also projected into derived binary predicates `has_attr|<AttrKey>`.
+
 ## Lifecycle
 1. Initialize with optional dictionary and bitset implementation.
 2. `learn(theoryFile)` parses, validates, compiles, and updates KB.

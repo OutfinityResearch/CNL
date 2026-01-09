@@ -8,6 +8,7 @@ Top-level compiler entrypoint that transforms a deterministic AST into compiled 
 - Route BaseDictionary contexts to the dictionary compiler.
 - Allocate ConceptualIDs and dense IDs via interners.
 - Emit KB inserts for ground facts.
+- Optionally project entity-valued attributes into derived predicates.
 - Emit RulePlan, ActionPlan, and CommandPlan artifacts.
 - Return a single CompiledArtifacts bundle.
 

@@ -109,7 +109,8 @@ function handleAttributeAssertion(assertion, state, options) {
   }
 
   const value = assertion.value;
-  const attrDef = state.dictionary.attributes.get(attrKey);
+  const dictionaryKey = attrKey.replace(/^A:/, "");
+  const attrDef = state.dictionary.attributes.get(dictionaryKey);
 
   if (value && value.kind === "NumberLiteral") {
     if (attrDef && attrDef.valueType && attrDef.valueType !== "numeric") {
@@ -143,7 +144,7 @@ function handleAttributeAssertion(assertion, state, options) {
 
   let projectPredId = null;
   if (options.projectEntityAttributes) {
-    const derivedKey = `P:has_attr|${attrKey.replace(/^A:/, "")}`;
+    const derivedKey = `P:has_attr|${dictionaryKey}`;
     projectPredId = resolvePredId(derivedKey, state);
   }
 
@@ -262,7 +263,7 @@ export function compileProgram(ast, options = {}) {
         compileSentence(item.sentence, state, { projectEntityAttributes });
         break;
       case "RuleStatement":
-        state.ruleStore.addRule({ kind: "RulePlan", body: item.sentence, head: item.sentence });
+        state.ruleStore.addRule({ kind: "RuleAst", sentence: item.sentence });
         break;
       case "CommandStatement":
         state.commandStore.push(compileCommand(item.command, state));

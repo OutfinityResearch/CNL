@@ -1,32 +1,39 @@
 function normalizeComparator(comparator) {
   if (!comparator) return null;
-  const raw = String(comparator).toLowerCase().trim();
+  const rawValue = comparator && typeof comparator === "object" && comparator.op ? comparator.op : comparator;
+  const raw = String(rawValue).toLowerCase().trim();
   switch (raw) {
     case "gt":
     case ">":
     case "greater than":
+    case "greaterthan":
       return "gt";
     case "gte":
     case ">=":
     case "greater than or equal to":
+    case "greaterthanorequalto":
     case "at least":
       return "gte";
     case "lt":
     case "<":
     case "less than":
+    case "lessthan":
       return "lt";
     case "lte":
     case "<=":
     case "less than or equal to":
+    case "lessthanorequalto":
     case "at most":
       return "lte";
     case "eq":
     case "=":
     case "equal to":
+    case "equalto":
       return "eq";
     case "neq":
     case "!=" :
     case "not equal to":
+    case "notequalto":
       return "neq";
     default:
       return null;

@@ -23,6 +23,7 @@ export function createKB(options = {}) {
     unaryIndex: [],
     numericIndex: [],
     entAttrIndex: [],
+    bitsetFactory,
   };
 
   function ensureEntityCapacity(minSize) {

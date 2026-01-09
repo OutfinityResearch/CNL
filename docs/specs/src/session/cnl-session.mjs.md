@@ -7,6 +7,7 @@ Session-level API for learning theories and executing pragmatics.
 - Manage dictionary state, interners, and compiled KB.
 - Provide `learn` with transactional or incremental behavior.
 - Dispatch query/proof/solve/plan/simulate/optimize calls.
+- Apply `projectEntityAttributes` when compiling entity-valued attributes.
 
 ## Key Interfaces
 - `learn(theoryFile, options)`
