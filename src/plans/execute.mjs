@@ -231,8 +231,28 @@ export function executeNumber(plan, kb) {
       return index.values[plan.subjectId];
     }
     case NumberOp.Aggregate: {
-      if (plan.aggregateOp === "NumberOf") {
-        return executeSet(plan.set, kbState).popcount();
+      const aggregateOp = plan.aggregateOp;
+      const set = executeSet(plan.set, kbState);
+      if (aggregateOp === "NumberOf") {
+        return set.popcount();
+      }
+      const attrId = plan.attrId;
+      if (!Number.isInteger(attrId)) return Number.NaN;
+      const index = kbState.numericIndex[attrId];
+      if (!index) return Number.NaN;
+      let sum = 0;
+      let count = 0;
+      set.iterateSetBits((subjectId) => {
+        if (index.hasValue.hasBit(subjectId)) {
+          sum += index.values[subjectId];
+          count += 1;
+        }
+      });
+      if (aggregateOp === "AverageOf") {
+        return count === 0 ? Number.NaN : sum / count;
+      }
+      if (aggregateOp === "SumOf" || aggregateOp === "TotalOf") {
+        return sum;
       }
       return Number.NaN;
     }

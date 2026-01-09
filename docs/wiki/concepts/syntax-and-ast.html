@@ -37,6 +37,27 @@
           For example, in the sentence <em>"The server handles high load"</em>, the architecture does not see three words. It sees a <strong>Subject</strong> entity (server), a <strong>Relation</strong> or verb phrase (handles), and an <strong>Object</strong> entity (high load). This triplet forms the "atomic fact" or <strong>Assertion</strong>. Complex logic is built simply by combining these atomic triplets using boolean operators, but the triplets themselves remain the immutable building blocks of truth in the system.
         </p>
 
+        <h2 id="examples">Quick examples</h2>
+        <p>Short examples show how strict syntax prevents ambiguity.</p>
+        <pre><code>Valid atomic sentence:
+Truck_A is assigned to Warehouse_7.
+
+Invalid (missing determiner):
+Driver is assigned to a route.
+
+Valid relative clause:
+A user who is active and who knows Python is an admin.
+</code></pre>
+
+        <h2 id="aggregations">Aggregations and comparators</h2>
+        <p>
+          Aggregations produce numeric values, and comparators express numeric constraints without
+          becoming predicates. Both are parsed into structured AST nodes.
+        </p>
+        <pre><code>The number of packages is greater than 10.
+The sum of weight of every package is less than 5000.
+</code></pre>
+
         <h2 id="ast">The Lossless AST</h2>
         <p>
           The <strong>AST (Abstract Syntax Tree)</strong> in CNL-PL differs significantly from ASTs in traditional programming languages like JavaScript or Python. In those languages, the AST is often "lowered" or simplified immediately—comments are discarded, whitespace is irrelevant, and syntactic sugar is desugared.

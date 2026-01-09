@@ -104,6 +104,10 @@ Command: Find a driver such that the driver is available and the driver is assig
           The plan command compiles into a search over actions, while the find command compiles into
           a constraint-style selection over the KB state.
         </p>
+        <p>
+          Expected outputs: the plan returns an ordered list of actions, while the find command
+          returns the matching entities or bindings that satisfy the condition.
+        </p>
       </section>
 
       <section class="section">
@@ -123,12 +127,15 @@ Route_2 is available.
 Command: Minimize the cost of the route such that the route is feasible.
 
 Rule: When a delay occurs, then the route is delayed.
-Route_2 is not delayed.
 Command: Simulate 3 steps.
 </code></pre>
         <p>
           The minimize command compiles into a numeric objective over the feasible set. The simulate
           command applies the transition rule for three steps over the current state overlay.
+        </p>
+        <p>
+          Expected outputs: minimize returns the chosen route and its objective value, while simulate
+          returns the state snapshots or final state after the requested steps.
         </p>
       </section>
 
@@ -144,6 +151,19 @@ Command: Simulate 3 steps.
           <li>The rule on <em>priority</em> compiles into a join between <em>heavy</em> and <em>assigned to</em>.</li>
           <li>The return command compiles into a SetPlan that filters packages by <em>priority</em>.</li>
           <li>The explain command targets the justification chain for <em>priority(Package_1)</em>.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2 id="state">State and overlays</h2>
+        <p>
+          Planning and simulation operate on a state overlay rather than mutating the base KB. Each
+          step produces a delta of added or removed facts, which can be committed or discarded.
+        </p>
+        <ul class="list">
+          <li><strong>Base state</strong>: the compiled KB facts and indexes.</li>
+          <li><strong>Delta layer</strong>: temporary inserts/removals for a plan or simulation step.</li>
+          <li><strong>Overlay</strong>: the logical union of base plus delta, used for queries and preconditions.</li>
         </ul>
       </section>
 

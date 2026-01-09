@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CNL KB Explorer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__title">CNL KB Explorer</div>
+      <div class="topbar__meta">
+        <span id="sessionLabel" class="mono">Session Active</span>
+        <span id="kbStats" class="mono muted">Entities: 0</span>
+        <button id="resetBtn" type="button" class="btn btn--ghost">Reset</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="tabs">
+        <div class="tabs__bar">
+          <button id="tabChat" class="tab tab--active">Console</button>
+          <button id="tabTree" class="tab">KB Tree</button>
+          <button id="tabExamples" class="tab">Examples</button>
+        </div>
+
+        <!-- Chat / REPL Panel -->
+        <div id="panelChat" class="tabs__panel tabs__panel--active">
+          <div id="chatOutput" class="chat"></div>
+          <div class="composer">
+            <textarea id="textInput" class="composer__input" rows="3" placeholder="Enter CNL command (e.g. 'John is a User.')"></textarea>
+            <div class="composer__row--end">
+              <button id="sendBtn" class="btn btn--primary">Execute</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tree View Panel -->
+        <div id="panelTree" class="tabs__panel">
+          <div class="explorer">
+            <div class="explorer__tree">
+              <div id="kbTree" class="tree">Loading...</div>
+            </div>
+            <div class="explorer__details">
+              <div class="details__header">Details</div>
+              <div id="kbDetails" class="details">Select an item to view properties.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Examples Panel -->
+        <div id="panelExamples" class="tabs__panel">
+          <div class="docs">
+            <h2>Pragmatic Examples</h2>
+            <p class="muted">Click on any example to load it into the console.</p>
+            <div id="examplesList"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

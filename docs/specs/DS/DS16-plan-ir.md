@@ -53,7 +53,7 @@ Compare(numberPlanLeft, comparator, numberPlanRight)
 ## NumberPlan Operators
 ```
 AttrValue(attrId, subjectId)
-Aggregate(op, setPlan)
+Aggregate(op, setPlan, attrId?)
 ```
 
 `Aggregate` supports NumberOf, SumOf, AverageOf, TotalOf as defined in DS04.

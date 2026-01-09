@@ -22,3 +22,23 @@ test("compiler produces rule plans that can be applied", () => {
 
   assert.ok(state.kb.kb.unaryIndex[unaryId].hasBit(serverId));
 });
+
+const universalSource = `Server1 handles Payments.
+Server1 is a server.
+Every server that handles Payments is encrypted.`;
+
+test("universal assertions compile to rule plans", () => {
+  const ast = parseProgram(universalSource);
+  const state = compileProgram(ast);
+  assert.equal(state.errors.length, 0);
+
+  const added = state.ruleStore.applyRules(state.kb);
+  assert.equal(added, 1);
+
+  const encryptedConcept = state.idStore.internConcept(ConceptKind.UnaryPredicate, "U:encrypted");
+  const serverConcept = state.idStore.internConcept(ConceptKind.Entity, "E:Server1");
+  const unaryId = state.idStore.getDenseId(ConceptKind.UnaryPredicate, encryptedConcept);
+  const serverId = state.idStore.getDenseId(ConceptKind.Entity, serverConcept);
+
+  assert.ok(state.kb.kb.unaryIndex[unaryId].hasBit(serverId));
+});

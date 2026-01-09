@@ -8,6 +8,7 @@ Top-level compiler entrypoint that transforms a deterministic AST into compiled 
 - Route BaseDictionary contexts to the dictionary compiler.
 - Allocate ConceptualIDs and dense IDs via interners.
 - Emit KB inserts for ground facts.
+- Compile universal quantified assertions into RulePlan bodies.
 - Optionally project entity-valued attributes into derived predicates.
 - Emit RulePlan, ActionPlan, and CommandPlan artifacts.
 - Return a single CompiledArtifacts bundle.
@@ -19,6 +20,9 @@ Top-level compiler entrypoint that transforms a deterministic AST into compiled 
 - `compileRule(node)`
 - `compileCommand(node)`
 - `compileActionBlock(node)`
+
+## Non-ground Assertions
+Assertions whose subject is a noun phrase are treated as rules only when the subject uses a universal quantifier (`every`/`all`). Other non-ground assertions emit a compiler error.
 
 ## Dependencies
 - `src/ids/interners.mjs`

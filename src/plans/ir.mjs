@@ -100,7 +100,7 @@ export const Plans = {
   attrValue(attrId, subjectId) {
     return numberPlan(NumberOp.AttrValue, { attrId, subjectId });
   },
-  aggregate(op, set) {
-    return numberPlan(NumberOp.Aggregate, { aggregateOp: op, set });
+  aggregate(op, set, attrId = null) {
+    return numberPlan(NumberOp.Aggregate, { aggregateOp: op, set, attrId });
   },
 };

@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import { parseProgram } from "../parser/grammar.mjs";
 import { createCompilerState, compileProgram } from "../compiler/compile.mjs";
+import { executeCommandAst, materializeRules } from "../runtime/engine.mjs";
 
 function createError(code, message) {
   return {
@@ -59,32 +60,80 @@ export class CNLSession {
     return { errors: this.state.errors, applied: this.state.errors.length === 0 };
   }
 
-  query() {
-    return { error: createError("SES002", "Query is not implemented.") };
+  query(cnlText, options = {}) {
+    const { command, error } = this.#parseCommand(cnlText);
+    if (error) return { error };
+    if (command.kind !== "ReturnCommand" && command.kind !== "FindCommand") {
+      return { error: createError("SES010", "Query requires a return or find command.") };
+    }
+    if (options.deduce ?? false) {
+      materializeRules(this.state, { justificationStore: this.state.justificationStore });
+    }
+    return executeCommandAst(command, this.state);
   }
 
-  proof() {
-    return { error: createError("SES003", "Proof is not implemented.") };
+  proof(cnlText, options = {}) {
+    const { command, error } = this.#parseCommand(cnlText);
+    if (error) return { error };
+    if (command.kind !== "VerifyCommand") {
+      return { error: createError("SES011", "Proof requires a verify command.") };
+    }
+    if (options.deduce ?? true) {
+      materializeRules(this.state, { justificationStore: this.state.justificationStore });
+    }
+    return executeCommandAst(command, this.state);
   }
 
-  explain() {
-    return { error: createError("SES004", "Explain is not implemented.") };
+  explain(cnlText, options = {}) {
+    const { command, error } = this.#parseCommand(cnlText);
+    if (error) return { error };
+    if (command.kind !== "ExplainCommand") {
+      return { error: createError("SES012", "Explain requires an explain command.") };
+    }
+    if (options.deduce ?? true) {
+      materializeRules(this.state, { justificationStore: this.state.justificationStore });
+    }
+    return executeCommandAst(command, this.state);
   }
 
   solve() {
-    return { error: createError("SES005", "Solve is not implemented.") };
+    return { error: createError("SES005", "Solve is not supported by the grammar.") };
   }
 
-  plan() {
-    return { error: createError("SES006", "Plan is not implemented.") };
+  plan(cnlText, options = {}) {
+    const { command, error } = this.#parseCommand(cnlText);
+    if (error) return { error };
+    if (command.kind !== "PlanCommand") {
+      return { error: createError("SES013", "Plan requires a plan command.") };
+    }
+    if (options.deduce ?? true) {
+      materializeRules(this.state, { justificationStore: this.state.justificationStore });
+    }
+    return executeCommandAst(command, this.state);
   }
 
-  simulate() {
-    return { error: createError("SES007", "Simulate is not implemented.") };
+  simulate(cnlText, options = {}) {
+    const { command, error } = this.#parseCommand(cnlText);
+    if (error) return { error };
+    if (command.kind !== "SimulateCommand") {
+      return { error: createError("SES014", "Simulate requires a simulate command.") };
+    }
+    if (options.deduce ?? true) {
+      materializeRules(this.state, { justificationStore: this.state.justificationStore });
+    }
+    return executeCommandAst(command, this.state);
   }
 
-  optimize() {
-    return { error: createError("SES008", "Optimize is not implemented.") };
+  optimize(cnlText, options = {}) {
+    const { command, error } = this.#parseCommand(cnlText);
+    if (error) return { error };
+    if (command.kind !== "MaximizeCommand" && command.kind !== "MinimizeCommand") {
+      return { error: createError("SES015", "Optimize requires a maximize or minimize command.") };
+    }
+    if (options.deduce ?? true) {
+      materializeRules(this.state, { justificationStore: this.state.justificationStore });
+    }
+    return executeCommandAst(command, this.state);
   }
 
   snapshot() {
@@ -129,5 +178,22 @@ export class CNLSession {
       return error;
     }
     return createError("SES009", error?.message ?? "Parser error.");
+  }
+
+  #parseCommand(cnlText) {
+    let ast = null;
+    try {
+      ast = parseProgram(cnlText);
+    } catch (error) {
+      return { command: null, error: this.#toErrorObject(error) };
+    }
+    const commandItems = ast.items.filter((item) => item.kind === "CommandStatement");
+    if (commandItems.length === 0) {
+      return { command: null, error: createError("SES016", "No command found in input.") };
+    }
+    if (ast.items.length !== commandItems.length) {
+      return { command: null, error: createError("SES017", "Command input must not include statements.") };
+    }
+    return { command: commandItems[0].command, error: null };
   }
 }

@@ -1,0 +1,16 @@
+{
+  "name": "cnl-pl",
+  "version": "1.1.0",
+  "description": "Controlled Natural Language Programming Language",
+  "type": "module",
+  "scripts": {
+    "server": "node tools/explorer/server/index.mjs",
+    "tests": "node --test tests/**/*.test.mjs",
+    "evals": "node evals/runAll.mjs"
+  },
+  "author": "Axiologic Research",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

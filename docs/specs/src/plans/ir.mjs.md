@@ -8,6 +8,9 @@ Defines Plan IR node constructors and type tags for SetPlan, RelationPlan, BoolP
 - Ensure plans carry only IDs, not raw text.
 - Support serialization for caching or debugging.
 
+## Aggregate Plans
+`NumberPlan` aggregates include an optional `attrId` for numeric selectors. `NumberOf` ignores `attrId` and counts entities in the set.
+
 ## Key Interfaces
 - `setPlan(op, args)`
 - `relationPlan(op, args)`

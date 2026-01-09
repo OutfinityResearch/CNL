@@ -5,7 +5,7 @@ import { createActionStore } from "../actions/store.mjs";
 import { createFormulaStore } from "../formulas/store.mjs";
 import { createJustificationStore } from "../provenance/justifications.mjs";
 import { createDictionaryState, applyDictionaryStatement } from "./dictionary.mjs";
-import { compileRuleBody, compileRuleHead, compileCommand } from "./ast-to-plan.mjs";
+import { compileRuleBody, compileRuleHead, compileCommand, compileNP } from "./ast-to-plan.mjs";
 import { canonicalEntityKey, canonicalAttributeKey } from "./canonical-keys.mjs";
 
 function createError(code, message, primaryToken) {
@@ -43,13 +43,37 @@ function canonicalPassiveKey(verb, preposition) {
 
 function dictionaryPredicateKeyFromVerb(key) {
   if (!key) return null;
-  return key.replace(/^P:/, "");
+  let normalized = key.replace(/^P:/, "");
+  if (normalized.startsWith("passive:")) {
+    normalized = normalized.slice("passive:".length);
+  }
+  return normalized;
 }
 
 function dictionaryUnaryKeyFromComplement(complement) {
   if (!complement) return null;
   if (complement.kind === "Name") return complement.value;
   if (complement.kind === "NounPhrase") return complement.core.join(" ");
+  return null;
+}
+
+function lookupPredicateDef(dictionary, key) {
+  if (!dictionary || !key) return null;
+  if (dictionary.predicates.has(key)) {
+    return dictionary.predicates.get(key);
+  }
+  if (key.includes("|")) {
+    const spaced = key.split("|").join(" ");
+    if (dictionary.predicates.has(spaced)) {
+      return dictionary.predicates.get(spaced);
+    }
+  }
+  if (key.includes(" ")) {
+    const piped = key.trim().split(/\s+/).join("|");
+    if (dictionary.predicates.has(piped)) {
+      return dictionary.predicates.get(piped);
+    }
+  }
   return null;
 }
 
@@ -233,7 +257,7 @@ function handleAssertion(assertion, state, options) {
       const predId = resolvePredId(predKey, state);
       if (state.validateDictionary) {
         const dictKey = dictionaryPredicateKeyFromVerb(predKey);
-        const predDef = state.dictionary.predicates.get(dictKey);
+        const predDef = lookupPredicateDef(state.dictionary, dictKey);
         if (predDef && predDef.arity && predDef.arity !== "binary") {
           state.errors.push(createError("CMP015", "Predicate arity mismatch.", dictKey));
           return;
@@ -254,7 +278,7 @@ function handleAssertion(assertion, state, options) {
       const predId = resolvePredId(predKey, state);
       if (state.validateDictionary) {
         const dictKey = dictionaryPredicateKeyFromVerb(predKey);
-        const predDef = state.dictionary.predicates.get(dictKey);
+        const predDef = lookupPredicateDef(state.dictionary, dictKey);
         if (predDef && predDef.arity && predDef.arity !== "binary") {
           state.errors.push(createError("CMP015", "Predicate arity mismatch.", dictKey));
           return;
@@ -273,7 +297,7 @@ function handleAssertion(assertion, state, options) {
       if (state.validateDictionary) {
         const unaryKey = dictionaryUnaryKeyFromComplement(assertion.complement);
         if (unaryKey) {
-          const predDef = state.dictionary.predicates.get(unaryKey);
+          const predDef = lookupPredicateDef(state.dictionary, unaryKey);
           if (predDef && predDef.arity && predDef.arity !== "unary") {
             state.errors.push(createError("CMP015", "Predicate arity mismatch.", unaryKey));
             return;
@@ -310,13 +334,45 @@ function handleAssertion(assertion, state, options) {
   }
 }
 
+function isUniversalNounPhrase(node) {
+  if (!node || node.kind !== "NounPhrase") return false;
+  const prefix = node.prefix;
+  if (!prefix || prefix.kind !== "Quantifier") return false;
+  return prefix.q === "every" || prefix.q === "all";
+}
+
+function isNonGroundSubject(assertion) {
+  const subject = assertion?.subject;
+  return subject && subject.kind === "NounPhrase";
+}
+
 function compileSentence(sentence, state, options) {
   if (!sentence) return;
   if (sentence.kind === "AssertionSentence") {
+    if (isNonGroundSubject(sentence.assertion)) {
+      if (isUniversalNounPhrase(sentence.assertion.subject)) {
+        const body = compileNP(sentence.assertion.subject, state);
+        const head = compileRuleHead(sentence, state);
+        state.ruleStore.addRule({ kind: "RulePlan", body, head });
+        return;
+      }
+      state.errors.push(createError("CMP018", "Non-ground assertion requires a universal quantifier.", "subject"));
+      return;
+    }
     handleAssertion(sentence.assertion, state, options);
     return;
   }
   if (sentence.kind === "BecauseSentence") {
+    if (isNonGroundSubject(sentence.assertion)) {
+      if (isUniversalNounPhrase(sentence.assertion.subject)) {
+        const body = compileNP(sentence.assertion.subject, state);
+        const head = compileRuleHead(sentence, state);
+        state.ruleStore.addRule({ kind: "RulePlan", body, head });
+        return;
+      }
+      state.errors.push(createError("CMP018", "Non-ground assertion requires a universal quantifier.", "subject"));
+      return;
+    }
     handleAssertion(sentence.assertion, state, options);
     return;
   }

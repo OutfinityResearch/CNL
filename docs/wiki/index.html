@@ -81,22 +81,32 @@
             <tr>
               <td><strong><a href="concepts/syntax-and-ast.html#svo">Atomic Sentence</a></strong></td>
               <td>Syntax</td>
-              <td>The minimal statement form (subject + typed predicate) that can become a fact or a rule literal.</td>
+              <td>The minimal statement form (subject + typed predicate) that can become a fact or a rule literal. Example: "Package_1 is heavy."</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/syntax-and-ast.html#svo">Assertion</a></strong></td>
               <td>Syntax</td>
-              <td>An atomic statement that asserts a fact about the world, expressed as a typed SVO triplet.</td>
+              <td>An atomic statement that asserts a fact about the world, expressed as a typed SVO triplet. Example: "Server_1 handles payments."</td>
             </tr>
             <tr>
               <td><strong><a href="../theory/03-boolean-logic.html">Condition</a></strong></td>
               <td>Logic</td>
-              <td>A boolean structure built from assertions, with explicit grouping rules.</td>
+              <td>A boolean structure built from assertions, with explicit grouping rules. Example: "Both the user is active and the user is verified."</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/syntax-and-ast.html#aggregations">Aggregation</a></strong></td>
+              <td>Syntax</td>
+              <td>A numeric expression over a set, such as counts or sums. Example: "The number of packages is greater than 10."</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/syntax-and-ast.html#aggregations">Comparator</a></strong></td>
+              <td>Syntax</td>
+              <td>A comparison operator used with numeric expressions, such as "greater than" or "equal to".</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/syntax-and-ast.html#grammar">Action Block</a></strong></td>
               <td>Syntax</td>
-              <td>A multi-line structure that defines an action's signature, the agent performing it, its preconditions, and its effects.</td>
+              <td>A multi-line structure that defines an action's signature, the agent performing it, its preconditions, and its effects. Example: "Action: assign a driver to a route."</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/compiler-and-ir.html#executable">ActionPlan</a></strong></td>
@@ -104,14 +114,34 @@
               <td>The compiled structure of an action, containing optimized SetPlan/BoolPlan trees for preconditions and effect deltas for the KB.</td>
             </tr>
             <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#actions">Action Signature</a></strong></td>
+              <td>Planning</td>
+              <td>The verb phrase and object that identify an action. Example: "assign a driver to a route".</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#actions">Precondition</a></strong></td>
+              <td>Planning</td>
+              <td>A boolean requirement that must hold before an action executes. Example: "the route is unassigned".</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#actions">Effect</a></strong></td>
+              <td>Planning</td>
+              <td>The KB change produced by an action. Example: "the driver is assigned to the route".</td>
+            </tr>
+            <tr>
               <td><strong><a href="concepts/syntax-and-ast.html#svo">Verb Phrase</a></strong></td>
               <td>Syntax</td>
-              <td>A structured predicate record that captures copula, verb, particles, and comparators so predicate IDs are deterministic.</td>
+              <td>A structured predicate record that captures copula, verb, particles, and comparators so predicate IDs are deterministic. Example: "is assigned to".</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/identity-and-interning.html#dense">AttrID</a></strong></td>
               <td>Runtime</td>
               <td>A dense numeric index uniquely identifying an attribute (e.g., "capacity", "status") within the Knowledge Base.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/knowledge-base.html#indices">Attribute</a></strong></td>
+              <td>Semantics</td>
+              <td>A named property stored as numeric or entity-valued data. Example: "capacity", "status".</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/execution-pragmatics.html#search">BFS</a></strong></td>
@@ -241,7 +271,17 @@
             <tr>
               <td><strong><a href="concepts/knowledge-base.html#relations">Inverse Index</a></strong></td>
               <td>Storage</td>
-              <td>The reverse RelationMatrix used to answer \"who points to this object\" in O(1) bitset time.</td>
+              <td>The reverse RelationMatrix used to answer "who points to this object" in O(1) bitset time.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="../theory/06-end-to-end-flow.html#state">State Overlay</a></strong></td>
+              <td>Runtime</td>
+              <td>The logical view that combines the base KB with a temporary delta layer.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="../theory/06-end-to-end-flow.html#state">Delta Layer</a></strong></td>
+              <td>Runtime</td>
+              <td>The temporary set of adds/removes applied during planning or simulation steps.</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/compiler-and-ir.html#plans">NumberPlan</a></strong></td>
@@ -261,47 +301,62 @@
             <tr>
               <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Query</a></strong></td>
               <td>Pragmatics</td>
-              <td>The mode that evaluates conditions and returns entity sets or projected values (for example, “Command: Return the name of every active user.”).</td>
+              <td>The mode that evaluates conditions and returns entity sets or projected values (for example, "Command: Return the name of every active user.").</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Verify</a></strong></td>
               <td>Pragmatics</td>
-              <td>The mode that checks whether a proposition is derivable (for example, “Command: Verify that every server is encrypted.”).</td>
+              <td>The mode that checks whether a proposition is derivable (for example, "Command: Verify that every server is encrypted.").</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Proof</a></strong></td>
               <td>Pragmatics</td>
-              <td>The underlying derivation engine used by Verify; it can also emit a proof trace instead of a boolean.</td>
+              <td>The underlying derivation engine used by Verify; it can also emit a proof trace instead of a boolean. Example: "Rule_12 + premises".</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Explain</a></strong></td>
               <td>Pragmatics</td>
-              <td>The mode that returns the justification chain for a derived fact (for example, “Command: Explain why Server_1 is encrypted.”).</td>
+              <td>The mode that returns the justification chain for a derived fact (for example, "Command: Explain why Server_1 is encrypted.").</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Plan</a></strong></td>
               <td>Pragmatics</td>
-              <td>The mode that searches for an action sequence that achieves a goal condition (for example, “Command: Plan to achieve all packages delivered.”).</td>
+              <td>The mode that searches for an action sequence that achieves a goal condition (for example, "Command: Plan to achieve all packages delivered.").</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/execution-pragmatics.html#solving">Solve</a></strong></td>
               <td>Pragmatics</td>
-              <td>The mode that binds variables to satisfy constraints, often treated as a CSP (for example, “Command: Find a route such that the route is feasible.”).</td>
+              <td>The mode that binds variables to satisfy constraints, often treated as a CSP (for example, "Command: Find a route such that the route is feasible.").</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#solving">Variable Binding</a></strong></td>
+              <td>Solving</td>
+              <td>The assignment of concrete entities to variables so a constraint becomes true.</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Simulate</a></strong></td>
               <td>Pragmatics</td>
-              <td>The mode that applies transition rules step-by-step to evolve state (for example, “Command: Simulate 5 steps.”).</td>
+              <td>The mode that applies transition rules step-by-step to evolve state (for example, "Command: Simulate 5 steps.").</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Optimize</a></strong></td>
               <td>Pragmatics</td>
-              <td>The mode that maximizes or minimizes an objective under constraints (for example, “Command: Minimize the total cost of the route.”).</td>
+              <td>The mode that maximizes or minimizes an objective under constraints (for example, "Command: Minimize the total cost of the route.").</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/identity-and-interning.html#dense">PredID</a></strong></td>
               <td>Runtime</td>
               <td>A dense numeric index representing a binary relation (verb phrase) in the KB.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/knowledge-base.html#relations">Relation</a></strong></td>
+              <td>Semantics</td>
+              <td>A typed verb phrase that links a subject to an object.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/knowledge-base.html#relations">Binary Relation</a></strong></td>
+              <td>Storage</td>
+              <td>A subject-object relation stored in the RelationMatrix with forward and inverse indices.</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/identity-and-interning.html#provenance">PropID</a></strong></td>
@@ -321,7 +376,37 @@
             <tr>
               <td><strong><a href="../theory/06-end-to-end-flow.html#reasoning">Justification</a></strong></td>
               <td>Provenance</td>
-              <td>The recorded chain of rules and premises that explain why a derived fact holds.</td>
+              <td>The recorded chain of rules and premises that explain why a derived fact holds. Example: "Rule_12 from Fact_3 and Fact_9".</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#rules">Rule</a></strong></td>
+              <td>Logic</td>
+              <td>An implication that derives new facts from conditions. Example: "A route is valid if the route is feasible."</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#rules">Rule Body</a></strong></td>
+              <td>Logic</td>
+              <td>The condition part of a rule (the "if" side) that must hold to trigger derivation.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#rules">Rule Head</a></strong></td>
+              <td>Logic</td>
+              <td>The consequence part of a rule (the "then" side) that is derived when the body holds.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#rules">Constraint</a></strong></td>
+              <td>Logic</td>
+              <td>A boolean condition that restricts valid states or solutions. Example: "every server is encrypted".</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#rules">Transition Rule</a></strong></td>
+              <td>Simulation</td>
+              <td>A rule of the form "when X occurs, then Y" used to evolve state over steps.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#proof-explain">Provenance</a></strong></td>
+              <td>Provenance</td>
+              <td>The stored derivation metadata that allows Proof and Explain to reference sources.</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/identity-and-interning.html#provenance">RuleID</a></strong></td>

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { parseProgram } from "../../src/parser/grammar.mjs";
 import { compileProgram } from "../../src/compiler/compile.mjs";
 import { ConceptKind } from "../../src/ids/interners.mjs";
-import { canonicalEntityKey } from "../../src/compiler/canonical-keys.mjs";
+import { canonicalEntityKey, canonicalAttributeKey } from "../../src/compiler/canonical-keys.mjs";
 
 const source = `--- CONTEXT: BaseDictionary ---
 "status" is an entity attribute.
@@ -56,4 +56,35 @@ If Truck_A likes "Pizza", then Truck_A is happy.`;
   assert.ok(preimage);
   assert.equal(preimage.objectSet.op, "EntitySet");
   assert.equal(preimage.objectSet.entityId, pizzaId);
+});
+
+test("attribute keys include prepositional phrases in plans and KB", () => {
+  const sourceWithAttribute = `Truck_A has a distance to Depot_1 of 10.
+If Truck_A has a distance to Depot_1 of 10, then Truck_A is near.`;
+  const ast = parseProgram(sourceWithAttribute);
+  const state = compileProgram(ast);
+  assert.equal(state.errors.length, 0);
+
+  const truckKey = canonicalEntityKey({ kind: "Name", value: "Truck_A" });
+  const truckConcept = state.idStore.internConcept(ConceptKind.Entity, truckKey);
+  const truckId = state.idStore.getDenseId(ConceptKind.Entity, truckConcept);
+
+  const attrKey = canonicalAttributeKey({
+    kind: "AttributeRef",
+    core: ["distance"],
+    pp: [{ kind: "PrepositionalPhrase", preposition: "to", object: { kind: "Name", value: "Depot_1" } }],
+  });
+  const attrConcept = state.idStore.internConcept(ConceptKind.Attribute, attrKey);
+  const attrId = state.idStore.getDenseId(ConceptKind.Attribute, attrConcept);
+
+  const numeric = state.kb.kb.numericIndex[attrId];
+  assert.ok(numeric.hasValue.hasBit(truckId));
+  assert.equal(numeric.values[truckId], 10);
+
+  const rule = state.ruleStore.getRules()[0];
+  const body = rule.body;
+  assert.equal(body.op, "Intersect");
+  const filter = body.plans.find((plan) => plan.op === "NumFilter");
+  assert.ok(filter);
+  assert.equal(filter.attrId, attrId);
 });

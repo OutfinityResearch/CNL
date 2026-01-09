@@ -37,8 +37,55 @@
           <li><strong>Plan:</strong> "Find a way to make the user active." (Generates actions)</li>
         </ul>
         <p>
+          The distinction between <strong>Verify</strong> and <strong>Proof</strong> is important. Verify is the
+          user-facing command that returns a boolean (true/false). Proof is the underlying derivation
+          engine that can optionally produce a trace of how the proposition was derived.
+        </p>
+        <p>
           The architecture uses distinct "Engines" for each pragmatic mode, all sharing the same compiled KB and Plan IR.
         </p>
+
+        <h2 id="plan-solve">Plan vs Solve</h2>
+        <p>
+          Plan searches for an action sequence that makes a goal true. Solve binds variables to satisfy
+          a constraint without necessarily producing a sequence of actions. Both use the same KB and
+          bitset primitives, but their outputs are different.
+        </p>
+        <pre><code>Plan:
+Command: Plan to achieve all packages delivered.
+
+Solve:
+Command: Find a route such that the route is feasible.
+</code></pre>
+
+        <h2 id="proof-explain">Proof vs Explain</h2>
+        <p>
+          Proof answers "is this true?" and can return a derivation. Explain answers "why is this true?"
+          and returns the justification chain for a specific fact.
+        </p>
+        <pre><code>Command: Verify that every server is encrypted.
+Command: Explain why Server_1 is encrypted.
+</code></pre>
+
+        <h2 id="rules">Rules, constraints, and transitions</h2>
+        <p>
+          Rules encode implications, constraints encode boolean conditions, and transitions define state
+          changes for simulation. They compile into plans that share the same primitives.
+        </p>
+        <pre><code>Rule: A route is valid if the route is feasible.
+Rule: When a delay occurs, then the route is delayed.
+</code></pre>
+
+        <h2 id="actions">Actions, preconditions, effects</h2>
+        <p>
+          Action blocks define how planning changes the world: preconditions are checked as boolean plans,
+          and effects translate into KB updates.
+        </p>
+        <pre><code>Action: assign a driver to a route.
+Agent: a dispatcher.
+Precondition: a driver is available and the route is unassigned.
+Effect: the driver is assigned to the route.
+</code></pre>
 
         <h2 id="solving">Solving and CSP</h2>
         <p>

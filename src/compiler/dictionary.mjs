@@ -61,6 +61,18 @@ function normalizeCore(node) {
   return node.core.map((item) => item.toLowerCase());
 }
 
+function normalizeBinaryPredicateKey(key) {
+  if (!key) return key;
+  let normalized = key.trim();
+  if (normalized.startsWith("passive:")) {
+    normalized = normalized.slice("passive:".length);
+  }
+  if (!normalized.includes("|")) {
+    normalized = normalized.split(/\s+/).join("|");
+  }
+  return normalized;
+}
+
 function extractOfObject(np) {
   if (!np || np.kind !== "NounPhrase") return null;
   const found = np.pp.find((pp) => pp.preposition === "of");
@@ -71,9 +83,12 @@ function handlePredicateDeclaration(subjectKey, complement, state) {
   const core = normalizeCore(complement);
   if (!coreHas(core, "predicate")) return false;
 
-  const def = getOrCreatePredicate(state, subjectKey);
-  if (coreHas(core, "binary")) def.arity = "binary";
-  if (coreHas(core, "unary")) def.arity = "unary";
+  const isBinary = coreHas(core, "binary");
+  const isUnary = coreHas(core, "unary");
+  const normalizedKey = isBinary ? normalizeBinaryPredicateKey(subjectKey) : subjectKey.trim();
+  const def = getOrCreatePredicate(state, normalizedKey);
+  if (isBinary) def.arity = "binary";
+  if (isUnary) def.arity = "unary";
   if (!def.arity) {
     state.errors.push(createError("DICT010", "Predicate arity is required.", subjectKey));
   }
@@ -119,11 +134,12 @@ function handleDomainRange(subject, complement, state) {
   if (!isDomain && !isRange) return false;
 
   const predicateNode = extractOfObject(subject);
-  const predicateKey = extractStringLiteral(predicateNode);
+  let predicateKey = extractStringLiteral(predicateNode);
   if (!predicateKey) {
     state.errors.push(createError("DICT030", "Domain/range declaration missing predicate key.", "domain"));
     return true;
   }
+  predicateKey = normalizeBinaryPredicateKey(predicateKey);
 
   const typeKey = extractStringLiteral(complement);
   if (!typeKey) {

@@ -6,6 +6,10 @@ export function createJustificationStore() {
     return `${predId}:${subjectId}:${objectId}`;
   }
 
+  function makeUnaryFactId(unaryId, subjectId) {
+    return `U:${unaryId}:${subjectId}`;
+  }
+
   function addBaseFact(factId, sourceInfo) {
     baseFacts.set(factId, sourceInfo);
   }
@@ -26,6 +30,7 @@ export function createJustificationStore() {
 
   return {
     makeFactId,
+    makeUnaryFactId,
     addBaseFact,
     addDerivedFact,
     getJustification,

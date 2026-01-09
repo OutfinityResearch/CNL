@@ -6,7 +6,7 @@ Executes Plan IR against a compiled KB and produces bitsets, booleans, or number
 ## Responsibilities
 - Evaluate SetPlan and RelationPlan nodes using KB indices.
 - Apply numeric and entity-attribute filters.
-- Support rule execution with delta outputs.
+- Evaluate NumberPlan aggregates (NumberOf, SumOf, AverageOf, TotalOf).
 
 ## Key Interfaces
 - `executeSet(plan, kb)`
