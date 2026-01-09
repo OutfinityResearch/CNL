@@ -85,10 +85,32 @@ function renderDetails(data) {
     </div>`;
   }
 
+  if (data.flow) {
+    html += `<h4>Rule Process</h4>
+    <div class="flow-container">
+      <div class="flow-box flow-if">
+        <div class="flow-label">MATCH (IF)</div>
+        ${data.flow.conditions.map(c => `<div class="flow-item">${c}</div>`).join('')}
+      </div>
+      <div class="flow-arrow">⬇ CAUSES</div>
+      <div class="flow-box flow-then">
+        <div class="flow-label">ASSERT (THEN)</div>
+        <div class="flow-item">${data.flow.effect}</div>
+      </div>
+    </div>`;
+  }
+
+  if (data.text) {
+    html += `<h4>Logic (Pseudocode)</h4>
+    <div class="logic-view mono" style="background:#fff; padding:15px; border:1px solid var(--border); border-radius:4px; margin-bottom:20px; line-height:1.5;">
+      ${formatLogic(data.text)}
+    </div>`;
+  }
+
   if (data.raw) {
-    const title = data.type === 'action' ? 'Action Definition' : 'Rule Definition';
-    html += `<h4>${title}</h4>
-    <pre style="background:#fbfaf7; padding:10px; overflow:auto;">${JSON.stringify(data.raw, null, 2)}</pre>`;
+    const title = data.type === 'action' ? 'Action Definition (JSON)' : 'Rule Definition (JSON)';
+    html += `<details><summary class="muted" style="cursor:pointer; margin-bottom:5px;">Show Raw ${title}</summary>
+    <pre style="background:#fbfaf7; padding:10px; overflow:auto;">${JSON.stringify(data.raw, null, 2)}</pre></details>`;
   }
 
   if (data.relations && data.relations.length > 0) {
@@ -122,6 +144,14 @@ function getDirectionBadge(dir) {
   if (dir === 'outgoing') return '<span class="badge badge--out" title="This entity is the SUBJECT">Subject →</span>';
   if (dir === 'incoming') return '<span class="badge badge--in" title="This entity is the OBJECT">← Object</span>';
   return '<span class="badge badge--mem" title="Member of set">Member</span>';
+}
+
+function formatLogic(text) {
+  return text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') // Escape HTML first
+    .replace(/\b(IF|THEN|ASSERT|AND|OR|NOT)\b/g, '<span class="kw">$1</span>')
+    .replace(/\n/g, '<br/>')
+    .replace(/  /g, '&nbsp;&nbsp;');
 }
 
 function getIcon(name) {

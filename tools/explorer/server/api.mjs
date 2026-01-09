@@ -53,9 +53,19 @@ function describeSetPlan(plan, idStore) {
 
 function describeHead(head, idStore) {
   if (!head) return 'No Effect';
-  if (head.kind === 'UnaryEmit') return `ASSERT: Subject is ${getName(idStore, ConceptKind.UnaryPredicate, head.unaryId)}`;
-  if (head.kind === 'BinaryEmit') return `ASSERT: Subject -> ${getName(idStore, ConceptKind.Predicate, head.predId)} -> Object`;
+  if (head.kind === 'UnaryEmit') return `Subject is ${getName(idStore, ConceptKind.UnaryPredicate, head.unaryId)}`;
+  if (head.kind === 'BinaryEmit') return `Subject -> ${getName(idStore, ConceptKind.Predicate, head.predId)} -> Object`;
   return head.kind;
+}
+
+function extractConditions(plan, idStore, list = []) {
+  if (!plan) return list;
+  if (plan.op === 'Intersect') {
+    plan.plans.forEach(p => extractConditions(p, idStore, list));
+  } else {
+    list.push(describeSetPlan(plan, idStore));
+  }
+  return list;
 }
 
 export async function handleApi(req, res, url) {
@@ -138,31 +148,48 @@ export async function handleApi(req, res, url) {
       }
       tree.push(entNode);
 
-      // 2. Concepts
+      // 2. Concepts (Iterate IdStore to show all definitions)
       const concNode = { id: 'concepts', text: 'Concepts (Types)', children: [], icon: 'folder' };
-      for (let i = 0; i < rawKb.unaryCount; i++) {
-        const count = bitsetPopcount(rawKb.unaryIndex[i]);
+      const unaryTotal = idStore.size(ConceptKind.UnaryPredicate);
+      for (let i = 0; i < unaryTotal; i++) {
+        const bitset = (i < rawKb.unaryIndex.length) ? rawKb.unaryIndex[i] : null;
+        const count = bitset ? bitset.popcount() : 0;
+        
         const name = getName(idStore, ConceptKind.UnaryPredicate, i);
-        if (name && !name.startsWith('[')) {
+        // Show if user-defined (has name) OR has data
+        const isUserDefined = name && !name.startsWith('[') && !name.startsWith('U:[');
+        
+        if (isUserDefined || count > 0) {
             const cleanKey = name.startsWith('U:') ? name.slice(2) : name;
-            concNode.children.push({ id: `u-${i}`, text: `${cleanKey} (${count})`, icon: 'tag', type: 'unary', denseId: i });
+            concNode.children.push({ 
+                id: `u-${i}`, text: `${cleanKey} (${count})`, 
+                icon: 'tag', type: 'unary', denseId: i 
+            });
         }
       }
       tree.push(concNode);
 
-      // 3. Predicates
+      // 3. Predicates (Iterate IdStore)
       const relNode = { id: 'relations', text: 'Predicates (Relations)', children: [], icon: 'folder' };
-      for (let i = 0; i < rawKb.predicatesCount; i++) {
+      const predTotal = idStore.size(ConceptKind.Predicate);
+      for (let i = 0; i < predTotal; i++) {
         let linkCount = 0;
-        const matrix = rawKb.relations[i];
-        if (matrix) {
-          for(const row of matrix.rows) linkCount += bitsetPopcount(row);
+        if (i < rawKb.relations.length) {
+            const matrix = rawKb.relations[i];
+            if (matrix) {
+              for(const row of matrix.rows) linkCount += bitsetPopcount(row);
+            }
         }
         
         const name = getName(idStore, ConceptKind.Predicate, i);
-        if (name && !name.startsWith('[')) {
+        const isUserDefined = name && !name.startsWith('[') && !name.startsWith('P:[');
+
+        if (isUserDefined || linkCount > 0) {
             const cleanKey = name.startsWith('P:') ? name.slice(2) : name;
-            relNode.children.push({ id: `p-${i}`, text: `${cleanKey} (${linkCount})`, icon: 'share', type: 'predicate', denseId: i });
+            relNode.children.push({ 
+                id: `p-${i}`, text: `${cleanKey} (${linkCount})`, 
+                icon: 'share', type: 'predicate', denseId: i 
+            });
         }
       }
       tree.push(relNode);
@@ -246,7 +273,8 @@ export async function handleApi(req, res, url) {
       } 
       else if (type === 'unary') {
         details.name = getName(idStore, ConceptKind.UnaryPredicate, denseId);
-        const bitset = rawKb.unaryIndex[denseId];
+        // Guard against index out of bounds if KB hasn't expanded yet
+        const bitset = (denseId < rawKb.unaryIndex.length) ? rawKb.unaryIndex[denseId] : null;
         if (bitset) {
           for (let e = 0; e < rawKb.entitiesCount; e++) {
             if (bitset.hasBit(e)) {
@@ -261,7 +289,8 @@ export async function handleApi(req, res, url) {
       }
       else if (type === 'predicate') {
         details.name = getName(idStore, ConceptKind.Predicate, denseId);
-        const matrix = rawKb.relations[denseId];
+        // Guard against index out of bounds
+        const matrix = (denseId < rawKb.relations.length) ? rawKb.relations[denseId] : null;
         if (matrix) {
           for (let s = 0; s < rawKb.entitiesCount; s++) {
             const row = matrix.rows[s];
@@ -284,8 +313,11 @@ export async function handleApi(req, res, url) {
         if (rules[denseId]) {
           const rule = rules[denseId];
           details.name = `Rule #${denseId}`;
-          // Generate human-readable text
           details.text = `IF:\n  ${describeSetPlan(rule.body, idStore)}\nTHEN:\n  ${describeHead(rule.head, idStore)}`;
+          details.flow = {
+            conditions: extractConditions(rule.body, idStore),
+            effect: describeHead(rule.head, idStore)
+          };
           details.raw = rule; 
         } else {
           return json(res, 404, { error: 'Rule not found' });
