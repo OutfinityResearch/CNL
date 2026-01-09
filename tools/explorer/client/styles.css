@@ -111,9 +111,19 @@ body {
   font-weight: 600;
 }
 
+.btn--sm {
+  padding: 4px 8px;
+  font-size: 0.85rem;
+}
+
 .btn--primary {
   background: var(--accent);
   color: white;
+}
+
+.btn--secondary {
+  background: #e0d8cc;
+  color: var(--ink);
 }
 
 .btn--ghost {
@@ -162,27 +172,40 @@ body {
 .example-card {
   border: 1px solid var(--border);
   background: white;
-  padding: 15px;
+  padding: 20px;
   border-radius: 8px;
-  margin-bottom: 15px;
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-.example-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
+  margin-bottom: 20px;
 }
 .example-card h3 {
-  margin: 0 0 10px 0;
-  font-size: 1rem;
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+  color: var(--accent);
 }
-.example-card pre {
+.theory-block {
   background: #fbfaf7;
-  padding: 10px;
-  border-radius: 4px;
-  margin: 0;
-  overflow-x: auto;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  margin: 15px 0;
 }
+.theory-block pre {
+  margin: 0 0 10px 0;
+  white-space: pre-wrap;
+}
+
+.steps-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+.steps-table th, .steps-table td {
+  border: 1px solid var(--border);
+  padding: 8px;
+  text-align: left;
+}
+.steps-table th { background: #efe7da; }
+.step-cmd { color: var(--accent); }
+.step-exp { color: var(--muted); font-size: 0.9rem; }
 
 .mono { font-family: monospace; }
 .muted { color: var(--muted); }

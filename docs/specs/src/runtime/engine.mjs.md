@@ -4,5 +4,6 @@
 Executes parsed programs using the selected pragmatic engine.
 
 ## Responsibilities
-- Route commands to query/proof/plan/solve/simulate/optimize/explain backends.
-- Report runtime errors for unbound references.
+- Evaluate command AST nodes for query, proof, explain, plan, simulate, and optimize.
+- Provide forward-chaining materialization for rule plans.
+- Report runtime errors for missing commands or unsupported forms.

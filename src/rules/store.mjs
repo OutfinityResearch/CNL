@@ -1,22 +1,30 @@
 import { executeSet, executeRelation } from "../plans/execute.mjs";
 
-function applyUnaryEmit(emit, subjectSet, kbApi) {
+function applyUnaryEmit(emit, subjectSet, kbApi, options) {
   let added = 0;
   subjectSet.iterateSetBits((subjectId) => {
     if (kbApi.insertUnary(emit.unaryId, subjectId)) {
       added += 1;
+      if (options?.justificationStore && Number.isInteger(options.ruleId)) {
+        const factId = options.justificationStore.makeUnaryFactId(emit.unaryId, subjectId);
+        options.justificationStore.addDerivedFact(factId, options.ruleId, []);
+      }
     }
   });
   return added;
 }
 
-function applyBinaryEmit(emit, subjectSet, kbApi) {
+function applyBinaryEmit(emit, subjectSet, kbApi, options) {
   let added = 0;
   const objectSet = executeSet(emit.objectSet, kbApi.kb);
   subjectSet.iterateSetBits((subjectId) => {
     objectSet.iterateSetBits((objectId) => {
       if (kbApi.insertBinary(subjectId, emit.predId, objectId)) {
         added += 1;
+        if (options?.justificationStore && Number.isInteger(options.ruleId)) {
+          const factId = options.justificationStore.makeFactId(emit.predId, subjectId, objectId);
+          options.justificationStore.addDerivedFact(factId, options.ruleId, []);
+        }
       }
     });
   });
@@ -58,9 +66,9 @@ function applyRule(rule, kbApi, options) {
 
   switch (rule.head.kind) {
     case "UnaryEmit":
-      return applyUnaryEmit(rule.head, subjectSet, kbApi);
+      return applyUnaryEmit(rule.head, subjectSet, kbApi, options);
     case "BinaryEmit":
-      return applyBinaryEmit(rule.head, subjectSet, kbApi);
+      return applyBinaryEmit(rule.head, subjectSet, kbApi, options);
     case "AttrEmit":
       return applyAttrEmit(rule.head, subjectSet, kbApi);
     default:
@@ -83,8 +91,8 @@ export function createRuleStore() {
 
   function applyRules(kbApi, options = {}) {
     let totalAdded = 0;
-    for (const rule of rules) {
-      totalAdded += applyRule(rule, kbApi, options);
+    for (let i = 0; i < rules.length; i += 1) {
+      totalAdded += applyRule(rules[i], kbApi, { ...options, ruleId: i });
     }
     return totalAdded;
   }

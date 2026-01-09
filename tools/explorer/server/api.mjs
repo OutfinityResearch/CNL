@@ -1,5 +1,6 @@
 import { CNLSession } from '../../../src/session/cnl-session.mjs';
 import { ConceptKind } from '../../../src/ids/interners.mjs';
+import { DEMO_SUITE } from '../../../evals/kbDemo/suite.mjs';
 
 let session = null;
 
@@ -32,14 +33,15 @@ export async function handleApi(req, res, url) {
   try {
     // GET /api/session - Stats
     if (req.method === 'GET' && url.pathname === '/api/session') {
-      const kb = session.state.kb;
+      // Access inner 'kb' object where data resides
+      const rawKb = session.state.kb.kb; 
       return json(res, 200, {
         ok: true,
         stats: {
-          entities: kb.entitiesCount,
-          predicates: kb.predicatesCount,
-          unaries: kb.unaryCount,
-          attributes: kb.attributesCount
+          entities: rawKb.entitiesCount,
+          predicates: rawKb.predicatesCount,
+          unaries: rawKb.unaryCount,
+          attributes: rawKb.attributesCount
         }
       });
     }
@@ -64,10 +66,16 @@ export async function handleApi(req, res, url) {
       });
     }
 
+    // GET /api/examples - Return the demo suite
+    if (req.method === 'GET' && url.pathname === '/api/examples') {
+      return json(res, 200, { suite: DEMO_SUITE });
+    }
+
     // GET /api/tree - Hierarchical view for the explorer
     if (req.method === 'GET' && url.pathname === '/api/tree') {
       const tree = [];
       const idStore = session.state.idStore;
+      const rawKb = session.state.kb.kb;
       
       // Entities Branch
       const entitiesNode = { id: 'entities', text: 'Entities', children: [], icon: 'folder' };
@@ -90,8 +98,7 @@ export async function handleApi(req, res, url) {
         const cid = idStore.getConceptualId(ConceptKind.UnaryPredicate, i);
         if (cid !== undefined) {
           const key = idStore.lookupKey(cid);
-          // Optional: count members
-          const bitset = session.state.kb.kb.unaryIndex[i];
+          const bitset = rawKb.unaryIndex[i];
           const count = bitset ? bitset.popcount() : 0;
           unaryNode.children.push({ id: `u-${i}`, text: `${key} (${count})`, count, icon: 'tag' });
         }

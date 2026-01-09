@@ -89,7 +89,7 @@ function renderTable(title, columns, rows, colors) {
   }
 }
 
-export async function runCaseSuite({ fileUrl, title }) {
+export async function runCaseSuite({ fileUrl, title, evaluate, compare, formatOutput }) {
   const raw = await readFile(fileUrl, "utf8");
   const cases = parseCases(raw);
   const colors = {
@@ -113,6 +113,58 @@ export async function runCaseSuite({ fileUrl, title }) {
         purpose: "(missing)",
         case: preview,
         note: "missing purpose",
+      });
+      continue;
+    }
+
+    if (evaluate) {
+      let output = null;
+      try {
+        output = await evaluate({ input, testCase });
+      } catch (error) {
+        failed += 1;
+        const message = error?.message ?? "evaluation error";
+        rows.push({
+          status: "FAIL",
+          purpose: testCase.purpose,
+          case: preview,
+          note: `evaluation error: ${message}`,
+        });
+        continue;
+      }
+
+      if (output && output.error) {
+        failed += 1;
+        rows.push({
+          status: "FAIL",
+          purpose: testCase.purpose,
+          case: preview,
+          note: output.error,
+        });
+        continue;
+      }
+
+      const hasExpectation = testCase.expect && !String(testCase.expect).includes("placeholder");
+      if (hasExpectation) {
+        const ok = compare ? compare(testCase.expect, output) : String(output) === String(testCase.expect);
+        if (!ok) {
+          failed += 1;
+          rows.push({
+            status: "FAIL",
+            purpose: testCase.purpose,
+            case: preview,
+            note: `expected ${testCase.expect} got ${formatOutput ? formatOutput(output) : String(output)}`,
+          });
+          continue;
+        }
+      }
+
+      passed += 1;
+      rows.push({
+        status: "PASS",
+        purpose: testCase.purpose,
+        case: preview,
+        note: formatOutput ? formatOutput(output) : "",
       });
       continue;
     }

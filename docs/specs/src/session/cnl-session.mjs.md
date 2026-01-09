@@ -9,6 +9,7 @@ Session-level API for learning theories and executing pragmatics.
 - Dispatch query/proof/solve/plan/simulate/optimize calls.
 - Apply `projectEntityAttributes` when compiling entity-valued attributes.
 - Enforce BaseDictionary constraints when `validateDictionary` is enabled.
+- Execute command-only inputs via the runtime engine and optional rule materialization.
 
 ## Key Interfaces
 - `learn(theoryFile, options)`

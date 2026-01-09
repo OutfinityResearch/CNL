@@ -14,6 +14,10 @@ const API = {
     const res = await fetch('/api/tree');
     return res.json();
   },
+  async getExamples() {
+    const res = await fetch('/api/examples');
+    return res.json();
+  },
   async reset() {
     await fetch('/api/reset', { method: 'POST' });
   }
@@ -69,57 +73,78 @@ function getIcon(name) {
   }
 }
 
-// Examples Data
-const EXAMPLES = [
-  {
-    title: "Basic Facts (Learn)",
-    text: `John is a user.
-The server is active.
-Mary is an admin.
-Admin is a role.`
-  },
-  {
-    title: "Relationships",
-    text: `John accesses the server.
-Mary manages John.
-The server hosts the database.`
-  },
-  {
-    title: "Query",
-    text: `Return the name of every user.
-Return the number of servers.
-Verify that John is a user.`
-  },
-  {
-    title: "Rules",
-    text: `If a user is an admin, then the user has access.
-Verify that Mary has access.`
-  }
-];
-
-function renderExamples() {
+async function renderExamples() {
   const container = document.getElementById('examplesList');
+  container.innerHTML = 'Loading examples...';
+  
+  const data = await API.getExamples();
+  if (!data.suite) {
+    container.innerHTML = 'Error loading examples.';
+    return;
+  }
+
   container.innerHTML = '';
-  EXAMPLES.forEach(ex => {
-    const div = document.createElement('div');
-    div.className = 'example-card';
-    div.innerHTML = `<h3>${ex.title}</h3><pre>${ex.text}</pre>`;
-    div.onclick = () => {
-      UI.input.value = ex.text;
-      document.getElementById('tabChat').click(); // Switch to chat
+  
+  data.suite.forEach(ex => {
+    const card = document.createElement('div');
+    card.className = 'example-card';
+    
+    // Theory Section
+    let html = `<h3>${ex.title}</h3>`;
+    html += `<p class="muted">${ex.description}</p>`;
+    html += `<div class="theory-block">
+      <h4>Context (Theory)</h4>
+      <pre>${ex.theory}</pre>
+      <button class="btn btn--sm btn--secondary load-theory-btn">Load Context</button>
+    </div>`;
+
+    // Steps Table
+    html += `<h4>Steps</h4>
+    <table class="steps-table">
+      <thead>
+        <tr>
+          <th>Command</th>
+          <th>Expected</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>`;
+    
+    ex.steps.forEach((step, idx) => {
+      html += `<tr>
+        <td class="step-cmd mono">${step.command}</td>
+        <td class="step-exp mono">${step.expected || '-'}</td>
+        <td><button class="btn btn--sm btn--primary run-step-btn" data-cmd="${escapeHtml(step.command)}">Run</button></td>
+      </tr>`;
+    });
+    
+    html += `</tbody></table>`;
+    
+    card.innerHTML = html;
+    container.appendChild(card);
+
+    // Bind events
+    const loadBtn = card.querySelector('.load-theory-btn');
+    loadBtn.onclick = async () => {
+      UI.log(`Loading context for: ${ex.title}...`, 'system');
+      await executeCommand(ex.theory);
     };
-    container.appendChild(div);
+
+    card.querySelectorAll('.run-step-btn').forEach(btn => {
+      btn.onclick = async () => {
+        const cmd = btn.getAttribute('data-cmd');
+        UI.log(`> ${cmd}`, 'user');
+        await executeCommand(cmd);
+      };
+    });
   });
 }
 
-// Event Listeners
-document.getElementById('sendBtn').onclick = async () => {
-  const text = UI.input.value.trim();
-  if (!text) return;
+function escapeHtml(text) {
+  return text.replace(/"/g, '&quot;');
+}
 
-  UI.log(`> ${text}`, 'user');
-  UI.input.value = '';
-
+async function executeCommand(text) {
   try {
     const res = await API.sendCommand(text);
     if (res.ok) {
@@ -135,6 +160,15 @@ document.getElementById('sendBtn').onclick = async () => {
   } catch (e) {
     UI.log(`Network Error: ${e.message}`, 'error');
   }
+}
+
+// Global UI Events
+document.getElementById('sendBtn').onclick = async () => {
+  const text = UI.input.value.trim();
+  if (!text) return;
+  UI.log(`> ${text}`, 'user');
+  UI.input.value = '';
+  await executeCommand(text);
 };
 
 document.getElementById('resetBtn').onclick = async () => {
@@ -167,7 +201,7 @@ async function refreshTree() {
 
 // Init
 (async () => {
-  renderExamples();
+  await renderExamples();
   await UI.updateStats();
   await refreshTree();
   UI.log('CNL Session ready.', 'system');
