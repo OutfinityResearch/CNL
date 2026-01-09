@@ -6,6 +6,7 @@ import { createFormulaStore } from "../formulas/store.mjs";
 import { createJustificationStore } from "../provenance/justifications.mjs";
 import { createDictionaryState, applyDictionaryStatement } from "./dictionary.mjs";
 import { compileRuleBody, compileRuleHead, compileCommand } from "./ast-to-plan.mjs";
+import { canonicalEntityKey, canonicalAttributeKey } from "./canonical-keys.mjs";
 
 function createError(code, message, primaryToken) {
   return {
@@ -18,29 +19,11 @@ function createError(code, message, primaryToken) {
   };
 }
 
-function canonicalEntityKey(node) {
-  if (node.kind === "Name") return `E:${node.value}`;
-  if (node.kind === "NumberLiteral") return `L:num:${node.value}`;
-  if (node.kind === "StringLiteral") return `L:str:${node.value}`;
-  if (node.kind === "BooleanLiteral") return `L:bool:${node.value}`;
-  return null;
-}
-
 function canonicalUnaryKey(node) {
   if (!node) return null;
   if (node.kind === "Name") return `U:${node.value}`;
   if (node.kind === "NounPhrase") return `U:${node.core.join(" ")}`;
   return null;
-}
-
-function canonicalAttributeKey(attribute) {
-  if (!attribute || attribute.kind !== "AttributeRef") return null;
-  const core = attribute.core.join(" ");
-  const pp = attribute.pp
-    .map((item) => `${item.preposition}:${formatObject(item.object)}`)
-    .join("|");
-  if (!pp) return `A:${core}`;
-  return `A:${core}|${pp}`;
 }
 
 function canonicalVerbKey(verbGroup) {
@@ -152,16 +135,6 @@ function validateDomainRange(state, predDef, subjectId, objectId) {
       state.errors.push(createError("CMP014", "Range constraint violated.", predDef.key));
     }
   }
-}
-
-function formatObject(node) {
-  if (!node) return "";
-  if (node.kind === "Name") return node.value;
-  if (node.kind === "NounPhrase") return node.core.join(" ");
-  if (node.kind === "NumberLiteral") return String(node.value);
-  if (node.kind === "StringLiteral") return node.value;
-  if (node.kind === "BooleanLiteral") return node.value ? "true" : "false";
-  return node.kind;
 }
 
 function resolveEntityId(node, state) {

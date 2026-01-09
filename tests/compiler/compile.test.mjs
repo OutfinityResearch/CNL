@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { parseProgram } from "../../src/parser/grammar.mjs";
 import { compileProgram } from "../../src/compiler/compile.mjs";
 import { ConceptKind } from "../../src/ids/interners.mjs";
+import { canonicalEntityKey } from "../../src/compiler/canonical-keys.mjs";
 
 const source = `--- CONTEXT: BaseDictionary ---
 "status" is an entity attribute.
@@ -27,4 +28,32 @@ test("entity-valued attributes project into derived predicate when enabled", () 
   const kbState = state.kb.kb;
   assert.ok(kbState.entAttrIndex[attrId].values[truckId].hasBit(activeId));
   assert.ok(kbState.relations[predId].rows[truckId].hasBit(activeId));
+});
+
+test("literal objects share EntityID between KB facts and plans", () => {
+  const sourceWithLiteral = `Truck_A likes "Pizza".
+If Truck_A likes "Pizza", then Truck_A is happy.`;
+  const ast = parseProgram(sourceWithLiteral);
+  const state = compileProgram(ast);
+  assert.equal(state.errors.length, 0);
+
+  const truckKey = canonicalEntityKey({ kind: "Name", value: "Truck_A" });
+  const pizzaKey = canonicalEntityKey({ kind: "StringLiteral", value: "Pizza" });
+  const truckConcept = state.idStore.internConcept(ConceptKind.Entity, truckKey);
+  const pizzaConcept = state.idStore.internConcept(ConceptKind.Entity, pizzaKey);
+  const predConcept = state.idStore.internConcept(ConceptKind.Predicate, "P:likes");
+
+  const truckId = state.idStore.getDenseId(ConceptKind.Entity, truckConcept);
+  const pizzaId = state.idStore.getDenseId(ConceptKind.Entity, pizzaConcept);
+  const predId = state.idStore.getDenseId(ConceptKind.Predicate, predConcept);
+
+  assert.ok(state.kb.kb.relations[predId].rows[truckId].hasBit(pizzaId));
+
+  const rule = state.ruleStore.getRules()[0];
+  const body = rule.body;
+  assert.equal(body.op, "Intersect");
+  const preimage = body.plans.find((plan) => plan.op === "Preimage");
+  assert.ok(preimage);
+  assert.equal(preimage.objectSet.op, "EntitySet");
+  assert.equal(preimage.objectSet.entityId, pizzaId);
 });

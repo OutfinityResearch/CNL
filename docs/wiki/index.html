@@ -79,6 +79,21 @@
               <td><strong>Abstract Syntax Tree</strong>. The tree-like structure that represents the grammatical structure of the CNL code after parsing. In CNL-PL, the AST is "lossless" (preserves spans) and deterministic.</td>
             </tr>
             <tr>
+              <td><strong><a href="concepts/syntax-and-ast.html#svo">Atomic Sentence</a></strong></td>
+              <td>Syntax</td>
+              <td>The minimal statement form (subject + typed predicate) that can become a fact or a rule literal.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/syntax-and-ast.html#svo">Assertion</a></strong></td>
+              <td>Syntax</td>
+              <td>An atomic statement that asserts a fact about the world, expressed as a typed SVO triplet.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="../theory/03-boolean-logic.html">Condition</a></strong></td>
+              <td>Logic</td>
+              <td>A boolean structure built from assertions, with explicit grouping rules.</td>
+            </tr>
+            <tr>
               <td><strong><a href="concepts/syntax-and-ast.html#grammar">Action Block</a></strong></td>
               <td>Syntax</td>
               <td>A multi-line structure that defines an action's signature, the agent performing it, its preconditions, and its effects.</td>
@@ -87,6 +102,11 @@
               <td><strong><a href="concepts/compiler-and-ir.html#executable">ActionPlan</a></strong></td>
               <td>IR</td>
               <td>The compiled structure of an action, containing optimized SetPlan/BoolPlan trees for preconditions and effect deltas for the KB.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/syntax-and-ast.html#svo">Verb Phrase</a></strong></td>
+              <td>Syntax</td>
+              <td>A structured predicate record that captures copula, verb, particles, and comparators so predicate IDs are deterministic.</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/identity-and-interning.html#dense">AttrID</a></strong></td>
@@ -174,9 +194,14 @@
               <td>A unique identifier (usually a hash) for a specific fact (SVO triplet) in the Knowledge Base, used for provenance and explaining "why" something is true.</td>
             </tr>
             <tr>
-              <td><strong><a href="concepts/end-to-end-flow.html#grounding">Ground Fact</a></strong></td>
+              <td><strong><a href="../theory/06-end-to-end-flow.html#compilation">Ground Fact</a></strong></td>
               <td>Compiler</td>
               <td>An atomic sentence that can be inserted into the KB because all required terms resolve to concrete entities or literals.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="../theory/06-end-to-end-flow.html#compilation">Grounding</a></strong></td>
+              <td>Compiler</td>
+              <td>The step where the compiler decides which sentences become KB facts and which become plans or rules.</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/syntax-and-ast.html#grammar">IDENT</a></strong></td>
@@ -204,6 +229,21 @@
               <td><strong>Knowledge Base</strong>. The in-memory database that stores compiled facts, relations, and indices (DS09).</td>
             </tr>
             <tr>
+              <td><strong><a href="../theory/06-end-to-end-flow.html#reasoning">Image</a></strong></td>
+              <td>Reasoning</td>
+              <td>A primitive that maps a set of subjects to all reachable objects through a predicate.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="../theory/06-end-to-end-flow.html#reasoning">Preimage</a></strong></td>
+              <td>Reasoning</td>
+              <td>A primitive that maps a set of objects to all subjects that reach them through a predicate.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/knowledge-base.html#relations">Inverse Index</a></strong></td>
+              <td>Storage</td>
+              <td>The reverse RelationMatrix used to answer \"who points to this object\" in O(1) bitset time.</td>
+            </tr>
+            <tr>
               <td><strong><a href="concepts/compiler-and-ir.html#plans">NumberPlan</a></strong></td>
               <td>IR</td>
               <td>A plan fragment that evaluates to a numeric value (e.g., aggregation results like "total cost").</td>
@@ -217,6 +257,46 @@
               <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Pragmatics</a></strong></td>
               <td>Architecture</td>
               <td>The "intent" or execution mode applied to a sentence. The same text can be a Question (Query), a Verification (Verify), or a Goal (Plan).</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Query</a></strong></td>
+              <td>Pragmatics</td>
+              <td>The mode that evaluates conditions and returns entity sets or projected values (for example, “Command: Return the name of every active user.”).</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Verify</a></strong></td>
+              <td>Pragmatics</td>
+              <td>The mode that checks whether a proposition is derivable (for example, “Command: Verify that every server is encrypted.”).</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Proof</a></strong></td>
+              <td>Pragmatics</td>
+              <td>The underlying derivation engine used by Verify; it can also emit a proof trace instead of a boolean.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Explain</a></strong></td>
+              <td>Pragmatics</td>
+              <td>The mode that returns the justification chain for a derived fact (for example, “Command: Explain why Server_1 is encrypted.”).</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Plan</a></strong></td>
+              <td>Pragmatics</td>
+              <td>The mode that searches for an action sequence that achieves a goal condition (for example, “Command: Plan to achieve all packages delivered.”).</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#solving">Solve</a></strong></td>
+              <td>Pragmatics</td>
+              <td>The mode that binds variables to satisfy constraints, often treated as a CSP (for example, “Command: Find a route such that the route is feasible.”).</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Simulate</a></strong></td>
+              <td>Pragmatics</td>
+              <td>The mode that applies transition rules step-by-step to evolve state (for example, “Command: Simulate 5 steps.”).</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Optimize</a></strong></td>
+              <td>Pragmatics</td>
+              <td>The mode that maximizes or minimizes an objective under constraints (for example, “Command: Minimize the total cost of the route.”).</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/identity-and-interning.html#dense">PredID</a></strong></td>
@@ -237,6 +317,11 @@
               <td><strong><a href="concepts/compiler-and-ir.html#plans">RelationPlan</a></strong></td>
               <td>IR</td>
               <td>A plan fragment that produces a virtual relation (rows of Bitsets), used for complex joins.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="../theory/06-end-to-end-flow.html#reasoning">Justification</a></strong></td>
+              <td>Provenance</td>
+              <td>The recorded chain of rules and premises that explain why a derived fact holds.</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/identity-and-interning.html#provenance">RuleID</a></strong></td>
@@ -267,6 +352,11 @@
               <td><strong><a href="concepts/identity-and-interning.html#concept">SymbolTable</a></strong></td>
               <td>Runtime</td>
               <td>The bidirectional mapping between human-readable strings and internal ConceptualIDs.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/knowledge-base.html#kb">Unary Predicate</a></strong></td>
+              <td>Runtime</td>
+              <td>A property or type membership stored as a global bitset (e.g., \"is active\").</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/identity-and-interning.html#dense">UnaryPredID</a></strong></td>

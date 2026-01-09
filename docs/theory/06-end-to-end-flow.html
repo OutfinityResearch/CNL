@@ -83,6 +83,56 @@ Command: Explain why Package_1 is priority.
       </section>
 
       <section class="section">
+        <h2 id="scenario-plan-solve">Scenario: planning and solving</h2>
+        <p>
+          This example mixes an action block with a planning goal and a solve-style query. The goal
+          is to assign a driver to a route using a simple action description.
+        </p>
+        <pre><code>Action: assign a driver to a route.
+Agent: a dispatcher.
+Precondition: a driver is available and the route is unassigned.
+Effect: the driver is assigned to the route.
+
+Driver_1 is available.
+Driver_2 is available.
+Route_9 is unassigned.
+
+Command: Plan to achieve Route_9 is assigned to a driver.
+Command: Find a driver such that the driver is available and the driver is assigned to Route_9.
+</code></pre>
+        <p>
+          The plan command compiles into a search over actions, while the find command compiles into
+          a constraint-style selection over the KB state.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 id="scenario-optimize-simulate">Scenario: optimize and simulate</h2>
+        <p>
+          This example shows an optimization goal and a short simulation. The optimization chooses
+          the best feasible route, while simulation applies transition rules over steps.
+        </p>
+        <pre><code>Route_1 has a cost of 120.
+Route_2 has a cost of 90.
+Route_3 has a cost of 140.
+
+Rule: A route is feasible if the route is available.
+Route_1 is available.
+Route_2 is available.
+
+Command: Minimize the cost of the route such that the route is feasible.
+
+Rule: When a delay occurs, then the route is delayed.
+Route_2 is not delayed.
+Command: Simulate 3 steps.
+</code></pre>
+        <p>
+          The minimize command compiles into a numeric objective over the feasible set. The simulate
+          command applies the transition rule for three steps over the current state overlay.
+        </p>
+      </section>
+
+      <section class="section">
         <h2 id="compilation">What compilation produces</h2>
         <p>
           Compilation splits the input into ground facts and non-ground plans. The facts update the

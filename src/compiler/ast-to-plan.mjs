@@ -1,11 +1,16 @@
 import { Plans } from "../plans/ir.mjs";
 import { ConceptKind } from "../ids/interners.mjs";
+import {
+  canonicalEntityKey,
+  canonicalAttributeKey,
+  canonicalAttributeKeyFromSelector,
+} from "./canonical-keys.mjs";
 
 function resolveEntityId(node, context) {
   if (!node || !context?.idStore) return null;
-  const value = node.value ?? node.name ?? node.raw;
-  if (value === undefined || value === null) return null;
-  const conceptId = context.idStore.internConcept(ConceptKind.Entity, `E:${value}`);
+  const key = canonicalEntityKey(node);
+  if (!key) return null;
+  const conceptId = context.idStore.internConcept(ConceptKind.Entity, key);
   return context.idStore.getDenseId(ConceptKind.Entity, conceptId);
 }
 
@@ -123,9 +128,7 @@ function unaryKeyFromComplement(complement) {
 }
 
 function attributeKeyFromSelector(selector) {
-  if (!selector) return null;
-  if (selector.kind === "AttrSelector") return `A:${selector.words.join(" ")}`;
-  return null;
+  return canonicalAttributeKeyFromSelector(selector);
 }
 
 function objectToSetPlan(node, context) {
@@ -234,7 +237,7 @@ function compileAssertionToSetPlan(assertion, context) {
       return Plans.intersect([subjectPlan, Plans.unarySet(unaryId)]);
     }
     case "AttributeAssertion": {
-      const attrKey = assertion.attribute ? `A:${assertion.attribute.core.join(" ")}` : null;
+      const attrKey = canonicalAttributeKey(assertion.attribute);
       const attrId = resolveAttributeId(attrKey, context);
       if (attrId === null || !assertion.value) return subjectPlan;
       const value = assertion.value;
@@ -341,7 +344,7 @@ function compileEmitFromAssertion(assertion, context) {
       };
     }
     case "AttributeAssertion": {
-      const attrKey = assertion.attribute ? `A:${assertion.attribute.core.join(" ")}` : null;
+      const attrKey = canonicalAttributeKey(assertion.attribute);
       const attrId = resolveAttributeId(attrKey, context);
       if (attrId === null || !assertion.value) return null;
       const value = assertion.value;
