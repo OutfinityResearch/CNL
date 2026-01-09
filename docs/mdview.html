@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>UBH Markdown Viewer</title>
+    <title>CNL Docs Viewer</title>
     <style>
       :root {
         --bg: #f7f4ee;
@@ -195,8 +195,7 @@
   </head>
   <body>
     <header>
-      <h1>UBH Markdown Viewer</h1>
-      <p>Static client-side render for GitHub Pages and local browsing.</p>
+      <h1 id="header-title"></h1>
     </header>
     <main>
       <div class="card">
@@ -566,8 +565,11 @@
       const fileNameEl = document.getElementById("file-name");
       const sourceLinkEl = document.getElementById("source-link");
       const contentEl = document.getElementById("content");
+      const headerTitleEl = document.getElementById("header-title");
 
       fileNameEl.textContent = file;
+      if (headerTitleEl) headerTitleEl.textContent = file;
+      document.title = file;
       sourceLinkEl.href = file;
 
       fetch(file)
