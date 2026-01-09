@@ -1,0 +1,102 @@
+[
+  {
+    "id": "V044",
+    "valid": true,
+    "input": "Action: Deliver Package_3\nAgent: Robot_2\nPrecondition: Package_3 is ready.\nEffect: Package_3 is delivered.\nIntent: Return every package.\n",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "ActionBlock",
+          "action": "Deliver Package_3",
+          "agent": "Robot_2",
+          "preconditions": [
+            "Package_3 is ready."
+          ],
+          "effects": [
+            "Package_3 is delivered."
+          ],
+          "intent": "Return every package."
+        }
+      ]
+    }
+  },
+  {
+    "id": "X023",
+    "valid": false,
+    "input": "Action Deliver Package_1\nAgent: Robot_1\nEffect: Package_1 is delivered.\n",
+    "expectedError": {
+      "code": "SYN015",
+      "name": "MissingColonAfterLabelError",
+      "message": "Label is missing a colon.",
+      "severity": "error",
+      "primaryToken": "Action",
+      "hint": "Use the exact Label: form."
+    }
+  },
+  {
+    "id": "X024",
+    "valid": false,
+    "input": "Agent Robot_1\nAction: Deliver Package_1\nEffect: Package_1 is delivered.\n",
+    "expectedError": {
+      "code": "SYN015",
+      "name": "MissingColonAfterLabelError",
+      "message": "Label is missing a colon.",
+      "severity": "error",
+      "primaryToken": "Agent",
+      "hint": "Use the exact Label: form."
+    }
+  },
+  {
+    "id": "X025",
+    "valid": false,
+    "input": "Precondition Package_1 is ready.\nAction: Deliver Package_1\nAgent: Robot_1\nEffect: Package_1 is delivered.\n",
+    "expectedError": {
+      "code": "SYN015",
+      "name": "MissingColonAfterLabelError",
+      "message": "Label is missing a colon.",
+      "severity": "error",
+      "primaryToken": "Precondition",
+      "hint": "Use the exact Label: form."
+    }
+  },
+  {
+    "id": "X026",
+    "valid": false,
+    "input": "Effect Package_1 is delivered.\nAction: Deliver Package_1\nAgent: Robot_1\n",
+    "expectedError": {
+      "code": "SYN015",
+      "name": "MissingColonAfterLabelError",
+      "message": "Label is missing a colon.",
+      "severity": "error",
+      "primaryToken": "Effect",
+      "hint": "Use the exact Label: form."
+    }
+  },
+  {
+    "id": "X027",
+    "valid": false,
+    "input": "Intent Plan to achieve package delivered.\nAction: Deliver Package_1\nAgent: Robot_1\nEffect: Package_1 is delivered.\n",
+    "expectedError": {
+      "code": "SYN015",
+      "name": "MissingColonAfterLabelError",
+      "message": "Label is missing a colon.",
+      "severity": "error",
+      "primaryToken": "Intent",
+      "hint": "Use the exact Label: form."
+    }
+  },
+  {
+    "id": "X028",
+    "valid": false,
+    "input": "Action: Deliver Package_1\nAgent: Robot_1\nIntent: Return every package.\nIntent: Return every package.\nEffect: Package_1 is delivered.\n",
+    "expectedError": {
+      "code": "SYN014",
+      "name": "ActionBlockDuplicateFieldError",
+      "message": "Action block has a duplicate unique field.",
+      "severity": "error",
+      "primaryToken": "intent",
+      "hint": "Keep unique fields single and list multiple preconditions/effects."
+    }
+  }
+]

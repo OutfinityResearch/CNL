@@ -1,0 +1,2949 @@
+[
+  {
+    "id": "V001",
+    "valid": true,
+    "input": "John likes pizza.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ActiveRelationAssertion",
+              "subject": {
+                "kind": "Name",
+                "value": "John"
+              },
+              "verbGroup": {
+                "kind": "VerbGroup",
+                "auxiliary": null,
+                "verb": "likes",
+                "particles": []
+              },
+              "object": {
+                "kind": "Name",
+                "value": "pizza"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V002",
+    "valid": true,
+    "input": "Truck_A is a truck.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "Name",
+                "value": "Truck_A"
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "a"
+                },
+                "core": [
+                  "truck"
+                ],
+                "pp": [],
+                "relative": null
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V003",
+    "valid": true,
+    "input": "Truck_A has a capacity of 1000.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "AttributeAssertion",
+              "subject": {
+                "kind": "Name",
+                "value": "Truck_A"
+              },
+              "determiner": "a",
+              "attribute": {
+                "kind": "AttributeRef",
+                "core": [
+                  "capacity"
+                ],
+                "pp": []
+              },
+              "value": {
+                "kind": "NumberLiteral",
+                "value": 1000
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V004",
+    "valid": true,
+    "input": "The temperature is greater than 20.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ComparisonAssertion",
+              "left": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "temperature"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "comparator": {
+                "kind": "Comparator",
+                "op": "GreaterThan"
+              },
+              "right": {
+                "kind": "NumberLiteral",
+                "value": 20
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V005",
+    "valid": true,
+    "input": "Package_1 is assigned to Drone_A.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "PassiveRelationAssertion",
+              "subject": {
+                "kind": "Name",
+                "value": "Package_1"
+              },
+              "copula": "is",
+              "verb": "assigned",
+              "preposition": "to",
+              "object": {
+                "kind": "Name",
+                "value": "Drone_A"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V006",
+    "valid": true,
+    "input": "User_1 has logged in today.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ActiveRelationAssertion",
+              "subject": {
+                "kind": "Name",
+                "value": "User_1"
+              },
+              "verbGroup": {
+                "kind": "VerbGroup",
+                "auxiliary": "has",
+                "verb": "logged",
+                "particles": [
+                  "in"
+                ]
+              },
+              "object": {
+                "kind": "Name",
+                "value": "today"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V007",
+    "valid": true,
+    "input": "User_1 has logged in to Portal_1.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ActiveRelationAssertion",
+              "subject": {
+                "kind": "Name",
+                "value": "User_1"
+              },
+              "verbGroup": {
+                "kind": "VerbGroup",
+                "auxiliary": "has",
+                "verb": "logged",
+                "particles": [
+                  "in",
+                  "to"
+                ]
+              },
+              "object": {
+                "kind": "Name",
+                "value": "Portal_1"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V008",
+    "valid": true,
+    "input": "The score is greater than or equal to 10.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ComparisonAssertion",
+              "left": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "score"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "comparator": {
+                "kind": "Comparator",
+                "op": "GreaterThanOrEqualTo"
+              },
+              "right": {
+                "kind": "NumberLiteral",
+                "value": 10
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V009",
+    "valid": true,
+    "input": "The weight is less than or equal to 50.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ComparisonAssertion",
+              "left": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "weight"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "comparator": {
+                "kind": "Comparator",
+                "op": "LessThanOrEqualTo"
+              },
+              "right": {
+                "kind": "NumberLiteral",
+                "value": 50
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V010",
+    "valid": true,
+    "input": "The permissions contains Admin.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ComparisonAssertion",
+              "left": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "permissions"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "comparator": {
+                "kind": "Comparator",
+                "op": "Contains"
+              },
+              "right": {
+                "kind": "Name",
+                "value": "Admin"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V011",
+    "valid": true,
+    "input": "The permissions does not contain Guest.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ComparisonAssertion",
+              "left": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "permissions"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "comparator": {
+                "kind": "Comparator",
+                "op": "NotContains"
+              },
+              "right": {
+                "kind": "Name",
+                "value": "Guest"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V012",
+    "valid": true,
+    "input": "If John likes pizza and Mary likes sushi then John is happy.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "ConditionalSentence",
+            "condition": {
+              "kind": "AndChain",
+              "items": [
+                {
+                  "kind": "AtomicCondition",
+                  "assertion": {
+                    "kind": "ActiveRelationAssertion",
+                    "subject": {
+                      "kind": "Name",
+                      "value": "John"
+                    },
+                    "verbGroup": {
+                      "kind": "VerbGroup",
+                      "auxiliary": null,
+                      "verb": "likes",
+                      "particles": []
+                    },
+                    "object": {
+                      "kind": "Name",
+                      "value": "pizza"
+                    }
+                  }
+                },
+                {
+                  "kind": "AtomicCondition",
+                  "assertion": {
+                    "kind": "ActiveRelationAssertion",
+                    "subject": {
+                      "kind": "Name",
+                      "value": "Mary"
+                    },
+                    "verbGroup": {
+                      "kind": "VerbGroup",
+                      "auxiliary": null,
+                      "verb": "likes",
+                      "particles": []
+                    },
+                    "object": {
+                      "kind": "Name",
+                      "value": "sushi"
+                    }
+                  }
+                }
+              ]
+            },
+            "then": {
+              "kind": "AssertionSentence",
+              "assertion": {
+                "kind": "CopulaPredicateAssertion",
+                "subject": {
+                  "kind": "Name",
+                  "value": "John"
+                },
+                "copula": "is",
+                "complement": {
+                  "kind": "Name",
+                  "value": "happy"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V013",
+    "valid": true,
+    "input": "If John likes pizza, Mary likes sushi.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "ConditionalSentence",
+            "condition": {
+              "kind": "AtomicCondition",
+              "assertion": {
+                "kind": "ActiveRelationAssertion",
+                "subject": {
+                  "kind": "Name",
+                  "value": "John"
+                },
+                "verbGroup": {
+                  "kind": "VerbGroup",
+                  "auxiliary": null,
+                  "verb": "likes",
+                  "particles": []
+                },
+                "object": {
+                  "kind": "Name",
+                  "value": "pizza"
+                }
+              }
+            },
+            "then": {
+              "kind": "AssertionSentence",
+              "assertion": {
+                "kind": "ActiveRelationAssertion",
+                "subject": {
+                  "kind": "Name",
+                  "value": "Mary"
+                },
+                "verbGroup": {
+                  "kind": "VerbGroup",
+                  "auxiliary": null,
+                  "verb": "likes",
+                  "particles": []
+                },
+                "object": {
+                  "kind": "Name",
+                  "value": "sushi"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V014",
+    "valid": true,
+    "input": "A route is valid if the number of packages is greater than 0.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "ConditionalSentence",
+            "condition": {
+              "kind": "AtomicCondition",
+              "assertion": {
+                "kind": "ComparisonAssertion",
+                "left": {
+                  "kind": "AggregationExpr",
+                  "agg": "NumberOf",
+                  "attribute": null,
+                  "set": {
+                    "kind": "NounPhrase",
+                    "prefix": {
+                      "kind": "Determiner",
+                      "value": "the"
+                    },
+                    "core": [
+                      "packages"
+                    ],
+                    "pp": [],
+                    "relative": null
+                  }
+                },
+                "comparator": {
+                  "kind": "Comparator",
+                  "op": "GreaterThan"
+                },
+                "right": {
+                  "kind": "NumberLiteral",
+                  "value": 0
+                }
+              }
+            },
+            "then": {
+              "kind": "AssertionSentence",
+              "assertion": {
+                "kind": "CopulaPredicateAssertion",
+                "subject": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Determiner",
+                    "value": "a"
+                  },
+                  "core": [
+                    "route"
+                  ],
+                  "pp": [],
+                  "relative": null
+                },
+                "copula": "is",
+                "complement": {
+                  "kind": "Name",
+                  "value": "valid"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V015",
+    "valid": true,
+    "input": "System is stable because John likes pizza and Mary likes sushi.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "BecauseSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "Name",
+                "value": "System"
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "Name",
+                "value": "stable"
+              }
+            },
+            "because": {
+              "kind": "AndChain",
+              "items": [
+                {
+                  "kind": "AtomicCondition",
+                  "assertion": {
+                    "kind": "ActiveRelationAssertion",
+                    "subject": {
+                      "kind": "Name",
+                      "value": "John"
+                    },
+                    "verbGroup": {
+                      "kind": "VerbGroup",
+                      "auxiliary": null,
+                      "verb": "likes",
+                      "particles": []
+                    },
+                    "object": {
+                      "kind": "Name",
+                      "value": "pizza"
+                    }
+                  }
+                },
+                {
+                  "kind": "AtomicCondition",
+                  "assertion": {
+                    "kind": "ActiveRelationAssertion",
+                    "subject": {
+                      "kind": "Name",
+                      "value": "Mary"
+                    },
+                    "verbGroup": {
+                      "kind": "VerbGroup",
+                      "auxiliary": null,
+                      "verb": "likes",
+                      "particles": []
+                    },
+                    "object": {
+                      "kind": "Name",
+                      "value": "sushi"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V016",
+    "valid": true,
+    "input": "Rule: A route is valid if the total weight of all packages in the route is less than or equal to the capacity of the vehicle.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "RuleStatement",
+          "sentence": {
+            "kind": "ConditionalSentence",
+            "condition": {
+              "kind": "AtomicCondition",
+              "assertion": {
+                "kind": "ComparisonAssertion",
+                "left": {
+                  "kind": "AggregationExpr",
+                  "agg": "TotalOf",
+                  "attribute": {
+                    "kind": "AttrSelector",
+                    "words": [
+                      "weight"
+                    ]
+                  },
+                  "set": {
+                    "kind": "NounPhrase",
+                    "prefix": {
+                      "kind": "Quantifier",
+                      "q": "all",
+                      "n": null
+                    },
+                    "core": [
+                      "packages"
+                    ],
+                    "pp": [
+                      {
+                        "kind": "PrepositionalPhrase",
+                        "preposition": "in",
+                        "object": {
+                          "kind": "NounPhrase",
+                          "prefix": {
+                            "kind": "Determiner",
+                            "value": "the"
+                          },
+                          "core": [
+                            "route"
+                          ],
+                          "pp": [],
+                          "relative": null
+                        }
+                      }
+                    ],
+                    "relative": null
+                  }
+                },
+                "comparator": {
+                  "kind": "Comparator",
+                  "op": "LessThanOrEqualTo"
+                },
+                "right": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Determiner",
+                    "value": "the"
+                  },
+                  "core": [
+                    "capacity"
+                  ],
+                  "pp": [
+                    {
+                      "kind": "PrepositionalPhrase",
+                      "preposition": "of",
+                      "object": {
+                        "kind": "NounPhrase",
+                        "prefix": {
+                          "kind": "Determiner",
+                          "value": "the"
+                        },
+                        "core": [
+                          "vehicle"
+                        ],
+                        "pp": [],
+                        "relative": null
+                      }
+                    }
+                  ],
+                  "relative": null
+                }
+              }
+            },
+            "then": {
+              "kind": "AssertionSentence",
+              "assertion": {
+                "kind": "CopulaPredicateAssertion",
+                "subject": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Determiner",
+                    "value": "a"
+                  },
+                  "core": [
+                    "route"
+                  ],
+                  "pp": [],
+                  "relative": null
+                },
+                "copula": "is",
+                "complement": {
+                  "kind": "Name",
+                  "value": "valid"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V017",
+    "valid": true,
+    "input": "Rule: A location represents a hazard if either it is not the case that the location is secure or the weather at the location is stormy.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "RuleStatement",
+          "sentence": {
+            "kind": "ConditionalSentence",
+            "condition": {
+              "kind": "EitherOr",
+              "left": {
+                "kind": "CaseScope",
+                "mode": "negative",
+                "operand": {
+                  "kind": "AtomicCondition",
+                  "assertion": {
+                    "kind": "CopulaPredicateAssertion",
+                    "subject": {
+                      "kind": "NounPhrase",
+                      "prefix": {
+                        "kind": "Determiner",
+                        "value": "the"
+                      },
+                      "core": [
+                        "location"
+                      ],
+                      "pp": [],
+                      "relative": null
+                    },
+                    "copula": "is",
+                    "complement": {
+                      "kind": "Name",
+                      "value": "secure"
+                    }
+                  }
+                }
+              },
+              "right": {
+                "kind": "AtomicCondition",
+                "assertion": {
+                  "kind": "CopulaPredicateAssertion",
+                  "subject": {
+                    "kind": "NounPhrase",
+                    "prefix": {
+                      "kind": "Determiner",
+                      "value": "the"
+                    },
+                    "core": [
+                      "weather"
+                    ],
+                    "pp": [
+                      {
+                        "kind": "PrepositionalPhrase",
+                        "preposition": "at",
+                        "object": {
+                          "kind": "NounPhrase",
+                          "prefix": {
+                            "kind": "Determiner",
+                            "value": "the"
+                          },
+                          "core": [
+                            "location"
+                          ],
+                          "pp": [],
+                          "relative": null
+                        }
+                      }
+                    ],
+                    "relative": null
+                  },
+                  "copula": "is",
+                  "complement": {
+                    "kind": "Name",
+                    "value": "stormy"
+                  }
+                }
+              }
+            },
+            "then": {
+              "kind": "AssertionSentence",
+              "assertion": {
+                "kind": "ActiveRelationAssertion",
+                "subject": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Determiner",
+                    "value": "a"
+                  },
+                  "core": [
+                    "location"
+                  ],
+                  "pp": [],
+                  "relative": null
+                },
+                "verbGroup": {
+                  "kind": "VerbGroup",
+                  "auxiliary": null,
+                  "verb": "represents",
+                  "particles": []
+                },
+                "object": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Determiner",
+                    "value": "a"
+                  },
+                  "core": [
+                    "hazard"
+                  ],
+                  "pp": [],
+                  "relative": null
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V018",
+    "valid": true,
+    "input": "Command: Return the name of every vehicle whose capacity is greater than 500 and that is located at Warehouse_Main.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "ReturnCommand",
+            "expr": {
+              "kind": "NounPhrase",
+              "prefix": {
+                "kind": "Determiner",
+                "value": "the"
+              },
+              "core": [
+                "name"
+              ],
+              "pp": [
+                {
+                  "kind": "PrepositionalPhrase",
+                  "preposition": "of",
+                  "object": {
+                    "kind": "NounPhrase",
+                    "prefix": {
+                      "kind": "Quantifier",
+                      "q": "every",
+                      "n": null
+                    },
+                    "core": [
+                      "vehicle"
+                    ],
+                    "pp": [],
+                    "relative": {
+                      "kind": "RelativeAndChain",
+                      "items": [
+                        {
+                          "kind": "RelativeClause",
+                          "pronoun": "whose",
+                          "body": {
+                            "kind": "RelAttributeLike",
+                            "attribute": {
+                              "kind": "AttrSelector",
+                              "words": [
+                                "capacity"
+                              ]
+                            },
+                            "predicate": {
+                              "kind": "RelPredicateComparison",
+                              "comparator": {
+                                "kind": "Comparator",
+                                "op": "GreaterThan"
+                              },
+                              "right": {
+                                "kind": "NumberLiteral",
+                                "value": 500
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "kind": "RelativeClause",
+                          "pronoun": "that",
+                          "body": {
+                            "kind": "RelPassiveRelation",
+                            "copula": "is",
+                            "verb": "located",
+                            "preposition": "at",
+                            "object": {
+                              "kind": "Name",
+                              "value": "Warehouse_Main"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "relative": null
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V019",
+    "valid": true,
+    "input": "Command: Verify that no package whose weight is greater than 100 is assigned to a drone.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "VerifyCommand",
+            "proposition": {
+              "kind": "AtomicCondition",
+              "assertion": {
+                "kind": "PassiveRelationAssertion",
+                "subject": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Quantifier",
+                    "q": "no",
+                    "n": null
+                  },
+                  "core": [
+                    "package"
+                  ],
+                  "pp": [],
+                  "relative": {
+                    "kind": "RelativeClause",
+                    "pronoun": "whose",
+                    "body": {
+                      "kind": "RelAttributeLike",
+                      "attribute": {
+                        "kind": "AttrSelector",
+                        "words": [
+                          "weight"
+                        ]
+                      },
+                      "predicate": {
+                        "kind": "RelPredicateComparison",
+                        "comparator": {
+                          "kind": "Comparator",
+                          "op": "GreaterThan"
+                        },
+                        "right": {
+                          "kind": "NumberLiteral",
+                          "value": 100
+                        }
+                      }
+                    }
+                  }
+                },
+                "copula": "is",
+                "verb": "assigned",
+                "preposition": "to",
+                "object": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Determiner",
+                    "value": "a"
+                  },
+                  "core": [
+                    "drone"
+                  ],
+                  "pp": [],
+                  "relative": null
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V020",
+    "valid": true,
+    "input": "Verify that every server that handles payments is encrypted.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "VerifyCommand",
+            "proposition": {
+              "kind": "AtomicCondition",
+              "assertion": {
+                "kind": "CopulaPredicateAssertion",
+                "subject": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Quantifier",
+                    "q": "every",
+                    "n": null
+                  },
+                  "core": [
+                    "server"
+                  ],
+                  "pp": [],
+                  "relative": {
+                    "kind": "RelativeClause",
+                    "pronoun": "that",
+                    "body": {
+                      "kind": "RelActiveRelation",
+                      "verbGroup": {
+                        "kind": "VerbGroup",
+                        "auxiliary": null,
+                        "verb": "handles",
+                        "particles": []
+                      },
+                      "object": {
+                        "kind": "Name",
+                        "value": "payments"
+                      }
+                    }
+                  }
+                },
+                "copula": "is",
+                "complement": {
+                  "kind": "Name",
+                  "value": "encrypted"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V021",
+    "valid": true,
+    "input": "Find a schedule for every meeting such that no meeting overlaps with another meeting.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "FindCommand",
+            "expr": {
+              "kind": "NounPhrase",
+              "prefix": {
+                "kind": "Determiner",
+                "value": "a"
+              },
+              "core": [
+                "schedule"
+              ],
+              "pp": [
+                {
+                  "kind": "PrepositionalPhrase",
+                  "preposition": "for",
+                  "object": {
+                    "kind": "NounPhrase",
+                    "prefix": {
+                      "kind": "Quantifier",
+                      "q": "every",
+                      "n": null
+                    },
+                    "core": [
+                      "meeting"
+                    ],
+                    "pp": [],
+                    "relative": null
+                  }
+                }
+              ],
+              "relative": null
+            },
+            "constraint": {
+              "kind": "AtomicCondition",
+              "assertion": {
+                "kind": "ActiveRelationAssertion",
+                "subject": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Quantifier",
+                    "q": "no",
+                    "n": null
+                  },
+                  "core": [
+                    "meeting"
+                  ],
+                  "pp": [],
+                  "relative": null
+                },
+                "verbGroup": {
+                  "kind": "VerbGroup",
+                  "auxiliary": null,
+                  "verb": "overlaps",
+                  "particles": [
+                    "with"
+                  ]
+                },
+                "object": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Determiner",
+                    "value": "another"
+                  },
+                  "core": [
+                    "meeting"
+                  ],
+                  "pp": [],
+                  "relative": null
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V022",
+    "valid": true,
+    "input": "Simulate 10 steps.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "SimulateCommand",
+            "steps": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V023",
+    "valid": true,
+    "input": "Maximize the number of packages delivered such that every route is valid and the total fuel cost is less than 500.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "MaximizeCommand",
+            "objective": {
+              "kind": "AggregationExpr",
+              "agg": "NumberOf",
+              "attribute": null,
+              "set": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "packages",
+                  "delivered"
+                ],
+                "pp": [],
+                "relative": null
+              }
+            },
+            "constraint": {
+              "kind": "AndChain",
+              "items": [
+                {
+                  "kind": "AtomicCondition",
+                  "assertion": {
+                    "kind": "CopulaPredicateAssertion",
+                    "subject": {
+                      "kind": "NounPhrase",
+                      "prefix": {
+                        "kind": "Quantifier",
+                        "q": "every",
+                        "n": null
+                      },
+                      "core": [
+                        "route"
+                      ],
+                      "pp": [],
+                      "relative": null
+                    },
+                    "copula": "is",
+                    "complement": {
+                      "kind": "Name",
+                      "value": "valid"
+                    }
+                  }
+                },
+                {
+                  "kind": "AtomicCondition",
+                  "assertion": {
+                    "kind": "ComparisonAssertion",
+                    "left": {
+                      "kind": "AggregationExpr",
+                      "agg": "TotalOf",
+                      "attribute": {
+                        "kind": "AttrSelector",
+                        "words": [
+                          "fuel",
+                          "cost"
+                        ]
+                      },
+                      "set": null
+                    },
+                    "comparator": {
+                      "kind": "Comparator",
+                      "op": "LessThan"
+                    },
+                    "right": {
+                      "kind": "NumberLiteral",
+                      "value": 500
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V024",
+    "valid": true,
+    "input": "Minimize the average of delay of all flights such that no flight is canceled.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "MinimizeCommand",
+            "objective": {
+              "kind": "AggregationExpr",
+              "agg": "AverageOf",
+              "attribute": {
+                "kind": "AttrSelector",
+                "words": [
+                  "delay"
+                ]
+              },
+              "set": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Quantifier",
+                  "q": "all",
+                  "n": null
+                },
+                "core": [
+                  "flights"
+                ],
+                "pp": [],
+                "relative": null
+              }
+            },
+            "constraint": {
+              "kind": "AtomicCondition",
+              "assertion": {
+                "kind": "CopulaPredicateAssertion",
+                "subject": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Quantifier",
+                    "q": "no",
+                    "n": null
+                  },
+                  "core": [
+                    "flight"
+                  ],
+                  "pp": [],
+                  "relative": null
+                },
+                "copula": "is",
+                "complement": {
+                  "kind": "Name",
+                  "value": "canceled"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V025",
+    "valid": true,
+    "input": "Explain why Truck_A represents a valid choice.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "ExplainCommand",
+            "proposition": {
+              "kind": "AtomicCondition",
+              "assertion": {
+                "kind": "ActiveRelationAssertion",
+                "subject": {
+                  "kind": "Name",
+                  "value": "Truck_A"
+                },
+                "verbGroup": {
+                  "kind": "VerbGroup",
+                  "auxiliary": null,
+                  "verb": "represents",
+                  "particles": []
+                },
+                "object": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Determiner",
+                    "value": "a"
+                  },
+                  "core": [
+                    "valid",
+                    "choice"
+                  ],
+                  "pp": [],
+                  "relative": null
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V026",
+    "valid": true,
+    "input": "When the sensor detects smoke occurs, then the alarm is active.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "TransitionRuleStatement",
+          "event": {
+            "kind": "AtomicCondition",
+            "assertion": {
+              "kind": "ActiveRelationAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "sensor"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "verbGroup": {
+                "kind": "VerbGroup",
+                "auxiliary": null,
+                "verb": "detects",
+                "particles": []
+              },
+              "object": {
+                "kind": "Name",
+                "value": "smoke"
+              }
+            }
+          },
+          "effect": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "alarm"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "Name",
+                "value": "active"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V027",
+    "valid": true,
+    "input": "// 1. Type Definitions\n--- CONTEXT: LogisticsNetwork ---\nTruck is a vehicle.\nDrone is a vehicle.\n---\n// Facts\nTruck_A is a truck.\n",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "ContextDirective",
+          "name": "LogisticsNetwork"
+        },
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "Name",
+                "value": "Truck"
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "a"
+                },
+                "core": [
+                  "vehicle"
+                ],
+                "pp": [],
+                "relative": null
+              }
+            }
+          }
+        },
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "Name",
+                "value": "Drone"
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "a"
+                },
+                "core": [
+                  "vehicle"
+                ],
+                "pp": [],
+                "relative": null
+              }
+            }
+          }
+        },
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "Name",
+                "value": "Truck_A"
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "a"
+                },
+                "core": [
+                  "truck"
+                ],
+                "pp": [],
+                "relative": null
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V028",
+    "valid": true,
+    "input": "The distance from A to B is equal to 12.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ComparisonAssertion",
+              "left": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "distance"
+                ],
+                "pp": [
+                  {
+                    "kind": "PrepositionalPhrase",
+                    "preposition": "from",
+                    "object": {
+                      "kind": "Name",
+                      "value": "A"
+                    }
+                  },
+                  {
+                    "kind": "PrepositionalPhrase",
+                    "preposition": "to",
+                    "object": {
+                      "kind": "Name",
+                      "value": "B"
+                    }
+                  }
+                ],
+                "relative": null
+              },
+              "comparator": {
+                "kind": "Comparator",
+                "op": "EqualTo"
+              },
+              "right": {
+                "kind": "NumberLiteral",
+                "value": 12
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V029",
+    "valid": true,
+    "input": "At least 2 users are active.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Quantifier",
+                  "q": "at least",
+                  "n": 2
+                },
+                "core": [
+                  "users"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "copula": "are",
+              "complement": {
+                "kind": "Name",
+                "value": "active"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V030",
+    "valid": true,
+    "input": "At most 1 server is down.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Quantifier",
+                  "q": "at most",
+                  "n": 1
+                },
+                "core": [
+                  "server"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "Name",
+                "value": "down"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V031",
+    "valid": true,
+    "input": "Some packages are delayed.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Quantifier",
+                  "q": "some",
+                  "n": null
+                },
+                "core": [
+                  "packages"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "copula": "are",
+              "complement": {
+                "kind": "Name",
+                "value": "delayed"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V032",
+    "valid": true,
+    "input": "No package is lost.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Quantifier",
+                  "q": "no",
+                  "n": null
+                },
+                "core": [
+                  "package"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "Name",
+                "value": "lost"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V033",
+    "valid": true,
+    "input": "Another meeting overlaps with the meeting.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ActiveRelationAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "another"
+                },
+                "core": [
+                  "meeting"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "verbGroup": {
+                "kind": "VerbGroup",
+                "auxiliary": null,
+                "verb": "overlaps",
+                "particles": [
+                  "with"
+                ]
+              },
+              "object": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "meeting"
+                ],
+                "pp": [],
+                "relative": null
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V034",
+    "valid": true,
+    "input": "The package which is heavy is assigned to Truck_A.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "PassiveRelationAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "package"
+                ],
+                "pp": [],
+                "relative": {
+                  "kind": "RelativeClause",
+                  "pronoun": "which",
+                  "body": {
+                    "kind": "RelCopulaPredicate",
+                    "copula": "is",
+                    "complement": {
+                      "kind": "Name",
+                      "value": "heavy"
+                    }
+                  }
+                }
+              },
+              "copula": "is",
+              "verb": "assigned",
+              "preposition": "to",
+              "object": {
+                "kind": "Name",
+                "value": "Truck_A"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V035",
+    "valid": true,
+    "input": "A warehouse where the temperature is greater than 20 is hot.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "a"
+                },
+                "core": [
+                  "warehouse"
+                ],
+                "pp": [],
+                "relative": {
+                  "kind": "RelativeClause",
+                  "pronoun": "where",
+                  "body": {
+                    "kind": "RelComparison",
+                    "left": {
+                      "kind": "NounPhrase",
+                      "prefix": {
+                        "kind": "Determiner",
+                        "value": "the"
+                      },
+                      "core": [
+                        "temperature"
+                      ],
+                      "pp": [],
+                      "relative": null
+                    },
+                    "comparator": {
+                      "kind": "Comparator",
+                      "op": "GreaterThan"
+                    },
+                    "right": {
+                      "kind": "NumberLiteral",
+                      "value": 20
+                    }
+                  }
+                }
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "Name",
+                "value": "hot"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V036",
+    "valid": true,
+    "input": "A user who is an admin or who is a dev is privileged.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "a"
+                },
+                "core": [
+                  "user"
+                ],
+                "pp": [],
+                "relative": {
+                  "kind": "RelativeOrChain",
+                  "items": [
+                    {
+                      "kind": "RelativeClause",
+                      "pronoun": "who",
+                      "body": {
+                        "kind": "RelCopulaPredicate",
+                        "copula": "is",
+                        "complement": {
+                          "kind": "NounPhrase",
+                          "prefix": {
+                            "kind": "Determiner",
+                            "value": "an"
+                          },
+                          "core": [
+                            "admin"
+                          ],
+                          "pp": [],
+                          "relative": null
+                        }
+                      }
+                    },
+                    {
+                      "kind": "RelativeClause",
+                      "pronoun": "who",
+                      "body": {
+                        "kind": "RelCopulaPredicate",
+                        "copula": "is",
+                        "complement": {
+                          "kind": "NounPhrase",
+                          "prefix": {
+                            "kind": "Determiner",
+                            "value": "a"
+                          },
+                          "core": [
+                            "dev"
+                          ],
+                          "pp": [],
+                          "relative": null
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "Name",
+                "value": "privileged"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V037",
+    "valid": true,
+    "input": "Every user whose score is greater than 10 is valid.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Quantifier",
+                  "q": "every",
+                  "n": null
+                },
+                "core": [
+                  "user"
+                ],
+                "pp": [],
+                "relative": {
+                  "kind": "RelativeClause",
+                  "pronoun": "whose",
+                  "body": {
+                    "kind": "RelAttributeLike",
+                    "attribute": {
+                      "kind": "AttrSelector",
+                      "words": [
+                        "score"
+                      ]
+                    },
+                    "predicate": {
+                      "kind": "RelPredicateComparison",
+                      "comparator": {
+                        "kind": "Comparator",
+                        "op": "GreaterThan"
+                      },
+                      "right": {
+                        "kind": "NumberLiteral",
+                        "value": 10
+                      }
+                    }
+                  }
+                }
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "Name",
+                "value": "valid"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V038",
+    "valid": true,
+    "input": "The capacity of the vehicle at the warehouse is greater than 500.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ComparisonAssertion",
+              "left": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "capacity"
+                ],
+                "pp": [
+                  {
+                    "kind": "PrepositionalPhrase",
+                    "preposition": "of",
+                    "object": {
+                      "kind": "NounPhrase",
+                      "prefix": {
+                        "kind": "Determiner",
+                        "value": "the"
+                      },
+                      "core": [
+                        "vehicle"
+                      ],
+                      "pp": [
+                        {
+                          "kind": "PrepositionalPhrase",
+                          "preposition": "at",
+                          "object": {
+                            "kind": "NounPhrase",
+                            "prefix": {
+                              "kind": "Determiner",
+                              "value": "the"
+                            },
+                            "core": [
+                              "warehouse"
+                            ],
+                            "pp": [],
+                            "relative": null
+                          }
+                        }
+                      ],
+                      "relative": null
+                    }
+                  }
+                ],
+                "relative": null
+              },
+              "comparator": {
+                "kind": "Comparator",
+                "op": "GreaterThan"
+              },
+              "right": {
+                "kind": "NumberLiteral",
+                "value": 500
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V039",
+    "valid": true,
+    "input": "If both (John likes pizza and Mary likes sushi) and Bob likes salad then Party is on.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "ConditionalSentence",
+            "condition": {
+              "kind": "BothAnd",
+              "left": {
+                "kind": "GroupCondition",
+                "inner": {
+                  "kind": "AndChain",
+                  "items": [
+                    {
+                      "kind": "AtomicCondition",
+                      "assertion": {
+                        "kind": "ActiveRelationAssertion",
+                        "subject": {
+                          "kind": "Name",
+                          "value": "John"
+                        },
+                        "verbGroup": {
+                          "kind": "VerbGroup",
+                          "auxiliary": null,
+                          "verb": "likes",
+                          "particles": []
+                        },
+                        "object": {
+                          "kind": "Name",
+                          "value": "pizza"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "AtomicCondition",
+                      "assertion": {
+                        "kind": "ActiveRelationAssertion",
+                        "subject": {
+                          "kind": "Name",
+                          "value": "Mary"
+                        },
+                        "verbGroup": {
+                          "kind": "VerbGroup",
+                          "auxiliary": null,
+                          "verb": "likes",
+                          "particles": []
+                        },
+                        "object": {
+                          "kind": "Name",
+                          "value": "sushi"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "right": {
+                "kind": "AtomicCondition",
+                "assertion": {
+                  "kind": "ActiveRelationAssertion",
+                  "subject": {
+                    "kind": "Name",
+                    "value": "Bob"
+                  },
+                  "verbGroup": {
+                    "kind": "VerbGroup",
+                    "auxiliary": null,
+                    "verb": "likes",
+                    "particles": []
+                  },
+                  "object": {
+                    "kind": "Name",
+                    "value": "salad"
+                  }
+                }
+              }
+            },
+            "then": {
+              "kind": "AssertionSentence",
+              "assertion": {
+                "kind": "CopulaPredicateAssertion",
+                "subject": {
+                  "kind": "Name",
+                  "value": "Party"
+                },
+                "copula": "is",
+                "complement": {
+                  "kind": "Name",
+                  "value": "on"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V040",
+    "valid": true,
+    "input": "Return every package.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "ReturnCommand",
+            "expr": {
+              "kind": "NounPhrase",
+              "prefix": {
+                "kind": "Quantifier",
+                "q": "every",
+                "n": null
+              },
+              "core": [
+                "package"
+              ],
+              "pp": [],
+              "relative": null
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "X001",
+    "valid": false,
+    "input": "John likes pizza",
+    "expectedError": {
+      "code": "SYN003",
+      "name": "MissingTerminatorError",
+      "message": "Statement is missing a terminator.",
+      "severity": "error",
+      "primaryToken": "EOF",
+      "hint": "Add a period at the end."
+    }
+  },
+  {
+    "id": "X002",
+    "valid": false,
+    "input": "If John likes pizza and Mary likes sushi or Bob likes salad then Party is on.",
+    "expectedError": {
+      "code": "SYN011",
+      "name": "MixedBooleanOperatorsError",
+      "message": "Mixed 'and'/'or' without explicit grouping (both/either/neither/it is the case that/parentheses).",
+      "severity": "error",
+      "primaryToken": "or",
+      "hint": "Rewrite using 'either ... or ...' or parentheses."
+    }
+  },
+  {
+    "id": "X003",
+    "valid": false,
+    "input": "Truck_A has capacity of 1000.",
+    "expectedError": {
+      "code": "SYN008",
+      "name": "HasFormDeterminismError",
+      "message": "Attribute form requires a determiner after 'has'.",
+      "severity": "error",
+      "primaryToken": "capacity",
+      "hint": "Use 'has a <attribute> of <value>'."
+    }
+  },
+  {
+    "id": "X004",
+    "valid": false,
+    "input": "User who is active is trusted.",
+    "expectedError": {
+      "code": "SYN009",
+      "name": "InvalidNounPhraseStartError",
+      "message": "Noun phrase must start with a determiner or quantifier.",
+      "severity": "error",
+      "primaryToken": "User",
+      "hint": "Start with a/an/the/every/all/no/some/at least/at most/another."
+    }
+  },
+  {
+    "id": "X005",
+    "valid": false,
+    "input": "A user who is active and knows Python is valid.",
+    "expectedError": {
+      "code": "SYN010",
+      "name": "RelativePronounRepetitionError",
+      "message": "Relative clause chain is missing a repeated pronoun.",
+      "severity": "error",
+      "primaryToken": "knows",
+      "hint": "Repeat the pronoun: 'who ... and who ...'."
+    }
+  },
+  {
+    "id": "X006",
+    "valid": false,
+    "input": "The temperature is bigger than 20.",
+    "expectedError": {
+      "code": "SYN005",
+      "name": "InvalidComparatorError",
+      "message": "Invalid comparator; expected a canonical comparator.",
+      "severity": "error",
+      "primaryToken": "bigger",
+      "hint": "Use 'is equal to', 'is greater than', 'contains', or 'does not contain'."
+    }
+  },
+  {
+    "id": "X007",
+    "valid": false,
+    "input": "The name of User_1 is equal to \"Alice.",
+    "expectedError": {
+      "code": "LEX002",
+      "name": "UnterminatedStringError",
+      "message": "Unterminated string literal.",
+      "severity": "error",
+      "primaryToken": "\"Alice.",
+      "hint": "Close the string with a double quote."
+    }
+  },
+  {
+    "id": "X008",
+    "valid": false,
+    "input": "Return is a command.",
+    "expectedError": {
+      "code": "LEX003",
+      "name": "KeywordAsIdentifierError",
+      "message": "Keyword used where an identifier is expected.",
+      "severity": "error",
+      "primaryToken": "Return",
+      "hint": "Choose a different name for the identifier."
+    }
+  },
+  {
+    "id": "X009",
+    "valid": false,
+    "input": "At least users are active.",
+    "expectedError": {
+      "code": "SYN017",
+      "name": "InvalidQuantifierNumberError",
+      "message": "Quantifier requires a number after 'at least' or 'at most'.",
+      "severity": "error",
+      "primaryToken": "users",
+      "hint": "Use 'At least 2 users ...'."
+    }
+  },
+  {
+    "id": "X010",
+    "valid": false,
+    "input": "If (John likes pizza and Mary likes sushi then Party is on.",
+    "expectedError": {
+      "code": "SYN004",
+      "name": "InvalidParenthesesError",
+      "message": "Unbalanced parentheses.",
+      "severity": "error",
+      "primaryToken": "EOF",
+      "hint": "Close the parentheses or remove them."
+    }
+  },
+  {
+    "id": "X011",
+    "valid": false,
+    "input": "Find a schedule for every meeting no meeting overlaps with another meeting.",
+    "expectedError": {
+      "code": "SYN006",
+      "name": "InvalidCommandFormError",
+      "message": "Command form is missing a required clause.",
+      "severity": "error",
+      "primaryToken": "no",
+      "hint": "Use the required form, such as 'find ... such that ...'."
+    }
+  },
+  {
+    "id": "X012",
+    "valid": false,
+    "input": "Action: Deliver Package_1\nPrecondition: Package_1 is ready.\nEffect: Package_1 is delivered.\n",
+    "expectedError": {
+      "code": "SYN013",
+      "name": "ActionBlockMissingRequiredFieldError",
+      "message": "Action block is missing a required field.",
+      "severity": "error",
+      "primaryToken": "EOF",
+      "offendingField": "Agent",
+      "hint": "A valid block must include both Action and Agent."
+    }
+  },
+  {
+    "id": "X013",
+    "valid": false,
+    "input": "Agent: Robot_1\nPrecondition: Package_1 is ready.\nEffect: Package_1 is delivered.\n",
+    "expectedError": {
+      "code": "SYN013",
+      "name": "ActionBlockMissingRequiredFieldError",
+      "message": "Action block is missing a required field.",
+      "severity": "error",
+      "primaryToken": "EOF",
+      "offendingField": "Action",
+      "hint": "A valid block must include both Action and Agent."
+    }
+  },
+  {
+    "id": "X014",
+    "valid": false,
+    "input": "When the sensor detects smoke, then the alarm is active.",
+    "expectedError": {
+      "code": "SYN007",
+      "name": "TransitionRuleMissingOccursError",
+      "message": "Transition rule is missing the 'occurs' keyword.",
+      "severity": "error",
+      "primaryToken": ",",
+      "hint": "Use 'When <event> occurs, then <effect>.'"
+    }
+  },
+  {
+    "id": "X015",
+    "valid": false,
+    "input": "Simulate steps.",
+    "expectedError": {
+      "code": "SYN006",
+      "name": "InvalidCommandFormError",
+      "message": "Command form is missing a required clause.",
+      "severity": "error",
+      "primaryToken": "steps",
+      "hint": "Use the required form, such as 'simulate 10 steps'."
+    }
+  },
+  {
+    "id": "X016",
+    "valid": false,
+    "input": "A user who is an admin or who is a dev and who is active is privileged.",
+    "expectedError": {
+      "code": "SYN012",
+      "name": "MixedRelativeBooleanOperatorsError",
+      "message": "Mixed boolean operators inside a relative restriction without explicit grouping.",
+      "severity": "error",
+      "primaryToken": "and",
+      "hint": "Group explicitly with parentheses or use either/both forms."
+    }
+  },
+  {
+    "id": "V041",
+    "valid": true,
+    "input": "Action: Deliver Package_1\nAgent: Robot_1\nPrecondition: Package_1 is ready.\nEffect: Package_1 is delivered.\n",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "ActionBlock",
+          "action": "Deliver Package_1",
+          "agent": "Robot_1",
+          "preconditions": [
+            "Package_1 is ready."
+          ],
+          "effects": [
+            "Package_1 is delivered."
+          ],
+          "intent": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "V042",
+    "valid": true,
+    "input": "Action: Assign Package_2 to Drone_A\nAgent: Dispatcher_1\nPrecondition: Package_2 is available.\nPrecondition: Drone_A is ready.\nEffect: Package_2 is assigned to Drone_A.\nIntent: Plan to achieve package assigned.\n",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "ActionBlock",
+          "action": "Assign Package_2 to Drone_A",
+          "agent": "Dispatcher_1",
+          "preconditions": [
+            "Package_2 is available.",
+            "Drone_A is ready."
+          ],
+          "effects": [
+            "Package_2 is assigned to Drone_A."
+          ],
+          "intent": "Plan to achieve package assigned."
+        }
+      ]
+    }
+  },
+  {
+    "id": "V043",
+    "valid": true,
+    "input": "When the sensor detects smoke occurs the alarm is active.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "TransitionRuleStatement",
+          "event": {
+            "kind": "AtomicCondition",
+            "assertion": {
+              "kind": "ActiveRelationAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "sensor"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "verbGroup": {
+                "kind": "VerbGroup",
+                "auxiliary": null,
+                "verb": "detects",
+                "particles": []
+              },
+              "object": {
+                "kind": "Name",
+                "value": "smoke"
+              }
+            }
+          },
+          "effect": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "CopulaPredicateAssertion",
+              "subject": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "alarm"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "copula": "is",
+              "complement": {
+                "kind": "Name",
+                "value": "active"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "X017",
+    "valid": false,
+    "input": "Action: Deliver Package_1\nAction: Deliver Package_2\nAgent: Robot_1\nEffect: Package_2 is delivered.\n",
+    "expectedError": {
+      "code": "SYN014",
+      "name": "ActionBlockDuplicateFieldError",
+      "message": "Action block has a duplicate unique field.",
+      "severity": "error",
+      "primaryToken": "action",
+      "hint": "Keep unique fields single and list multiple preconditions/effects."
+    }
+  },
+  {
+    "id": "X018",
+    "valid": false,
+    "input": "Action: Deliver Package_1\nAgent: Robot_1\nAgent: Robot_2\nEffect: Package_1 is delivered.\n",
+    "expectedError": {
+      "code": "SYN014",
+      "name": "ActionBlockDuplicateFieldError",
+      "message": "Action block has a duplicate unique field.",
+      "severity": "error",
+      "primaryToken": "agent",
+      "hint": "Keep unique fields single and list multiple preconditions/effects."
+    }
+  },
+  {
+    "id": "X019",
+    "valid": false,
+    "input": "When the sensor detects smoke occurs.",
+    "expectedError": {
+      "code": "SYN002",
+      "name": "UnexpectedEOFError",
+      "message": "Unexpected end of input.",
+      "severity": "error",
+      "primaryToken": "EOF",
+      "hint": "Complete the statement (missing object/comparator/etc.)."
+    }
+  },
+  {
+    "id": "X020",
+    "valid": false,
+    "input": "When the sensor detects smoke then the alarm is active.",
+    "expectedError": {
+      "code": "SYN007",
+      "name": "TransitionRuleMissingOccursError",
+      "message": "Transition rule is missing the 'occurs' keyword.",
+      "severity": "error",
+      "primaryToken": "then",
+      "hint": "Use 'When <event> occurs, then <effect>.'"
+    }
+  },
+  {
+    "id": "V045",
+    "valid": true,
+    "input": "Plan to achieve every package is delivered.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "PlanCommand",
+            "condition": {
+              "kind": "AtomicCondition",
+              "assertion": {
+                "kind": "CopulaPredicateAssertion",
+                "subject": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Quantifier",
+                    "q": "every",
+                    "n": null
+                  },
+                  "core": [
+                    "package"
+                  ],
+                  "pp": [],
+                  "relative": null
+                },
+                "copula": "is",
+                "complement": {
+                  "kind": "Name",
+                  "value": "delivered"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V046",
+    "valid": true,
+    "input": "If either John likes pizza or Mary likes sushi then Bob is happy.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "ConditionalSentence",
+            "condition": {
+              "kind": "EitherOr",
+              "left": {
+                "kind": "AtomicCondition",
+                "assertion": {
+                  "kind": "ActiveRelationAssertion",
+                  "subject": {
+                    "kind": "Name",
+                    "value": "John"
+                  },
+                  "verbGroup": {
+                    "kind": "VerbGroup",
+                    "auxiliary": null,
+                    "verb": "likes",
+                    "particles": []
+                  },
+                  "object": {
+                    "kind": "Name",
+                    "value": "pizza"
+                  }
+                }
+              },
+              "right": {
+                "kind": "AtomicCondition",
+                "assertion": {
+                  "kind": "ActiveRelationAssertion",
+                  "subject": {
+                    "kind": "Name",
+                    "value": "Mary"
+                  },
+                  "verbGroup": {
+                    "kind": "VerbGroup",
+                    "auxiliary": null,
+                    "verb": "likes",
+                    "particles": []
+                  },
+                  "object": {
+                    "kind": "Name",
+                    "value": "sushi"
+                  }
+                }
+              }
+            },
+            "then": {
+              "kind": "AssertionSentence",
+              "assertion": {
+                "kind": "CopulaPredicateAssertion",
+                "subject": {
+                  "kind": "Name",
+                  "value": "Bob"
+                },
+                "copula": "is",
+                "complement": {
+                  "kind": "Name",
+                  "value": "happy"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V047",
+    "valid": true,
+    "input": "The name is equal to \"Alice\".",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ComparisonAssertion",
+              "left": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "name"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "comparator": {
+                "kind": "Comparator",
+                "op": "EqualTo"
+              },
+              "right": {
+                "kind": "StringLiteral",
+                "value": "Alice"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V048",
+    "valid": true,
+    "input": "The flag is equal to true.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "AssertionSentence",
+            "assertion": {
+              "kind": "ComparisonAssertion",
+              "left": {
+                "kind": "NounPhrase",
+                "prefix": {
+                  "kind": "Determiner",
+                  "value": "the"
+                },
+                "core": [
+                  "flag"
+                ],
+                "pp": [],
+                "relative": null
+              },
+              "comparator": {
+                "kind": "Comparator",
+                "op": "EqualTo"
+              },
+              "right": {
+                "kind": "BooleanLiteral",
+                "value": true
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V049",
+    "valid": true,
+    "input": "A route is valid if (John likes pizza and Mary likes sushi).",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "Statement",
+          "sentence": {
+            "kind": "ConditionalSentence",
+            "condition": {
+              "kind": "GroupCondition",
+              "inner": {
+                "kind": "AndChain",
+                "items": [
+                  {
+                    "kind": "AtomicCondition",
+                    "assertion": {
+                      "kind": "ActiveRelationAssertion",
+                      "subject": {
+                        "kind": "Name",
+                        "value": "John"
+                      },
+                      "verbGroup": {
+                        "kind": "VerbGroup",
+                        "auxiliary": null,
+                        "verb": "likes",
+                        "particles": []
+                      },
+                      "object": {
+                        "kind": "Name",
+                        "value": "pizza"
+                      }
+                    }
+                  },
+                  {
+                    "kind": "AtomicCondition",
+                    "assertion": {
+                      "kind": "ActiveRelationAssertion",
+                      "subject": {
+                        "kind": "Name",
+                        "value": "Mary"
+                      },
+                      "verbGroup": {
+                        "kind": "VerbGroup",
+                        "auxiliary": null,
+                        "verb": "likes",
+                        "particles": []
+                      },
+                      "object": {
+                        "kind": "Name",
+                        "value": "sushi"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "then": {
+              "kind": "AssertionSentence",
+              "assertion": {
+                "kind": "CopulaPredicateAssertion",
+                "subject": {
+                  "kind": "NounPhrase",
+                  "prefix": {
+                    "kind": "Determiner",
+                    "value": "a"
+                  },
+                  "core": [
+                    "route"
+                  ],
+                  "pp": [],
+                  "relative": null
+                },
+                "copula": "is",
+                "complement": {
+                  "kind": "Name",
+                  "value": "valid"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+]

@@ -39,13 +39,29 @@
             Every valid input yields a single AST.
           </p>
         </div>
-        <div class="hero-card">
-          <h3>Syntax highlights</h3>
-          <ul class="list">
-            <li>Noun phrases start with determiners or quantifiers.</li>
-            <li>Mixed AND/OR chains require explicit grouping.</li>
-            <li>Relative clauses repeat the pronoun for each condition.</li>
-          </ul>
+      </section>
+
+      <section class="section">
+        <h2>Do's and Don'ts</h2>
+        <p>CNL is strict about ambiguity. Here is how to write valid CNL.</p>
+        
+        <div class="grid">
+          <div class="card">
+            <h3>Boolean Logic</h3>
+            <p><strong>Correct:</strong> <span class="good">If (A and B) or C.</span></p>
+            <p><strong>Correct:</strong> <span class="good">If either A and B, or C.</span></p>
+            <p><strong>Incorrect:</strong> <span class="bad">If A and B or C.</span> <small>(Ambiguous precedence)</small></p>
+          </div>
+          <div class="card">
+            <h3>Noun Phrases</h3>
+            <p><strong>Correct:</strong> <span class="good">The user checks the logs.</span></p>
+            <p><strong>Incorrect:</strong> <span class="bad">User checks logs.</span> <small>(Missing determiners)</small></p>
+          </div>
+          <div class="card">
+            <h3>Relative Clauses</h3>
+            <p><strong>Correct:</strong> <span class="good">A user who is active and who is an admin.</span></p>
+            <p><strong>Incorrect:</strong> <span class="bad">A user who is active and an admin.</span> <small>(Must repeat pronoun)</small></p>
+          </div>
         </div>
       </section>
 

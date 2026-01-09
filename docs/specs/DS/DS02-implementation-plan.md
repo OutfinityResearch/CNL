@@ -34,6 +34,7 @@ Each runtime file will have a mirrored design note:
 - Semantic interpretation plan aligned with DS04.
 - Automated testing plan aligned with DS05.
 - Evaluation suite aligned with DS06.
+- Error handling spec aligned with DS07.
 
 ## Open Questions
 - Runtime language (implementation platform) selection.

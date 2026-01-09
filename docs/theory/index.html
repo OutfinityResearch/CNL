@@ -39,13 +39,53 @@
             proven, planned, or optimized without ambiguity.
           </p>
         </div>
-        <div class="hero-card">
-          <h3>Core aims</h3>
-          <ul class="list">
-            <li>Represent constraints and facts in a deterministic AST.</li>
-            <li>Preserve readability while enforcing rigid structure.</li>
-            <li>Enable pragmatic engines to interpret meaning.</li>
-          </ul>
+      </section>
+
+      <section class="section">
+        <h2>The SVO Model (Subject-Verb-Object)</h2>
+        <p>At the heart of CNL-PL is the deterministic mapping of sentences to SVO triplets. Unlike natural English where meaning can be fluid, CNL rigidifies this structure.</p>
+        
+        <div class="code-block">
+<pre>
+Sentence: "The server handles high load."
+
+      [ Subject ]       [ Verb Phrase ]      [ Object ]
+          |                   |                  |
+    +-----+-----+       +-----+-----+      +-----+-----+
+    | the server|       |  handles  |      | high load |
+    +-----------+       +-----------+      +-----------+
+</pre>
+        </div>
+        <p>Every assertion, no matter how complex, breaks down into these three components (or a copula variant like "X is Y").</p>
+      </section>
+
+      <section class="section">
+        <h2>Pragmatic engines: One Input, Many Outputs</h2>
+        <p>
+          The power of CNL-PL lies in separating the <em>representation</em> (the sentence) from the <em>intent</em> (the pragmatic command).
+        </p>
+        
+        <div class="grid">
+          <article class="card">
+            <h3>Query</h3>
+            <p><strong>Input:</strong> "Return the name of every user who is active."</p>
+            <p><strong>Output:</strong> <code>["Alice", "Bob", "Charlie"]</code> (List of Strings)</p>
+          </article>
+          <article class="card">
+            <h3>Verify</h3>
+            <p><strong>Input:</strong> "Verify that Alice is active."</p>
+            <p><strong>Output:</strong> <code>true</code> (Boolean)</p>
+          </article>
+          <article class="card">
+            <h3>Plan</h3>
+            <p><strong>Input:</strong> "Plan to achieve Alice is active."</p>
+            <p><strong>Output:</strong> <code>[Action("ActivateUser", "Alice")]</code> (List of Steps)</p>
+          </article>
+          <article class="card">
+            <h3>Explain</h3>
+            <p><strong>Input:</strong> "Explain why Alice is active."</p>
+            <p><strong>Output:</strong> "Alice is active because Rule #4 applied to Fact #12." (Causal Trace)</p>
+          </article>
         </div>
       </section>
 
@@ -63,32 +103,6 @@
           <article class="card">
             <h3>Controlled vocabulary</h3>
             <p>Determiners and quantifiers separate names from noun phrases.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Pragmatic engines</h2>
-        <p>
-          The surface grammar remains stable while the execution mode changes. Pragmatics define how the
-          AST is interpreted by backends.
-        </p>
-        <div class="grid">
-          <article class="card">
-            <h3>Query</h3>
-            <p>Answer structured questions by selecting entities that satisfy conditions.</p>
-          </article>
-          <article class="card">
-            <h3>Proof</h3>
-            <p>Derive whether a proposition is provable, returning supporting steps.</p>
-          </article>
-          <article class="card">
-            <h3>Plan</h3>
-            <p>Generate action sequences using preconditions and effects.</p>
-          </article>
-          <article class="card">
-            <h3>Solve</h3>
-            <p>Resolve unknown variables under explicit constraints.</p>
           </article>
         </div>
       </section>

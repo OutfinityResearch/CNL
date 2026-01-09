@@ -44,13 +44,34 @@
           </div>
         </div>
         <div class="hero-card">
-          <h3>Design goals</h3>
-          <ul class="list">
-            <li>Deterministic parsing with zero AND/OR ambiguity.</li>
-            <li>Readable sentences that map to a single AST shape.</li>
-            <li>Clear separation between syntax and pragmatics.</li>
-            <li>Extensible structure for new comparators and blocks.</li>
-          </ul>
+          <h3>Quick Comparison</h3>
+          <div class="comparison-grid">
+            <div class="comparison-item bad">
+              <strong>Before (Ambiguous English)</strong>
+              <p>"Users who are admins or developers and active"</p>
+              <small>Does "active" apply to admins too? Or just developers?</small>
+            </div>
+            <div class="comparison-item good">
+              <strong>After (Deterministic CNL)</strong>
+              <p>"A user who is an admin or who is a developer, and who is active"</p>
+              <small>Explicit grouping and pronoun repetition remove all ambiguity.</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Quick Start</h2>
+        <p>A simple CNL program that defines a rule and asks a question.</p>
+        <div class="code-block">
+<pre>// Define a rule
+If a user is an admin, then the user has access to the database.
+
+// Define a fact
+John is a user and John is an admin.
+
+// Execute a query
+Verify that John has access to the database.</pre>
         </div>
       </section>
 

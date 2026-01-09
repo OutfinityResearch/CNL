@@ -1,0 +1,28 @@
+[
+  {
+    "id": "X021",
+    "valid": false,
+    "input": "Rule A route is valid.",
+    "expectedError": {
+      "code": "SYN015",
+      "name": "MissingColonAfterLabelError",
+      "message": "Label is missing a colon.",
+      "severity": "error",
+      "primaryToken": "A",
+      "hint": "Use the exact Label: form."
+    }
+  },
+  {
+    "id": "X022",
+    "valid": false,
+    "input": "Command Return every package.",
+    "expectedError": {
+      "code": "SYN015",
+      "name": "MissingColonAfterLabelError",
+      "message": "Label is missing a colon.",
+      "severity": "error",
+      "primaryToken": "Return",
+      "hint": "Use the exact Label: form."
+    }
+  }
+]

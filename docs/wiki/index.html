@@ -39,18 +39,66 @@
             across specs, tooling, and evaluation.
           </p>
         </div>
-        <div class="hero-card">
-          <h3>Quick definitions</h3>
-          <ul class="list">
-            <li><strong>CNL-PL</strong>: Controlled Natural Language Programming Language.</li>
-            <li><strong>AST</strong>: The canonical, lossless parse tree of a sentence.</li>
-            <li><strong>Pragmatics</strong>: The execution mode applied to a parsed sentence.</li>
-          </ul>
-        </div>
       </section>
 
       <section class="section">
-        <h2>Key terms</h2>
+        <h2>Glossary</h2>
+        <p>Common terms used throughout the documentation and codebase.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Term</th>
+              <th>Category</th>
+              <th>Definition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>SVO</strong></td>
+              <td>Linguistics</td>
+              <td><strong>Subject-Verb-Object</strong>. The fixed structure of any atomic sentence in CNL. <br/><em>Example: "John (S) knows (V) Python (O)."</em></td>
+            </tr>
+            <tr>
+              <td><strong>Pragmatics</strong></td>
+              <td>Architecture</td>
+              <td>The "intent" or execution mode applied to a sentence. The same text can be a Question (Query), a Verification (Verify), or a Goal (Plan).</td>
+            </tr>
+            <tr>
+              <td><strong>Bitset</strong></td>
+              <td>Technical</td>
+              <td>A high-performance data structure used by the CNL engine to store relations and sets of entities, enabling near-instant queries.</td>
+            </tr>
+            <tr>
+              <td><strong>Interning</strong></td>
+              <td>Compiler</td>
+              <td>The process of converting repetitive strings (like entity names or predicates) into unique integer IDs to optimize memory and speed.</td>
+            </tr>
+            <tr>
+              <td><strong>FactID</strong></td>
+              <td>Runtime</td>
+              <td>A unique identifier (usually a hash) for a specific fact (SVO triplet) in the Knowledge Base, used for provenance and explaining "why" something is true.</td>
+            </tr>
+            <tr>
+              <td><strong>Action Block</strong></td>
+              <td>Syntax</td>
+              <td>A multi-line structure that defines an action's signature, the agent performing it, its preconditions, and its effects.</td>
+            </tr>
+            <tr>
+              <td><strong>Canonical Form</strong></td>
+              <td>Theory</td>
+              <td>The standardized internal representation of a sentence. For example, "X > Y" is canonicalized to "X is greater than Y".</td>
+            </tr>
+            <tr>
+              <td><strong>AST</strong></td>
+              <td>Compiler</td>
+              <td><strong>Abstract Syntax Tree</strong>. The tree-like structure that represents the grammatical structure of the CNL code after parsing.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>Key Concepts Detail</h2>
         <div class="grid">
           <article class="card">
             <h3>Assertion</h3>
@@ -62,23 +110,17 @@
           </article>
           <article class="card">
             <h3>Relative clause</h3>
-            <p>A constraint attached to a noun phrase using explicit pronouns.</p>
+            <p>A constraint attached to a noun phrase using explicit pronouns (who, which, that).</p>
           </article>
           <article class="card">
-            <h3>Action block</h3>
-            <p>Multi-line structure describing actions, preconditions, and effects.</p>
+            <h3>Project Conventions</h3>
+            <ul class="list">
+              <li>All specs and documentation are written in English.</li>
+              <li>Design specifications are stored as DSxx markdown files.</li>
+              <li>AST shapes are lossless and preserve lexical spans.</li>
+            </ul>
           </article>
         </div>
-      </section>
-
-      <section class="section">
-        <h2>Project conventions</h2>
-        <ul class="list">
-          <li>All specs and documentation are written in English.</li>
-          <li>Design specifications are stored as DSxx markdown files.</li>
-          <li>AST shapes are lossless and preserve lexical spans.</li>
-          <li>Tests and evaluation suites map to runtime components.</li>
-        </ul>
       </section>
     </main>
 

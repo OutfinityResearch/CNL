@@ -16,7 +16,7 @@ This document defines how parsed AST nodes are interpreted by pragmatic engines.
 
 ## Semantic Entities
 - Entity: named item or noun-phrase bound to a domain object.
-- Attribute: property of an entity resolved through schema or context.
+- Attribute: property of an entity resolved through dictionary or context.
 - Relation: verb group linking subject and object in a defined model.
 
 ## Pragmatics

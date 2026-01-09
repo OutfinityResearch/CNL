@@ -25,6 +25,13 @@ Defines the evaluation suites for CNL-PL, including parsing benchmarks and reaso
 - `evals/planning/` - action plan scenarios.
 - `evals/solve/` - CSP scenarios.
 
+## Parsing Evaluation Summary
+The parsing suite includes canonical corpora with both valid and invalid cases:
+- Files: `evals/parsing/cnl-pl-parser.v1.json`, `evals/parsing/cnl-pl-actions-and-labels.v1.json`, `evals/parsing/cnl-pl-labels.v1.json`.
+- Valid cases: V001-V049 (atomic assertions, commands, rules, relative clauses, action blocks, transition rules).
+- Invalid cases: X001-X028 (missing terminators, mixed operators, invalid comparators, malformed blocks, label syntax).
+- Expected results: full AST matches for valid inputs and DS07 error objects for invalid inputs.
+
 ## Reporting
 - Track pass/fail with version tags.
 - Include diff reports for AST mismatches.
@@ -33,3 +40,4 @@ Defines the evaluation suites for CNL-PL, including parsing benchmarks and reaso
 - DS03 for grammar determinism.
 - DS04 for semantic expectations.
 - DS05 for unit testing alignment.
+- DS07 for error code definitions used in invalid cases.
