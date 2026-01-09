@@ -1,0 +1,4 @@
+# Planning Evaluation Cases
+
+- input: "Plan to achieve all packages delivered."
+  expect: "plan placeholder"

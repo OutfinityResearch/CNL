@@ -1,0 +1,5 @@
+# Reasoning Evaluation Cases
+
+- input: "Verify that every server that handles payments is encrypted."
+  expect: "true"
+  trace: "proof trace placeholder"

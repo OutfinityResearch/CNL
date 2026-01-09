@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CNL-PL Architecture</title>
+  <meta name="description" content="Architecture overview for the CNL-PL parser, validation, and pragmatic engines." />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <div>CNL Programming Language</div>
+            <small>Controlled Natural Language for Executable Meaning</small>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="../">Home</a>
+          <a href="../theory/">Theory</a>
+          <a class="active" href="./">Architecture</a>
+          <a href="../wiki/">Wiki</a>
+          <a href="../syntax/">Syntax</a>
+          <a href="../specs/">Specs</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <span class="tag">Architecture</span>
+          <h1>From plain text to executable meaning.</h1>
+          <p>
+            The CNL-PL stack follows a deterministic pipeline: lexical analysis, parsing, validation,
+            AST normalization, and pragmatic execution.
+          </p>
+        </div>
+        <div class="hero-card">
+          <h3>Pipeline stages</h3>
+          <ul class="list">
+            <li>Lexer: tokens with longest-match keyword rules.</li>
+            <li>Parser: AST construction with explicit grouping.</li>
+            <li>Validator: grammar errors, mixed operators, missing terms.</li>
+            <li>Pragmatics: query, proof, plan, solve, simulate, explain.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Subsystems</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Grammar + AST</h3>
+            <p>Formal EBNF with a lossless AST specification for tooling and serialization.</p>
+          </article>
+          <article class="card">
+            <h3>Validation layer</h3>
+            <p>Detects mixed boolean operators, missing terminators, and noun phrase errors.</p>
+          </article>
+          <article class="card">
+            <h3>Pragmatics engine</h3>
+            <p>Interprets AST nodes against semantic backends or knowledge stores.</p>
+          </article>
+          <article class="card">
+            <h3>Execution adapters</h3>
+            <p>Connects AST to proof systems, solvers, planners, and data stores.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>File maps and specs</h2>
+        <p>
+          The specs repository mirrors the runtime structure. Each runtime file has a matching markdown
+          design file in <strong>docs/specs/src</strong>.
+        </p>
+        <div class="grid">
+          <article class="card">
+            <h3>Design specifications</h3>
+            <p>See DS01-DS06 for vision, file mapping, syntax, semantics, and testing.</p>
+          </article>
+          <article class="card">
+            <h3>Test mapping</h3>
+            <p>Tests are documented alongside their corresponding runtime modules.</p>
+          </article>
+          <article class="card">
+            <h3>Evaluation suites</h3>
+            <p>Parsing and reasoning suites live in docs/specs/evals.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>Vision: CNL Programming Language - Deterministic by design</div>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="../specs/">Specs</a>
+          <a href="../wiki/">Wiki</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CNL Programming Language</title>
+  <meta name="description" content="CNL-PL is a controlled natural language that compiles into deterministic logic with pragmatic execution modes." />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <div>CNL Programming Language</div>
+            <small>Controlled Natural Language for Executable Meaning</small>
+          </div>
+        </div>
+        <nav class="nav">
+          <a class="active" href="./">Home</a>
+          <a href="theory/">Theory</a>
+          <a href="arhitecture/">Architecture</a>
+          <a href="wiki/">Wiki</a>
+          <a href="syntax/">Syntax</a>
+          <a href="specs/">Specs</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <span class="tag">CNL-PL v1.1</span>
+          <h1>Make natural language deterministic, executable, and formally structured.</h1>
+          <p>
+            CNL-PL is a controlled natural language that looks like English but maps to a unique logical AST.
+            It powers queries, proofs, planning, constraint solving, simulation, and explanation.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="specs/">Read the specs</a>
+            <a class="button secondary" href="syntax/">See the syntax</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h3>Design goals</h3>
+          <ul class="list">
+            <li>Deterministic parsing with zero AND/OR ambiguity.</li>
+            <li>Readable sentences that map to a single AST shape.</li>
+            <li>Clear separation between syntax and pragmatics.</li>
+            <li>Extensible structure for new comparators and blocks.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Pragmatics: one syntax, many execution modes</h2>
+        <p>
+          The same CNL sentence can drive different engines. Pragmatics define the operational meaning
+          without changing the surface grammar.
+        </p>
+        <div class="grid">
+          <article class="card">
+            <span class="tag">Query</span>
+            <h3>Find and retrieve</h3>
+            <p>Ask structured questions and get grounded answers with selector expressions.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Proof</span>
+            <h3>Validate statements</h3>
+            <p>Check whether a statement is derivable and return a proof path in CNL.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Plan</span>
+            <h3>Build action plans</h3>
+            <p>Describe tools and constraints, then generate ordered plans to reach goals.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Solve</span>
+            <h3>Resolve constraints</h3>
+            <p>Find assignments for variables that satisfy all constraints.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Simulate</span>
+            <h3>Run transitions</h3>
+            <p>Apply transition rules to evolve a state machine for N steps.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Explain</span>
+            <h3>Surface causality</h3>
+            <p>Ask why a fact holds and trace the supporting rules.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Language guarantees</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Deterministic nouns</h3>
+            <p>Noun phrases always start with determiners or quantifiers, while bare identifiers are names.</p>
+          </article>
+          <article class="card">
+            <h3>Explicit grouping</h3>
+            <p>Mixed boolean operators require explicit grouping. The parser rejects ambiguous chains.</p>
+          </article>
+          <article class="card">
+            <h3>Fixed triplets</h3>
+            <p>Assertions use subject-verb-object or controlled copula predicates as the core unit.</p>
+          </article>
+          <article class="card">
+            <h3>Action blocks</h3>
+            <p>Plans model action signatures, agents, preconditions, and effects as structured blocks.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Start exploring</h2>
+        <p>Jump directly into the working sets that drive the project.</p>
+        <div class="grid">
+          <a class="card" href="theory/">
+            <h3>Theory</h3>
+            <p>Philosophy, formalization goals, and pragmatic execution modes.</p>
+          </a>
+          <a class="card" href="arhitecture/">
+            <h3>Architecture</h3>
+            <p>Parser pipeline, validation layers, and runtime components.</p>
+          </a>
+          <a class="card" href="syntax/">
+            <h3>Syntax</h3>
+            <p>EBNF highlights and deterministic parsing rules.</p>
+          </a>
+          <a class="card" href="specs/">
+            <h3>Specs</h3>
+            <p>Design specifications, file maps, testing, and evaluation suites.</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>Vision: CNL Programming Language - Deterministic by design</div>
+        <div class="footer-links">
+          <a href="./">Home</a>
+          <a href="specs/">Specs</a>
+          <a href="wiki/">Wiki</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UBH Markdown Viewer</title>
+    <style>
+      :root {
+        --bg: #f7f4ee;
+        --ink: #1f1b16;
+        --muted: #5a534b;
+        --card: #ffffff;
+        --accent: #2f5d50;
+        --border: #d6d0c6;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { -webkit-text-size-adjust: 100%; }
+
+      body {
+        margin: 0;
+        font-family: "IBM Plex Serif", "Georgia", "Times New Roman", serif;
+        background: var(--bg);
+        color: var(--ink);
+        font-size: 16px;
+        line-height: 1.55;
+      }
+
+      header {
+        padding: 24px 20px 12px;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(120deg, #e8dfd1, #f7f4ee);
+      }
+
+      header h1 {
+        margin: 0 0 6px 0;
+        font-size: 24px;
+      }
+
+      header p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      main {
+        max-width: 900px;
+        margin: 24px auto 64px;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px 24px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+        font-size: 14px;
+        margin-bottom: 18px;
+      }
+
+      .meta a {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+
+      .meta a:hover {
+        border-bottom-color: var(--accent);
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      pre {
+        background: #111110;
+        color: #f5f3ed;
+        padding: 14px 16px;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+
+      code {
+        font-family: "IBM Plex Mono", "Courier New", monospace;
+        background: #eee6da;
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+
+      pre code {
+        background: transparent;
+        padding: 0;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        position: relative;
+        scroll-margin-top: 72px;
+      }
+
+      .anchor-link {
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 600;
+        margin-left: 8px;
+        opacity: 0;
+      }
+
+      h1:hover .anchor-link,
+      h2:hover .anchor-link,
+      h3:hover .anchor-link,
+      h4:hover .anchor-link,
+      h5:hover .anchor-link,
+      h6:hover .anchor-link {
+        opacity: 1;
+      }
+
+      .task-item {
+        list-style: none;
+        margin-left: -18px;
+      }
+
+      .task-item input[type="checkbox"] {
+        margin-right: 10px;
+        transform: translateY(1px);
+      }
+
+      blockquote {
+        border-left: 4px solid var(--accent);
+        padding-left: 12px;
+        color: var(--muted);
+        margin-left: 0;
+      }
+
+      ul, ol {
+        padding-left: 22px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 18px 0;
+        font-size: 15px;
+      }
+
+      th, td {
+        border: 1px solid var(--border);
+        padding: 8px 10px;
+        vertical-align: top;
+      }
+
+      th {
+        background: #efe7da;
+        font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+        text-align: left;
+      }
+
+      tbody tr:nth-child(even) td {
+        background: #fbfaf7;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 18px 0;
+      }
+
+      .error {
+        color: #7a1b1b;
+        font-weight: 600;
+      }
+
+      @media (max-width: 680px) {
+        header { padding: 18px 14px 10px; }
+        header h1 { font-size: 20px; }
+        main { margin: 16px auto 48px; padding: 0 14px; }
+        .card { padding: 16px 16px; }
+        table { display: block; overflow-x: auto; }
+        th, td { white-space: nowrap; }
+        pre { padding: 12px 12px; }
+      }
+    </style>
+      <script src="site-nav.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>UBH Markdown Viewer</h1>
+      <p>Static client-side render for GitHub Pages and local browsing.</p>
+    </header>
+    <main>
+      <div class="card">
+        <div class="meta">
+          <div>File: <span id="file-name"></span></div>
+          <a id="source-link" href="#">Open source file</a>
+          <a href="index.html">Docs index</a>
+        </div>
+        <div id="content">Loading...</div>
+      </div>
+    </main>
+
+    <script>
+      function escapeHtml(input) {
+        return input
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/\"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function dirname(path) {
+        const idx = path.lastIndexOf("/");
+        return idx >= 0 ? path.slice(0, idx + 1) : "";
+      }
+
+      function normalizePath(path) {
+        const absolute = path.startsWith("/");
+        const parts = path.replace(/^\/+/, "").split("/");
+        const out = [];
+        for (const part of parts) {
+          if (!part || part === ".") continue;
+          if (part === "..") {
+            if (out.length) out.pop();
+            continue;
+          }
+          out.push(part);
+        }
+        return (absolute ? "/" : "") + out.join("/");
+      }
+
+      function splitTarget(target) {
+        const m = target.match(/^([^?#]+)([?#].*)?$/);
+        if (!m) return { path: target, suffix: "" };
+        return { path: m[1], suffix: m[2] ?? "" };
+      }
+
+      function resolveTarget(baseFile, target) {
+        if (!target) return target;
+        if (target.startsWith("#")) return target;
+        if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(target)) return target; // scheme (http:, mailto:, ...)
+
+        const { path, suffix } = splitTarget(target);
+        let clean = path;
+        if (clean.startsWith("docs/")) clean = clean.slice(5);
+        if (clean.startsWith("/")) clean = clean.replace(/^\/+/, "");
+
+        const resolved = normalizePath(dirname(baseFile) + clean);
+        return resolved + suffix;
+      }
+
+      function rewriteLinkForViewer(resolvedTarget) {
+        if (!resolvedTarget) return resolvedTarget;
+        if (resolvedTarget.startsWith("#")) return resolvedTarget;
+        if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(resolvedTarget)) return resolvedTarget;
+
+        const { path, suffix } = splitTarget(resolvedTarget);
+        if (path.toLowerCase().endsWith(".md")) {
+          return "mdview.html?file=" + encodeURIComponent(path) + (suffix ?? "");
+        }
+        return resolvedTarget;
+      }
+
+      function slugifyHeading(text) {
+        const base = text
+          .trim()
+          .toLowerCase()
+          .replace(/[`*_~]/g, "")
+          .replace(/<[^>]+>/g, "")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+        return base || "section";
+      }
+
+      function inlineFormat(text, ctx) {
+        let escaped = escapeHtml(text);
+
+        const codeSpans = [];
+        escaped = escaped.replace(/`([^`]+)`/g, (_, code) => {
+          const idx = codeSpans.length;
+          codeSpans.push("<code>" + code + "</code>");
+          return "\u0000CODE" + idx + "\u0000";
+        });
+
+        escaped = escaped.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => {
+          const resolved = ctx?.baseFile ? resolveTarget(ctx.baseFile, src) : src;
+          if (/^javascript:/i.test(resolved) || /^data:/i.test(resolved)) {
+            return alt;
+          }
+          return "<img alt=\"" + alt + "\" src=\"" + resolved + "\" />";
+        });
+        escaped = escaped.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => {
+          const resolved = ctx?.baseFile ? resolveTarget(ctx.baseFile, href) : href;
+          const viewerHref = rewriteLinkForViewer(resolved);
+          if (/^javascript:/i.test(viewerHref) || /^data:/i.test(viewerHref)) {
+            return label;
+          }
+          return "<a href=\"" + viewerHref + "\">" + label + "</a>";
+        });
+        escaped = escaped.replace(/~~([^~]+)~~/g, "<del>$1</del>");
+        escaped = escaped.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+        escaped = escaped.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+
+        escaped = escaped.replace(/\u0000CODE(\d+)\u0000/g, (_, n) => codeSpans[Number(n)] ?? "");
+        return escaped;
+      }
+
+      function renderMarkdown(markdown, ctx = {}) {
+        const lines = markdown.replace(/\r\n/g, "\n").split("\n");
+        const html = [];
+
+        let inCode = false;
+        let codeFence = "";
+        let codeLines = [];
+        let codeLang = "";
+
+        let paragraphLines = [];
+        const listStack = []; // { type: "ul"|"ol", indent: number }
+        const headingIds = ctx.headingIds ?? new Map();
+
+        function flushParagraph() {
+          if (paragraphLines.length === 0) return;
+          const text = paragraphLines.join(" ").trim();
+          if (text) html.push("<p>" + inlineFormat(text, ctx) + "</p>");
+          paragraphLines = [];
+        }
+
+        function closeLists(toIndent = -1) {
+          while (listStack.length) {
+            const top = listStack[listStack.length - 1];
+            if (toIndent >= 0 && top.indent < toIndent) break;
+            html.push("</" + top.type + ">");
+            listStack.pop();
+          }
+        }
+
+        function flushCodeBlock() {
+          const classAttr = codeLang ? " class=\"language-" + escapeHtml(codeLang) + "\"" : "";
+          html.push("<pre><code" + classAttr + ">" + escapeHtml(codeLines.join("\n")) + "</code></pre>");
+          codeLines = [];
+          codeLang = "";
+        }
+
+        function isHr(line) {
+          const t = line.trim();
+          return /^(-{3,}|\*{3,}|_{3,})$/.test(t);
+        }
+
+        function parseTableRow(line) {
+          const raw = line.trim();
+          if (!raw.includes("|")) return null;
+          let s = raw;
+          if (s.startsWith("|")) s = s.slice(1);
+          if (s.endsWith("|")) s = s.slice(0, -1);
+          const cells = s.split("|").map((c) => c.trim());
+          if (cells.length < 2) return null;
+          return cells;
+        }
+
+        function parseTableAlign(line) {
+          const cells = parseTableRow(line);
+          if (!cells) return null;
+          const aligns = [];
+          for (const cell of cells) {
+            const t = cell.replace(/\s+/g, "");
+            if (!/^:?-+:?$/.test(t)) return null;
+            const left = t.startsWith(":");
+            const right = t.endsWith(":");
+            aligns.push(left && right ? "center" : left ? "left" : right ? "right" : "");
+          }
+          return aligns;
+        }
+
+        function renderTable(headerCells, aligns, bodyRows) {
+          html.push("<table>");
+          html.push("<thead><tr>");
+          for (let i = 0; i < headerCells.length; i++) {
+            const align = aligns[i] ? " style=\"text-align:" + aligns[i] + "\"" : "";
+            html.push("<th" + align + ">" + inlineFormat(headerCells[i], ctx) + "</th>");
+          }
+          html.push("</tr></thead>");
+          if (bodyRows.length) {
+            html.push("<tbody>");
+            for (const row of bodyRows) {
+              html.push("<tr>");
+              for (let i = 0; i < headerCells.length; i++) {
+                const align = aligns[i] ? " style=\"text-align:" + aligns[i] + "\"" : "";
+                const cell = row[i] ?? "";
+                html.push("<td" + align + ">" + inlineFormat(cell, ctx) + "</td>");
+              }
+              html.push("</tr>");
+            }
+            html.push("</tbody>");
+          }
+          html.push("</table>");
+        }
+
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+
+          const opensFence = line.startsWith("```") || line.startsWith("~~~");
+          if (opensFence) {
+            const fence = line.startsWith("```") ? "```" : "~~~";
+            if (inCode) {
+              if (line.startsWith(codeFence)) {
+                flushCodeBlock();
+                inCode = false;
+                codeFence = "";
+              } else {
+                codeLines.push(line);
+              }
+            } else {
+              flushParagraph();
+              closeLists();
+              inCode = true;
+              codeFence = fence;
+              codeLang = line.slice(3).trim();
+            }
+            continue;
+          }
+
+          if (inCode) {
+            codeLines.push(line);
+            continue;
+          }
+
+          if (!line.trim()) {
+            flushParagraph();
+            closeLists();
+            continue;
+          }
+
+          // Blockquote
+          if (line.trimStart().startsWith(">")) {
+            flushParagraph();
+            closeLists();
+            const quoteLines = [];
+            while (i < lines.length && lines[i].trimStart().startsWith(">")) {
+              const q = lines[i].trimStart().replace(/^>\s?/, "");
+              quoteLines.push(q);
+              i++;
+            }
+            i--;
+            html.push("<blockquote>" + renderMarkdown(quoteLines.join("\n"), ctx) + "</blockquote>");
+            continue;
+          }
+
+          // Headings
+          const heading = line.match(/^(#{1,6})\s+(.*)$/);
+          if (heading) {
+            flushParagraph();
+            closeLists();
+            const level = heading[1].length;
+            const rawTitle = heading[2].trim();
+            const baseId = slugifyHeading(rawTitle);
+            const prev = headingIds.get(baseId) ?? 0;
+            const next = prev + 1;
+            headingIds.set(baseId, next);
+            const id = next === 1 ? baseId : baseId + "-" + next;
+            const titleHtml = inlineFormat(rawTitle, ctx);
+            html.push(
+              "<h" +
+                level +
+                " id=\"" +
+                escapeHtml(id) +
+                "\">" +
+                titleHtml +
+                "<a class=\"anchor-link\" href=\"#" +
+                escapeHtml(id) +
+                "\" aria-label=\"Link to this section\">#</a></h" +
+                level +
+                ">"
+            );
+            continue;
+          }
+
+          // Horizontal rule
+          if (isHr(line)) {
+            flushParagraph();
+            closeLists();
+            html.push("<hr />");
+            continue;
+          }
+
+          // Tables (GFM-style)
+          const headerRow = parseTableRow(line);
+          const alignRow = i + 1 < lines.length ? parseTableAlign(lines[i + 1]) : null;
+          if (headerRow && alignRow) {
+            flushParagraph();
+            closeLists();
+            i += 2;
+            const bodyRows = [];
+            while (i < lines.length) {
+              if (!lines[i].trim()) break;
+              const row = parseTableRow(lines[i]);
+              if (!row) break;
+              bodyRows.push(row);
+              i++;
+            }
+            i--;
+            renderTable(headerRow, alignRow, bodyRows);
+            continue;
+          }
+
+          // Lists (supports nesting by indent)
+          const listMatch = line.match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/);
+          if (listMatch) {
+            flushParagraph();
+            const indent = listMatch[1].length;
+            const type = /\d+\./.test(listMatch[2]) ? "ol" : "ul";
+
+            while (listStack.length && indent < listStack[listStack.length - 1].indent) {
+              html.push("</" + listStack.pop().type + ">");
+            }
+
+            if (listStack.length && indent === listStack[listStack.length - 1].indent && listStack[listStack.length - 1].type !== type) {
+              html.push("</" + listStack.pop().type + ">");
+            }
+
+            if (!listStack.length || indent > listStack[listStack.length - 1].indent) {
+              html.push("<" + type + ">");
+              listStack.push({ type, indent });
+            }
+
+            const itemText = listMatch[3];
+            const task = itemText.match(/^\[( |x|X)\]\s+(.*)$/);
+            if (task) {
+              const checked = task[1].toLowerCase() === "x";
+              html.push(
+                "<li class=\"task-item\"><input type=\"checkbox\" disabled" +
+                  (checked ? " checked" : "") +
+                  " />" +
+                  inlineFormat(task[2], ctx) +
+                  "</li>"
+              );
+            } else {
+              html.push("<li>" + inlineFormat(itemText, ctx) + "</li>");
+            }
+            continue;
+          }
+
+          // Default: paragraph text (merge consecutive lines)
+          paragraphLines.push(line.trim());
+        }
+
+        if (inCode) flushCodeBlock();
+        flushParagraph();
+        closeLists();
+        return html.join("\n");
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      let file = params.get("file") || "specs/UBH-SPEC.md";
+      if (file.startsWith("docs/")) file = file.slice(5);
+      file = file.replace(/^\/+/, "");
+      const fileNameEl = document.getElementById("file-name");
+      const sourceLinkEl = document.getElementById("source-link");
+      const contentEl = document.getElementById("content");
+
+      fileNameEl.textContent = file;
+      sourceLinkEl.href = file;
+
+      fetch(file)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Failed to load " + file + ": " + res.status);
+          }
+          return res.text();
+        })
+        .then((text) => {
+          contentEl.innerHTML = renderMarkdown(text, { baseFile: file, headingIds: new Map() });
+        })
+        .catch((err) => {
+          contentEl.innerHTML = "<p class=\"error\">" + escapeHtml(err.message) + "</p>";
+        });
+    </script>
+  </body>
+</html>

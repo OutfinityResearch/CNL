@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CNL-PL Syntax</title>
+  <meta name="description" content="Syntax overview and examples for the CNL-PL grammar." />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <div>CNL Programming Language</div>
+            <small>Controlled Natural Language for Executable Meaning</small>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="../">Home</a>
+          <a href="../theory/">Theory</a>
+          <a href="../arhitecture/">Architecture</a>
+          <a href="../wiki/">Wiki</a>
+          <a class="active" href="./">Syntax</a>
+          <a href="../specs/">Specs</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <span class="tag">Syntax</span>
+          <h1>Readable, fixed structures for deterministic parsing.</h1>
+          <p>
+            CNL-PL enforces explicit forms for noun phrases, boolean grouping, and triplet assertions.
+            Every valid input yields a single AST.
+          </p>
+        </div>
+        <div class="hero-card">
+          <h3>Syntax highlights</h3>
+          <ul class="list">
+            <li>Noun phrases start with determiners or quantifiers.</li>
+            <li>Mixed AND/OR chains require explicit grouping.</li>
+            <li>Relative clauses repeat the pronoun for each condition.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example: structured relative clauses</h2>
+        <div class="code-block">
+<pre>A user who is active and who knows Python and whose score is greater than 10.</pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example: explicit grouping</h2>
+        <div class="code-block">
+<pre>If either the user is an admin or the user is a dev, and the system is prod.</pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example: pragmatics command</h2>
+        <div class="code-block">
+<pre>Return the name of every user whose role is Admin and who has logged in today.</pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Deep dive</h2>
+        <p>
+          The full grammar, lexical specification, and AST schema are available in the formal
+          design spec for syntax.
+        </p>
+        <a class="button" href="../specs/DS/DS03-syntax-cnl.md">Read DS03: Syntax</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>Vision: CNL Programming Language - Deterministic by design</div>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="../specs/">Specs</a>
+          <a href="../wiki/">Wiki</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

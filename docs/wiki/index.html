@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CNL-PL Wiki</title>
+  <meta name="description" content="Working glossary, conventions, and shared language for the CNL-PL project." />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <div>CNL Programming Language</div>
+            <small>Controlled Natural Language for Executable Meaning</small>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="../">Home</a>
+          <a href="../theory/">Theory</a>
+          <a href="../arhitecture/">Architecture</a>
+          <a class="active" href="./">Wiki</a>
+          <a href="../syntax/">Syntax</a>
+          <a href="../specs/">Specs</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <span class="tag">Wiki</span>
+          <h1>Shared language and working conventions.</h1>
+          <p>
+            This wiki defines the vocabulary and internal conventions that keep CNL-PL consistent
+            across specs, tooling, and evaluation.
+          </p>
+        </div>
+        <div class="hero-card">
+          <h3>Quick definitions</h3>
+          <ul class="list">
+            <li><strong>CNL-PL</strong>: Controlled Natural Language Programming Language.</li>
+            <li><strong>AST</strong>: The canonical, lossless parse tree of a sentence.</li>
+            <li><strong>Pragmatics</strong>: The execution mode applied to a parsed sentence.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Key terms</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Assertion</h3>
+            <p>The atomic statement form: subject, verb, object or controlled copula.</p>
+          </article>
+          <article class="card">
+            <h3>Condition</h3>
+            <p>A boolean structure built from assertions, with explicit grouping rules.</p>
+          </article>
+          <article class="card">
+            <h3>Relative clause</h3>
+            <p>A constraint attached to a noun phrase using explicit pronouns.</p>
+          </article>
+          <article class="card">
+            <h3>Action block</h3>
+            <p>Multi-line structure describing actions, preconditions, and effects.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Project conventions</h2>
+        <ul class="list">
+          <li>All specs and documentation are written in English.</li>
+          <li>Design specifications are stored as DSxx markdown files.</li>
+          <li>AST shapes are lossless and preserve lexical spans.</li>
+          <li>Tests and evaluation suites map to runtime components.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>Vision: CNL Programming Language - Deterministic by design</div>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="../specs/">Specs</a>
+          <a href="../wiki/">Wiki</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

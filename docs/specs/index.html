@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CNL-PL Specs</title>
+  <meta name="description" content="Design specifications, file maps, and evaluation suites for CNL-PL." />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <div>CNL Programming Language</div>
+            <small>Controlled Natural Language for Executable Meaning</small>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="../">Home</a>
+          <a href="../theory/">Theory</a>
+          <a href="../arhitecture/">Architecture</a>
+          <a href="../wiki/">Wiki</a>
+          <a href="../syntax/">Syntax</a>
+          <a class="active" href="./">Specs</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <span class="tag">Specs</span>
+          <h1>Design specifications and living references.</h1>
+          <p>
+            The DS series captures vision, implementation plans, syntax, semantics, testing,
+            and evaluation suites. Each runtime file mirrors a specification in docs/specs/src.
+          </p>
+        </div>
+        <div class="hero-card">
+          <h3>Spec structure</h3>
+          <ul class="list">
+            <li><strong>DS</strong>: Core design specs (vision to evaluation).</li>
+            <li><strong>src</strong>: File-level mirrored design notes.</li>
+            <li><strong>tests</strong>: Test plan and test file descriptions.</li>
+            <li><strong>evals</strong>: Parsing and reasoning evaluation suites.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Design specifications (DS)</h2>
+        <div class="grid">
+          <a class="card" href="../mdview.html?file=specs/DS/DS01-vision.md">
+            <span class="tag">DS01</span>
+            <h3>Vision</h3>
+            <p>Goals, philosophy, and the pragmatic modes of CNL-PL.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=specs/DS/DS02-implementation-plan.md">
+            <span class="tag">DS02</span>
+            <h3>Implementation plan</h3>
+            <p>File map, milestones, and architecture alignment.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=specs/DS/DS03-syntax-cnl.md">
+            <span class="tag">DS03</span>
+            <h3>Syntax</h3>
+            <p>Grammar, lexical rules, and AST schema.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=specs/DS/DS04-semantics.md">
+            <span class="tag">DS04</span>
+            <h3>Semantics</h3>
+            <p>Pragmatic interpretation and runtime behavior.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=specs/DS/DS05-testing-plan.md">
+            <span class="tag">DS05</span>
+            <h3>Testing plan</h3>
+            <p>Automated testing strategy and coverage matrix.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=specs/DS/DS06-evaluation-suite.md">
+            <span class="tag">DS06</span>
+            <h3>Evaluation suite</h3>
+            <p>Parsing and reasoning benchmarks and expected outputs.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Supporting specs</h2>
+        <div class="grid">
+          <a class="card" href="../mdview.html?file=specs/src/README.md">
+            <h3>Source map</h3>
+            <p>Mirror of runtime source files, documented per module.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=specs/tests/README.md">
+            <h3>Test descriptions</h3>
+            <p>Unit and developer testing references per module.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=specs/evals/README.md">
+            <h3>Evaluation suites</h3>
+            <p>Parsing, reasoning, and result verification suites.</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>Vision: CNL Programming Language - Deterministic by design</div>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="../specs/">Specs</a>
+          <a href="../wiki/">Wiki</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
