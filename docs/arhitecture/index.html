@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>System Architecture - CNL-PL</title>
+  <title>CNL-PL Architecture</title>
   <link rel="stylesheet" href="../assets/style.css" />
   <script src="../site-nav.js"></script>
 </head>
@@ -21,95 +21,40 @@
     <main>
       <section class="hero">
         <span class="tag">Architecture</span>
-        <h1>The Data Processing Pipeline</h1>
+        <h1>System Architecture</h1>
         <p>
-          From raw strings to optimized bitset operations. The CNL architecture is a strictly layered pipeline designed for correctness, performance, and explainability.
+          From plain text to executable meaning. The CNL-PL stack follows a deterministic pipeline: lexical analysis, parsing, validation, AST normalization, and pragmatic execution.
         </p>
       </section>
 
       <section class="section">
-        <h2>1. The Unidirectional Pipeline</h2>
-        <p>
-          The architecture follows a strict "One-Way" data flow. There are no feedback loops during the parsing phase. This ensures that the complexity of the system remains linear with respect to the input size. The pipeline consists of four distinct stages:
-        </p>
-        <div class="list">
-          <li><strong>Stage 1: Lexical Analysis (The Lexer).</strong> Converts the raw UTF-8 string into a stream of typed Tokens. It handles "Longest Match" rules to distinguish multi-word keywords (like "it is not the case that") from simple identifiers.</li>
-          <li><strong>Stage 2: Syntactic Analysis (The Parser).</strong> Consumes tokens and builds the Abstract Syntax Tree (AST). It enforces the rigid grammar rules defined in DS03, rejecting any input that is structurally ambiguous.</li>
-          <li><strong>Stage 3: Validation & Canonicalization.</strong> Walks the AST to check semantic constraints (e.g., "variable 'X' is used but not defined"). It also normalizes the AST into a Canonical Form (e.g., converting "A > B" to "A is greater than B").</li>
-          <li><strong>Stage 4: Compilation.</strong> Transforms the validated AST into the Plan Intermediate Representation (IR) and emits updates for the Knowledge Base.</li>
-        </div>
-        <p>
-          This separation of concerns allows us to test each layer independently. We can verify the Lexer without involving the Parser, and we can test the Compiler using hand-crafted ASTs without parsing text.
-        </p>
-      </section>
-
-      <section class="section">
-        <h2>2. The Knowledge Base (KB) Storage Model</h2>
-        <p>
-          The Runtime Engine does not use a SQL database or a Graph database. It uses a custom, in-memory <strong>Bitset Store</strong> (defined in DS09). This is the "brain" of the system.
-        </p>
-        <p>
-          <strong>Entities as Integers:</strong> Every entity (e.g., "User John") is mapped to a dense integer ID (0, 1, 2...). This technique, called <strong>Interning</strong>, allows us to use these IDs as array indices, providing O(1) access time.
-        </p>
-        <p>
-          <strong>Relations as Matrices:</strong> A binary relation (like "User accesses File") is stored as a <strong>RelationMatrix</strong>. This is effectively an array of Bitsets. <code>Matrix[UserID]</code> returns a Bitset where every set bit represents a File ID that the user accesses. To answer the query "What files does John access?", the engine simply retrieves this Bitset.
-        </p>
-        <p>
-          <strong>Columnar Attributes:</strong> Numeric data (prices, quantities) is stored in <strong>NumericIndex</strong> arrays. This is a column-oriented layout: all prices are stored in one contiguous array of <code>Float64</code>. This optimizes CPU cache usage when scanning or aggregating values (e.g., calculating "Average Price").
-        </p>
-      </section>
-
-      <section class="section">
-        <h2>3. The Compiler Contract and Plan IR</h2>
-        <p>
-          The Compiler does not execute code. Its job is to produce a <strong>Plan</strong>. A Plan is a tree of instructions that describes <em>how</em> to calculate a result. This intermediate representation (IR) decouples the language from the execution.
-        </p>
-        <p>
-          For example, the query <em>"Find users who are active and admins"</em> compiles to a <strong>SetPlan</strong>:
-        </p>
-        <div class="code-block">
-<pre>Intersection(
-  UnaryPredicate(Active),
-  UnaryPredicate(Admin)
-)</pre>
-        </div>
-        <p>
-          This Plan is an immutable data structure. It can be optimized (e.g., reordering the intersection for speed) before it is ever run. The <strong>Compiler Contract</strong> guarantees that identical ASTs will always produce identical Plans, ensuring deterministic behavior.
-        </p>
-      </section>
-
-      <section class="section">
-        <h2>4. The Pragmatic Runtime Engines</h2>
-        <p>
-          Once a Plan is generated, it is handed to a specific Engine based on the user's pragmatic intent.
-        </p>
         <div class="grid">
-          <div class="card">
-            <h3>The Query Engine</h3>
-            <p>Executes SetPlans and RelationPlans against the KB. It uses bitwise logic to filter millions of entities instantly. Returns raw datasets.</p>
-          </div>
-          <div class="card">
-            <h3>The Proof Engine</h3>
-            <p>Instead of just calculating the result, it traces the execution path. It builds a "Justification DAG" that records which facts and rules contributed to the result, enabling the "Explain" feature.</p>
-          </div>
-          <div class="card">
-            <h3>The Planning Engine</h3>
-            <p>Uses <strong>ActionPlans</strong>. It performs a state-space search (like BFS or A*) to find a sequence of actions that transforms the current KB state into a state where the goal condition is met.</p>
-          </div>
+          <a class="card" href="01-pipeline.html">
+            <span class="tag">Part 1</span>
+            <h3>The Unidirectional Pipeline</h3>
+            <p>From Lexer to Compiler: a strict one-way flow without backtracking or feedback loops.</p>
+          </a>
+          <a class="card" href="02-storage-model.html">
+            <span class="tag">Part 2</span>
+            <h3>The Storage Model</h3>
+            <p>Why we don't use SQL. The in-memory Bitset Store and Relation Matrices.</p>
+          </a>
+          <a class="card" href="03-compiler.html">
+            <span class="tag">Part 3</span>
+            <h3>The Compiler & Plan IR</h3>
+            <p>The contract of determinism and the intermediate representation that bridges AST and Runtime.</p>
+          </a>
+          <a class="card" href="04-runtime.html">
+            <span class="tag">Part 4</span>
+            <h3>Runtime Engines</h3>
+            <p>Different execution strategies for Queries (Fast Path), Proofs (Trace Path), and Planning (Search Path).</p>
+          </a>
+          <a class="card" href="05-identity.html">
+            <span class="tag">Part 5</span>
+            <h3>Identity System</h3>
+            <p>Managing the duality of stable ConceptualIDs and fast DenseIDs via Interning.</p>
+          </a>
         </div>
-      </section>
-
-      <section class="section">
-        <h2>5. Identity and Interning System</h2>
-        <p>
-          A critical architectural component is the <strong>Identity System</strong> (DS08). It bridges the gap between the chaotic world of strings and the ordered world of integers.
-        </p>
-        <p>
-          The <strong>Symbol Table</strong> maintains a bidirectional mapping between human-readable strings (e.g., "server-01") and stable 64-bit <strong>ConceptualIDs</strong>. These ConceptualIDs are hash-based and persistent. However, for runtime efficiency, the system maps these sparse 64-bit hashes to dense 32-bit <strong>DenseIDs</strong> (EntityID, PredID) during the loading of a session.
-        </p>
-        <p>
-          This two-tier identity system allows the KB to be extremely compact (using small integers) while ensuring that data can be reliably exported, imported, and merged across different sessions without ID collisions.
-        </p>
       </section>
     </main>
 
