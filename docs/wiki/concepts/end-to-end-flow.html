@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>End-to-End Flow</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+  <script src="../../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Wiki</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Concepts</span>
+        <h1>End-to-End Flow</h1>
+        <p>From CNL text to a compiled KB and executable reasoning plans.</p>
+      </section>
+
+      <section class="section">
+        <h2 id="overview">Overview</h2>
+        <p>
+          CNL-PL follows a deterministic pipeline: tokenize, parse, validate, compile, then execute
+          a pragmatic plan. Each stage is strict and repeatable, which is essential for reasoning
+          and explainability.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 id="stages">Pipeline stages</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>1. Lexing</h3>
+            <p>Turn text into tokens, apply keyword matching, and preserve spans.</p>
+          </article>
+          <article class="card">
+            <h3>2. Parsing</h3>
+            <p>Build a lossless AST with typed predicates and explicit boolean structure.</p>
+          </article>
+          <article class="card">
+            <h3>3. Validation</h3>
+            <p>Reject ambiguous input and enforce determinism rules (DS03, DS07).</p>
+          </article>
+          <article class="card">
+            <h3>4. Compilation</h3>
+            <p>Intern symbols, map to ConceptualIDs, and emit KB updates or plans.</p>
+          </article>
+          <article class="card">
+            <h3>5. Reasoning</h3>
+            <p>Execute query/proof/plan/solve with bitset primitives on the KB.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 id="example">Minimal example</h2>
+        <p>Input program:</p>
+        <pre><code>Every server that handles payments is encrypted.
+Server_1 handles payments.
+Verify that Server_1 is encrypted.
+</code></pre>
+        <p>What happens:</p>
+        <ul class="list">
+          <li>The first line becomes a rule plan that derives unary membership in <em>encrypted</em>.</li>
+          <li>The second line inserts a binary fact into the KB.</li>
+          <li>The verify command checks whether the derived unary bit is set for Server_1.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2 id="grounding">Ground facts vs plans</h2>
+        <p>
+          Ground facts are inserted only when all terms resolve to concrete entities or literals.
+          Sentences with quantifiers or relative clauses are compiled into set plans and rules.
+        </p>
+        <pre><code>Ground:
+Truck_A is assigned to Warehouse_7.
+
+Non-ground:
+Every truck that is assigned to a warehouse is ready.
+</code></pre>
+      </section>
+
+      <section class="section">
+        <h2 id="outputs">Artifacts produced</h2>
+        <p>Compilation produces several artifacts that are reused by all pragmatics:</p>
+        <ul class="list">
+          <li><strong>SymbolTable</strong> with ConceptualIDs and reverse lookup.</li>
+          <li><strong>KB</strong> with relations, inverse indices, and attribute indexes.</li>
+          <li><strong>RuleStore</strong> with compiled rule plans.</li>
+          <li><strong>CommandStore</strong> with query, proof, and solve plans.</li>
+        </ul>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Wiki</div></footer>
+  </div>
+</body>
+</html>

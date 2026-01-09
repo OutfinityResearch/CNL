@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Determinism and Error Reporting</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+  <script src="../../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Wiki</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Concepts</span>
+        <h1>Determinism and Error Reporting</h1>
+        <p>How CNL-PL guarantees a single parse and how errors are explained without guessing.</p>
+      </section>
+
+      <section class="section">
+        <h2 id="determinism">Why determinism matters</h2>
+        <p>
+          CNL-PL is built around a strict promise: every valid sentence produces exactly one AST.
+          If multiple parses are possible, the input is rejected. This avoids subtle differences
+          between implementations and prevents hidden semantics from sneaking into the runtime.
+        </p>
+        <p>
+          Determinism is not just a parsing detail. It makes compilation reproducible, reasoning
+          explainable, and evaluation suites reliable. The same input always produces the same
+          KB updates and plan structures.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 id="rules">Determinism rules in practice</h2>
+        <p>
+          The syntax rules below are enforced at parse time. If a rule is violated, the parser
+          emits a structured error instead of guessing.
+        </p>
+
+        <h3>Boolean grouping</h3>
+        <p>There is no implicit precedence between AND and OR. Grouping must be explicit.</p>
+        <pre><code>Valid:
+Either the user is active or the user is an admin.
+Both the user is active and the user is an admin.
+(the user is active and the user is an admin) or the user is suspended.
+
+Invalid:
+The user is active or the user is an admin and the user is suspended.
+</code></pre>
+
+        <h3>Noun phrase vs name</h3>
+        <p>
+          Noun phrases must start with determiners or quantifiers. A bare word is a Name. This
+          avoids ambiguity between proper names and general categories.
+        </p>
+        <pre><code>Valid:
+A driver is assigned to a route.
+Truck_A is assigned to Route_9.
+
+Invalid:
+Driver is assigned to a route.
+</code></pre>
+
+        <h3>Disambiguating "has"</h3>
+        <p>
+          The word "has" is possessive only when followed by a determiner. Otherwise it is treated
+          as an auxiliary.
+        </p>
+        <pre><code>Possessive:
+Truck_A has a capacity of 1000.
+
+Auxiliary:
+The user has logged in today.
+</code></pre>
+
+        <h3>Relative clauses</h3>
+        <p>Each clause must repeat the pronoun to avoid ambiguous chains.</p>
+        <pre><code>Valid:
+A user who is active and who knows Python.
+
+Invalid:
+A user who is active and knows Python.
+</code></pre>
+      </section>
+
+      <section class="section">
+        <h2 id="errors">Error reporting</h2>
+        <p>
+          Errors are explicit and source-aligned. Each error includes a code, a message, and the
+          exact span that triggered it. The system does not attempt recovery or fuzzy fixes.
+        </p>
+        <ul class="list">
+          <li><strong>MixedBooleanOperatorsError</strong>: AND and OR appear at the same level without grouping.</li>
+          <li><strong>InvalidNounPhraseStartError</strong>: a noun phrase did not start with a determiner or quantifier.</li>
+          <li><strong>HasFormDeterminismError</strong>: "has" used in a position that is ambiguous by rule.</li>
+          <li><strong>RelativePronounRepetitionError</strong>: relative chains missing pronoun repetition.</li>
+        </ul>
+        <p>
+          These codes are defined in DS07 and must be stable. Tooling can use them to provide
+          targeted suggestions without changing the language rules.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Wiki</div></footer>
+  </div>
+</body>
+</html>

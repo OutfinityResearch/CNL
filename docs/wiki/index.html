@@ -42,6 +42,21 @@
       </section>
 
       <section class="section">
+        <h2>Guides</h2>
+        <p>Detailed walk-throughs that connect syntax, compilation, and reasoning.</p>
+        <div class="grid">
+          <article class="card">
+            <h3><a href="concepts/end-to-end-flow.html">End-to-End Flow</a></h3>
+            <p>How a CNL program becomes a KB plus executable plans.</p>
+          </article>
+          <article class="card">
+            <h3><a href="concepts/determinism-and-errors.html">Determinism and Errors</a></h3>
+            <p>Why deterministic parsing matters and how error reporting works.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
         <h2>Glossary</h2>
         <p>Common terms used throughout the documentation and codebase.</p>
         <table>
@@ -129,6 +144,11 @@
               <td><strong>Design Specification</strong>. The prefix for formal design documents (e.g., DS01, DS03) that define the authoritative behavior of the system.</td>
             </tr>
             <tr>
+              <td><strong><a href="concepts/determinism-and-errors.html#determinism">Determinism</a></strong></td>
+              <td>Theory</td>
+              <td>The rule that every valid sentence yields exactly one AST. Inputs with multiple parses are rejected instead of guessed.</td>
+            </tr>
+            <tr>
               <td><strong><a href="concepts/syntax-and-ast.html#grammar">EBNF</a></strong></td>
               <td>Syntax</td>
               <td><strong>Extended Backus-Naur Form</strong>. A notation used to formally describe the grammar rules of CNL-PL (see DS03).</td>
@@ -152,6 +172,11 @@
               <td><strong><a href="concepts/identity-and-interning.html#provenance">FactID</a></strong></td>
               <td>Runtime</td>
               <td>A unique identifier (usually a hash) for a specific fact (SVO triplet) in the Knowledge Base, used for provenance and explaining "why" something is true.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/end-to-end-flow.html#grounding">Ground Fact</a></strong></td>
+              <td>Compiler</td>
+              <td>An atomic sentence that can be inserted into the KB because all required terms resolve to concrete entities or literals.</td>
             </tr>
             <tr>
               <td><strong><a href="concepts/syntax-and-ast.html#grammar">IDENT</a></strong></td>
@@ -271,6 +296,14 @@
           <article class="card">
             <h3>Relative clause</h3>
             <p>A constraint attached to a noun phrase using explicit pronouns (who, which, that).</p>
+          </article>
+          <article class="card">
+            <h3>Determinism</h3>
+            <p><a href="concepts/determinism-and-errors.html">Rules and error reporting</a> that make parsing unambiguous.</p>
+          </article>
+          <article class="card">
+            <h3>End-to-End Flow</h3>
+            <p><a href="concepts/end-to-end-flow.html">Pipeline overview</a> from text to KB and plans.</p>
           </article>
           <article class="card">
             <h3>Project Conventions</h3>
