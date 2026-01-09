@@ -91,6 +91,10 @@ EntityAttrIndex {
 
 Attributes must be declared functional or multi-valued in the dictionary; the storage shape should reflect that choice.
 
+Entity-valued attributes may optionally be projected into a derived binary predicate
+`has_attr|<AttrKey>` to support join-heavy reasoning; this is a compiler option, not
+a requirement of the KB core.
+
 ## FactID Strategy
 FactID is derived from the tuple (PredID, SubjectID, ObjectID) to avoid storing a FactID per bit:
 - If ranges allow, pack into 64-bit: `(PredID << a) | (SubjectID << b) | ObjectID`.

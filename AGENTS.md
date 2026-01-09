@@ -26,3 +26,4 @@ Stored in `docs/specs/DS` with the naming pattern `DS01-short-name.md`:
 - All files created in this repository (code, comments, HTML, Markdown) must be written in English.
 - Responses to user questions, reviews, and ad-hoc reports placed at the repository root must be in Romanian.
 - Use JavaScript with `.mjs` modules for source and tests; do not use TypeScript.
+- **No ASCII Diagrams**: All diagrams in HTML documentation must be rendered as SVGs. Do not use ASCII art in `<pre>` blocks for diagrams.

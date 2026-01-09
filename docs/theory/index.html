@@ -45,16 +45,41 @@
         <h2>The SVO Model (Subject-Verb-Object)</h2>
         <p>At the heart of CNL-PL is the deterministic mapping of sentences to SVO triplets. Unlike natural English where meaning can be fluid, CNL rigidifies this structure.</p>
         
-        <div class="code-block">
-<pre>
-Sentence: "The server handles high load."
+        <div class="diagram-container">
+          <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" style="font-family: sans-serif; width: 100%; max-width: 600px;">
+            <!-- Definitions for markers -->
+            <defs>
+              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#888"/>
+              </marker>
+            </defs>
 
-      [ Subject ]       [ Verb Phrase ]      [ Object ]
-          |                   |                  |
-    +-----+-----+       +-----+-----+      +-----+-----+
-    | the server|       |  handles  |      | high load |
-    +-----------+       +-----------+      +-----------+
-</pre>
+            <!-- Text labels -->
+            <text x="300" y="30" text-anchor="middle" font-size="16" fill="#333" font-style="italic">Sentence: "The server handles high load."</text>
+
+            <!-- Boxes -->
+            <!-- Subject -->
+            <rect x="50" y="100" width="120" height="50" rx="4" ry="4" fill="#f0f4f8" stroke="#cbd5e1" stroke-width="2"/>
+            <text x="110" y="130" text-anchor="middle" font-size="14" fill="#334155">the server</text>
+            <text x="110" y="85" text-anchor="middle" font-size="12" fill="#64748b" font-weight="bold">Subject</text>
+            <line x1="110" y1="90" x2="110" y2="100" stroke="#cbd5e1" stroke-width="2"/>
+
+            <!-- Verb -->
+            <rect x="240" y="100" width="120" height="50" rx="4" ry="4" fill="#f0f4f8" stroke="#cbd5e1" stroke-width="2"/>
+            <text x="300" y="130" text-anchor="middle" font-size="14" fill="#334155">handles</text>
+            <text x="300" y="85" text-anchor="middle" font-size="12" fill="#64748b" font-weight="bold">Verb Phrase</text>
+            <line x1="300" y1="90" x2="300" y2="100" stroke="#cbd5e1" stroke-width="2"/>
+
+            <!-- Object -->
+            <rect x="430" y="100" width="120" height="50" rx="4" ry="4" fill="#f0f4f8" stroke="#cbd5e1" stroke-width="2"/>
+            <text x="490" y="130" text-anchor="middle" font-size="14" fill="#334155">high load</text>
+            <text x="490" y="85" text-anchor="middle" font-size="12" fill="#64748b" font-weight="bold">Object</text>
+            <line x1="490" y1="90" x2="490" y2="100" stroke="#cbd5e1" stroke-width="2"/>
+
+            <!-- Connection lines between boxes (implied flow) -->
+            <line x1="170" y1="125" x2="240" y2="125" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrowhead)"/>
+            <line x1="360" y1="125" x2="430" y2="125" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrowhead)"/>
+          </svg>
         </div>
         <p>Every assertion, no matter how complex, breaks down into these three components (or a copula variant like "X is Y").</p>
       </section>

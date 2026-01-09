@@ -39,59 +39,119 @@
             AST normalization, and pragmatic execution.
           </p>
         </div>
-        <div class="hero-card">
-          <h3>Pipeline stages</h3>
-          <ul class="list">
-            <li>Lexer: tokens with longest-match keyword rules.</li>
-            <li>Parser: AST construction with explicit grouping.</li>
-            <li>Validator: grammar errors, mixed operators, missing terms.</li>
-            <li>Pragmatics: query, proof, plan, solve, simulate, explain.</li>
-          </ul>
+      </section>
+
+      <section class="section">
+        <h2>The Pipeline</h2>
+        <p>Data flows strictly in one direction: from text to AST, then to IR (Intermediate Representation) or direct execution.</p>
+        
+        <div class="diagram-container">
+          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="font-family: sans-serif; width: 100%; max-width: 800px;">
+             <!-- Definitions for markers -->
+            <defs>
+              <marker id="arrowhead-pipe" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+              </marker>
+            </defs>
+
+            <!-- Top Row: Input -> Lexer -> Parser -->
+            <g transform="translate(50, 40)">
+              <!-- Input -->
+              <rect x="0" y="0" width="120" height="60" rx="4" ry="4" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+              <text x="60" y="25" text-anchor="middle" font-weight="bold" fill="#334155">Input</text>
+              <text x="60" y="45" text-anchor="middle" font-size="12" fill="#64748b">(CNL Text)</text>
+              
+              <!-- Arrow -->
+              <line x1="120" y1="30" x2="180" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead-pipe)"/>
+              
+              <!-- Lexer -->
+              <rect x="180" y="0" width="120" height="60" rx="4" ry="4" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+              <text x="240" y="25" text-anchor="middle" font-weight="bold" fill="#334155">Lexer</text>
+              <text x="240" y="45" text-anchor="middle" font-size="12" fill="#64748b">(Tokens)</text>
+              
+              <!-- Arrow -->
+              <line x1="300" y1="30" x2="360" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead-pipe)"/>
+
+              <!-- Parser -->
+              <rect x="360" y="0" width="120" height="60" rx="4" ry="4" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+              <text x="420" y="25" text-anchor="middle" font-weight="bold" fill="#334155">Parser</text>
+              <text x="420" y="45" text-anchor="middle" font-size="12" fill="#64748b">(AST)</text>
+            </g>
+
+            <!-- Downward connection from Parser to Validator -->
+             <path d="M 470 100 L 470 130" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead-pipe)" fill="none"/>
+
+            <!-- Bottom Row: Engine <- Compiler <- Validator -->
+            <g transform="translate(50, 130)">
+              <!-- Engine -->
+              <rect x="0" y="0" width="120" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#0ea5e9" stroke-width="2"/>
+              <text x="60" y="25" text-anchor="middle" font-weight="bold" fill="#0369a1">Engine</text>
+              <text x="60" y="45" text-anchor="middle" font-size="12" fill="#0284c7">(Execution)</text>
+              
+              <!-- Arrow (Right to Left) -->
+              <line x1="180" y1="30" x2="120" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead-pipe)"/>
+
+              <!-- Compiler -->
+              <rect x="180" y="0" width="120" height="60" rx="4" ry="4" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+              <text x="240" y="25" text-anchor="middle" font-weight="bold" fill="#334155">Compiler</text>
+              <text x="240" y="45" text-anchor="middle" font-size="12" fill="#64748b">(Plan/KB)</text>
+              
+              <!-- Arrow (Right to Left) -->
+              <line x1="360" y1="30" x2="300" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead-pipe)"/>
+
+              <!-- Validator -->
+              <rect x="360" y="0" width="120" height="60" rx="4" ry="4" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+              <text x="420" y="25" text-anchor="middle" font-weight="bold" fill="#334155">Validator</text>
+              <text x="420" y="45" text-anchor="middle" font-size="12" fill="#64748b">(Errors)</text>
+            </g>
+          </svg>
         </div>
       </section>
 
       <section class="section">
-        <h2>Subsystems</h2>
+        <h2>Subsystems Detail</h2>
         <div class="grid">
           <article class="card">
-            <h3>Grammar + AST</h3>
-            <p>Formal EBNF with a lossless AST specification for tooling and serialization.</p>
+            <h3>1. Lexer & Parser</h3>
+            <p>
+              The lexer handles tokenization with "longest-match" rules for multi-word keywords. 
+              The parser builds a lossless AST where every boolean group is explicit.
+            </p>
           </article>
           <article class="card">
-            <h3>Validation layer</h3>
-            <p>Detects mixed boolean operators, missing terminators, and noun phrase errors.</p>
+            <h3>2. Validator</h3>
+            <p>
+              Checks for semantic correctness before execution.
+              <br/><em>Example: ensuring all variables in a rule are bound.</em>
+            </p>
           </article>
           <article class="card">
-            <h3>Pragmatics engine</h3>
-            <p>Interprets AST nodes against semantic backends or knowledge stores.</p>
+            <h3>3. Compiler (AST -> KB)</h3>
+            <p>
+              Transforms the AST into a "Compiled Knowledge Base" (DS09). 
+              This uses <strong>Bitsets</strong> and <strong>Interning</strong> (DS08) for maximum performance.
+            </p>
           </article>
           <article class="card">
-            <h3>Execution adapters</h3>
-            <p>Connects AST to proof systems, solvers, planners, and data stores.</p>
+            <h3>4. Pragmatics Engine</h3>
+            <p>
+              The runtime that executes the user's intent. It can invoke a Solver (CSP), a Planner (Action graph), or a Proof engine (Deduction).
+            </p>
           </article>
         </div>
       </section>
 
       <section class="section">
-        <h2>File maps and specs</h2>
+        <h2>Storage Model</h2>
         <p>
-          The specs repository mirrors the runtime structure. Each runtime file has a matching markdown
-          design file in <strong>docs/specs/src</strong>.
+          CNL-PL does not use a traditional SQL database. It uses an in-memory, bitset-oriented 
+          graph structure defined in <strong>DS09</strong>.
         </p>
-        <div class="grid">
-          <article class="card">
-            <h3>Design specifications</h3>
-            <p>See DS01-DS06 for vision, file mapping, syntax, semantics, and testing.</p>
-          </article>
-          <article class="card">
-            <h3>Test mapping</h3>
-            <p>Tests are documented alongside their corresponding runtime modules.</p>
-          </article>
-          <article class="card">
-            <h3>Evaluation suites</h3>
-            <p>Parsing and reasoning suites live in docs/specs/evals.</p>
-          </article>
-        </div>
+        <ul class="list">
+          <li><strong>Entities</strong> are dense integers (0..N).</li>
+          <li><strong>Relations</strong> are stored as bit matrices for O(1) checks.</li>
+          <li><strong>Attributes</strong> use column-oriented arrays (float64/int32).</li>
+        </ul>
       </section>
     </main>
 
