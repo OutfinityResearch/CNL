@@ -5,7 +5,7 @@ import { createActionStore } from "../actions/store.mjs";
 import { createFormulaStore } from "../formulas/store.mjs";
 import { createJustificationStore } from "../provenance/justifications.mjs";
 import { createDictionaryState, applyDictionaryStatement } from "./dictionary.mjs";
-import { compileRuleBody, compileCommand } from "./ast-to-plan.mjs";
+import { compileRuleBody, compileRuleHead, compileCommand } from "./ast-to-plan.mjs";
 
 function createError(code, message, primaryToken) {
   return {
@@ -215,7 +215,8 @@ function compileSentence(sentence, state, options) {
   }
   if (sentence.kind === "ConditionalSentence") {
     const plan = compileRuleBody(sentence.condition, state);
-    state.ruleStore.addRule({ kind: "RulePlan", body: plan, head: sentence.then });
+    const head = compileRuleHead(sentence.then);
+    state.ruleStore.addRule({ kind: "RulePlan", body: plan, head });
   }
 }
 
@@ -263,7 +264,13 @@ export function compileProgram(ast, options = {}) {
         compileSentence(item.sentence, state, { projectEntityAttributes });
         break;
       case "RuleStatement":
-        state.ruleStore.addRule({ kind: "RuleAst", sentence: item.sentence });
+        if (item.sentence?.kind === "ConditionalSentence") {
+          const plan = compileRuleBody(item.sentence.condition, state);
+          const head = compileRuleHead(item.sentence.then);
+          state.ruleStore.addRule({ kind: "RulePlan", body: plan, head });
+        } else {
+          state.ruleStore.addRule({ kind: "RuleAst", sentence: item.sentence });
+        }
         break;
       case "CommandStatement":
         state.commandStore.push(compileCommand(item.command, state));

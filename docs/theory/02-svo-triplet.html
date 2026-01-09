@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theory: The SVO Triplet</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Theory</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Theory Part 2</span>
+        <h1>The SVO Triplet Architecture</h1>
+        <p>The universal data structure for representing knowledge: Subject, Verb, Object.</p>
+      </section>
+
+      <section class="section">
+        <h2>Atomic Facts</h2>
+        <p>
+          In CNL-PL theory, the world is composed of entities and the relationships between them. Any complex state can be decomposed into a set of atomic facts. The chosen representation for an atomic fact is the <strong>Subject-Verb-Object (SVO)</strong> triplet.
+        </p>
+        <p>
+          This choice is not arbitrary. It mirrors the structure of RDF (Resource Description Framework) triples used in the Semantic Web, and aligns with the basic sentence structure of English. By standardizing on SVO, we create a unified representation for data storage, querying, and rule definition.
+        </p>
+
+        <h2>The Canonical Forms</h2>
+        <p>
+          While the user sees English sentences, the internal engine sees only specific "flavors" of triplets. The parser is responsible for canonicalizing input into these forms:
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h3>Binary Relation</h3>
+            <p><strong>Example:</strong> "User <em>accesses</em> File"</p>
+            <p><strong>Structure:</strong> (User, accesses, File)</p>
+            <p>This is the standard edge in the knowledge graph. It connects two distinct entities via a labeled predicate.</p>
+          </div>
+          <div class="card">
+            <h3>Attribute Assignment</h3>
+            <p><strong>Example:</strong> "Server <em>has capacity</em> 500"</p>
+            <p><strong>Structure:</strong> (Server, capacity, 500)</p>
+            <p>Here, the "Verb" acts as a property accessor. The Object is a literal value (number or string) rather than another entity.</p>
+          </div>
+          <div class="card">
+            <h3>Type Membership</h3>
+            <p><strong>Example:</strong> "John <em>is a</em> Admin"</p>
+            <p><strong>Structure:</strong> (John, is-a, Admin)</p>
+            <p>This is a special case of a binary relation where the Object represents a Class or Set. It assigns the Subject to a category.</p>
+          </div>
+        </div>
+
+        <h2>Reversibility and Graph Traversal</h2>
+        <p>
+          The SVO model implies a directed graph. <code>(A, relation, B)</code> is an edge from A to B. However, the CNL engine maintains full reversibility. For every relation defined, the system implicitly understands the inverse.
+        </p>
+        <p>
+          If the fact is <em>"The server hosts the application"</em>, the system can natively answer both <em>"What does the server host?"</em> (Forward traversal) and <em>"What hosts the application?"</em> (Backward traversal). This is physically implemented via dual indices (see Architecture), but theoretically, it means the knowledge graph is traversable in any direction without penalty.
+        </p>
+        <p>
+          This theoretical property is crucial for the "Explain" capability. An explanation is simply a path traversal through this graph, collecting the SVO triplets that link the start condition to the conclusion.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Theory</div></footer>
+  </div>
+</body>
+</html>

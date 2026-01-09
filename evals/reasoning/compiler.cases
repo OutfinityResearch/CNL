@@ -1,0 +1,6 @@
+# Compiler KB Cases
+
+- input: "Truck_A is a truck.\nTruck_A has a capacity of 1000."
+  expect: "KB summary placeholder"
+- input: "--- CONTEXT: BaseDictionary ---\n\"status\" is an entity attribute.\nTruck_A has a status of Active."
+  expect: "KB summary placeholder"

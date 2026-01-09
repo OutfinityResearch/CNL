@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theory: Boolean Logic</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Theory</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Theory Part 3</span>
+        <h1>Boolean Logic and Explicit Grouping</h1>
+        <p>Removing the guesswork from "AND" and "OR" through mandatory structural syntax.</p>
+      </section>
+
+      <section class="section">
+        <h2>The Ambiguity of Precedence</h2>
+        <p>
+          In mathematics and programming, we learn an "order of operations" (PEMDAS). Typically, multiplication binds tighter than addition. In logic, AND usually binds tighter than OR.
+        </p>
+        <p>
+          In natural language, however, there is no agreed-upon standard. Consider:
+          <br/><em>"I want a burger and fries or a salad."</em>
+        </p>
+        <p>
+          Does this mean:
+          <br/>1. (Burger AND Fries) OR (Salad) -> Only two distinct meal options.
+          <br/>2. (Burger) AND (Fries OR Salad) -> You definitely get a burger, plus a side dish.
+        </p>
+        <p>
+          A human resolves this ambiguity through intonation or context. A parser cannot. If a policy document says <em>"Access is granted if the user is an admin or a moderator and the audit log is enabled"</em>, a misinterpretation of the precedence could lead to a massive security hole (granting access to any admin regardless of audit logging).
+        </p>
+
+        <h2>Explicit Grouping Strategy</h2>
+        <p>
+          CNL-PL solves this by rejecting standard precedence assumptions. It requires the user to be explicit. It does this not with parentheses (which look unnatural in text), but with <strong>Distributive Keywords</strong>:
+        </p>
+        <ul class="list">
+          <li><strong>Both ... and ...</strong>: Forces an AND group.</li>
+          <li><strong>Either ... or ...</strong>: Forces an OR group.</li>
+          <li><strong>Neither ... nor ...</strong>: Forces a NOR group.</li>
+        </ul>
+        <p>
+          The grammar enforces that if you mix operators at the same level, you <em>must</em> use these grouping constructs.
+        </p>
+        <p>
+          <strong>Invalid:</strong> <code>User is admin or User is dev and System is prod</code>
+          <br/><strong>Valid:</strong> <code>Either (User is admin) or (both (User is dev) and (System is prod))</code>
+        </p>
+        <p>
+          (Note: In the actual surface syntax, we use the keywords to delimit the clauses naturally).
+        </p>
+
+        <h2>The Logic Tree</h2>
+        <p>
+          This syntax forces the user to mentally construct a Logic Tree. The AST mirrors this tree exactly.
+        </p>
+        <p>
+          The root of a condition is a boolean node. Its children are either atomic SVO assertions (leaves) or other boolean nodes (branches). By enforcing this structure at the syntax level, we ensure that the logical intent is preserved 100% into the compiled Plan. There is no stage where the compiler "infers" precedence; it simply reads the tree the user wrote.
+        </p>
+        <p>
+          This approach also simplifies error reporting. If the user writes an ambiguous sentence, the error message can specifically point out the lack of grouping keywords, guiding the user to clarify their intent.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Theory</div></footer>
+  </div>
+</body>
+</html>

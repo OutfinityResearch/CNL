@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theory: Logic as Set Theory</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Theory</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Theory Part 5</span>
+        <h1>Logic is Geometry: Set Theory</h1>
+        <p>Why CNL-PL reduces all reasoning to set operations, and how this enables performance at scale.</p>
+      </section>
+
+      <section class="section">
+        <h2>The Isomorphism</h2>
+        <p>
+          There is a well-known isomorphism (structural equivalence) between Boolean Logic and Set Theory.
+        </p>
+        <ul class="list">
+          <li>A <strong>Predicate</strong> P(x) is equivalent to the <strong>Set</strong> S = {x | P(x) is true}.</li>
+          <li><strong>Logical AND</strong> (P(x) ∧ Q(x)) is equivalent to <strong>Set Intersection</strong> (S_P ∩ S_Q).</li>
+          <li><strong>Logical OR</strong> (P(x) ∨ Q(x)) is equivalent to <strong>Set Union</strong> (S_P ∪ S_Q).</li>
+          <li><strong>Logical NOT</strong> (¬P(x)) is equivalent to <strong>Set Difference</strong> (Universe \ S_P).</li>
+        </ul>
+        <p>
+          CNL-PL takes this mathematical truth and makes it the foundation of its physical implementation. When the user writes a logic rule, the engine does not "think" in terms of truth values; it computes in terms of sets.
+        </p>
+
+        <h2>The Bitset Advantage</h2>
+        <p>
+          Because we map every entity to a dense integer (0, 1, 2...), a Set can be represented as a <strong>Bitset</strong> (a bitmap). If the bit at index 5 is set to 1, it means Entity #5 is in the set.
+        </p>
+        <p>
+          This transforms logical reasoning into CPU-native arithmetic. Computing the intersection of two sets containing millions of items is done by performing a <code>bitwise AND</code> instruction on the memory words holding the bits. This is orders of magnitude faster than iterating through lists of objects or pointers.
+        </p>
+
+        <h2>Relational Algebra</h2>
+        <p>
+          This approach extends to relations. A binary relation (Subject -> Object) is a set of pairs. In our architecture, this is stored as a <strong>Relation Matrix</strong> (an array of bitsets).
+        </p>
+        <p>
+          Complex queries involving "joins" (e.g., "Find users who manage a secure server") become vector operations. We take the bitset of "Secure Servers", and we "project" it backwards through the "Manages" relation matrix using bitwise ORs. The result is the bitset of "Users". This is essentially a specialized form of Linear Algebra over the Boolean Semiring (GF(2)).
+        </p>
+        <p>
+          By grounding the language theory in this rigorous mathematical framework, we ensure that the system scales predictably and behaves correctly, avoiding the exponential complexity traps common in naive rule engines.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Theory</div></footer>
+  </div>
+</body>
+</html>

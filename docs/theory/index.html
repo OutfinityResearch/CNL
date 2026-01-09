@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CNL-PL Theory</title>
-  <meta name="description" content="Foundational philosophy, goals, and pragmatics for the CNL Programming Language." />
   <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
 </head>
 <body>
   <div class="page">
@@ -13,144 +13,54 @@
       <div class="header-inner">
         <div class="brand">
           <div class="brand-mark" aria-hidden="true"></div>
-          <div>
-            <div>CNL Programming Language</div>
-            <small>Controlled Natural Language for Executable Meaning</small>
-          </div>
+          <div>CNL Programming Language</div>
         </div>
-        <nav class="nav">
-          <a href="../">Home</a>
-          <a class="active" href="./">Theory</a>
-          <a href="../arhitecture/">Architecture</a>
-          <a href="../wiki/">Wiki</a>
-          <a href="../syntax/">Syntax</a>
-          <a href="../specs/">Specs</a>
-        </nav>
       </div>
     </header>
 
     <main>
       <section class="hero">
-        <div>
-          <span class="tag">Theory</span>
-          <h1>Controlled language as executable logic.</h1>
-          <p>
-            CNL-PL formalizes natural language into a symbolic representation that can be executed, queried,
-            proven, planned, or optimized without ambiguity.
-          </p>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>The SVO Model (Subject-Verb-Object)</h2>
-        <p>At the heart of CNL-PL is the deterministic mapping of sentences to SVO triplets. Unlike natural English where meaning can be fluid, CNL rigidifies this structure.</p>
-        
-        <div class="diagram-container">
-          <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" style="font-family: sans-serif; width: 100%; max-width: 600px;">
-            <!-- Definitions for markers -->
-            <defs>
-              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" fill="#888"/>
-              </marker>
-            </defs>
-
-            <!-- Text labels -->
-            <text x="300" y="30" text-anchor="middle" font-size="16" fill="#333" font-style="italic">Sentence: "The server handles high load."</text>
-
-            <!-- Boxes -->
-            <!-- Subject -->
-            <rect x="50" y="100" width="120" height="50" rx="4" ry="4" fill="#f0f4f8" stroke="#cbd5e1" stroke-width="2"/>
-            <text x="110" y="130" text-anchor="middle" font-size="14" fill="#334155">the server</text>
-            <text x="110" y="85" text-anchor="middle" font-size="12" fill="#64748b" font-weight="bold">Subject</text>
-            <line x1="110" y1="90" x2="110" y2="100" stroke="#cbd5e1" stroke-width="2"/>
-
-            <!-- Verb -->
-            <rect x="240" y="100" width="120" height="50" rx="4" ry="4" fill="#f0f4f8" stroke="#cbd5e1" stroke-width="2"/>
-            <text x="300" y="130" text-anchor="middle" font-size="14" fill="#334155">handles</text>
-            <text x="300" y="85" text-anchor="middle" font-size="12" fill="#64748b" font-weight="bold">Verb Phrase</text>
-            <line x1="300" y1="90" x2="300" y2="100" stroke="#cbd5e1" stroke-width="2"/>
-
-            <!-- Object -->
-            <rect x="430" y="100" width="120" height="50" rx="4" ry="4" fill="#f0f4f8" stroke="#cbd5e1" stroke-width="2"/>
-            <text x="490" y="130" text-anchor="middle" font-size="14" fill="#334155">high load</text>
-            <text x="490" y="85" text-anchor="middle" font-size="12" fill="#64748b" font-weight="bold">Object</text>
-            <line x1="490" y1="90" x2="490" y2="100" stroke="#cbd5e1" stroke-width="2"/>
-
-            <!-- Connection lines between boxes (implied flow) -->
-            <line x1="170" y1="125" x2="240" y2="125" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrowhead)"/>
-            <line x1="360" y1="125" x2="430" y2="125" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrowhead)"/>
-          </svg>
-        </div>
-        <p>Every assertion, no matter how complex, breaks down into these three components (or a copula variant like "X is Y").</p>
-      </section>
-
-      <section class="section">
-        <h2>Pragmatic engines: One Input, Many Outputs</h2>
+        <span class="tag">Theory</span>
+        <h1>The Theoretical Foundation</h1>
         <p>
-          The power of CNL-PL lies in separating the <em>representation</em> (the sentence) from the <em>intent</em> (the pragmatic command).
+          CNL-PL is not an AI that "understands" text. It is a formal system that maps restricted English directly to Set Theory and First-Order Logic.
         </p>
-        
-        <div class="grid">
-          <article class="card">
-            <h3>Query</h3>
-            <p><strong>Input:</strong> "Return the name of every user who is active."</p>
-            <p><strong>Output:</strong> <code>["Alice", "Bob", "Charlie"]</code> (List of Strings)</p>
-          </article>
-          <article class="card">
-            <h3>Verify</h3>
-            <p><strong>Input:</strong> "Verify that Alice is active."</p>
-            <p><strong>Output:</strong> <code>true</code> (Boolean)</p>
-          </article>
-          <article class="card">
-            <h3>Plan</h3>
-            <p><strong>Input:</strong> "Plan to achieve Alice is active."</p>
-            <p><strong>Output:</strong> <code>[Action("ActivateUser", "Alice")]</code> (List of Steps)</p>
-          </article>
-          <article class="card">
-            <h3>Explain</h3>
-            <p><strong>Input:</strong> "Explain why Alice is active."</p>
-            <p><strong>Output:</strong> "Alice is active because Rule #4 applied to Fact #12." (Causal Trace)</p>
-          </article>
-        </div>
       </section>
 
       <section class="section">
-        <h2>Why deterministic language matters</h2>
         <div class="grid">
-          <article class="card">
-            <h3>Unambiguous structure</h3>
-            <p>Every valid sentence compiles to a single AST; there is no alternative parse.</p>
-          </article>
-          <article class="card">
-            <h3>Explicit grouping</h3>
-            <p>Boolean logic uses explicit connectors to prevent hidden precedence.</p>
-          </article>
-          <article class="card">
-            <h3>Controlled vocabulary</h3>
-            <p>Determiners and quantifiers separate names from noun phrases.</p>
-          </article>
+          <a class="card" href="01-determinism.html">
+            <span class="tag">Part 1</span>
+            <h3>The Necessity of Determinism</h3>
+            <p>Why ambiguity is a bug, not a feature, and how restricted grammar solves the "guessing game" of natural language processing.</p>
+          </a>
+          <a class="card" href="02-svo-triplet.html">
+            <span class="tag">Part 2</span>
+            <h3>The SVO Triplet Architecture</h3>
+            <p>Decomposing the world into atomic facts: Subject, Verb, Object. The universal data structure of knowledge.</p>
+          </a>
+          <a class="card" href="03-boolean-logic.html">
+            <span class="tag">Part 3</span>
+            <h3>Boolean Logic & Grouping</h3>
+            <p>Why "AND" and "OR" are dangerous in English, and how explicit grouping syntax restores mathematical precision.</p>
+          </a>
+          <a class="card" href="04-pragmatic-separation.html">
+            <span class="tag">Part 4</span>
+            <h3>Pragmatic Separation</h3>
+            <p>Decoupling Intent from Representation. How one sentence can drive Queries, Proofs, Plans, and Constraints.</p>
+          </a>
+          <a class="card" href="05-set-theory.html">
+            <span class="tag">Part 5</span>
+            <h3>Logic is Geometry</h3>
+            <p>The isomorphism between Logic and Set Theory. How reasoning is reduced to high-performance bitset arithmetic.</p>
+          </a>
         </div>
-      </section>
-
-      <section class="section">
-        <h2>Design principles</h2>
-        <ul class="list">
-          <li>Triplet assertions are the atomic unit of truth.</li>
-          <li>Relative clauses replace parentheses for human readability.</li>
-          <li>Explicit connectors remove hidden precedence in logic.</li>
-          <li>Grammar remains stable as pragmatics evolve.</li>
-        </ul>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="footer-inner">
-        <div>Vision: CNL Programming Language - Deterministic by design</div>
-        <div class="footer-links">
-          <a href="../">Home</a>
-          <a href="../specs/">Specs</a>
-          <a href="../wiki/">Wiki</a>
-        </div>
+        <div>CNL Programming Language</div>
       </div>
     </footer>
   </div>

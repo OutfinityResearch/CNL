@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theory: Pragmatics</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Theory</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Theory Part 4</span>
+        <h1>Pragmatic Separation of Intent</h1>
+        <p>Decoupling the "What" from the "How": using a single language to drive queries, proofs, plans, and constraints.</p>
+      </section>
+
+      <section class="section">
+        <h2>Representation vs. Intent</h2>
+        <p>
+          In traditional programming, syntax is tied to execution. An SQL <code>SELECT</code> statement is always a query. A Python <code>assert</code> is always a check.
+        </p>
+        <p>
+          CNL-PL operates on a different theory: <strong>The text describes a state of the world</strong>. What we <em>do</em> with that description is a separate layer called <strong>Pragmatics</strong>.
+        </p>
+        <p>
+          Consider the phrase: <em>"The container is secure."</em>
+        </p>
+        <p>
+          This is a representation of a fact. Depending on the pragmatic mode ("command") wrapping it, the meaning changes entirely:
+        </p>
+        <ul class="list">
+          <li><strong>Query Mode:</strong> Is the container secure right now? (Read operation)</li>
+          <li><strong>Assert Mode:</strong> Update the database to mark the container as secure. (Write operation)</li>
+          <li><strong>Constraint Mode:</strong> Ensure the container is <em>always</em> secure. (Invariant definition)</li>
+          <li><strong>Plan Mode:</strong> Perform necessary actions (like encryption) to <em>make</em> the container secure. (Goal definition)</li>
+        </ul>
+
+        <h2>The Unified Frontend</h2>
+        <p>
+          The theoretical benefit of this separation is that users only need to learn one way to describe the world. They don't need a separate "Query Language", "Constraint Language", and "Planning Language". They learn the SVO structure and boolean logic once, and apply it everywhere.
+        </p>
+        <p>
+          This unification extends to the internal architecture. The compiler produces the same Intermediate Representation (Plan IR) regardless of the pragmatic. A <code>SetPlan</code> describing "secure containers" is identical whether it's being used to filter a list or to validate a compliance rule.
+        </p>
+
+        <h2>Engines as Backends</h2>
+        <p>
+          Pragmatics effectively act as "drivers" for different execution engines.
+        </p>
+        <p>
+          The <strong>Solver Engine</strong> treats the AST as a set of logical constraints (SAT/SMT) and tries to find variable assignments. The <strong>Planner Engine</strong> treats the AST as a goal state and searches the action space. The <strong>Proof Engine</strong> treats the AST as a theorem and searches the deduction space.
+        </p>
+        <p>
+          This modularity makes CNL-PL extensible. New pragmatics (e.g., "Optimize" or "Simulate") can be added by implementing new backends that consume the standard Plan IR, without changing the core language syntax.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Theory</div></footer>
+  </div>
+</body>
+</html>

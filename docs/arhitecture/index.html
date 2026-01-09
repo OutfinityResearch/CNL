@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CNL-PL Architecture</title>
-  <meta name="description" content="Architecture overview for the CNL-PL parser, validation, and pragmatic engines." />
+  <title>System Architecture - CNL-PL</title>
   <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
 </head>
 <body>
   <div class="page">
@@ -13,156 +13,109 @@
       <div class="header-inner">
         <div class="brand">
           <div class="brand-mark" aria-hidden="true"></div>
-          <div>
-            <div>CNL Programming Language</div>
-            <small>Controlled Natural Language for Executable Meaning</small>
-          </div>
+          <div>CNL Programming Language</div>
         </div>
-        <nav class="nav">
-          <a href="../">Home</a>
-          <a href="../theory/">Theory</a>
-          <a class="active" href="./">Architecture</a>
-          <a href="../wiki/">Wiki</a>
-          <a href="../syntax/">Syntax</a>
-          <a href="../specs/">Specs</a>
-        </nav>
       </div>
     </header>
 
     <main>
       <section class="hero">
-        <div>
-          <span class="tag">Architecture</span>
-          <h1>From plain text to executable meaning.</h1>
-          <p>
-            The CNL-PL stack follows a deterministic pipeline: lexical analysis, parsing, validation,
-            AST normalization, and pragmatic execution.
-          </p>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>The Pipeline</h2>
-        <p>Data flows strictly in one direction: from text to AST, then to IR (Intermediate Representation) or direct execution.</p>
-        
-        <div class="diagram-container">
-          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="font-family: sans-serif; width: 100%; max-width: 800px;">
-             <!-- Definitions for markers -->
-            <defs>
-              <marker id="arrowhead-pipe" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
-              </marker>
-            </defs>
-
-            <!-- Top Row: Input -> Lexer -> Parser -->
-            <g transform="translate(50, 40)">
-              <!-- Input -->
-              <rect x="0" y="0" width="120" height="60" rx="4" ry="4" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
-              <text x="60" y="25" text-anchor="middle" font-weight="bold" fill="#334155">Input</text>
-              <text x="60" y="45" text-anchor="middle" font-size="12" fill="#64748b">(CNL Text)</text>
-              
-              <!-- Arrow -->
-              <line x1="120" y1="30" x2="180" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead-pipe)"/>
-              
-              <!-- Lexer -->
-              <rect x="180" y="0" width="120" height="60" rx="4" ry="4" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
-              <text x="240" y="25" text-anchor="middle" font-weight="bold" fill="#334155">Lexer</text>
-              <text x="240" y="45" text-anchor="middle" font-size="12" fill="#64748b">(Tokens)</text>
-              
-              <!-- Arrow -->
-              <line x1="300" y1="30" x2="360" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead-pipe)"/>
-
-              <!-- Parser -->
-              <rect x="360" y="0" width="120" height="60" rx="4" ry="4" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
-              <text x="420" y="25" text-anchor="middle" font-weight="bold" fill="#334155">Parser</text>
-              <text x="420" y="45" text-anchor="middle" font-size="12" fill="#64748b">(AST)</text>
-            </g>
-
-            <!-- Downward connection from Parser to Validator -->
-             <path d="M 470 100 L 470 130" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead-pipe)" fill="none"/>
-
-            <!-- Bottom Row: Engine <- Compiler <- Validator -->
-            <g transform="translate(50, 130)">
-              <!-- Engine -->
-              <rect x="0" y="0" width="120" height="60" rx="4" ry="4" fill="#f0f9ff" stroke="#0ea5e9" stroke-width="2"/>
-              <text x="60" y="25" text-anchor="middle" font-weight="bold" fill="#0369a1">Engine</text>
-              <text x="60" y="45" text-anchor="middle" font-size="12" fill="#0284c7">(Execution)</text>
-              
-              <!-- Arrow (Right to Left) -->
-              <line x1="180" y1="30" x2="120" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead-pipe)"/>
-
-              <!-- Compiler -->
-              <rect x="180" y="0" width="120" height="60" rx="4" ry="4" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
-              <text x="240" y="25" text-anchor="middle" font-weight="bold" fill="#334155">Compiler</text>
-              <text x="240" y="45" text-anchor="middle" font-size="12" fill="#64748b">(Plan/KB)</text>
-              
-              <!-- Arrow (Right to Left) -->
-              <line x1="360" y1="30" x2="300" y2="30" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead-pipe)"/>
-
-              <!-- Validator -->
-              <rect x="360" y="0" width="120" height="60" rx="4" ry="4" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
-              <text x="420" y="25" text-anchor="middle" font-weight="bold" fill="#334155">Validator</text>
-              <text x="420" y="45" text-anchor="middle" font-size="12" fill="#64748b">(Errors)</text>
-            </g>
-          </svg>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Subsystems Detail</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>1. Lexer & Parser</h3>
-            <p>
-              The lexer handles tokenization with "longest-match" rules for multi-word keywords. 
-              The parser builds a lossless AST where every boolean group is explicit.
-            </p>
-          </article>
-          <article class="card">
-            <h3>2. Validator</h3>
-            <p>
-              Checks for semantic correctness before execution.
-              <br/><em>Example: ensuring all variables in a rule are bound.</em>
-            </p>
-          </article>
-          <article class="card">
-            <h3>3. Compiler (AST -> KB)</h3>
-            <p>
-              Transforms the AST into a "Compiled Knowledge Base" (DS09). 
-              This uses <strong>Bitsets</strong> and <strong>Interning</strong> (DS08) for maximum performance.
-            </p>
-          </article>
-          <article class="card">
-            <h3>4. Pragmatics Engine</h3>
-            <p>
-              The runtime that executes the user's intent. It can invoke a Solver (CSP), a Planner (Action graph), or a Proof engine (Deduction).
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Storage Model</h2>
+        <span class="tag">Architecture</span>
+        <h1>The Data Processing Pipeline</h1>
         <p>
-          CNL-PL does not use a traditional SQL database. It uses an in-memory, bitset-oriented 
-          graph structure defined in <strong>DS09</strong>.
+          From raw strings to optimized bitset operations. The CNL architecture is a strictly layered pipeline designed for correctness, performance, and explainability.
         </p>
-        <ul class="list">
-          <li><strong>Entities</strong> are dense integers (0..N).</li>
-          <li><strong>Relations</strong> are stored as bit matrices for O(1) checks.</li>
-          <li><strong>Attributes</strong> use column-oriented arrays (float64/int32).</li>
-        </ul>
+      </section>
+
+      <section class="section">
+        <h2>1. The Unidirectional Pipeline</h2>
+        <p>
+          The architecture follows a strict "One-Way" data flow. There are no feedback loops during the parsing phase. This ensures that the complexity of the system remains linear with respect to the input size. The pipeline consists of four distinct stages:
+        </p>
+        <div class="list">
+          <li><strong>Stage 1: Lexical Analysis (The Lexer).</strong> Converts the raw UTF-8 string into a stream of typed Tokens. It handles "Longest Match" rules to distinguish multi-word keywords (like "it is not the case that") from simple identifiers.</li>
+          <li><strong>Stage 2: Syntactic Analysis (The Parser).</strong> Consumes tokens and builds the Abstract Syntax Tree (AST). It enforces the rigid grammar rules defined in DS03, rejecting any input that is structurally ambiguous.</li>
+          <li><strong>Stage 3: Validation & Canonicalization.</strong> Walks the AST to check semantic constraints (e.g., "variable 'X' is used but not defined"). It also normalizes the AST into a Canonical Form (e.g., converting "A > B" to "A is greater than B").</li>
+          <li><strong>Stage 4: Compilation.</strong> Transforms the validated AST into the Plan Intermediate Representation (IR) and emits updates for the Knowledge Base.</li>
+        </div>
+        <p>
+          This separation of concerns allows us to test each layer independently. We can verify the Lexer without involving the Parser, and we can test the Compiler using hand-crafted ASTs without parsing text.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>2. The Knowledge Base (KB) Storage Model</h2>
+        <p>
+          The Runtime Engine does not use a SQL database or a Graph database. It uses a custom, in-memory <strong>Bitset Store</strong> (defined in DS09). This is the "brain" of the system.
+        </p>
+        <p>
+          <strong>Entities as Integers:</strong> Every entity (e.g., "User John") is mapped to a dense integer ID (0, 1, 2...). This technique, called <strong>Interning</strong>, allows us to use these IDs as array indices, providing O(1) access time.
+        </p>
+        <p>
+          <strong>Relations as Matrices:</strong> A binary relation (like "User accesses File") is stored as a <strong>RelationMatrix</strong>. This is effectively an array of Bitsets. <code>Matrix[UserID]</code> returns a Bitset where every set bit represents a File ID that the user accesses. To answer the query "What files does John access?", the engine simply retrieves this Bitset.
+        </p>
+        <p>
+          <strong>Columnar Attributes:</strong> Numeric data (prices, quantities) is stored in <strong>NumericIndex</strong> arrays. This is a column-oriented layout: all prices are stored in one contiguous array of <code>Float64</code>. This optimizes CPU cache usage when scanning or aggregating values (e.g., calculating "Average Price").
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>3. The Compiler Contract and Plan IR</h2>
+        <p>
+          The Compiler does not execute code. Its job is to produce a <strong>Plan</strong>. A Plan is a tree of instructions that describes <em>how</em> to calculate a result. This intermediate representation (IR) decouples the language from the execution.
+        </p>
+        <p>
+          For example, the query <em>"Find users who are active and admins"</em> compiles to a <strong>SetPlan</strong>:
+        </p>
+        <div class="code-block">
+<pre>Intersection(
+  UnaryPredicate(Active),
+  UnaryPredicate(Admin)
+)</pre>
+        </div>
+        <p>
+          This Plan is an immutable data structure. It can be optimized (e.g., reordering the intersection for speed) before it is ever run. The <strong>Compiler Contract</strong> guarantees that identical ASTs will always produce identical Plans, ensuring deterministic behavior.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>4. The Pragmatic Runtime Engines</h2>
+        <p>
+          Once a Plan is generated, it is handed to a specific Engine based on the user's pragmatic intent.
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h3>The Query Engine</h3>
+            <p>Executes SetPlans and RelationPlans against the KB. It uses bitwise logic to filter millions of entities instantly. Returns raw datasets.</p>
+          </div>
+          <div class="card">
+            <h3>The Proof Engine</h3>
+            <p>Instead of just calculating the result, it traces the execution path. It builds a "Justification DAG" that records which facts and rules contributed to the result, enabling the "Explain" feature.</p>
+          </div>
+          <div class="card">
+            <h3>The Planning Engine</h3>
+            <p>Uses <strong>ActionPlans</strong>. It performs a state-space search (like BFS or A*) to find a sequence of actions that transforms the current KB state into a state where the goal condition is met.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>5. Identity and Interning System</h2>
+        <p>
+          A critical architectural component is the <strong>Identity System</strong> (DS08). It bridges the gap between the chaotic world of strings and the ordered world of integers.
+        </p>
+        <p>
+          The <strong>Symbol Table</strong> maintains a bidirectional mapping between human-readable strings (e.g., "server-01") and stable 64-bit <strong>ConceptualIDs</strong>. These ConceptualIDs are hash-based and persistent. However, for runtime efficiency, the system maps these sparse 64-bit hashes to dense 32-bit <strong>DenseIDs</strong> (EntityID, PredID) during the loading of a session.
+        </p>
+        <p>
+          This two-tier identity system allows the KB to be extremely compact (using small integers) while ensuring that data can be reliably exported, imported, and merged across different sessions without ID collisions.
+        </p>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="footer-inner">
-        <div>Vision: CNL Programming Language - Deterministic by design</div>
-        <div class="footer-links">
-          <a href="../">Home</a>
-          <a href="../specs/">Specs</a>
-          <a href="../wiki/">Wiki</a>
-        </div>
+        <div>CNL Programming Language</div>
       </div>
     </footer>
   </div>

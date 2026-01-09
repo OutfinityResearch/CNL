@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Architecture: Storage Model</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Architecture</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Architecture Part 2</span>
+        <h1>The Knowledge Base Engine</h1>
+        <p>In-memory Bitsets and Matrices: high-performance storage for logical reasoning.</p>
+      </section>
+
+      <section class="section">
+        <h2>Bitset-Oriented Design</h2>
+        <p>
+          Traditional databases (SQL) are Row-Oriented. They are great for retrieving a record, but slow for set operations. CNL-PL is <strong>Bitset-Oriented</strong>. The primary atom of storage is not a "Record" but a "Set".
+        </p>
+        <p>
+          Every entity in the system is interned to a dense integer ID (0..N). A <strong>Bitset</strong> is simply a compact array of bits where the N-th bit is 1 if Entity N is in the set.
+        </p>
+
+        <h2>The RelationMatrix</h2>
+        <p>
+          A binary predicate (like "User has Role") is stored as a <strong>RelationMatrix</strong>.
+        </p>
+        <div class="code-block">
+<pre>
+RelationMatrix {
+  rows: Bitset[]  // rows[SubjectID] -> Bitset of Objects
+}
+</pre>
+        </div>
+        <p>
+          If we want to know "What roles does User 42 have?", we simply read <code>rows[42]</code>. The result is a Bitset representing the set of roles.
+        </p>
+        <p>
+          Crucially, we often maintain the <strong>Inverse Matrix</strong> (transpose). This allows us to answer "Which users have the Admin role?" just as fast, by looking up the Admin ID in the inverse matrix.
+        </p>
+
+        <h2>Columnar Indices</h2>
+        <p>
+          For data that isn't boolean (like numbers), we use <strong>NumericIndex</strong>.
+        </p>
+        <div class="code-block">
+<pre>
+NumericIndex {
+  values: Float64Array  // values[EntityID] -> number
+  hasValue: Bitset      // tracks which entities actually have a value
+}
+</pre>
+        </div>
+        <p>
+          This separates the <em>existence</em> of data from the <em>value</em> of data. The <code>hasValue</code> bitset allows us to quickly intersect "Entities with a Salary" with "Entities who are Engineers", before we even look at the salary values.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Architecture</div></footer>
+  </div>
+</body>
+</html>

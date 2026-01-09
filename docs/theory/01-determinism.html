@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theory: Determinism in Natural Language</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Theory</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Theory Part 1</span>
+        <h1>The Necessity of Determinism</h1>
+        <p>Why probabilistic understanding is insufficient for critical logic, and how CNL achieves mathematical certainty in parsing.</p>
+      </section>
+
+      <section class="section">
+        <h2>The Ambiguity Trap</h2>
+        <p>
+          In the world of software engineering, we are accustomed to deterministic compilers. If you write <code>if (x > 5)</code> in Java, C++, or Python, the behavior is guaranteed. There is no "maybe". The compiler does not "guess" that you might have meant "greater than or equal to". It follows strict, formal rules.
+        </p>
+        <p>
+          Natural language does not work this way. Human communication relies heavily on shared context, tone, and probabilistic inference to resolve ambiguity. A sentence like "Time flies like an arrow" is parsed differently from "Fruit flies like a banana", despite having nearly identical grammatical structures. An AI model trained on vast corpora can "guess" the correct meaning with high accuracy, but it remains a guess.
+        </p>
+        <p>
+          For critical systems—defining business rules, legal contracts, or autonomous agent plans—a guess is not good enough. If a system controls a financial transaction or a physical robot, 99.9% accuracy in understanding an instruction is unacceptable. The remaining 0.1% represents a catastrophic failure mode where the system confidently misunderstands the user.
+        </p>
+
+        <h2>Formalizing the Informal</h2>
+        <p>
+          CNL-PL solves this by imposing a "Constrained" layer over natural language. It restricts the infinite flexibility of English into a subset that has a bijection (one-to-one mapping) with First-Order Logic.
+        </p>
+        <p>
+          This is achieved through several non-negotiable design decisions:
+        </p>
+        <p>
+          First, the <strong>Lexical Contract</strong>. Words are not just strings of characters; they are strictly typed tokens. A word is either a Keyword (reserved by the system), a Number, a String Literal, or an Identifier. There is no overlap. You cannot name a variable <code>if</code> or <code>then</code>. This prevents the "garden path" phenomenon where the beginning of a sentence is ambiguous until the end is reached.
+        </p>
+        <p>
+          Second, the <strong>Syntactic Contract</strong>. Every valid sentence must match a specific production rule in the grammar. If a user writes a sentence that is readable to a human but does not match a strict Subject-Verb-Object pattern, the parser rejects it immediately. It does not try to "fix" it. This "fail-fast" behavior trains the user to write clearly and prevents the system from making silent assumptions.
+        </p>
+
+        <h2>The Result: Trust</h2>
+        <p>
+          The outcome of this rigorous determinism is Trust. When a user writes a rule in CNL-PL, they can be mathematically certain of how it will be interpreted. The compiler can prove that the interpretation is unique.
+        </p>
+        <p>
+          This allows CNL-PL to serve as a <strong>System 2</strong> reasoning engine. While a Large Language Model (System 1) can generate the rough draft of a plan, the CNL engine acts as the verifier, ensuring that the plan is logically sound, consistent, and executable without ambiguity.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Theory</div></footer>
+  </div>
+</body>
+</html>

@@ -8,6 +8,7 @@ Evaluation suites validate end-to-end parsing and reasoning behavior. They are l
 - `evals/reasoning/` - proof and explanation cases.
 - `evals/planning/` - action planning scenarios.
 - `evals/solve/` - constraint solving scenarios.
+  - BaseDictionary parsing and compiler cases live alongside the parsing/reasoning suites.
 
 ## Canonical Parsing Corpus
 - `evals/parsing/cnl-pl-parser.v1.json` provides the baseline valid/invalid parser cases.

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Architecture: Runtime Engines</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Architecture</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Architecture Part 4</span>
+        <h1>Runtime Engines</h1>
+        <p>Execution strategies for Queries, Proofs, and Plans.</p>
+      </section>
+
+      <section class="section">
+        <h2>The Multi-Engine Approach</h2>
+        <p>
+          CNL-PL does not have a single "run" function. It has specialized Engines that consume the Plan IR and interact with the KB in different ways.
+        </p>
+
+        <h3>1. The Query Engine (Fast Path)</h3>
+        <p>
+          This is the workhorse for high-speed retrieval. It executes the Plan IR directly against the Bitsets. It is optimized for <strong>Throughput</strong>. It does not track provenance or explanations. It simply calculates the result set as fast as the CPU allows.
+        </p>
+
+        <h3>2. The Proof Engine (Trace Path)</h3>
+        <p>
+          This engine is optimized for <strong>Explainability</strong>. When it executes an operation (like an Intersection), it records a "Justification Node".
+        </p>
+        <p>
+          If it derives that "John is Active", it records: <em>"John is Active BECAUSE (John is User) AND (John has logged in)."</em>
+          <br/>This builds a <strong>DAG (Directed Acyclic Graph)</strong> of justifications. This overhead makes it slower than the Query Engine, but essential for the "Verify" and "Explain" pragmatics.
+        </p>
+
+        <h3>3. The Planner Engine (Search Path)</h3>
+        <p>
+          This engine uses <strong>ActionPlans</strong>. It treats the current KB as a "State". It explores the state space by tentatively applying actions.
+        </p>
+        <p>
+          It uses algorithms like <strong>Forward Chaining</strong> or <strong>Backward Chaining</strong> to find a sequence of actions that leads to a goal. It relies heavily on the `BoolPlan` evaluator to check preconditions efficiently at each step.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Architecture</div></footer>
+  </div>
+</body>
+</html>
