@@ -1,6 +1,6 @@
 import { parseProgram } from "../src/parser/grammar.mjs";
 import { compileProgram } from "../src/compiler/compile.mjs";
-import { executeCommandAst } from "../src/runtime/engine.mjs";
+import { executeCommandAst, materializeRules } from "../src/runtime/engine.mjs";
 import { runCaseSuite } from "./cases-runner.mjs";
 
 function displayEntityKey(key) {
@@ -23,6 +23,7 @@ async function evaluate({ input }) {
   if (state.errors.length > 0) {
     return { error: `compiler errors (${state.errors.length})` };
   }
+  materializeRules(state, { justificationStore: state.justificationStore });
   const commandItem = ast.items.find((item) => item.kind === "CommandStatement");
   if (!commandItem) {
     return { error: "missing command" };

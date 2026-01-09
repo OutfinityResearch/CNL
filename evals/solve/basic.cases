@@ -1,5 +1,11 @@
 # Solve Evaluation Cases
 
-- input: "Find a schedule for every meeting such that no meeting overlaps with another meeting."
-  purpose: "Solve command parsing and compilation."
-  expect: "binding placeholder"
+- input: "--- CONTEXT: BaseDictionary ---\n\"role\" is an entity attribute.\n--- CONTEXT: Core ---\nUser1 is a user.\nUser2 is a user.\nUser1 has a role of Admin.\nUser2 has a role of Guest.\nEvery user whose role is equal to Admin is privileged.\nEvery user that is privileged is eligible.\nSolve for every user that is eligible."
+  purpose: "Solve with entity-valued attribute rule chain."
+  expect: "User1"
+- input: "--- CONTEXT: BaseDictionary ---\n\"capacity\" is a numeric attribute.\n--- CONTEXT: Core ---\nTruck_A is a truck.\nTruck_B is a truck.\nTruck_A has a capacity of 1000.\nTruck_B has a capacity of 200.\nEvery truck whose capacity is greater than 500 is heavy.\nEvery truck that is heavy is insured.\nSolve for every truck that is insured."
+  purpose: "Solve with numeric attribute rule chain."
+  expect: "Truck_A"
+- input: "Server1 is a machine.\nServer2 is a machine.\nServer1 handles Payments.\nEvery machine that handles Payments is a server.\nSolve for every server such that Server1 handles Payments."
+  purpose: "Solve with derived domain and explicit constraint clause."
+  expect: "Server1"

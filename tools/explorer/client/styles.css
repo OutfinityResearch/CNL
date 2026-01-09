@@ -78,16 +78,51 @@ body {
   flex: 1;
   overflow-y: auto;
   border: 1px solid var(--border);
-  background: white;
+  background: #e5ddd5; /* WhatsApp-like background logic, or keep white pattern */
+  background-image: radial-gradient(#d4cdc3 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-color: #efe7dd;
   margin-bottom: 15px;
   padding: 15px;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.message { margin-bottom: 10px; }
-.message--user { color: var(--accent); font-weight: 600; }
-.message--system { color: var(--ink); }
-.message--error { color: #7a1b1b; }
+.message {
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  position: relative;
+  word-wrap: break-word;
+  white-space: pre-wrap; /* Preserve newlines */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.message--user {
+  align-self: flex-end;
+  background-color: var(--accent); /* Uses theme green */
+  color: white;
+  border-bottom-right-radius: 2px; /* Chat bubble tail effect */
+  font-weight: 500;
+}
+
+.message--system {
+  align-self: flex-start;
+  background-color: white;
+  color: var(--ink);
+  border-bottom-left-radius: 2px;
+}
+
+.message--error {
+  align-self: flex-start;
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
 
 .composer {
   display: flex;
@@ -165,6 +200,64 @@ body {
 .tree-children { padding-left: 20px; }
 .icon { display: inline-block; width: 20px; }
 
+.tree-node--selected {
+  background: #e0d8cc;
+  font-weight: 600;
+}
+
+/* Details Panel */
+.details-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+.badge {
+  font-size: 0.75rem;
+  background: var(--ink);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 60px;
+  text-align: center;
+}
+.badge--id { background: var(--muted); }
+.badge--out { background: var(--accent); } /* Green -> Subject */
+.badge--in { background: #d81b60; } /* Pink -> Object */
+.badge--mem { background: #1976d2; } /* Blue -> Member */
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.tag {
+  background: #e8dfd1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.details-table th, .details-table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.details-table th { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; }
+.dir-icon { font-weight: bold; }
+.dir-outgoing { color: var(--accent); }
+.dir-incoming { color: #d81b60; }
+
 /* Examples */
 .docs {
   overflow-y: auto;
@@ -176,36 +269,63 @@ body {
   border-radius: 8px;
   margin-bottom: 20px;
 }
+.example-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 800px) {
+  .example-grid { grid-template-columns: 1fr; }
+}
 .example-card h3 {
   margin: 0 0 5px 0;
   font-size: 1.2rem;
   color: var(--accent);
 }
-.theory-block {
-  background: #fbfaf7;
-  padding: 15px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  margin: 15px 0;
+
+.panel-header {
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid var(--border);
 }
-.theory-block pre {
+
+.theory-content pre {
   margin: 0 0 10px 0;
+  background: #fbfaf7;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
   white-space: pre-wrap;
+  font-size: 0.9rem;
+  /* Make code block height consistent or scrollable if needed */
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .steps-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 0;
 }
 .steps-table th, .steps-table td {
   border: 1px solid var(--border);
   padding: 8px;
   text-align: left;
+  font-size: 0.9rem;
 }
-.steps-table th { background: #efe7da; }
+.steps-table th { 
+  background: #efe7da; 
+  font-weight: 600;
+}
 .step-cmd { color: var(--accent); }
-.step-exp { color: var(--muted); font-size: 0.9rem; }
+.step-exp { color: var(--muted); font-size: 0.85rem; }
 
 .mono { font-family: monospace; }
 .muted { color: var(--muted); }

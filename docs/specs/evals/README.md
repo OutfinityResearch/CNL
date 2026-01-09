@@ -10,8 +10,9 @@ Evaluation suites validate end-to-end parsing and reasoning behavior. They are l
 - `evals/solve/` - constraint solving scenarios.
  - `evals/query/` - query cases for Return commands.
  - `evals/proof/` - proof cases for Verify commands.
- - `evals/simulate/` - simulation cases for transition rules.
- - `evals/explain/` - explain cases for justification traces.
+- `evals/simulate/` - simulation cases for transition rules.
+- `evals/explain/` - explain cases for justification traces.
+- `evals/kbDemo/` - demo suite for small end-to-end reasoning scenarios.
   - BaseDictionary parsing and compiler cases live alongside the parsing/reasoning suites.
 
 ## Compiler Evaluation

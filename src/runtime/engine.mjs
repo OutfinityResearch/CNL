@@ -66,6 +66,14 @@ function collectEntities(set, state) {
   return entities;
 }
 
+function isNameProjection(expr) {
+  if (!expr || expr.kind !== "NounPhrase") return false;
+  if (!expr.core || expr.core.length !== 1) return false;
+  if (expr.core[0].toLowerCase() !== "name") return false;
+  if (!expr.pp || expr.pp.length !== 1) return false;
+  return expr.pp[0].preposition === "of";
+}
+
 export function materializeRules(state, options = {}) {
   let totalAdded = 0;
   while (true) {
@@ -159,14 +167,26 @@ export function executeCommandAst(command, state) {
 
   switch (command.kind) {
     case "ReturnCommand": {
-      const plan = compileCommand(command, state);
-      const set = executeSet(plan.set, state.kb.kb);
+      let set = null;
+      if (isNameProjection(command.expr)) {
+        const target = command.expr.pp[0].object;
+        const plan = compileNP(target, state);
+        set = executeSet(plan, state.kb.kb);
+      } else {
+        const plan = compileCommand(command, state);
+        set = executeSet(plan.set, state.kb.kb);
+      }
       return { kind: "QueryResult", entities: collectEntities(set, state) };
     }
     case "FindCommand": {
       const plan = compileCommand(command, state);
       const set = executeSet(plan.set, state.kb.kb);
       return { kind: "QueryResult", entities: collectEntities(set, state) };
+    }
+    case "SolveCommand": {
+      const plan = compileCommand(command, state);
+      const set = executeSet(plan.set, state.kb.kb);
+      return { kind: "SolveResult", entities: collectEntities(set, state) };
     }
     case "VerifyCommand": {
       const ok = evaluateCondition(command.proposition, state);

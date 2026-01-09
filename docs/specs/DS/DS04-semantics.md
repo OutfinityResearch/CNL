@@ -53,6 +53,7 @@ Each pragmatic mode reuses the same KB and reasoning primitives but produces dif
 - Input: constraints and domains.
 - Output: variable bindings that satisfy constraints.
 - Semantics: CSP propagation over bitset domains, using KB relations as constraints.
+- Command form: `Solve for <expr> [such that <condition>].`
 
 ### Simulate
 - Input: transition rules and number of steps.

@@ -1,6 +1,6 @@
 # Reasoning Evaluation Cases
 
-- input: "Verify that every server that handles payments is encrypted."
-  purpose: "Universal proof over relation filter."
+- input: "Server1 is a machine.\nServer1 handles Payments.\nEvery machine that handles Payments is a server.\nEvery server that handles Payments is encrypted.\nVerify that every machine that handles Payments is encrypted."
+  purpose: "Universal proof over a rule chain with non-empty domain."
   expect: "true"
   trace: "proof trace placeholder"

@@ -1,5 +1,5 @@
 # Planning Evaluation Cases
 
-- input: "Plan to achieve all packages delivered."
-  purpose: "Plan command parsing and compilation."
-  expect: "plan placeholder"
+- input: "Package1 is a package.\nPackage1 is packed.\nEvery package that is packed is shipped.\nEvery package that is shipped is delivered.\nPlan to achieve every package is delivered."
+  purpose: "Plan command using multi-step derived goal."
+  expect: "satisfied"

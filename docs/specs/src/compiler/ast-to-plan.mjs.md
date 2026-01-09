@@ -11,6 +11,7 @@ Compiles AST nodes into Plan IR fragments (SetPlan, RelationPlan, BoolPlan, Numb
 
 ## Notes
 - Rule heads are emitted as UnaryEmit/BinaryEmit/AttrEmit objects aligned with DS16.
+- Solve commands compile to SolvePlan with an optional constraint intersection.
 
 ## Key Interfaces
 - `compileNP(node)`

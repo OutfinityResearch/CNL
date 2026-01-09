@@ -64,6 +64,7 @@ const KEYWORDS = new Set([
   "plan",
   "achieve",
   "find",
+  "solve",
   "such",
   "simulate",
   "steps",
@@ -1098,6 +1099,25 @@ function parseCommandFromTokens(tokens) {
     return { kind: "FindCommand", expr, constraint };
   }
 
+  if (first.lower === "solve") {
+    stream.consume();
+    if (!stream.matchWord("for")) {
+      throw createError("SYN006", stream.peek().raw);
+    }
+    const expr = parseExpr(stream);
+    if (stream.done()) {
+      return { kind: "SolveCommand", expr, constraint: null };
+    }
+    if (!stream.matchWord("such")) {
+      throw createError("SYN006", stream.peek().raw);
+    }
+    if (!stream.matchWord("that")) {
+      throw createError("SYN006", stream.peek().raw);
+    }
+    const constraint = parseConditionTokens(stream.tokens.slice(stream.pos));
+    return { kind: "SolveCommand", expr, constraint };
+  }
+
   if (first.lower === "simulate") {
     stream.consume();
     const numberToken = stream.peek();
@@ -1275,7 +1295,7 @@ function parseLineStatement(line) {
       isCommand = next && next.type === "word" && next.lower === "that";
     } else if (cmd === "explain") {
       isCommand = next && next.type === "word" && next.lower === "why";
-    } else if (["find", "simulate", "maximize", "minimize", "plan"].includes(cmd)) {
+    } else if (["find", "solve", "simulate", "maximize", "minimize", "plan"].includes(cmd)) {
       isCommand = true;
     }
     if (isCommand) {

@@ -10,6 +10,7 @@ Stores provenance for base and derived facts.
 
 ## Key Interfaces
 - `makeFactId(predId, subjectId, objectId)`
+- `makeUnaryFactId(unaryId, subjectId)`
 - `addBaseFact(factId, sourceInfo)`
 - `addDerivedFact(factId, ruleId, premiseIds)`
 - `getJustification(factId)`

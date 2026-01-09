@@ -384,6 +384,14 @@ export function compileCommand(node, context) {
       const constraint = compileCondition(node.constraint, Plans.allEntities(), context);
       return { kind: "FindPlan", set: Plans.intersect([base, constraint]), expr: node.expr };
     }
+    case "SolveCommand": {
+      const base = compileNP(node.expr, context);
+      if (!node.constraint) {
+        return { kind: "SolvePlan", set: base, expr: node.expr };
+      }
+      const constraint = compileCondition(node.constraint, Plans.allEntities(), context);
+      return { kind: "SolvePlan", set: Plans.intersect([base, constraint]), expr: node.expr };
+    }
     case "PlanCommand":
       return { kind: "PlanCommandPlan", condition: compileCondition(node.condition, Plans.allEntities(), context) };
     case "SimulateCommand":

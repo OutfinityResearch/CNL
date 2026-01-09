@@ -1,83 +1,87 @@
 export const DEMO_SUITE = [
   {
     id: "demo_basics",
-    title: "Basic Reasoning & Transitivity",
-    description: "Demonstrates inheritance (is-a) and property propagation.",
+    title: "Basic Reasoning",
+    description: "Unary facts plus universal propagation.",
     theory: `
-John is a User.
-User is a Role.
-If someone is a User, then they are Active.
-If X is a Role, then X is a Concept.
+John is a programmer.
+Every programmer is a developer.
+Every developer is a user.
+Every user is active.
+Every user that is active is a concept.
     `,
     steps: [
-      {
-        command: "Verify that John is a User.",
-        expected: "true"
-      },
-      {
-        command: "Verify that John is Active.",
-        expected: "true",
-        explanation: "Derived via rule: User -> Active"
-      },
-      {
-        command: "Verify that User is a Concept.",
-        expected: "true",
-        explanation: "Derived via rule: Role -> Concept"
-      },
-      {
-        command: "Explain why John is Active.",
-        expectedMatches: ["John is Active because", "John is a User"]
-      }
-    ]
+      { command: "Verify that John is a user.", expected: "true" },
+      { command: "Verify that John is active.", expected: "true" },
+      { command: "Verify that John is a concept.", expected: "true" },
+      { command: "Explain why John is a concept.", expectedMatches: ["Derived"] },
+    ],
   },
   {
     id: "demo_relations",
-    title: "Relationships & Inverse Lookup",
-    description: "Binary relations and bidirectional querying.",
+    title: "Relationships",
+    description: "Binary relations and return queries.",
     theory: `
-Server-A hosts Database-1.
-Server-B hosts Database-2.
-Admin manages Server-A.
+Server_A is a machine.
+Server_B is a machine.
+Database_1 is a database.
+Database_2 is a database.
+Server_A runs Database_1.
+Server_B runs Database_2.
+Admin is a team_lead.
+Admin supervises Server_A.
+Every team_lead is a supervisor.
+Every machine that runs Database_1 hosts Database_1.
+Every machine that runs Database_2 hosts Database_2.
+Every machine that hosts a database is a server.
+Every supervisor that supervises Server_A manages Server_A.
     `,
     steps: [
       {
-        command: "Return the name of every server that hosts Database-1.",
-        expected: '["Server-A"]'
+        command: "Return the name of every server that hosts Database_1.",
+        expected: "Server_A",
       },
       {
-        command: "Return the name of every database that Server-B hosts.",
-        expected: '["Database-2"]'
+        command: "Verify that Server_B hosts Database_2.",
+        expected: "true",
       },
       {
-        command: "Verify that Admin manages Server-A.",
-        expected: "true"
-      }
-    ]
+        command: "Verify that Admin manages Server_A.",
+        expected: "true",
+      },
+    ],
   },
   {
     id: "demo_negation",
-    title: "Negation & Conflicts",
-    description: "Explicit negation and disjoint sets.",
+    title: "Negative Proofs",
+    description: "False proofs from missing facts.",
     theory: `
-Admin is a User.
-Guest is a User.
-No Admin is a Guest.
-Alice is an Admin.
-Bob is a Guest.
+Alice is a manager.
+Bob is a trainee.
+Every manager is a lead.
+Every lead is an admin.
+Every admin is a user.
+Every trainee is a guest.
+Every guest is a user.
     `,
     steps: [
-      {
-        command: "Verify that Alice is a Guest.",
-        expected: "false"
-      },
-      {
-        command: "Verify that Bob is an Admin.",
-        expected: "false"
-      },
-      {
-        command: "Verify that Alice is a User.",
-        expected: "true"
-      }
-    ]
-  }
+      { command: "Verify that Alice is a guest.", expected: "false" },
+      { command: "Verify that Bob is an admin.", expected: "false" },
+      { command: "Verify that Alice is a user.", expected: "true" },
+    ],
+  },
+  {
+    id: "demo_syllogism",
+    title: "Syllogism",
+    description: "Classic rule-based inference.",
+    theory: `
+Socrates is a human.
+Every human is a man.
+Every man is mortal.
+    `,
+    steps: [
+      { command: "Verify that Socrates is mortal.", expected: "true" },
+      { command: "Explain why Socrates is mortal.", expectedMatches: ["Derived"] },
+    ],
+  },
 ];

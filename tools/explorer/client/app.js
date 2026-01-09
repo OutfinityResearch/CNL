@@ -43,8 +43,13 @@ const UI = {
       const el = document.createElement('div');
       el.className = 'tree-node';
       el.innerHTML = `<span class="icon">${getIcon(node.icon)}</span> ${node.text}`;
-      el.onclick = () => {
-        console.log('Clicked', node.id);
+      el.onclick = async () => {
+        document.querySelectorAll('.tree-node').forEach(n => n.classList.remove('tree-node--selected'));
+        el.classList.add('tree-node--selected');
+        
+        const res = await fetch(`/api/entity?type=${node.type || 'entity'}&id=${node.denseId !== undefined ? node.denseId : ''}`);
+        const data = await res.json();
+        renderDetails(data.details);
       };
       container.appendChild(el);
       if (node.children && node.children.length) {
@@ -64,6 +69,61 @@ const UI = {
   }
 };
 
+function renderDetails(data) {
+  const container = document.getElementById('kbDetails');
+  if (!data) {
+    container.innerHTML = '<div class="muted">No details available.</div>';
+    return;
+  }
+
+  let html = `<div class="details-title">${data.name} <span class="badge">${data.type}</span> <span class="badge badge--id">ID:${data.id}</span></div>`;
+
+  if (data.properties && data.properties.length > 0) {
+    html += `<h4>Properties (Is A)</h4>
+    <div class="tags-list">
+      ${data.properties.map(p => `<span class="tag">${p}</span>`).join('')}
+    </div>`;
+  }
+
+  if (data.raw) {
+    const title = data.type === 'action' ? 'Action Definition' : 'Rule Definition';
+    html += `<h4>${title}</h4>
+    <pre style="background:#fbfaf7; padding:10px; overflow:auto;">${JSON.stringify(data.raw, null, 2)}</pre>`;
+  }
+
+  if (data.relations && data.relations.length > 0) {
+    html += `<h4>Relations</h4>
+    <table class="details-table">
+      <thead>
+        <tr>
+          <th>Direction</th>
+          <th>Predicate</th>
+          <th>Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${data.relations.map(r => `
+          <tr>
+            <td>${getDirectionBadge(r.direction)}</td>
+            <td class="mono">${r.predicate}</td>
+            <td class="mono">${r.target}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>`;
+  } else {
+    html += `<p class="muted">No relations defined.</p>`;
+  }
+
+  container.innerHTML = html;
+}
+
+function getDirectionBadge(dir) {
+  if (dir === 'outgoing') return '<span class="badge badge--out" title="This entity is the SUBJECT">Subject →</span>';
+  if (dir === 'incoming') return '<span class="badge badge--in" title="This entity is the OBJECT">← Object</span>';
+  return '<span class="badge badge--mem" title="Member of set">Member</span>';
+}
+
 function getIcon(name) {
   switch(name) {
     case 'folder': return '📁';
@@ -71,6 +131,18 @@ function getIcon(name) {
     case 'tag': return '🏷️';
     default: return '📄';
   }
+}
+
+function activateTab(tabId) {
+  const btn = document.getElementById(tabId);
+  if (!btn) return;
+  
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('tab--active'));
+  document.querySelectorAll('.tabs__panel').forEach(p => p.classList.remove('tabs__panel--active'));
+  
+  btn.classList.add('tab--active');
+  const panelId = btn.id.replace('tab', 'panel');
+  document.getElementById(panelId).classList.add('tabs__panel--active');
 }
 
 async function renderExamples() {
@@ -89,26 +161,33 @@ async function renderExamples() {
     const card = document.createElement('div');
     card.className = 'example-card';
     
-    // Theory Section
+    // Layout: 2 columns
     let html = `<h3>${ex.title}</h3>`;
     html += `<p class="muted">${ex.description}</p>`;
-    html += `<div class="theory-block">
-      <h4>Context (Theory)</h4>
-      <pre>${ex.theory}</pre>
-      <button class="btn btn--sm btn--secondary load-theory-btn">Load Context</button>
+    
+    html += `<div class="example-grid">`;
+    
+    // Left Column: Context
+    html += `<div class="col-theory">
+      <div class="panel-header">Context (Theory)</div>
+      <div class="theory-content">
+        <pre>${ex.theory}</pre>
+        <button class="btn btn--sm btn--secondary load-theory-btn">Load Context</button>
+      </div>
     </div>`;
 
-    // Steps Table
-    html += `<h4>Steps</h4>
-    <table class="steps-table">
-      <thead>
-        <tr>
-          <th>Command</th>
-          <th>Expected</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>`;
+    // Right Column: Steps
+    html += `<div class="col-steps">
+      <div class="panel-header">Steps</div>
+      <table class="steps-table">
+        <thead>
+          <tr>
+            <th>Command</th>
+            <th>Expected</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>`;
     
     ex.steps.forEach((step, idx) => {
       html += `<tr>
@@ -118,7 +197,8 @@ async function renderExamples() {
       </tr>`;
     });
     
-    html += `</tbody></table>`;
+    html += `</tbody></table></div>`;
+    html += `</div>`; // end grid
     
     card.innerHTML = html;
     container.appendChild(card);
@@ -126,14 +206,16 @@ async function renderExamples() {
     // Bind events
     const loadBtn = card.querySelector('.load-theory-btn');
     loadBtn.onclick = async () => {
-      UI.log(`Loading context for: ${ex.title}...`, 'system');
+      // Simulate user typing the context
+      UI.log(`[Loading Context: ${ex.title}]`, 'system');
+      UI.log(ex.theory.trim(), 'user');
       await executeCommand(ex.theory);
     };
 
     card.querySelectorAll('.run-step-btn').forEach(btn => {
       btn.onclick = async () => {
         const cmd = btn.getAttribute('data-cmd');
-        UI.log(`> ${cmd}`, 'user');
+        UI.log(cmd, 'user');
         await executeCommand(cmd);
       };
     });
@@ -145,10 +227,17 @@ function escapeHtml(text) {
 }
 
 async function executeCommand(text) {
+  // Auto-switch to Chat tab
+  activateTab('tabChat');
+
   try {
     const res = await API.sendCommand(text);
     if (res.ok) {
-      UI.log('Success.', 'system');
+      if (res.output) {
+        UI.log(res.output, 'system');
+      } else {
+        UI.log('Success.', 'system');
+      }
       if (res.errors && res.errors.length) {
          res.errors.forEach(e => UI.log(`Warning: ${e.message}`, 'error'));
       }
@@ -166,7 +255,7 @@ async function executeCommand(text) {
 document.getElementById('sendBtn').onclick = async () => {
   const text = UI.input.value.trim();
   if (!text) return;
-  UI.log(`> ${text}`, 'user');
+  UI.log(text, 'user');
   UI.input.value = '';
   await executeCommand(text);
 };
@@ -182,14 +271,7 @@ document.getElementById('resetBtn').onclick = async () => {
 
 // Tabs logic
 document.querySelectorAll('.tab').forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('tab--active'));
-    document.querySelectorAll('.tabs__panel').forEach(p => p.classList.remove('tabs__panel--active'));
-    
-    btn.classList.add('tab--active');
-    const panelId = btn.id.replace('tab', 'panel');
-    document.getElementById(panelId).classList.add('tabs__panel--active');
-  };
+  btn.onclick = () => activateTab(btn.id);
 });
 
 async function refreshTree() {

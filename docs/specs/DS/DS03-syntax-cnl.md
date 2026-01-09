@@ -154,6 +154,17 @@ A or B and C.
 - `When ... occurs, then ...` is a transition rule.
 - Action blocks are multi-line with labels: `Action:`, `Agent:`, `Precondition:`, `Effect:`, `Intent:`.
 
+## Command Forms
+- `Return <expr>.`
+- `Verify that <condition>.`
+- `Find <expr> such that <condition>.`
+- `Solve for <expr> [such that <condition>].`
+- `Simulate <number> steps.`
+- `Maximize <expr> such that <condition>.`
+- `Minimize <expr> such that <condition>.`
+- `Explain why <condition>.`
+- `Plan to achieve <condition>.`
+
 Example action block:
 ```
 Action: deliver package.

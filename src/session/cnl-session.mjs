@@ -96,10 +96,6 @@ export class CNLSession {
     return executeCommandAst(command, this.state);
   }
 
-  solve() {
-    return { error: createError("SES005", "Solve is not supported by the grammar.") };
-  }
-
   plan(cnlText, options = {}) {
     const { command, error } = this.#parseCommand(cnlText);
     if (error) return { error };
@@ -129,6 +125,18 @@ export class CNLSession {
     if (error) return { error };
     if (command.kind !== "MaximizeCommand" && command.kind !== "MinimizeCommand") {
       return { error: createError("SES015", "Optimize requires a maximize or minimize command.") };
+    }
+    if (options.deduce ?? true) {
+      materializeRules(this.state, { justificationStore: this.state.justificationStore });
+    }
+    return executeCommandAst(command, this.state);
+  }
+
+  solve(cnlText, options = {}) {
+    const { command, error } = this.#parseCommand(cnlText);
+    if (error) return { error };
+    if (command.kind !== "SolveCommand") {
+      return { error: createError("SES018", "Solve requires a solve command.") };
     }
     if (options.deduce ?? true) {
       materializeRules(this.state, { justificationStore: this.state.justificationStore });

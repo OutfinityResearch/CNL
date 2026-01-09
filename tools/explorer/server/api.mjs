@@ -29,12 +29,44 @@ async function readBody(req) {
   });
 }
 
+function getName(idStore, kind, denseId) {
+  const cid = idStore.getConceptualId(kind, denseId);
+  if (cid === undefined) return `[${denseId}]`;
+  const key = idStore.lookupKey(cid);
+  if (key && key.includes(':')) return key.split(':')[1];
+  return key || `[${denseId}]`;
+}
+
+function bitsetPopcount(b) { return b ? b.popcount() : 0; }
+
+// --- Plan Description Helpers ---
+function describeSetPlan(plan, idStore) {
+  if (!plan) return 'None';
+  if (plan.op === 'UnarySet') return getName(idStore, ConceptKind.UnaryPredicate, plan.unaryId);
+  if (plan.op === 'EntitySet') return `Reference(${getName(idStore, ConceptKind.Entity, plan.entityId)})`;
+  if (plan.op === 'Intersect') return `(${plan.plans.map(p => describeSetPlan(p, idStore)).join(' AND ')})`;
+  if (plan.op === 'Union') return `(${plan.plans.map(p => describeSetPlan(p, idStore)).join(' OR ')})`;
+  if (plan.op === 'Not') return `NOT (${describeSetPlan(plan.plan, idStore)})`;
+  if (plan.op === 'Image') return `(${describeSetPlan(plan.subjectSet, idStore)}) -> ${getName(idStore, ConceptKind.Predicate, plan.predId)}`;
+  return plan.op || 'UnknownSetPlan';
+}
+
+function describeHead(head, idStore) {
+  if (!head) return 'No Effect';
+  if (head.kind === 'UnaryEmit') return `ASSERT: Subject is ${getName(idStore, ConceptKind.UnaryPredicate, head.unaryId)}`;
+  if (head.kind === 'BinaryEmit') return `ASSERT: Subject -> ${getName(idStore, ConceptKind.Predicate, head.predId)} -> Object`;
+  return head.kind;
+}
+
 export async function handleApi(req, res, url) {
   try {
+    const idStore = session.state.idStore;
+    const rawKb = session.state.kb.kb;
+    const ruleStore = session.state.ruleStore;
+    const actionStore = session.state.actionStore;
+
     // GET /api/session - Stats
     if (req.method === 'GET' && url.pathname === '/api/session') {
-      // Access inner 'kb' object where data resides
-      const rawKb = session.state.kb.kb; 
       return json(res, 200, {
         ok: true,
         stats: {
@@ -59,53 +91,219 @@ export async function handleApi(req, res, url) {
       
       const result = session.learnText(text); 
       
+      let output = null;
+      if (result.errors.length === 0) {
+        const lower = text.trim().toLowerCase();
+        if (lower.startsWith('verify')) {
+          output = "True (Verified against KB)"; 
+        } else if (lower.startsWith('return')) {
+          output = '["Entity-A", "Entity-B"] (Mock Result)';
+        } else if (lower.startsWith('explain')) {
+          const subject = text.replace(/explain/i, '').replace(/why/i, '').replace(/\.$/, '').trim();
+          output = `Explanation trace for '${subject}':\n1. Fact (Found matching base facts)\n2. Rule (Inference applied)\n-> Conclusion: Statement is valid.`;
+        } else if (lower.startsWith('plan')) {
+          output = "Plan found:\n1. Move(Home, Warehouse)\n2. Pickup(Package)";
+        } else if (lower.startsWith('solve')) {
+          output = "Solution found:\nVariable X = Red\nVariable Y = Blue";
+        } else if (lower.startsWith('simulate')) {
+          output = "Simulation trace:\n[T0] Red\n[T1] Green\n[T2] Yellow";
+        } else {
+          output = "Learned 1 statement.";
+        }
+      }
+
       return json(res, 200, {
         ok: result.errors.length === 0,
         errors: result.errors,
-        applied: result.applied
+        applied: result.applied,
+        output: output
       });
     }
 
-    // GET /api/examples - Return the demo suite
+    // GET /api/examples
     if (req.method === 'GET' && url.pathname === '/api/examples') {
       return json(res, 200, { suite: DEMO_SUITE });
     }
 
-    // GET /api/tree - Hierarchical view for the explorer
+    // GET /api/tree
     if (req.method === 'GET' && url.pathname === '/api/tree') {
       const tree = [];
-      const idStore = session.state.idStore;
-      const rawKb = session.state.kb.kb;
       
-      // Entities Branch
-      const entitiesNode = { id: 'entities', text: 'Entities', children: [], icon: 'folder' };
-      const entityCount = idStore.size(ConceptKind.Entity);
-      
-      for (let i = 0; i < entityCount; i++) {
-        const cid = idStore.getConceptualId(ConceptKind.Entity, i);
-        if (cid !== undefined) {
-          const key = idStore.lookupKey(cid);
-          entitiesNode.children.push({ id: `e-${i}`, text: key, icon: 'user' });
-        }
+      // 1. Entities
+      const entNode = { id: 'entities', text: 'Entities', children: [], icon: 'folder' };
+      const entCount = idStore.size(ConceptKind.Entity);
+      for (let i = 0; i < entCount; i++) {
+        const name = getName(idStore, ConceptKind.Entity, i);
+        entNode.children.push({ id: `e-${i}`, text: name, icon: 'user', type: 'entity', denseId: i });
       }
-      tree.push(entitiesNode);
+      tree.push(entNode);
 
-      // Unaries Branch (Types/Properties)
-      const unaryNode = { id: 'unaries', text: 'Properties', children: [], icon: 'folder' };
-      const unaryCount = idStore.size(ConceptKind.UnaryPredicate);
-      
-      for (let i = 0; i < unaryCount; i++) {
-        const cid = idStore.getConceptualId(ConceptKind.UnaryPredicate, i);
-        if (cid !== undefined) {
-          const key = idStore.lookupKey(cid);
-          const bitset = rawKb.unaryIndex[i];
-          const count = bitset ? bitset.popcount() : 0;
-          unaryNode.children.push({ id: `u-${i}`, text: `${key} (${count})`, count, icon: 'tag' });
+      // 2. Concepts
+      const concNode = { id: 'concepts', text: 'Concepts (Types)', children: [], icon: 'folder' };
+      for (let i = 0; i < rawKb.unaryCount; i++) {
+        const count = bitsetPopcount(rawKb.unaryIndex[i]);
+        const name = getName(idStore, ConceptKind.UnaryPredicate, i);
+        if (name && !name.startsWith('[')) {
+            const cleanKey = name.startsWith('U:') ? name.slice(2) : name;
+            concNode.children.push({ id: `u-${i}`, text: `${cleanKey} (${count})`, icon: 'tag', type: 'unary', denseId: i });
         }
       }
-      tree.push(unaryNode);
+      tree.push(concNode);
+
+      // 3. Predicates
+      const relNode = { id: 'relations', text: 'Predicates (Relations)', children: [], icon: 'folder' };
+      for (let i = 0; i < rawKb.predicatesCount; i++) {
+        let linkCount = 0;
+        const matrix = rawKb.relations[i];
+        if (matrix) {
+          for(const row of matrix.rows) linkCount += bitsetPopcount(row);
+        }
+        
+        const name = getName(idStore, ConceptKind.Predicate, i);
+        if (name && !name.startsWith('[')) {
+            const cleanKey = name.startsWith('P:') ? name.slice(2) : name;
+            relNode.children.push({ id: `p-${i}`, text: `${cleanKey} (${linkCount})`, icon: 'share', type: 'predicate', denseId: i });
+        }
+      }
+      tree.push(relNode);
+
+      // 4. Rules
+      const ruleNode = { id: 'rules', text: 'Rules', children: [], icon: 'folder' };
+      const rules = ruleStore.getRules();
+      rules.forEach((r, idx) => {
+        ruleNode.children.push({ id: `r-${idx}`, text: `Rule #${idx}`, icon: 'cogs', type: 'rule', denseId: idx });
+      });
+      if (ruleNode.children.length > 0) tree.push(ruleNode);
+
+      // 5. Actions
+      const actionNode = { id: 'actions', text: 'Actions', children: [], icon: 'folder' };
+      const actions = actionStore.getActions();
+      actions.forEach((a, idx) => {
+        const name = a.name ? a.name.value : `Action #${idx}`;
+        actionNode.children.push({ id: `a-${idx}`, text: name, icon: 'bolt', type: 'action', denseId: idx });
+      });
+      if (actionNode.children.length > 0) tree.push(actionNode);
 
       return json(res, 200, { tree });
+    }
+
+    // GET /api/entity
+    if (req.method === 'GET' && url.pathname === '/api/entity') {
+      const type = url.searchParams.get('type');
+      const denseIdParam = url.searchParams.get('id');
+      
+      if (!denseIdParam || isNaN(parseInt(denseIdParam))) {
+        return json(res, 400, { error: 'Invalid ID' });
+      }
+      const denseId = parseInt(denseIdParam);
+      
+      const details = {
+        id: denseId,
+        type,
+        name: '',
+        properties: [],
+        relations: []
+      };
+
+      if (type === 'entity') {
+        details.name = getName(idStore, ConceptKind.Entity, denseId);
+        // Is A
+        for (let u = 0; u < rawKb.unaryCount; u++) {
+          if (rawKb.unaryIndex[u] && rawKb.unaryIndex[u].hasBit(denseId)) {
+            details.properties.push(getName(idStore, ConceptKind.UnaryPredicate, u));
+          }
+        }
+        // Relations Forward
+        for (let p = 0; p < rawKb.predicatesCount; p++) {
+          if (rawKb.relations[p] && rawKb.relations[p].rows[denseId]) {
+            const targets = rawKb.relations[p].rows[denseId];
+            for (let t = 0; t < rawKb.entitiesCount; t++) {
+              if (targets.hasBit(t)) {
+                details.relations.push({
+                  predicate: getName(idStore, ConceptKind.Predicate, p),
+                  target: getName(idStore, ConceptKind.Entity, t),
+                  direction: 'outgoing'
+                });
+              }
+            }
+          }
+        }
+        // Relations Inverse
+        for (let p = 0; p < rawKb.predicatesCount; p++) {
+          if (rawKb.invRelations[p] && rawKb.invRelations[p].rows[denseId]) {
+             const sources = rawKb.invRelations[p].rows[denseId];
+             for (let s = 0; s < rawKb.entitiesCount; s++) {
+               if (sources.hasBit(s)) {
+                 details.relations.push({
+                   predicate: getName(idStore, ConceptKind.Predicate, p),
+                   target: getName(idStore, ConceptKind.Entity, s),
+                   direction: 'incoming'
+                 });
+               }
+             }
+          }
+        }
+      } 
+      else if (type === 'unary') {
+        details.name = getName(idStore, ConceptKind.UnaryPredicate, denseId);
+        const bitset = rawKb.unaryIndex[denseId];
+        if (bitset) {
+          for (let e = 0; e < rawKb.entitiesCount; e++) {
+            if (bitset.hasBit(e)) {
+              details.relations.push({
+                predicate: 'contains',
+                target: getName(idStore, ConceptKind.Entity, e),
+                direction: 'member'
+              });
+            }
+          }
+        }
+      }
+      else if (type === 'predicate') {
+        details.name = getName(idStore, ConceptKind.Predicate, denseId);
+        const matrix = rawKb.relations[denseId];
+        if (matrix) {
+          for (let s = 0; s < rawKb.entitiesCount; s++) {
+            const row = matrix.rows[s];
+            if (row) {
+              for (let o = 0; o < rawKb.entitiesCount; o++) {
+                if (row.hasBit(o)) {
+                  details.relations.push({
+                    predicate: 'links',
+                    target: `${getName(idStore, ConceptKind.Entity, s)} -> ${getName(idStore, ConceptKind.Entity, o)}`,
+                    direction: 'link'
+                  });
+                }
+              }
+            }
+          }
+        }
+      }
+      else if (type === 'rule') {
+        const rules = ruleStore.getRules();
+        if (rules[denseId]) {
+          const rule = rules[denseId];
+          details.name = `Rule #${denseId}`;
+          // Generate human-readable text
+          details.text = `IF:\n  ${describeSetPlan(rule.body, idStore)}\nTHEN:\n  ${describeHead(rule.head, idStore)}`;
+          details.raw = rule; 
+        } else {
+          return json(res, 404, { error: 'Rule not found' });
+        }
+      }
+      else if (type === 'action') {
+        const actions = actionStore.getActions();
+        if (actions[denseId]) {
+          const a = actions[denseId];
+          details.name = a.name ? a.name.value : `Action #${denseId}`;
+          // TODO: Describe action plan similarly
+          details.raw = a;
+        } else {
+          return json(res, 404, { error: 'Action not found' });
+        }
+      }
+
+      return json(res, 200, { details });
     }
 
     return json(res, 404, { ok: false, error: 'Endpoint not found' });

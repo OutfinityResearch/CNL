@@ -1,5 +1,5 @@
 # Simulation Evaluation Cases
 
-- input: "When a job occurs, then a job is processed.\nSimulate 2 steps."
-  purpose: "Transition rule simulation with fixed steps."
-  expect: "state trace placeholder"
+- input: "SmokeSensor is a sensor.\nEvery sensor that detects smoke is critical.\nEvery sensor that is critical is monitored.\nWhen the sensor detects smoke occurs, then the alarm is active.\nSimulate 2 steps."
+  purpose: "Simulation with rule chain and transition rule."
+  expect: "steps=2"
