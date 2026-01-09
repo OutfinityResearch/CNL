@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Knowledge Base Architecture</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+  <script src="../../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Wiki</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Concepts</span>
+        <h1>Knowledge Base Architecture</h1>
+        <p>Why CNL-PL uses in-memory bitsets instead of SQL, and how the RelationMatrix powers instant reasoning.</p>
+      </section>
+
+      <section class="section">
+        <h2 id="kb">The In-Memory KB</h2>
+        <p>
+          The <strong>KB (Knowledge Base)</strong> is the runtime engine of CNL-PL. Unlike traditional systems that might store data in a SQL database or a Triple Store, the CNL KB is designed entirely around <strong>Bitset</strong> operations. This design choice is driven by the specific needs of logical reasoning: the need to perform massive set intersections and unions (AND/OR operations) instantly.
+        </p>
+        <p>
+          In a standard database, finding "all users who are admins AND active" involves joining tables and filtering rows. In the CNL KB, this is a single CPU-native bitwise AND operation between two bitsets. This allows the reasoning engine to validate complex rules over millions of entities in milliseconds, enabling real-time feedback loops that would be impossible with disk-based storage.
+        </p>
+
+        <h2 id="relations">RelationMatrix and Storage</h2>
+        <p>
+          Binary relations (like "User accesses File") are stored in a specialized structure called a <strong>RelationMatrix</strong>. This is not a simple adjacency list. It is a collection of bitsets, where every row corresponds to a subject and the bits set in that row represent the objects it relates to.
+        </p>
+        <p>
+          This layout enables extremely fast "forward" traversal. To find everything a User accesses, you simply retrieve one bitset. However, the KB also maintains <strong>Inverse Indices</strong>. A parallel RelationMatrix stores the transpose of the data, allowing "backward" traversal (finding all Users who access a specific File) with the same O(1) efficiency. This dual-indexing strategy is expensive in terms of memory but optimal for the graph-traversal nature of logical proofs.
+        </p>
+
+        <h2 id="indices">Numeric and Entity Attributes</h2>
+        <p>
+          Not all data fits into a bitset. Attributes like "salary" or "temperature" require a <strong>NumericIndex</strong>. This is a column-oriented storage array, similar to what you might find in high-performance analytics databases like ClickHouse, but simplified. It maps an entity's internal ID directly to a float or integer value.
+        </p>
+        <p>
+          Similarly, the <strong>EntityAttrIndex</strong> handles functional relationships where an entity points to exactly one other entity (like "parent" or "owner"). While these could be stored in a RelationMatrix, knowing that a relationship is "functional" (1-to-1 or N-to-1) allows for further optimizations in storage density and query planning.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Wiki</div></footer>
+  </div>
+</body>
+</html>

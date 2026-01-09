@@ -54,117 +54,202 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>API</strong></td>
+              <td><strong><a href="concepts/execution-pragmatics.html#ecosystem">API</a></strong></td>
               <td>Software</td>
               <td><strong>Application Programming Interface</strong>. Defines how external systems interact with the CNL session, learn new theories, or execute pragmatic commands.</td>
             </tr>
             <tr>
-              <td><strong>AST</strong></td>
+              <td><strong><a href="concepts/syntax-and-ast.html#ast">AST</a></strong></td>
               <td>Compiler</td>
               <td><strong>Abstract Syntax Tree</strong>. The tree-like structure that represents the grammatical structure of the CNL code after parsing. In CNL-PL, the AST is "lossless" (preserves spans) and deterministic.</td>
             </tr>
             <tr>
-              <td><strong>Action Block</strong></td>
+              <td><strong><a href="concepts/syntax-and-ast.html#grammar">Action Block</a></strong></td>
               <td>Syntax</td>
               <td>A multi-line structure that defines an action's signature, the agent performing it, its preconditions, and its effects.</td>
             </tr>
             <tr>
-              <td><strong>BFS</strong></td>
+              <td><strong><a href="concepts/compiler-and-ir.html#executable">ActionPlan</a></strong></td>
+              <td>IR</td>
+              <td>The compiled structure of an action, containing optimized SetPlan/BoolPlan trees for preconditions and effect deltas for the KB.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/identity-and-interning.html#dense">AttrID</a></strong></td>
+              <td>Runtime</td>
+              <td>A dense numeric index uniquely identifying an attribute (e.g., "capacity", "status") within the Knowledge Base.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#search">BFS</a></strong></td>
               <td>Algorithm</td>
               <td><strong>Breadth-First Search</strong>. An algorithm used in reasoning primitives (e.g., finding shortest proof paths or minimal hypothesis sets).</td>
             </tr>
             <tr>
-              <td><strong>Bitset</strong></td>
+              <td><strong><a href="concepts/knowledge-base.html#kb">Bitset</a></strong></td>
               <td>Technical</td>
               <td>A high-performance data structure used by the CNL engine to store relations and sets of entities, enabling near-instant queries.</td>
             </tr>
             <tr>
-              <td><strong>CI</strong></td>
+              <td><strong><a href="concepts/compiler-and-ir.html#plans">BoolPlan</a></strong></td>
+              <td>IR</td>
+              <td>A plan fragment that evaluates to a boolean (true/false) against the KB state.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#ecosystem">CI</a></strong></td>
               <td>DevOps</td>
               <td><strong>Continuous Integration</strong>. The automated testing pipeline that verifies CNL-PL's correctness on every change (see DS05 Testing Plan).</td>
             </tr>
             <tr>
-              <td><strong>CNL-PL</strong></td>
+              <td><strong><a href="concepts/syntax-and-ast.html">CNL-PL</a></strong></td>
               <td>Project</td>
               <td><strong>Controlled Natural Language Programming Language</strong>. The name of this language and system, designed to be readable like English but executable like logic.</td>
             </tr>
             <tr>
-              <td><strong>CSP</strong></td>
+              <td><strong><a href="concepts/execution-pragmatics.html#solving">CSP</a></strong></td>
               <td>Solving</td>
               <td><strong>Constraint Satisfaction Problem</strong>. A mathematical problem defined by a set of objects whose state must satisfy a number of constraints or limitations (used in the 'Solve' pragmatic).</td>
             </tr>
             <tr>
-              <td><strong>Canonical Form</strong></td>
+              <td><strong><a href="concepts/syntax-and-ast.html#ast">Canonical Form</a></strong></td>
               <td>Theory</td>
               <td>The standardized internal representation of a sentence. For example, "X > Y" is canonicalized to "X is greater than Y".</td>
             </tr>
             <tr>
-              <td><strong>DAG</strong></td>
+              <td><strong><a href="concepts/identity-and-interning.html#concept">ConceptualID</a></strong></td>
+              <td>Identity</td>
+              <td>A stable, 64-bit identifier for any symbolic concept (entity, predicate, attribute). It remains constant across sessions, unlike dense IDs.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#search">DAG</a></strong></td>
               <td>Structure</td>
               <td><strong>Directed Acyclic Graph</strong>. Used to represent justification chains in proofs and explanations, preventing circular reasoning.</td>
             </tr>
             <tr>
-              <td><strong>DS</strong></td>
+              <td><strong><a href="../specs/index.html">DS</a></strong></td>
               <td>Specs</td>
               <td><strong>Design Specification</strong>. The prefix for formal design documents (e.g., DS01, DS03) that define the authoritative behavior of the system.</td>
             </tr>
             <tr>
-              <td><strong>EBNF</strong></td>
+              <td><strong><a href="concepts/syntax-and-ast.html#grammar">EBNF</a></strong></td>
               <td>Syntax</td>
               <td><strong>Extended Backus-Naur Form</strong>. A notation used to formally describe the grammar rules of CNL-PL (see DS03).</td>
             </tr>
             <tr>
-              <td><strong>EOF</strong></td>
+              <td><strong><a href="concepts/syntax-and-ast.html#grammar">EOF</a></strong></td>
               <td>Parser</td>
               <td><strong>End Of File</strong>. A token marking the end of the input stream, important for validation rules.</td>
             </tr>
             <tr>
-              <td><strong>FactID</strong></td>
+              <td><strong><a href="concepts/knowledge-base.html#indices">EntityAttrIndex</a></strong></td>
+              <td>Storage</td>
+              <td>A KB structure optimized for storing entity-valued attributes (e.g., "owner" -> EntityID).</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/identity-and-interning.html#dense">EntityID</a></strong></td>
+              <td>Runtime</td>
+              <td>A dense numeric index (0..N) representing an entity in the current session's KB.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/identity-and-interning.html#provenance">FactID</a></strong></td>
               <td>Runtime</td>
               <td>A unique identifier (usually a hash) for a specific fact (SVO triplet) in the Knowledge Base, used for provenance and explaining "why" something is true.</td>
             </tr>
             <tr>
-              <td><strong>IDENT</strong></td>
+              <td><strong><a href="concepts/syntax-and-ast.html#grammar">IDENT</a></strong></td>
               <td>Lexer</td>
               <td>A token type representing an identifier (name, attribute, or noun core), distinct from keywords and literals.</td>
             </tr>
             <tr>
-              <td><strong>IR</strong></td>
+              <td><strong><a href="concepts/compiler-and-ir.html#compiler">IR</a></strong></td>
               <td>Compiler</td>
               <td><strong>Intermediate Representation</strong>. A specialized format (Plan IR) used between the AST and the runtime execution engine (see DS16).</td>
             </tr>
             <tr>
-              <td><strong>Interning</strong></td>
+              <td><strong><a href="concepts/identity-and-interning.html#dense">Interning</a></strong></td>
               <td>Compiler</td>
               <td>The process of converting repetitive strings (like entity names or predicates) into unique integer IDs to optimize memory and speed.</td>
             </tr>
             <tr>
-              <td><strong>JSON</strong></td>
+              <td><strong><a href="concepts/execution-pragmatics.html#ecosystem">JSON</a></strong></td>
               <td>Data</td>
               <td><strong>JavaScript Object Notation</strong>. The format used for AST snapshots, configuration, and evaluation suite outputs.</td>
             </tr>
             <tr>
-              <td><strong>KB</strong></td>
+              <td><strong><a href="concepts/knowledge-base.html#kb">KB</a></strong></td>
               <td>Runtime</td>
               <td><strong>Knowledge Base</strong>. The in-memory database that stores compiled facts, relations, and indices (DS09).</td>
             </tr>
             <tr>
-              <td><strong>Pragmatics</strong></td>
+              <td><strong><a href="concepts/compiler-and-ir.html#plans">NumberPlan</a></strong></td>
+              <td>IR</td>
+              <td>A plan fragment that evaluates to a numeric value (e.g., aggregation results like "total cost").</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/knowledge-base.html#indices">NumericIndex</a></strong></td>
+              <td>Storage</td>
+              <td>A column-oriented KB structure for storing numeric attribute values (float64/int32).</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#pragmatics">Pragmatics</a></strong></td>
               <td>Architecture</td>
               <td>The "intent" or execution mode applied to a sentence. The same text can be a Question (Query), a Verification (Verify), or a Goal (Plan).</td>
             </tr>
             <tr>
-              <td><strong>SMT</strong></td>
+              <td><strong><a href="concepts/identity-and-interning.html#dense">PredID</a></strong></td>
+              <td>Runtime</td>
+              <td>A dense numeric index representing a binary relation (verb phrase) in the KB.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/identity-and-interning.html#provenance">PropID</a></strong></td>
+              <td>Runtime</td>
+              <td>Identifier for a complex proposition (AND/OR/NOT tree) used in proofs, distinct from atomic FactIDs.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/knowledge-base.html#relations">RelationMatrix</a></strong></td>
+              <td>Storage</td>
+              <td>The core data structure for binary relations in the KB, implementing fast row/column access via Bitsets.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/compiler-and-ir.html#plans">RelationPlan</a></strong></td>
+              <td>IR</td>
+              <td>A plan fragment that produces a virtual relation (rows of Bitsets), used for complex joins.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/identity-and-interning.html#provenance">RuleID</a></strong></td>
+              <td>Runtime</td>
+              <td>Unique identifier for a compiled rule, used to track provenance when a rule derives new facts.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/compiler-and-ir.html#executable">RulePlan</a></strong></td>
+              <td>IR</td>
+              <td>Executable plan for a rule, containing a body (conditions) and a head (effects/derivations).</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/execution-pragmatics.html#solving">SMT</a></strong></td>
               <td>Backend</td>
               <td><strong>Satisfiability Modulo Theories</strong>. A powerful class of solvers that can be used as a backend for the 'Proof' and 'Solve' pragmatics.</td>
             </tr>
             <tr>
-              <td><strong>SVO</strong></td>
+              <td><strong><a href="concepts/syntax-and-ast.html#svo">SVO</a></strong></td>
               <td>Linguistics</td>
               <td><strong>Subject-Verb-Object</strong>. The fixed structure of any atomic sentence in CNL. <br/><em>Example: "John (S) knows (V) Python (O)."</em></td>
             </tr>
             <tr>
-              <td><strong>UTF-8</strong></td>
+              <td><strong><a href="concepts/compiler-and-ir.html#plans">SetPlan</a></strong></td>
+              <td>IR</td>
+              <td>A plan fragment that evaluates to a Bitset of entities (e.g., "all active users").</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/identity-and-interning.html#concept">SymbolTable</a></strong></td>
+              <td>Runtime</td>
+              <td>The bidirectional mapping between human-readable strings and internal ConceptualIDs.</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/identity-and-interning.html#dense">UnaryPredID</a></strong></td>
+              <td>Runtime</td>
+              <td>A dense numeric index representing a unary predicate (e.g., "is active", "is a user").</td>
+            </tr>
+            <tr>
+              <td><strong><a href="concepts/syntax-and-ast.html#grammar">UTF-8</a></strong></td>
               <td>Encoding</td>
               <td>The standard character encoding used for all CNL source files and inputs.</td>
             </tr>

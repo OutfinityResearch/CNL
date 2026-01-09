@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Syntax, AST, and The SVO Model</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+  <script src="../../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Wiki</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Concepts</span>
+        <h1>Syntax, AST, and the SVO Model</h1>
+        <p>Understanding how CNL-PL bridges the gap between readable English and rigid logic through deterministic structural rules.</p>
+      </section>
+
+      <section class="section">
+        <h2 id="svo">The SVO Foundation (Subject-Verb-Object)</h2>
+        <p>
+          At the very core of the Controlled Natural Language (CNL) architecture lies the <strong>SVO</strong> triplet. In natural languages like English, sentence structures can be incredibly fluid. A sentence might start with a prepositional phrase, use passive voice, or bury the subject deep within a clause. While this flexibility allows for poetic expression, it is catastrophic for a deterministic compiler.
+        </p>
+        <p>
+          CNL-PL solves this by enforcing a strict Subject-Verb-Object structure for every atomic assertion. This is not merely a grammatical preference; it is the fundamental data structure of the language. When the parser encounters a sentence, it is not trying to "understand" it in the AI sense. Instead, it is mechanically mapping tokens into slots.
+        </p>
+        <p>
+          For example, in the sentence <em>"The server handles high load"</em>, the architecture does not see three words. It sees a <strong>Subject</strong> entity (server), a <strong>Relation</strong> or verb phrase (handles), and an <strong>Object</strong> entity (high load). This triplet forms the "atomic fact" or <strong>Assertion</strong>. Complex logic is built simply by combining these atomic triplets using boolean operators, but the triplets themselves remain the immutable building blocks of truth in the system.
+        </p>
+
+        <h2 id="ast">The Lossless AST</h2>
+        <p>
+          The <strong>AST (Abstract Syntax Tree)</strong> in CNL-PL differs significantly from ASTs in traditional programming languages like JavaScript or Python. In those languages, the AST is often "lowered" or simplified immediately—comments are discarded, whitespace is irrelevant, and syntactic sugar is desugared.
+        </p>
+        <p>
+          In CNL-PL, the AST is designed to be <strong>lossless</strong>. It preserves the exact lexical spans (start and end positions) of every node relative to the source text. This is critical for the "Explain" pragmatic. When the system needs to report an error or explain a deduction, it must point back to the exact words the user typed, not a reconstructed approximation.
+        </p>
+        <p>
+          Furthermore, the AST structure is rigid regarding <strong>Canonical Forms</strong>. While the user might write "X is greater than Y", the AST normalizes this into a specific Comparison node. However, it retains the knowledge that this came from a natural language sentence. This duality—rigid logical structure on the inside, natural language mapping on the outside—is what makes the AST the "source of truth" for the compiler.
+        </p>
+
+        <h2 id="grammar">Grammar and EBNF</h2>
+        <p>
+          The rules governing what constitutes a valid sentence are defined using <strong>EBNF (Extended Backus-Naur Form)</strong>. This formal notation describes the syntax recursively. For instance, an EBNF rule might state that a <em>Statement</em> consists of a <em>Sentence</em> followed by a period <strong>EOF</strong> marker.
+        </p>
+        <p>
+          Crucially, CNL-PL uses strict token definitions (<strong>IDENT</strong> for identifiers, strings, numbers). One of the most common sources of ambiguity in natural language parsers is deciding what is a keyword and what is a name. CNL-PL solves this with the "Longest Match" rule in the lexer and strict <strong>Action Blocks</strong>. If a word is a reserved keyword, it cannot be used as an identifier unless quoted or escaped. This eliminates the "garden path sentence" problem where the parser gets halfway through a sentence before realizing it misunderstood the first word.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Wiki</div></footer>
+  </div>
+</body>
+</html>

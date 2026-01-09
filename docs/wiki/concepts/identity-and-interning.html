@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Identity, Interning, and Conceptual IDs</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+  <script src="../../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Wiki</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Concepts</span>
+        <h1>Identity, Interning, and Conceptual IDs</h1>
+        <p>From human-readable strings to high-performance dense integers: the lifecycle of an identifier in CNL.</p>
+      </section>
+
+      <section class="section">
+        <h2 id="concept">The ConceptualID</h2>
+        <p>
+          In a distributed or long-lived system, identity is hard. Strings are fragile (typos, renaming), and simple auto-incrementing integers are not stable across restarts. CNL-PL introduces the <strong>ConceptualID</strong>: a globally stable, 64-bit hash-based identifier for every concept in the system.
+        </p>
+        <p>
+          Whether it is a specific User, a Predicate definition, or an Attribute type, it receives a ConceptualID derived from its canonical definition. This allows the system to be "stateless" in a sense—recompiling the same source files will always produce the same logical relationships, even if the execution order changes. The <strong>SymbolTable</strong> maintains the bidirectional mapping, ensuring that we can always turn a number back into the string "User" for debugging or explanation.
+        </p>
+
+        <h2 id="dense">Dense IDs for Performance</h2>
+        <p>
+          While ConceptualIDs are great for stability, they are terrible for array indexing. A 64-bit hash cannot be used as an index into a JavaScript array or a Bitset. This is where <strong>Interning</strong> comes in.
+        </p>
+        <p>
+          When a session starts, the compiler maps every active ConceptualID to a temporary, session-scoped "Dense ID". These are:
+        </p>
+        <ul class="list">
+          <li><strong>EntityID</strong>: A dense integer (0, 1, 2...) for every instance.</li>
+          <li><strong>PredID</strong>: An ID for every binary relation type.</li>
+          <li><strong>AttrID</strong>: An ID for every attribute.</li>
+          <li><strong>UnaryPredID</strong>: An ID for sets/types.</li>
+        </ul>
+        <p>
+          These dense IDs are what the <strong>KB</strong> uses internally. They allow the data structures to be compact arrays (`bits[EntityID]`). The distinction between the stable ConceptualID and the runtime Dense ID is fundamental to the architecture's performance profile.
+        </p>
+
+        <h2 id="provenance">FactID, RuleID, and Provenance</h2>
+        <p>
+          Beyond simple entities, the system needs to track *truth*. A <strong>FactID</strong> is a unique identifier for a specific assertion (e.g., "Fact #42: John is Admin"). It is typically a hash of the triplet (SubjectID, PredID, ObjectID).
+        </p>
+        <p>
+          Similarly, a <strong>RuleID</strong> identifies a specific logic rule. These IDs are essential for <strong>Provenance</strong>. When the system explains "Why is John active?", it returns a <strong>DAG (Directed Acyclic Graph)</strong> of IDs: "John is active (Fact A) because Rule X applied to Fact B and Fact C." Without these unique IDs for facts and rules, the system could calculate the answer but could never explain it.
+        </p>
+        <p>
+          Finally, the <strong>PropID</strong> (Proposition ID) is used in the Proof engine to reify complex boolean formulas (like "A OR (B AND NOT C)") into a single addressable ID that can be manipulated by SAT solvers or verification algorithms.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Wiki</div></footer>
+  </div>
+</body>
+</html>

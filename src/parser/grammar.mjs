@@ -464,6 +464,12 @@ function shouldStopBeforeCoreWord(nextToken, afterToken, afterNextToken) {
 
 function parseObjectRef(stream) {
   const token = stream.peek();
+  if (token.type === "string" || token.type === "number") {
+    return parseExpr(stream);
+  }
+  if (token.type === "word" && (token.lower === "true" || token.lower === "false")) {
+    return parseExpr(stream);
+  }
   if (isStartOfNounPhrase(token, stream.peek(1))) {
     return parseNounPhrase(stream);
   }

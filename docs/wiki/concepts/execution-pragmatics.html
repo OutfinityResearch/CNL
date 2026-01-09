@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Execution Pragmatics and Solving</title>
+  <link rel="stylesheet" href="../../assets/style.css" />
+  <script src="../../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Wiki</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Concepts</span>
+        <h1>Execution Pragmatics and Solving</h1>
+        <p>From simple queries to complex constraint satisfaction: how the CNL engine delivers answers.</p>
+      </section>
+
+      <section class="section">
+        <h2 id="pragmatics">The Concept of Pragmatics</h2>
+        <p>
+          In linguistics, "syntax" is the structure of the sentence, "semantics" is the meaning, and <strong>Pragmatics</strong> is the intent. CNL-PL makes this distinction explicit. A single sentence like <em>"The user is active"</em> can be interpreted in multiple pragmatic modes:
+        </p>
+        <ul class="list">
+          <li><strong>Query:</strong> "Is the user active?" (Returns boolean)</li>
+          <li><strong>Assert:</strong> "Make the user active." (Updates KB)</li>
+          <li><strong>Verify:</strong> "Check if the user is active." (Runs proof)</li>
+          <li><strong>Plan:</strong> "Find a way to make the user active." (Generates actions)</li>
+        </ul>
+        <p>
+          The architecture uses distinct "Engines" for each pragmatic mode, all sharing the same compiled KB and Plan IR.
+        </p>
+
+        <h2 id="solving">Solving and CSP</h2>
+        <p>
+          The "Solve" pragmatic treats the CNL input as a <strong>CSP (Constraint Satisfaction Problem)</strong>. Instead of checking if a specific fact is true, it searches for a combination of variable assignments that <em>makes</em> the fact true.
+        </p>
+        <p>
+          For complex problems (like scheduling or resource allocation), the internal engine might delegate to an <strong>SMT (Satisfiability Modulo Theories)</strong> solver. SMT solvers are powerful backends capable of reasoning about arithmetic, arrays, and bitvectors simultaneously. The CNL compiler translates the high-level Plan IR into the low-level SMT-LIB format required by these solvers.
+        </p>
+
+        <h2 id="search">Search Algorithms (BFS and DAGs)</h2>
+        <p>
+          For "Planning" and "Proof", the system often needs to explore a state space. It uses <strong>BFS (Breadth-First Search)</strong> to find the shortest path—whether that is the shortest sequence of actions to achieve a goal, or the shortest logical derivation to prove a theorem.
+        </p>
+        <p>
+          The result of these searches is often represented as a <strong>DAG (Directed Acyclic Graph)</strong>. In a Proof, the DAG represents the justification tree (A implies B implies C). In a Plan, the DAG represents the causal chain of actions. Ensuring these structures are acyclic is critical for preventing infinite loops in reasoning (circular logic).
+        </p>
+
+        <h2 id="ecosystem">Dev Ecosystem (API, CI, JSON)</h2>
+        <p>
+          CNL-PL is designed to be embedded. The <strong>API</strong> allows host applications (written in Node.js, Python, etc.) to instantiate a Session, feed it text, and receive structured results.
+        </p>
+        <p>
+          All data exchange—ASTs, Plans, and Results—happens via <strong>JSON</strong>. This standardized serialization format ensures that the compiler and the runtime can be decoupled, or even run on different machines. Finally, the reliability of the entire stack is guaranteed by a rigorous <strong>CI (Continuous Integration)</strong> pipeline, which runs thousands of "Golden Tests" (defined in DS05) to ensure that a change in the grammar never breaks the logic engine.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Wiki</div></footer>
+  </div>
+</body>
+</html>
