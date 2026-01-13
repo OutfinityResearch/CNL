@@ -32,3 +32,9 @@ This scans `ontologies/*/*.ttl` and generates:
 See `tools/ontology-import/README.md` for details.
 
 Note: the importer prefers English labels (`@en`, `@en-*`) when the source ontology includes multilingual `rdfs:label` / `skos:prefLabel`.
+
+## Downloading classic ontologies
+Some upstream ontologies are published as RDF/XML (`.rdf` / `.owl`). To keep the importer simple (Turtle-only), we provide a helper that downloads and converts sources to `.ttl`:
+```
+npm run downloadOntologies
+```

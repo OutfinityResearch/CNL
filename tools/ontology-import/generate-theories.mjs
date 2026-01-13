@@ -86,13 +86,15 @@ export function generateAllTheories(options = {}) {
 
   const results = [];
   const folders = listOntologyFolders(ontologiesDir);
+  let skipped = 0;
 
   for (const folder of folders) {
     const id = path.basename(folder);
     const context = toContextName(id);
     const inputs = listInputs(folder);
     if (inputs.length === 0) {
-      throw new Error(`No .ttl inputs found for ${id}: ${path.relative(cwd, folder)}`);
+      skipped += 1;
+      continue;
     }
 
     const outDir = path.join(defaultOutRoot, id);
@@ -112,7 +114,7 @@ export function generateAllTheories(options = {}) {
     results.push(entry);
   }
 
-  return { ok: true, count: results.length, results };
+  return { ok: true, count: results.length, skipped, results };
 }
 
 if (import.meta.url === pathToFileURL(path.resolve(process.cwd(), process.argv[1])).href) {

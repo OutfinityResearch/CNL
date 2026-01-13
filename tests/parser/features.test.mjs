@@ -34,10 +34,8 @@ Agent: Robot_4
 Precondition: Package_9 is ready.
 Precondition: Robot_4 is available.
 Effect: Package_9 is delivered.
-Effect: Robot_4 is idle.
-Intent: Return every package.`);
-  const block = ast.items[0];
-  assert.equal(block.kind, "ActionBlock");
+  Effect: Robot_4 is idle.`);
+  const block = ast.items[0];  assert.equal(block.kind, "ActionBlock");
   assert.equal(block.preconditions.length, 2);
   assert.equal(block.effects.length, 2);
 });

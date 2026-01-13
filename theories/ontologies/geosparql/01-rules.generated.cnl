@@ -1,0 +1,47 @@
+// This file is generated. Do not edit.
+// Source: ontologies/geosparql/geosparql.ttl
+
+--- CONTEXT: Geosparql ---
+
+// Generated from ontology import: Geosparql
+Rule: If X as-dggs Y, then X has-serialization Y.
+Rule: If X as-geo-json Y, then X has-serialization Y.
+Rule: If X as-gml Y, then X has-serialization Y.
+Rule: If X as-kml Y, then X has-serialization Y.
+Rule: If X as-wkt Y, then X has-serialization Y.
+Rule: If X default-geometry Y, then X has-geometry Y.
+Rule: If X eh-disjoint Y, then X rcc8dc Y.
+Rule: If X eh-disjoint Y, then X sf-disjoint Y.
+Rule: If X eh-equals Y, then X rcc8eq Y.
+Rule: If X eh-equals Y, then X sf-equals Y.
+Rule: If X eh-meet Y, then X rcc8ec Y.
+Rule: If X eh-meet Y, then X sf-touches Y.
+Rule: If X eh-overlap Y, then X rcc8po Y.
+Rule: If X eh-overlap Y, then X sf-overlaps Y.
+Rule: If X has-area Y, then X has-size Y.
+Rule: If X has-bounding-box Y, then X has-geometry Y.
+Rule: If X has-centroid Y, then X has-geometry Y.
+Rule: If X has-default-geometry Y, then X has-geometry Y.
+Rule: If X has-length Y, then X has-size Y.
+Rule: If X has-metric-area Y, then X has-metric-size Y.
+Rule: If X has-metric-length Y, then X has-metric-size Y.
+Rule: If X has-metric-perimeter-length Y, then X has-metric-size Y.
+Rule: If X has-metric-volume Y, then X has-metric-size Y.
+Rule: If X has-perimeter-length Y, then X has-size Y.
+Rule: If X has-volume Y, then X has-size Y.
+Rule: If X rcc8dc Y, then X eh-disjoint Y.
+Rule: If X rcc8dc Y, then X sf-disjoint Y.
+Rule: If X rcc8ec Y, then X eh-meet Y.
+Rule: If X rcc8ec Y, then X sf-touches Y.
+Rule: If X rcc8eq Y, then X eh-equals Y.
+Rule: If X rcc8eq Y, then X sf-equals Y.
+Rule: If X rcc8po Y, then X eh-overlap Y.
+Rule: If X rcc8po Y, then X sf-overlaps Y.
+Rule: If X sf-disjoint Y, then X eh-disjoint Y.
+Rule: If X sf-disjoint Y, then X rcc8dc Y.
+Rule: If X sf-equals Y, then X eh-equals Y.
+Rule: If X sf-equals Y, then X rcc8eq Y.
+Rule: If X sf-overlaps Y, then X eh-overlap Y.
+Rule: If X sf-overlaps Y, then X rcc8po Y.
+Rule: If X sf-touches Y, then X eh-meet Y.
+Rule: If X sf-touches Y, then X rcc8ec Y.

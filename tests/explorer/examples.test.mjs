@@ -5,7 +5,7 @@ import { ConceptKind } from "../../src/ids/interners.mjs";
 import { DEMO_SUITE } from "../../evals/kbDemo/suite.mjs";
 
 function isActionLabelLine(line) {
-  return /^(action|agent|precondition|effect|intent)\s*:/i.test(line.trim());
+  return /^(action|agent|precondition|effect)\s*:/i.test(line.trim());
 }
 
 function splitTheorySteps(theory) {

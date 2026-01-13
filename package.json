@@ -6,6 +6,7 @@
   "scripts": {
     "server": "node tools/explorer/server/index.mjs",
     "generateTheories": "node tools/ontology-import/generate-theories.mjs",
+    "downloadOntologies": "node tools/ontology-import/download-ontologies.mjs",
     "tests": "node --test tests/**/*.test.mjs",
     "evals": "node evals/runAll.mjs"
   },

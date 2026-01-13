@@ -1,0 +1,21 @@
+// This file is generated. Do not edit.
+// Source: ontologies/wgs84/wgs84_pos.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Wgs84
+"point" is a type.
+"point" is a "unary predicate".
+"spatial-thing" is a type.
+"spatial-thing" is a "unary predicate".
+
+// Binary predicates
+"alt" is a "binary predicate".
+"latitude" is a "binary predicate".
+"lat-long" is a "binary predicate".
+"location" is a "binary predicate".
+"longitude" is a "binary predicate".
+
+// Domain and range constraints
+the domain of "latitude" is "spatial-thing".
+the domain of "longitude" is "spatial-thing".

@@ -1,0 +1,252 @@
+// This file is generated. Do not edit.
+// Source: ontologies/foaf/foaf.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Foaf
+"agent" is a type.
+"agent" is a "unary predicate".
+"creative-work" is a type.
+"creative-work" is a "unary predicate".
+"image-object" is a type.
+"image-object" is a "unary predicate".
+"person" is a type.
+"person" is a "unary predicate".
+"class" is a type.
+"class" is a "unary predicate".
+"literal" is a type.
+"literal" is a "unary predicate".
+"person" is a type.
+"person" is a "unary predicate".
+"thing" is a type.
+"thing" is a "unary predicate".
+"spatial-thing" is a type.
+"spatial-thing" is a "unary predicate".
+"concept" is a type.
+"concept" is a "unary predicate".
+"agent" is a type.
+"agent" is a "unary predicate".
+"document" is a type.
+"document" is a "unary predicate".
+"group" is a type.
+"group" is a "unary predicate".
+"image" is a type.
+"image" is a "unary predicate".
+"label-property" is a type.
+"label-property" is a "unary predicate".
+"online-account" is a type.
+"online-account" is a "unary predicate".
+"online-chat-account" is a type.
+"online-chat-account" is a "unary predicate".
+"online-e-commerce-account" is a type.
+"online-e-commerce-account" is a "unary predicate".
+"online-gaming-account" is a type.
+"online-gaming-account" is a "unary predicate".
+"organization" is a type.
+"organization" is a "unary predicate".
+"person" is a type.
+"person" is a "unary predicate".
+"personal-profile-document" is a type.
+"personal-profile-document" is a "unary predicate".
+"project" is a type.
+"project" is a "unary predicate".
+
+// Binary predicates
+"creator" is a "binary predicate".
+"label" is a "binary predicate".
+"account" is a "binary predicate".
+"account-name" is a "binary predicate".
+"account-service-homepage" is a "binary predicate".
+"age" is a "binary predicate".
+"aim-chat-id" is a "binary predicate".
+"based-near" is a "binary predicate".
+"birthday" is a "binary predicate".
+"current-project" is a "binary predicate".
+"depiction" is a "binary predicate".
+"depicts" is a "binary predicate".
+"dna-checksum" is a "binary predicate".
+"family-name" is a "binary predicate".
+"family-name" is a "binary predicate".
+"first-name" is a "binary predicate".
+"focus" is a "binary predicate".
+"funded by" is a "binary predicate".
+"geekcode" is a "binary predicate".
+"gender" is a "binary predicate".
+"given-name" is a "binary predicate".
+"given-name" is a "binary predicate".
+"account" is a "binary predicate".
+"homepage" is a "binary predicate".
+"icq-chat-id" is a "binary predicate".
+"image" is a "binary predicate".
+"interest" is a "binary predicate".
+"primary-topic-of" is a "binary predicate".
+"jabber-id" is a "binary predicate".
+"knows" is a "binary predicate".
+"last-name" is a "binary predicate".
+"logo" is a "binary predicate".
+"made" is a "binary predicate".
+"maker" is a "binary predicate".
+"personal-mailbox" is a "binary predicate".
+"sha1sum-of-a-personal-mailbox-uri-name" is a "binary predicate".
+"member" is a "binary predicate".
+"membership-class" is a "binary predicate".
+"msn-chat-id" is a "binary predicate".
+"myers-briggs" is a "binary predicate".
+"name" is a "binary predicate".
+"nickname" is a "binary predicate".
+"openid" is a "binary predicate".
+"page" is a "binary predicate".
+"past-project" is a "binary predicate".
+"phone" is a "binary predicate".
+"rel-plan" is a "binary predicate".
+"primary-topic" is a "binary predicate".
+"publications" is a "binary predicate".
+"school-homepage" is a "binary predicate".
+"sha1sum-hex" is a "binary predicate".
+"skype-id" is a "binary predicate".
+"status" is a "binary predicate".
+"surname" is a "binary predicate".
+"theme" is a "binary predicate".
+"thumbnail" is a "binary predicate".
+"tipjar" is a "binary predicate".
+"title" is a "binary predicate".
+"topic" is a "binary predicate".
+"topic-interest" is a "binary predicate".
+"weblog" is a "binary predicate".
+"work-info-homepage" is a "binary predicate".
+"workplace-homepage" is a "binary predicate".
+"yahoo-chat-id" is a "binary predicate".
+
+// Type hierarchy
+"agent" is a subtype of "agent".
+"agent" is a subtype of "agent".
+"creative-work" is a subtype of "document".
+"document" is a subtype of "creative-work".
+"group" is a subtype of "agent".
+"image" is a subtype of "document".
+"image" is a subtype of "image-object".
+"image-object" is a subtype of "image".
+"online-account" is a subtype of "thing".
+"online-chat-account" is a subtype of "online-account".
+"online-e-commerce-account" is a subtype of "online-account".
+"online-gaming-account" is a subtype of "online-account".
+"organization" is a subtype of "agent".
+"person" is a subtype of "agent".
+"person" is a subtype of "person".
+"person" is a subtype of "person".
+"person" is a subtype of "person".
+"person" is a subtype of "person".
+"person" is a subtype of "spatial-thing".
+"personal-profile-document" is a subtype of "document".
+
+// Domain and range constraints
+the domain of "account" is "agent".
+the domain of "account" is "agent".
+the domain of "account-name" is "online-account".
+the domain of "account-service-homepage" is "online-account".
+the domain of "age" is "agent".
+the domain of "aim-chat-id" is "agent".
+the domain of "based-near" is "spatial-thing".
+the domain of "birthday" is "agent".
+the domain of "current-project" is "person".
+the domain of "depiction" is "thing".
+the domain of "depicts" is "image".
+the domain of "family-name" is "person".
+the domain of "family-name" is "person".
+the domain of "first-name" is "person".
+the domain of "focus" is "concept".
+the domain of "funded by" is "thing".
+the domain of "geekcode" is "person".
+the domain of "gender" is "agent".
+the domain of "homepage" is "thing".
+the domain of "icq-chat-id" is "agent".
+the domain of "image" is "person".
+the domain of "interest" is "agent".
+the domain of "jabber-id" is "agent".
+the domain of "knows" is "person".
+the domain of "last-name" is "person".
+the domain of "logo" is "thing".
+the domain of "made" is "agent".
+the domain of "maker" is "thing".
+the domain of "member" is "group".
+the domain of "msn-chat-id" is "agent".
+the domain of "myers-briggs" is "person".
+the domain of "name" is "thing".
+the domain of "openid" is "agent".
+the domain of "page" is "thing".
+the domain of "past-project" is "person".
+the domain of "personal-mailbox" is "agent".
+the domain of "primary-topic" is "document".
+the domain of "primary-topic-of" is "thing".
+the domain of "publications" is "person".
+the domain of "rel-plan" is "person".
+the domain of "school-homepage" is "person".
+the domain of "sha1sum-hex" is "document".
+the domain of "sha1sum-of-a-personal-mailbox-uri-name" is "agent".
+the domain of "skype-id" is "agent".
+the domain of "status" is "agent".
+the domain of "surname" is "person".
+the domain of "theme" is "thing".
+the domain of "thumbnail" is "image".
+the domain of "tipjar" is "agent".
+the domain of "topic" is "document".
+the domain of "topic-interest" is "agent".
+the domain of "weblog" is "agent".
+the domain of "work-info-homepage" is "person".
+the domain of "workplace-homepage" is "person".
+the domain of "yahoo-chat-id" is "agent".
+the range of "account" is "online-account".
+the range of "account" is "online-account".
+the range of "account-name" is "literal".
+the range of "account-service-homepage" is "document".
+the range of "age" is "literal".
+the range of "aim-chat-id" is "literal".
+the range of "based-near" is "spatial-thing".
+the range of "birthday" is "literal".
+the range of "current-project" is "thing".
+the range of "depiction" is "image".
+the range of "depicts" is "thing".
+the range of "dna-checksum" is "literal".
+the range of "family-name" is "literal".
+the range of "family-name" is "literal".
+the range of "first-name" is "literal".
+the range of "focus" is "thing".
+the range of "funded by" is "thing".
+the range of "geekcode" is "literal".
+the range of "gender" is "literal".
+the range of "homepage" is "document".
+the range of "icq-chat-id" is "literal".
+the range of "image" is "image".
+the range of "interest" is "document".
+the range of "jabber-id" is "literal".
+the range of "knows" is "person".
+the range of "last-name" is "literal".
+the range of "logo" is "thing".
+the range of "made" is "thing".
+the range of "maker" is "agent".
+the range of "member" is "agent".
+the range of "msn-chat-id" is "literal".
+the range of "myers-briggs" is "literal".
+the range of "name" is "literal".
+the range of "openid" is "document".
+the range of "page" is "document".
+the range of "past-project" is "thing".
+the range of "personal-mailbox" is "thing".
+the range of "primary-topic" is "thing".
+the range of "primary-topic-of" is "document".
+the range of "publications" is "document".
+the range of "rel-plan" is "literal".
+the range of "school-homepage" is "document".
+the range of "sha1sum-of-a-personal-mailbox-uri-name" is "literal".
+the range of "skype-id" is "literal".
+the range of "status" is "literal".
+the range of "surname" is "literal".
+the range of "theme" is "thing".
+the range of "thumbnail" is "image".
+the range of "tipjar" is "document".
+the range of "topic" is "thing".
+the range of "topic-interest" is "thing".
+the range of "weblog" is "document".
+the range of "work-info-homepage" is "document".
+the range of "workplace-homepage" is "document".
+the range of "yahoo-chat-id" is "literal".

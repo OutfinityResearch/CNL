@@ -1,0 +1,214 @@
+// This file is generated. Do not edit.
+// Source: ontologies/geosparql/geosparql.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Geosparql
+"feature" is a type.
+"feature" is a "unary predicate".
+"feature-collection" is a type.
+"feature-collection" is a "unary predicate".
+"geometry" is a type.
+"geometry" is a "unary predicate".
+"geometry-collection" is a type.
+"geometry-collection" is a "unary predicate".
+"spatial-object" is a type.
+"spatial-object" is a "unary predicate".
+"spatial-object-collection" is a type.
+"spatial-object-collection" is a "unary predicate".
+"dggs-literal" is a type.
+"dggs-literal" is a "unary predicate".
+"geo-json-literal" is a type.
+"geo-json-literal" is a "unary predicate".
+"gml-literal" is a type.
+"gml-literal" is a "unary predicate".
+"kml-literal" is a type.
+"kml-literal" is a "unary predicate".
+"wkt-literal" is a type.
+"wkt-literal" is a "unary predicate".
+"type" is a type.
+"type" is a "unary predicate".
+"container" is a type.
+"container" is a "unary predicate".
+"literal" is a type.
+"literal" is a "unary predicate".
+"boolean" is a type.
+"boolean" is a "unary predicate".
+"double" is a type.
+"double" is a "unary predicate".
+"integer" is a type.
+"integer" is a "unary predicate".
+"restriction" is a type.
+"restriction" is a "unary predicate".
+
+// Binary predicates
+"as-dggs" is a "binary predicate".
+"as-gml" is a "binary predicate".
+"as-geo-json" is a "binary predicate".
+"as-kml" is a "binary predicate".
+"as-wkt" is a "binary predicate".
+"coordinate-dimension" is a "binary predicate".
+"default-geometry" is a "binary predicate".
+"dimension" is a "binary predicate".
+"eh-contains" is a "binary predicate".
+"eh-covered-by" is a "binary predicate".
+"eh-covers" is a "binary predicate".
+"eh-disjoint" is a "binary predicate".
+"eh-equals" is a "binary predicate".
+"eh-inside" is a "binary predicate".
+"eh-meet" is a "binary predicate".
+"eh-overlap" is a "binary predicate".
+"has-area" is a "binary predicate".
+"has-bounding-box" is a "binary predicate".
+"has-centroid" is a "binary predicate".
+"has-default-geometry" is a "binary predicate".
+"has-geometry" is a "binary predicate".
+"has-length" is a "binary predicate".
+"has-metric-area" is a "binary predicate".
+"has-metric-length" is a "binary predicate".
+"has-metric-perimeter-length" is a "binary predicate".
+"has-metric-size" is a "binary predicate".
+"has-metric-spatial-accuracy" is a "binary predicate".
+"has-metric-spatial-resolution" is a "binary predicate".
+"has-metric-volume" is a "binary predicate".
+"has-perimeter-length" is a "binary predicate".
+"has-serialization" is a "binary predicate".
+"has-size" is a "binary predicate".
+"has-spatial-accuracy" is a "binary predicate".
+"has-spatial-resolution" is a "binary predicate".
+"has-volume" is a "binary predicate".
+"empty" is a "binary predicate".
+"simple" is a "binary predicate".
+"rcc8dc" is a "binary predicate".
+"rcc8ec" is a "binary predicate".
+"rcc8eq" is a "binary predicate".
+"rcc8ntpp" is a "binary predicate".
+"rcc8ntppi" is a "binary predicate".
+"rcc8po" is a "binary predicate".
+"rcc8tpp" is a "binary predicate".
+"rcc8tppi" is a "binary predicate".
+"sf-contains" is a "binary predicate".
+"sf-crosses" is a "binary predicate".
+"sf-disjoint" is a "binary predicate".
+"sf-equals" is a "binary predicate".
+"sf-intersects" is a "binary predicate".
+"sf-overlaps" is a "binary predicate".
+"sf-touches" is a "binary predicate".
+"sf within" is a "binary predicate".
+"spatial-dimension" is a "binary predicate".
+
+// Type hierarchy
+"feature" is a subtype of "spatial-object".
+"feature-collection" is a subtype of "restriction".
+"feature-collection" is a subtype of "spatial-object-collection".
+"feature-collection" is a subtype of "type".
+"geometry" is a subtype of "spatial-object".
+"geometry-collection" is a subtype of "restriction".
+"geometry-collection" is a subtype of "spatial-object-collection".
+"geometry-collection" is a subtype of "type".
+"spatial-object-collection" is a subtype of "container".
+"spatial-object-collection" is a subtype of "restriction".
+"spatial-object-collection" is a subtype of "type".
+
+// Domain and range constraints
+the domain of "as-dggs" is "geometry".
+the domain of "as-geo-json" is "geometry".
+the domain of "as-gml" is "geometry".
+the domain of "as-kml" is "geometry".
+the domain of "as-wkt" is "geometry".
+the domain of "coordinate-dimension" is "geometry".
+the domain of "default-geometry" is "feature".
+the domain of "dimension" is "geometry".
+the domain of "eh-contains" is "spatial-object".
+the domain of "eh-covered-by" is "spatial-object".
+the domain of "eh-covers" is "spatial-object".
+the domain of "eh-disjoint" is "spatial-object".
+the domain of "eh-equals" is "spatial-object".
+the domain of "eh-inside" is "spatial-object".
+the domain of "eh-meet" is "spatial-object".
+the domain of "eh-overlap" is "spatial-object".
+the domain of "empty" is "geometry".
+the domain of "has-area" is "spatial-object".
+the domain of "has-bounding-box" is "feature".
+the domain of "has-centroid" is "feature".
+the domain of "has-default-geometry" is "feature".
+the domain of "has-geometry" is "feature".
+the domain of "has-length" is "spatial-object".
+the domain of "has-metric-area" is "spatial-object".
+the domain of "has-metric-length" is "spatial-object".
+the domain of "has-metric-perimeter-length" is "spatial-object".
+the domain of "has-metric-size" is "spatial-object".
+the domain of "has-metric-spatial-accuracy" is "geometry".
+the domain of "has-metric-spatial-resolution" is "geometry".
+the domain of "has-metric-volume" is "spatial-object".
+the domain of "has-perimeter-length" is "spatial-object".
+the domain of "has-serialization" is "geometry".
+the domain of "has-size" is "spatial-object".
+the domain of "has-spatial-accuracy" is "geometry".
+the domain of "has-spatial-resolution" is "geometry".
+the domain of "has-volume" is "spatial-object".
+the domain of "rcc8dc" is "spatial-object".
+the domain of "rcc8ec" is "spatial-object".
+the domain of "rcc8eq" is "spatial-object".
+the domain of "rcc8ntpp" is "spatial-object".
+the domain of "rcc8ntppi" is "spatial-object".
+the domain of "rcc8po" is "spatial-object".
+the domain of "rcc8tpp" is "spatial-object".
+the domain of "rcc8tppi" is "spatial-object".
+the domain of "sf within" is "spatial-object".
+the domain of "sf-contains" is "spatial-object".
+the domain of "sf-crosses" is "spatial-object".
+the domain of "sf-disjoint" is "spatial-object".
+the domain of "sf-equals" is "spatial-object".
+the domain of "sf-intersects" is "spatial-object".
+the domain of "sf-overlaps" is "spatial-object".
+the domain of "sf-touches" is "spatial-object".
+the domain of "simple" is "geometry".
+the domain of "spatial-dimension" is "geometry".
+the range of "as-dggs" is "dggs-literal".
+the range of "as-geo-json" is "geo-json-literal".
+the range of "as-gml" is "gml-literal".
+the range of "as-kml" is "kml-literal".
+the range of "as-wkt" is "wkt-literal".
+the range of "coordinate-dimension" is "integer".
+the range of "default-geometry" is "geometry".
+the range of "dimension" is "integer".
+the range of "eh-contains" is "spatial-object".
+the range of "eh-covered-by" is "spatial-object".
+the range of "eh-covers" is "spatial-object".
+the range of "eh-disjoint" is "spatial-object".
+the range of "eh-equals" is "spatial-object".
+the range of "eh-inside" is "spatial-object".
+the range of "eh-meet" is "spatial-object".
+the range of "eh-overlap" is "spatial-object".
+the range of "empty" is "boolean".
+the range of "has-bounding-box" is "geometry".
+the range of "has-centroid" is "geometry".
+the range of "has-default-geometry" is "geometry".
+the range of "has-geometry" is "geometry".
+the range of "has-metric-area" is "double".
+the range of "has-metric-length" is "double".
+the range of "has-metric-perimeter-length" is "double".
+the range of "has-metric-size" is "double".
+the range of "has-metric-spatial-accuracy" is "double".
+the range of "has-metric-spatial-resolution" is "double".
+the range of "has-metric-volume" is "double".
+the range of "has-serialization" is "literal".
+the range of "rcc8dc" is "spatial-object".
+the range of "rcc8ec" is "spatial-object".
+the range of "rcc8eq" is "spatial-object".
+the range of "rcc8ntpp" is "spatial-object".
+the range of "rcc8ntppi" is "spatial-object".
+the range of "rcc8po" is "spatial-object".
+the range of "rcc8tpp" is "spatial-object".
+the range of "rcc8tppi" is "spatial-object".
+the range of "sf within" is "spatial-object".
+the range of "sf-contains" is "spatial-object".
+the range of "sf-crosses" is "spatial-object".
+the range of "sf-disjoint" is "spatial-object".
+the range of "sf-equals" is "spatial-object".
+the range of "sf-intersects" is "spatial-object".
+the range of "sf-overlaps" is "spatial-object".
+the range of "sf-touches" is "spatial-object".
+the range of "simple" is "boolean".
+the range of "spatial-dimension" is "integer".
