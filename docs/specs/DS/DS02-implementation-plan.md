@@ -50,6 +50,7 @@ Design specs in `docs/specs/DS/` define the normative behavior for each subsyste
 1. Grammar and AST stabilization (lexer + parser + determinism validation).
 2. Compiler contract and KB layout (DS08-DS11 + DS15).
 3. Pragmatic engines (query, proof, solve, plan, simulate, optimize, explain).
+   - Execution/proof contracts: DS18-DS21.
 4. Provenance and justification support for explain/proof.
 5. Full coverage with unit tests and eval suites.
 

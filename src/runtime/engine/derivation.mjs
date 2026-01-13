@@ -22,41 +22,57 @@ function collectBaseFactIds(factId, store, seen, out) {
 
 export function renderDerivation(rootFactId, state, store, options = {}) {
   const steps = [];
-  const seen = new Set();
+  const seenFacts = new Set();
   const maxDepth = options.maxDepth ?? 10;
   const maxSteps = options.maxSteps ?? 80;
+  const includeTherefore = options.includeTherefore ?? true;
 
-  function walk(factId, depth, indent) {
+  function walk(factId, depth) {
     if (steps.length >= maxSteps) return;
-    if (seen.has(factId)) return;
-    seen.add(factId);
+    if (seenFacts.has(factId)) return;
+    seenFacts.add(factId);
 
     const sentence = formatFactId(factId, state, store) ?? `fact(${String(factId)})`;
     const justification = store.getJustification(factId);
     if (!justification) {
-      steps.push(`${indent}${sentence} (no justification available).`);
+      steps.push(`Missing justification: ${sentence}`);
       return;
     }
     if (justification.kind === "Base") {
-      steps.push(`${indent}${sentence} (stated).`);
+      // Base facts are surfaced via `premises` instead of repeating them in the derivation steps.
       return;
     }
-    const ruleId = Number.isInteger(justification.ruleId) ? justification.ruleId : null;
-    steps.push(`${indent}${sentence}`);
-    if (ruleId !== null) {
-      const summary = renderRuleSummary(ruleId, state);
-      steps.push(`${indent}  applied rule #${ruleId}${summary ? `: ${summary}` : ""}`);
-    } else {
-      steps.push(`${indent}  applied a rule (unknown rule id)`);
+
+    if (depth >= maxDepth) {
+      steps.push(`Derived fact: ${sentence}`);
+      return;
     }
-    if (depth >= maxDepth) return;
+
     const premiseIds = [...(justification.premiseIds ?? [])].sort(compareFactId);
     for (const premiseId of premiseIds) {
-      walk(premiseId, depth + 1, indent + "  ");
+      const premiseJust = store.getJustification(premiseId);
+      if (premiseJust && premiseJust.kind !== "Base") {
+        walk(premiseId, depth + 1);
+      }
+    }
+
+    const ruleId = Number.isInteger(justification.ruleId) ? justification.ruleId : null;
+    if (ruleId !== null) {
+      const summary = renderRuleSummary(ruleId, state);
+      if (summary) {
+        steps.push(`Applied rule: ${summary}`);
+      } else {
+        steps.push(`Applied rule: rule #${ruleId}`);
+      }
+    } else {
+      steps.push("Applied rule.");
+    }
+    if (includeTherefore) {
+      steps.push(`Therefore: ${sentence}`);
     }
   }
 
-  walk(rootFactId, 0, "");
+  walk(rootFactId, 0);
 
   const baseFactIds = [];
   collectBaseFactIds(rootFactId, store, new Set(), baseFactIds);

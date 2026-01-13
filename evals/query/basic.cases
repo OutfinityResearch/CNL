@@ -4,14 +4,14 @@
   purpose: "Query with derived unary predicate from entity-valued attribute rule chain."
   expect: "User1"
   proofMode: "Witness"
-  proofStepsInclude: ["User1 has a role of admin."]
+  proofPremisesInclude: ["User1 has a role of admin."]
 - input: "Server1 is a machine.\nServer1 handles payments.\nEvery machine that handles payments is a server.\nEvery server that handles payments is critical.\nReturn the name of every server that is critical."
   purpose: "Query with derived unary predicate from relation-based rules."
   expect: "Server1"
   proofMode: "Witness"
-  proofStepsInclude: ["Server1 handles payments."]
+  proofPremisesInclude: ["Server1 handles payments."]
 - input: "--- CONTEXT: BaseDictionary ---\n\"capacity\" is a \"numeric attribute\".\n--- CONTEXT: Core ---\nTruck_A is a truck.\nTruck_A has a capacity of 1000.\nTruck_A is located at Warehouse_1.\nEvery truck whose capacity is greater than 500 and that is located at Warehouse_1 is eligible.\nEvery truck that is eligible is insured.\nReturn the name of every truck that is insured."
   purpose: "Query with numeric+relation filters feeding a derived predicate chain."
   expect: "Truck_A"
   proofMode: "Witness"
-  proofStepsInclude: ["Truck_A has a capacity of 1000.", "Truck_A is located at Warehouse_1."]
+  proofPremisesInclude: ["Truck_A has a capacity of 1000.", "Truck_A is located at Warehouse_1."]

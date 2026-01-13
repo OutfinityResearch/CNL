@@ -71,9 +71,9 @@ session.reset()
 - `query`: returns a list of entity bindings with display keys.
 - `proof`: returns boolean plus optional justification trace.
 - `explain`: returns a justification DAG and optional base fact summaries.
-- `solve`: returns variable bindings or partial domains (variables use `?X` syntax).
-- `plan`: returns ordered action steps.
-- `simulate`: returns state snapshots over time.
+- `solve`: returns variable bindings (and, in v2, bindings supported by at least one consistent assignment); may attach proof traces (DS21/DS18).
+- `plan`: returns ordered action steps and a plan proof trace (DS19/DS18).
+- `simulate`: returns state snapshots over time (and optional simulation traces; DS20/DS18).
 - `optimize`: returns best solution and objective value.
 
 ## Error Handling

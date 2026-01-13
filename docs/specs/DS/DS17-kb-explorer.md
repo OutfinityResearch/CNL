@@ -125,7 +125,8 @@ Response: "No, John is not an admin."
 
 When ProofTrace is present:
 - Display the answer as usual.
-- Display `proof.mode`, `proof.steps`, and (if present) `proof.premises` and `proof.counterexample`.
+- Display `proof.mode`, and render `proof.premises` before `proof.steps` (premise-first).
+- For Derivation mode, prefer compact lines such as `Applied rule: ...` and `Therefore: ...` and avoid requiring RuleIDs in user-facing text.
 
 ### Explain Responses
 ```

@@ -7,7 +7,12 @@ export { ConceptKind, NLG, parseProgram };
 
 export function json(res, status, data) {
   res.writeHead(status, { "Content-Type": "application/json" });
-  res.end(JSON.stringify(data));
+  res.end(
+    JSON.stringify(data, (_key, value) => {
+      if (typeof value === "bigint") return value.toString();
+      return value;
+    })
+  );
 }
 
 export async function readBody(req) {

@@ -64,6 +64,53 @@ export function buildProofTraceForVerify(command, state, ok) {
   const store = state.justificationStore;
   const answerSummary = String(ok);
 
+  if (proposition?.kind === "CaseScope" && proposition.mode === "negative") {
+    const operand = proposition.operand;
+    if (operand?.kind === "AtomicCondition") {
+      const sentence = formatAssertionSentence(operand.assertion, state) || "atomic claim";
+      if (ok) {
+        return {
+          kind: "ProofTrace",
+          mode: "Negation",
+          conclusion: `not (${sentence})`,
+          answerSummary,
+          steps: [`No derivation found for: ${sentence}`],
+          premises: [],
+        };
+      }
+      if (store) {
+        const factId = factIdForAssertion(operand.assertion, state, store);
+        if (factId !== null) {
+          const { steps, premises } = renderDerivation(factId, state, store);
+          return {
+            kind: "ProofTrace",
+            mode: "Negation",
+            conclusion: `not (${sentence})`,
+            answerSummary,
+            steps: ["Negated claim is false because the inner claim is derivable.", ...steps],
+            premises,
+          };
+        }
+      }
+      return {
+        kind: "ProofTrace",
+        mode: "Negation",
+        conclusion: `not (${sentence})`,
+        answerSummary,
+        steps: ["Negated claim is false because the inner claim holds."],
+        premises: [],
+      };
+    }
+    return {
+      kind: "ProofTrace",
+      mode: "Negation",
+      conclusion: "negated proposition",
+      answerSummary,
+      steps: [ok ? "Negated condition holds." : "Negated condition does not hold."],
+      premises: [],
+    };
+  }
+
   if (proposition?.kind === "AtomicCondition") {
     const assertion = proposition.assertion;
     const isUniversal = assertion?.subject?.kind === "NounPhrase" && isUniversalNounPhrase(assertion.subject);

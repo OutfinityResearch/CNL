@@ -14,9 +14,6 @@ function formatProof(proof) {
   if (!proof || proof.kind !== "ProofTrace") return "";
   const lines = [];
   lines.push(`Proof (${proof.mode})`);
-  if (Array.isArray(proof.steps) && proof.steps.length) {
-    lines.push(...proof.steps);
-  }
   if (Array.isArray(proof.premises) && proof.premises.length) {
     lines.push("");
     lines.push("Premises:");
@@ -27,7 +24,11 @@ function formatProof(proof) {
   }
   if (proof.counterexample?.entity) {
     lines.push("");
-    lines.push(`Counterexample: ${proof.counterexample.entity}`);
+      lines.push(`Counterexample: ${proof.counterexample.entity}`);
+    }
+  if (Array.isArray(proof.steps) && proof.steps.length) {
+    lines.push("");
+    lines.push(...proof.steps);
   }
   return lines.join("\n");
 }
@@ -43,6 +44,19 @@ export async function renderExamples() {
   }
 
   container.innerHTML = "";
+
+  const loadedExamples = new Set();
+
+  async function ensureContextLoaded(ex) {
+    if (!ex || !ex.id) return false;
+    if (loadedExamples.has(ex.id)) return true;
+    const res = await API.sendCommand(ex.theory);
+    if (res && res.ok) {
+      loadedExamples.add(ex.id);
+      return true;
+    }
+    return false;
+  }
 
   const loadAllBtn = document.getElementById("loadAllBtn");
   if (loadAllBtn) {
@@ -112,6 +126,7 @@ export async function renderExamples() {
     card.querySelectorAll(".run-step-btn").forEach((btn) => {
       btn.onclick = async () => {
         const cmd = btn.getAttribute("data-cmd");
+        await ensureContextLoaded(ex);
         UI.log(cmd, "user");
         await executeCommand(cmd);
       };
@@ -130,6 +145,7 @@ export async function renderExamples() {
         btn.disabled = true;
         btn.textContent = "Loading...";
         try {
+          await ensureContextLoaded(ex);
           const res = await API.sendCommand(step.command);
           if (res.ok && res.result?.proof) {
             proofEl.textContent = formatProof(res.result.proof) || "(empty proof)";

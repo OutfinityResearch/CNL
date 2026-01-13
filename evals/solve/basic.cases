@@ -4,14 +4,14 @@
   purpose: "Solve with entity-valued attribute rule chain."
   expect: "User1"
   proofMode: "Witness"
-  proofStepsInclude: ["User1 has a role of admin."]
+  proofPremisesInclude: ["User1 has a role of admin."]
 - input: "--- CONTEXT: BaseDictionary ---\n\"capacity\" is a \"numeric attribute\".\n--- CONTEXT: Core ---\nTruck_A is a truck.\nTruck_B is a truck.\nTruck_A has a capacity of 1000.\nTruck_B has a capacity of 200.\nEvery truck whose capacity is greater than 500 is heavy.\nEvery truck that is heavy is insured.\nSolve for every truck that is insured."
   purpose: "Solve with numeric attribute rule chain."
   expect: "Truck_A"
   proofMode: "Witness"
-  proofStepsInclude: ["Truck_A has a capacity of 1000."]
+  proofPremisesInclude: ["Truck_A has a capacity of 1000."]
 - input: "Server1 is a machine.\nServer2 is a machine.\nServer1 handles payments.\nEvery machine that handles payments is a server.\nSolve for every server such that Server1 handles payments."
   purpose: "Solve with derived domain and explicit constraint clause."
   expect: "Server1"
   proofMode: "Witness"
-  proofStepsInclude: ["Server1 handles payments."]
+  proofPremisesInclude: ["Server1 handles payments."]

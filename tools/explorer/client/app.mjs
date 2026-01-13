@@ -16,6 +16,10 @@ function bindGlobalEvents() {
     await executeCommand(text);
   };
 
+  document.getElementById("graphRefresh").onclick = async () => {
+    await refreshGraph();
+  };
+
   document.getElementById("resetBtn").onclick = async () => {
     if (confirm("Reset session?")) {
       await API.reset();

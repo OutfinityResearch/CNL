@@ -153,27 +153,11 @@ export function proofResultMessage(result, subject, predicate) {
 
 export function explainResultMessage(result) {
   if (!result) return 'Unable to explain.';
-  
-  const fact = result.fact || 'this fact';
-  const just = result.justification;
-  
-  if (!just) {
-    return `${fact} — no justification available.`;
+  const proof = result.proof;
+  if (proof && proof.kind === "ProofTrace") {
+    return proof.conclusion || "Explanation ready.";
   }
-  
-  if (just.kind === 'BaseFact') {
-    return `${fact} because it was directly stated.`;
-  }
-  
-  if (just.kind === 'DerivedFact' && just.ruleId !== undefined) {
-    const premises = just.premises || [];
-    if (premises.length > 0) {
-      return `${fact} because:\n  • ${premises.map(p => `premise ${p}`).join('\n  • ')}\n  • Applied rule #${just.ruleId}`;
-    }
-    return `${fact} because of rule #${just.ruleId}.`;
-  }
-  
-  return `${fact} — ${JSON.stringify(just)}`;
+  return "Explanation ready.";
 }
 
 // --- Plan Response Messages ---
@@ -247,6 +231,10 @@ function getHintForCode(code) {
 
 export function formatResultMessage(result, context = {}) {
   if (!result) return null;
+
+  function safeStringify(value) {
+    return JSON.stringify(value, (_key, v) => (typeof v === "bigint" ? v.toString() : v), 2);
+  }
   
   switch (result.kind) {
     case 'QueryResult':
@@ -264,6 +252,6 @@ export function formatResultMessage(result, context = {}) {
     case 'OptimizeResult':
       return optimizeResultMessage(result);
     default:
-      return JSON.stringify(result, null, 2);
+      return safeStringify(result);
   }
 }

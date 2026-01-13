@@ -1,5 +1,6 @@
 import { resolveEntityId, resolvePredId, resolveUnaryId } from "./helpers.mjs";
 import { formatFactId } from "./facts.mjs";
+import { renderDerivation } from "./derivation.mjs";
 
 function collectBaseFactIds(factId, store, seen, out) {
   if (seen.has(factId)) return;
@@ -29,12 +30,22 @@ export function explainAssertion(assertion, state) {
     const factId = store.makeUnaryFactId(unaryId, subjectId);
     const justification = store.getJustification(factId);
     if (!justification) return { error: "No justification found." };
-    const baseFactIds = [];
-    collectBaseFactIds(factId, store, new Set(), baseFactIds);
-    const baseFacts = baseFactIds
-      .map((id) => formatFactId(id, state, store))
-      .filter((item) => item);
-    return { kind: "ExplainResult", factId, justification, baseFacts };
+    const { steps, premises } = renderDerivation(factId, state, store);
+    const conclusion = formatFactId(factId, state, store) || "fact";
+    return {
+      kind: "ExplainResult",
+      factId,
+      justification,
+      baseFacts: premises,
+      proof: {
+        kind: "ProofTrace",
+        mode: "Derivation",
+        conclusion,
+        answerSummary: "explain",
+        steps,
+        premises,
+      },
+    };
   }
 
   if (assertion.kind === "ActiveRelationAssertion" || assertion.kind === "PassiveRelationAssertion") {
@@ -47,12 +58,22 @@ export function explainAssertion(assertion, state) {
     const factId = store.makeFactId(predId, subjectId, objectId);
     const justification = store.getJustification(factId);
     if (!justification) return { error: "No justification found." };
-    const baseFactIds = [];
-    collectBaseFactIds(factId, store, new Set(), baseFactIds);
-    const baseFacts = baseFactIds
-      .map((id) => formatFactId(id, state, store))
-      .filter((item) => item);
-    return { kind: "ExplainResult", factId, justification, baseFacts };
+    const { steps, premises } = renderDerivation(factId, state, store);
+    const conclusion = formatFactId(factId, state, store) || "fact";
+    return {
+      kind: "ExplainResult",
+      factId,
+      justification,
+      baseFacts: premises,
+      proof: {
+        kind: "ProofTrace",
+        mode: "Derivation",
+        conclusion,
+        answerSummary: "explain",
+        steps,
+        premises,
+      },
+    };
   }
 
   return { error: "Explanation unsupported for this assertion type." };

@@ -8,6 +8,8 @@ function compileActionBlock(block) {
   const name = String(block.action ?? "Action").trim();
   const preconditions = [];
   const effects = [];
+  const preconditionsText = [];
+  const effectsText = [];
 
   try {
     block.preconditions.forEach((text) => {
@@ -16,6 +18,7 @@ function compileActionBlock(block) {
         throw runtimeError("SES024", "Plan v1 does not support variables in preconditions.", "Precondition");
       }
       preconditions.push(condition);
+      preconditionsText.push(String(text));
     });
     block.effects.forEach((text) => {
       const sentence = parseSentenceText(text);
@@ -23,12 +26,13 @@ function compileActionBlock(block) {
         throw runtimeError("SES024", "Plan v1 does not support variables in effects.", "Effect");
       }
       effects.push(sentence);
+      effectsText.push(String(text));
     });
   } catch (error) {
     return { error: error?.code ? error : runtimeError("SES024", error?.message ?? "Invalid action block.") };
   }
 
-  return { action: name, preconditions, effects };
+  return { action: name, preconditions, effects, preconditionsText, effectsText };
 }
 
 function compileActions(state) {
@@ -53,10 +57,34 @@ export function planWithActions(command, state) {
   if (compiled.error) return { error: compiled.error };
   const actions = compiled.actions ?? [];
   if (evaluateCondition(command.condition, state)) {
-    return { kind: "PlanResult", status: "satisfied", steps: [] };
+    return {
+      kind: "PlanResult",
+      status: "satisfied",
+      steps: [],
+      proof: {
+        kind: "ProofTrace",
+        mode: "PlanSearch",
+        conclusion: "goal already satisfied",
+        answerSummary: "steps=0",
+        steps: ["Goal already holds in the current state."],
+        premises: [],
+      },
+    };
   }
   if (actions.length === 0) {
-    return { kind: "PlanResult", status: "unsatisfied", steps: [] };
+    return {
+      kind: "PlanResult",
+      status: "unsatisfied",
+      steps: [],
+      proof: {
+        kind: "ProofTrace",
+        mode: "PlanSearch",
+        conclusion: "no plan",
+        answerSummary: "unsatisfied",
+        steps: ["No actions are available."],
+        premises: [],
+      },
+    };
   }
 
   const maxDepth = 6;
@@ -83,11 +111,50 @@ export function planWithActions(command, state) {
       const nextSteps = [...node.steps, action.action];
       const nextState = { ...state, kb: nextKb };
       if (evaluateCondition(command.condition, nextState)) {
-        return { kind: "PlanResult", status: "satisfied", steps: nextSteps };
+        const proofSteps = [];
+        proofSteps.push(`Search: BFS up to depth ${maxDepth}, expanded ${expanded} node(s).`);
+        proofSteps.push(`Plan steps: ${nextSteps.join(" -> ")}.`);
+        nextSteps.forEach((stepName, idx) => {
+          const actionDef = actions.find((a) => a.action === stepName);
+          if (!actionDef) return;
+          proofSteps.push(`Step ${idx + 1}: ${stepName}.`);
+          if (Array.isArray(actionDef.preconditionsText) && actionDef.preconditionsText.length > 0) {
+            proofSteps.push(`  Preconditions: ${actionDef.preconditionsText.join(" ; ")}.`);
+          }
+          if (Array.isArray(actionDef.effectsText) && actionDef.effectsText.length > 0) {
+            proofSteps.push(`  Effects: ${actionDef.effectsText.join(" ; ")}.`);
+          }
+        });
+        proofSteps.push("Therefore: goal is satisfied after the final step.");
+        return {
+          kind: "PlanResult",
+          status: "satisfied",
+          steps: nextSteps,
+          proof: {
+            kind: "ProofTrace",
+            mode: "PlanSearch",
+            conclusion: "plan found",
+            answerSummary: `steps=${nextSteps.length}`,
+            steps: proofSteps,
+            premises: [],
+          },
+        };
       }
       queue.push({ kbApi: nextKb, steps: nextSteps });
     }
   }
 
-  return { kind: "PlanResult", status: "unsatisfied", steps: [] };
+  return {
+    kind: "PlanResult",
+    status: "unsatisfied",
+    steps: [],
+    proof: {
+      kind: "ProofTrace",
+      mode: "PlanSearch",
+      conclusion: "no plan",
+      answerSummary: "unsatisfied",
+      steps: [`No plan found within depth ${maxDepth} after expanding ${expanded} node(s).`],
+      premises: [],
+    },
+  };
 }

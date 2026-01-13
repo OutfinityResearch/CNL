@@ -10,7 +10,7 @@ This document defines the proof-trace contract returned by CNL-PL when answering
 - Provide best-effort witnesses for set-plan based results (query/solve) even when full provenance is not available.
 
 ## Non-Goals (v1)
-- Full natural-deduction style proofs for arbitrary negation (NOT) and absence-of-fact explanations.
+- Full natural-deduction style proofs for arbitrary negation (NOT) beyond simple "not derivable" traces.
 - Minimal proof optimality guarantees (shortest/cheapest proof) beyond deterministic ordering.
 - Complete planning search tree dumps.
 
@@ -20,7 +20,7 @@ Every command result may include a `proof` field.
 ```
 {
   kind: "ProofTrace",
-  mode: "Derivation" | "Witness" | "Universal" | "PlanSearch" | "Simulation",
+  mode: "Derivation" | "Witness" | "Universal" | "PlanSearch" | "Simulation" | "SolveSearch" | "Negation",
   conclusion: string,                 // the user command or a normalized proposition
   answerSummary: string,              // human summary (e.g. "true", "['A']", "satisfied")
   steps: string[],                    // ordered list of explanation steps
@@ -47,7 +47,7 @@ Used for answers based on a single ground unary or binary fact.
 The trace should include:
 - The conclusion fact as a CNL sentence.
 - If the fact is base: mark it as stated.
-- If derived: list the applied rule (by RuleID and, if possible, a natural language rendering) and recursively list the premise facts.
+- If derived: list the applied rule (prefer natural-language rendering; RuleID is optional) and list the premise facts via `premises`.
 
 Example (classic syllogism):
 ```
@@ -59,9 +59,11 @@ Command:
   Verify that Socrates is mortal.
 
 ProofTrace.steps (sketch):
-  Socrates is a mortal.
-    applied rule #0: Every man is mortal.
-    Socrates is a man. (stated).
+  Applied rule: Every man is mortal.
+  Therefore: Socrates is mortal.
+
+ProofTrace.premises (sketch):
+  - Socrates is a man.
 ```
 
 ### Witness (Set Membership)
@@ -94,6 +96,22 @@ Used for `Simulate N steps`.
 
 - List which transition rules fired at each step (when applicable).
 - Provide final-state summary and relevant derived facts when requested.
+
+### SolveSearch (Backtracking)
+Used for `Solve for ?X ...` when variables require search to guarantee consistent assignments.
+
+The trace should include:
+- Initial domains (truncated).
+- Key choices and backtracks (`Try ?R2 = Region_D.`, `Backtrack: empty domain for ?R3.`).
+- A short solution summary (count + a few sample assignments).
+- `premises` with witness facts for shown solutions (e.g., `Region_A touches Region_C.`).
+
+### Negation
+Used for `Verify that it is not the case that ...`.
+
+The trace should include:
+- If `true`: a clear "not derivable" explanation for the inner claim.
+- If `false`: show that the inner claim is derivable, and (when available) include its derivation.
 
 ## Provenance Requirements
 To support meaningful traces across features:

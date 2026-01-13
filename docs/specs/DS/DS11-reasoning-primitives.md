@@ -88,24 +88,22 @@ Return the name of every user who is active and who knows python.
 This becomes: `Users ∩ Active ∩ preimage(knows, {python})`.
 
 ## Solve (Constraints)
-Each variable has a domain Bitset. For a binary constraint `R(X,Y)`:
-- `Xdom = Xdom and preimage(R, Ydom)`
-- `Ydom = Ydom and image(R, Xdom)`
+Solve uses bitset domain propagation and (in v2) bounded backtracking search to ensure returned bindings are supported by at least one consistent assignment.
 
-Use AC-3 style propagation until fixpoint or failure.
-
-Variables use the `?X` syntax and denote entity domains. Solve v1 supports conjunctive
-constraints only (no OR branches); each atomic constraint must be grounded except
-for variable subject/object positions.
+See DS21 for:
+- accepted constraint forms,
+- propagation rules,
+- backtracking search and projection semantics,
+- proof trace requirements (`SolveSearch`).
 
 ## Plan and Simulate
-State is represented as a base KB plus delta overlays:
-- Preconditions are Bitset queries on the current state.
-- Effects add/remove bits or update attributes in the delta layer.
-- Simulation iterates transition rules for N steps.
+Plan and Simulate are pragmatic engines over the same compiled KB:
+- Plan v1: ground actions + bounded BFS.
+- Simulate v1: deterministic step-by-step transition execution.
 
-Plan v1 is restricted to ground actions (no variables) and uses BFS with a fixed depth limit of 6.
-Simulate v1 applies ground transition rules in sequence per step.
+See:
+- DS19 for Planning (Action Blocks, BFS limits, PlanSearch traces).
+- DS20 for Simulation (transition semantics, Simulation traces).
 
 ## Optimize
 Optimization combines Solve with an objective:
@@ -124,3 +122,6 @@ Proof and explain compile formula nodes into bitset plans or proof graphs on dem
 - DS10 for rule compilation.
 - DS12 for session-level API exposure.
 - DS16 for plan IR operator definitions.
+- DS19 for Planning.
+- DS20 for Simulation.
+- DS21 for Constraint Solving.

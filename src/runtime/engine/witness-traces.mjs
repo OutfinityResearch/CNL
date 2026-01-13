@@ -155,9 +155,11 @@ export function buildWitnessTraceForSet(setPlan, entities, state, options = {}) 
     }
     for (const factId of factIds) {
       if (store && store.getJustification(factId)) {
-        const trace = renderDerivation(factId, state, store, { maxSteps: 30 });
+        const sentence = formatFactId(factId, state, store) ?? String(factId);
+        steps.push(`  ${sentence}`);
+        const trace = renderDerivation(factId, state, store, { maxSteps: 30, includeTherefore: false });
         trace.premises.forEach((p) => premiseSet.add(p));
-        trace.steps.forEach((line) => steps.push(`  ${line}`));
+        trace.steps.forEach((line) => steps.push(`    ${line}`));
         continue;
       }
       const sentence = store ? formatFactId(factId, state, store) : null;
@@ -174,4 +176,3 @@ export function buildWitnessTraceForSet(setPlan, entities, state, options = {}) 
     premises: Array.from(premiseSet).sort(),
   };
 }
-

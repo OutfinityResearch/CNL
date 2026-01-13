@@ -4,7 +4,7 @@
   purpose: "Proof over a multi-step rule chain."
   expect: "true"
   proofMode: "Derivation"
-  proofStepsInclude: ["applied rule #", "Server1 handles payments.", "Server1 is a machine."]
+  proofStepsInclude: ["Applied rule:", "Therefore:"]
   proofPremisesInclude: ["Server1 handles payments.", "Server1 is a machine."]
 - input: "Package1 is a package.\nPackage1 is delivered.\nEvery package that is delivered is verified.\nEvery package that is verified is archived.\nVerify that every package that is delivered is archived."
   purpose: "Universal proof over a rule chain."
@@ -15,4 +15,5 @@
   purpose: "Proof over a relation + unary rule chain."
   expect: "true"
   proofMode: "Derivation"
-  proofStepsInclude: ["applied rule #", "User1 is a member."]
+  proofStepsInclude: ["Applied rule:", "Therefore:"]
+  proofPremisesInclude: ["User1 is a member."]

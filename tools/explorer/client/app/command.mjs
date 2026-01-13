@@ -47,9 +47,6 @@ function formatProof(proof) {
   if (!proof || proof.kind !== "ProofTrace") return "";
   const lines = [];
   lines.push(`Proof (${proof.mode})`);
-  if (Array.isArray(proof.steps) && proof.steps.length) {
-    lines.push(...proof.steps);
-  }
   if (Array.isArray(proof.premises) && proof.premises.length) {
     lines.push("");
     lines.push("Premises:");
@@ -61,6 +58,10 @@ function formatProof(proof) {
   if (proof.counterexample?.entity) {
     lines.push("");
     lines.push(`Counterexample: ${proof.counterexample.entity}`);
+  }
+  if (Array.isArray(proof.steps) && proof.steps.length) {
+    lines.push("");
+    lines.push(...proof.steps);
   }
   return lines.join("\n");
 }
