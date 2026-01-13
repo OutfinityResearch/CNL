@@ -1,0 +1,52 @@
+// This file is generated. Do not edit.
+// Source: ontologies/w3c-prov-o/prov-o.ttl
+
+--- CONTEXT: W3cProvO ---
+
+// Generated from ontology import: W3cProvO
+Rule: If X acted-on-behalf-of Y, then X was-influenced-by Y.
+Rule: If X activity Y, then X influencer Y.
+Rule: If X agent Y, then X influencer Y.
+Rule: If X aq Y, then X see-also Y.
+Rule: If X constraints Y, then X see-also Y.
+Rule: If X dm Y, then X see-also Y.
+Rule: If X editors-definition Y, then X definition Y.
+Rule: If X entity Y, then X influencer Y.
+Rule: If X generated Y, then X influenced Y.
+Rule: If X generated Y, then Y was-generated-by X.
+Rule: If X influenced Y, then Y was-influenced-by X.
+Rule: If X invalidated Y, then X influenced Y.
+Rule: If X invalidated Y, then Y was-invalidated-by X.
+Rule: If X n Y, then X see-also Y.
+Rule: If X qualified-association Y, then X qualified-influence Y.
+Rule: If X qualified-attribution Y, then X qualified-influence Y.
+Rule: If X qualified-communication Y, then X qualified-influence Y.
+Rule: If X qualified-delegation Y, then X qualified-influence Y.
+Rule: If X qualified-derivation Y, then X qualified-influence Y.
+Rule: If X qualified-end Y, then X qualified-influence Y.
+Rule: If X qualified-generation Y, then X qualified-influence Y.
+Rule: If X qualified-invalidation Y, then X qualified-influence Y.
+Rule: If X qualified-primary-source Y, then X qualified-influence Y.
+Rule: If X qualified-quotation Y, then X qualified-influence Y.
+Rule: If X qualified-revision Y, then X qualified-influence Y.
+Rule: If X qualified-start Y, then X qualified-influence Y.
+Rule: If X qualified-usage Y, then X qualified-influence Y.
+Rule: If X rel-had-member Y, then X was-influenced-by Y.
+Rule: If X rel-had-primary-source Y, then X was-derived-from Y.
+Rule: If X shares-definition-with Y, then X see-also Y.
+Rule: If X specialization of Y, then X alternate of Y.
+Rule: If X unqualified-form Y, then X see-also Y.
+Rule: If X used Y, then X was-influenced-by Y.
+Rule: If X was-associated-with Y, then X was-influenced-by Y.
+Rule: If X was-attributed-to Y, then X was-influenced-by Y.
+Rule: If X was-derived-from Y, then X was-influenced-by Y.
+Rule: If X was-ended-by Y, then X was-influenced-by Y.
+Rule: If X was-generated-by Y, then X was-influenced-by Y.
+Rule: If X was-generated-by Y, then Y generated X.
+Rule: If X was-influenced-by Y, then Y influenced X.
+Rule: If X was-informed-by Y, then X was-influenced-by Y.
+Rule: If X was-invalidated-by Y, then X was-influenced-by Y.
+Rule: If X was-invalidated-by Y, then Y invalidated X.
+Rule: If X was-quoted-from Y, then X was-derived-from Y.
+Rule: If X was-revision-of Y, then X was-derived-from Y.
+Rule: If X was-started-by Y, then X was-influenced-by Y.

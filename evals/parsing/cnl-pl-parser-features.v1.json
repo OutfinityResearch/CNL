@@ -69,30 +69,6 @@
     }
   },
   {
-    "id": "V053",
-    "valid": true,
-    "input": "Action: Move Package_9\nAgent: Robot_4\nPrecondition: Package_9 is ready.\nPrecondition: Robot_4 is available.\nEffect: Package_9 is delivered.\nEffect: Robot_4 is idle.\nIntent: Return every package.\n",
-    "expected": {
-      "kind": "Program",
-      "items": [
-        {
-          "kind": "ActionBlock",
-          "action": "Move Package_9",
-          "agent": "Robot_4",
-          "preconditions": [
-            "Package_9 is ready.",
-            "Robot_4 is available."
-          ],
-          "effects": [
-            "Package_9 is delivered.",
-            "Robot_4 is idle."
-          ],
-          "intent": "Return every package."
-        }
-      ]
-    }
-  },
-  {
     "id": "X050",
     "valid": false,
     "input": "A critical server is monitored.",

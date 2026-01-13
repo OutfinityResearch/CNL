@@ -7,6 +7,7 @@ import { createJustificationStore } from "../provenance/justifications.mjs";
 import { createDictionaryState, applyDictionaryStatement } from "./dictionary.mjs";
 import { compileRuleBody, compileRuleHead, compileCommand, compileNP } from "./ast-to-plan.mjs";
 import { canonicalEntityKey, canonicalAttributeKey } from "./canonical-keys.mjs";
+import { tryCompilePlaceholderConditional } from "./placeholder-rules.mjs";
 
 function createError(code, message, primaryToken) {
   return {
@@ -439,6 +440,11 @@ function compileSentence(sentence, state, options) {
     return;
   }
   if (sentence.kind === "ConditionalSentence") {
+    const placeholderPlan = tryCompilePlaceholderConditional(sentence, state);
+    if (placeholderPlan) {
+      state.ruleStore.addRule(placeholderPlan);
+      return;
+    }
     const plan = compileRuleBody(sentence.condition, state);
     const head = compileRuleHead(sentence.then, state);
     state.ruleStore.addRule({ kind: "RulePlan", body: plan, head });

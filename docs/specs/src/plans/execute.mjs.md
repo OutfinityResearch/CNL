@@ -5,6 +5,7 @@ Executes Plan IR against a compiled KB and produces bitsets, booleans, or number
 
 ## Responsibilities
 - Evaluate SetPlan and RelationPlan nodes using KB indices.
+- Support `RelationOp.InverseRelation` via `kb.invRelations`.
 - Apply numeric and entity-attribute filters.
 - Evaluate NumberPlan aggregates (NumberOf, SumOf, AverageOf, TotalOf).
 

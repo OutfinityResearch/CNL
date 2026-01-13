@@ -1,16 +1,20 @@
 # loader.mjs
 
 ## Summary
-Loads BaseDictionary and base theory CNL files in a defined order.
+Loads BaseDictionary and base theory CNL files.
 
 ## Responsibilities
-- Apply BaseDictionary contexts before other theories.
-- Load base theory modules in explicit order.
-- Report load diagnostics and version info.
+- Read CNL files from disk into `{ path, text }` entries.
+- Provide a default "base bundle" loader used by `CNLSession` autoload.
 
 ## Key Interfaces
 - `loadBaseDictionary(paths)`
 - `loadBaseTheories(paths)`
+- `loadDefaultBaseBundle({ rootDir })`
+
+## Defaults
+Default relative paths live in:
+- `src/theories/base-defaults.mjs`
 
 ## References
 - DS13 for BaseDictionary.

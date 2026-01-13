@@ -131,11 +131,11 @@ Every error should include at least:
   - Hint: A valid block must include both fields.
 
 - SYN014 - ActionBlockDuplicateFieldError
-  - Trigger: duplicate unique fields (`Action`, `Agent`, `Intent`).
+  - Trigger: duplicate unique fields (`Action`, `Agent`).
   - Hint: Use one field and list multiple Preconditions/Effects instead.
 
 - SYN015 - MissingColonAfterLabelError
-  - Trigger: labels without a `:` immediately after (`Rule`, `Command`, `Action`, `Agent`, `Precondition`, `Effect`, `Intent`).
+  - Trigger: labels without a `:` immediately after (`Rule`, `Command`, `Action`, `Agent`, `Precondition`, `Effect`).
   - Hint: Use the exact `Label:` form.
 
 - SYN016 - InvalidContextDirectiveError

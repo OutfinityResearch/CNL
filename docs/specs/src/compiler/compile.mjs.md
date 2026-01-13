@@ -9,6 +9,7 @@ Top-level compiler entrypoint that transforms a deterministic AST into compiled 
 - Allocate ConceptualIDs and dense IDs via interners.
 - Emit KB inserts for ground facts.
 - Compile universal quantified assertions into RulePlan bodies.
+- Compile placeholder conditional templates (`X/Y/Z`) into RulePlan or RelationRulePlan.
 - Optionally project entity-valued attributes into derived predicates.
 - Emit RulePlan, ActionPlan, and CommandPlan artifacts.
 - Return a single CompiledArtifacts bundle.
@@ -24,10 +25,16 @@ Top-level compiler entrypoint that transforms a deterministic AST into compiled 
 ## Non-ground Assertions
 Assertions whose subject is a noun phrase are treated as rules only when the subject uses a universal quantifier (`every`/`all`). Other non-ground assertions emit a compiler error.
 
+## Placeholder Rule Templates
+Conditional `Rule:` sentences that use single-letter placeholder names (`X`, `Y`, `Z`) can compile to:
+- `RulePlan` (set-based typing helpers via `image`/`preimage`)
+- `RelationRulePlan` (binary composition, inverse mapping, and subproperty copy)
+
 ## Dependencies
 - `src/ids/interners.mjs`
 - `src/compiler/dictionary.mjs`
 - `src/compiler/ast-to-plan.mjs`
+- `src/compiler/placeholder-rules.mjs`
 - `src/kb/kb.mjs`
 - `src/rules/store.mjs`
 - `src/actions/store.mjs`

@@ -330,9 +330,16 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
         }
         popup.innerHTML = html;
         popup.style.display = "block";
-        // Position centered vertically on the button
+        popup.style.left = "0";
+        popup.style.top = "0";
+        // Measure and reposition if needed
         const btnRect = infoG.getBoundingClientRect();
-        popup.style.left = `${btnRect.right + 8}px`;
+        const popRect = popup.getBoundingClientRect();
+        let left = btnRect.right + 8;
+        if (left + popRect.width > window.innerWidth - 10) {
+          left = Math.max(10, window.innerWidth - popRect.width - 10);
+        }
+        popup.style.left = `${left}px`;
         popup.style.top = `${btnRect.top - 10}px`;
       });
       

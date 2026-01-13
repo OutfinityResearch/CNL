@@ -95,10 +95,9 @@ Every user that is active is a concept.
     title: "Modal Logic (Simulated)",
     description: "Modeling beliefs and possibilities using reified facts.",
     theory: `
-Bob is a believer.
 Bob believes Claim_1.
 Claim_1 asserts flat-earth.
-Every believer that believes Claim_1 believes flat-earth.
+Rule: If X believes Y and Y asserts Z, then X believes Z.
     `,
     steps: [
       { command: "Verify that Bob believes Claim_1.", expected: "true" },

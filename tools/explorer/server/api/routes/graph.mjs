@@ -1,4 +1,4 @@
-import { ConceptKind, NLG, getName, json, safeHasBit, describeSetPlanNL, describeHeadNL } from "../helpers.mjs";
+import { ConceptKind, NLG, getName, json, safeHasBit, describeRuleNL } from "../helpers.mjs";
 
 // Extract concept IDs from a rule body (SetPlan)
 function extractBodyConcepts(plan, concepts = new Set()) {
@@ -16,6 +16,15 @@ function extractHeadConcept(head) {
   if (!head) return null;
   if (head.kind === "UnaryEmit") return head.unaryId;
   return null;
+}
+
+// Get concept name from idStore by unary ID
+function getConceptName(idStore, unaryId) {
+  const cid = idStore.getConceptualId(ConceptKind.UnaryPredicate, unaryId);
+  if (cid === undefined) return null;
+  const key = idStore.lookupKey(cid);
+  if (!key || key.startsWith("[")) return null;
+  return NLG.formatCategory(key.replace(/^U:/, ""));
 }
 
 export function handleGraph(req, res, url, context) {
@@ -37,9 +46,7 @@ export function handleGraph(req, res, url, context) {
   const rules = ruleStore.getRules();
   const rulesText = rules.map((rule, idx) => {
     try {
-      const cond = describeSetPlanNL(rule.body, idStore);
-      const effect = describeHeadNL(rule.head, idStore);
-      return `If ${cond} then ${effect}`;
+      return describeRuleNL(rule, idStore);
     } catch { return `Rule #${idx}`; }
   });
   
@@ -126,13 +133,26 @@ export function handleGraph(req, res, url, context) {
   }
 
   // 4. Add rule dependency edges (body concepts → head concept)
-  // This creates the topological ordering: if "Every X is Y" then Y depends on X
+  // Also collect all concepts mentioned in rules to create nodes
+  const ruleConcepts = new Map(); // unaryId -> name
   for (const rule of rules) {
     const bodyConcepts = extractBodyConcepts(rule.body);
     const headConcept = extractHeadConcept(rule.head);
+    
+    // Collect concept names
+    for (const cid of bodyConcepts) {
+      if (!ruleConcepts.has(cid)) {
+        const name = getConceptName(idStore, cid);
+        if (name) ruleConcepts.set(cid, name);
+      }
+    }
+    if (headConcept !== null && !ruleConcepts.has(headConcept)) {
+      const name = getConceptName(idStore, headConcept);
+      if (name) ruleConcepts.set(headConcept, name);
+    }
+    
     if (headConcept !== null) {
       for (const bodyConceptId of bodyConcepts) {
-        // Edge from body concept to head concept (head depends on body)
         edges.push({ 
           id: `e${edgeId++}`, 
           source: `c${bodyConceptId}`, 
@@ -141,6 +161,15 @@ export function handleGraph(req, res, url, context) {
           edgeType: "rule" 
         });
       }
+    }
+  }
+
+  // 5. Add concept nodes from rules (if not already added from KB)
+  const existingConcepts = new Set(nodes.filter(n => n.nodeType === "concept").map(n => n.id));
+  for (const [cid, name] of ruleConcepts) {
+    const nodeId = `c${cid}`;
+    if (!existingConcepts.has(nodeId)) {
+      nodes.push({ id: nodeId, name, nodeType: "concept", memberCount: 0, icon: "🏷️" });
     }
   }
 

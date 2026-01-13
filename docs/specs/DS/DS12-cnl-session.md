@@ -20,6 +20,20 @@ CNLSession manages:
 ## Session Options
 - `projectEntityAttributes`: when true, entity-valued attributes are also projected into derived binary predicates `has_attr|<AttrKey>`.
 - `validateDictionary`: when true, compiler enforces BaseDictionary constraints (arity, attribute types, comparators).
+- `autoloadBase`: when true (default), session auto-loads the base bundle defined in DS14.
+- `rootDir`: filesystem root used to resolve default base bundle paths (defaults to `process.cwd()`).
+
+## Load Directive (Preprocessor)
+To keep the base bundle explicit while still allowing “include” style composition, the session supports a single directive:
+- `Load: "<relative-or-absolute-path>".`
+
+Behavior:
+- Load directives are expanded (inlined) **before parsing**.
+- Paths are resolved relative to `rootDir` by default, or relative to the current source file when using `./` or `../`.
+- Cycles are rejected.
+- Paths are restricted to stay within `rootDir`.
+
+This is used by `theories/base.cnl` to pull in selected vendored ontology imports (DS22).
 
 ## Lifecycle
 1. Initialize with optional dictionary and bitset implementation.

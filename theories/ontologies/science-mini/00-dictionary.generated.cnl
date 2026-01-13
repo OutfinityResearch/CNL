@@ -1,0 +1,37 @@
+// This file is generated. Do not edit.
+// Source: ontologies/science-mini/science.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: ScienceMini
+"atom" is a type.
+"atom" is a "unary predicate".
+"element" is a type.
+"element" is a "unary predicate".
+"entity" is a type.
+"entity" is a "unary predicate".
+"molecule" is a type.
+"molecule" is a "unary predicate".
+"physical-object" is a type.
+"physical-object" is a "unary predicate".
+"substance" is a type.
+"substance" is a "unary predicate".
+
+// Binary predicates
+"composed of" is a "binary predicate".
+"rel-contains" is a "binary predicate".
+"interacts with" is a "binary predicate".
+"part of" is a "binary predicate".
+
+// Type hierarchy
+"atom" is a subtype of "physical-object".
+"element" is a subtype of "entity".
+"molecule" is a subtype of "substance".
+"physical-object" is a subtype of "entity".
+"substance" is a subtype of "physical-object".
+
+// Domain and range constraints
+the domain of "interacts with" is "physical-object".
+the domain of "part of" is "physical-object".
+the range of "interacts with" is "physical-object".
+the range of "part of" is "physical-object".

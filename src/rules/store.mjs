@@ -1,5 +1,5 @@
 import { executeSet, executeRelation } from "../plans/execute.mjs";
-import { SetOp } from "../plans/ir.mjs";
+import { RelationOp, SetOp } from "../plans/ir.mjs";
 
 function applyUnaryEmit(emit, subjectSet, kbApi, options) {
   let added = 0;
@@ -96,7 +96,11 @@ function applyAttrEmit(emit, subjectSet, kbApi, options) {
 }
 
 function applyRule(rule, kbApi, options) {
-  if (!rule || rule.kind !== "RulePlan") return 0;
+  if (!rule) return 0;
+  if (rule.kind === "RelationRulePlan") {
+    return applyRelationRule(rule, kbApi, options);
+  }
+  if (rule.kind !== "RulePlan") return 0;
   const bodySet = executeSet(rule.body, kbApi.kb);
   if (!rule.head) return 0;
 
@@ -116,6 +120,106 @@ function applyRule(rule, kbApi, options) {
     default:
       return 0;
   }
+}
+
+function iterRelationEdges(plan, kbState, callback) {
+  if (!plan || plan.kind !== "RelationPlan") return;
+
+  if (plan.op === RelationOp.BaseRelation || plan.op === RelationOp.InverseRelation) {
+    const rel = executeRelation(plan, kbState);
+    for (let subjectId = 0; subjectId < rel.rows.length; subjectId += 1) {
+      rel.rows[subjectId].iterateSetBits((objectId) => callback(subjectId, objectId, null));
+    }
+    return;
+  }
+
+  if (plan.op === RelationOp.Compose) {
+    // Execute with a witness (mid) so we can emit two-premise justifications.
+    const left = executeRelation(plan.left, kbState);
+    const right = executeRelation(plan.right, kbState);
+    for (let subjectId = 0; subjectId < left.rows.length; subjectId += 1) {
+      left.rows[subjectId].iterateSetBits((mid) => {
+        const row = right.rows[mid];
+        if (!row) return;
+        row.iterateSetBits((objectId) => callback(subjectId, objectId, mid));
+      });
+    }
+    return;
+  }
+
+  if (plan.op === RelationOp.RestrictSubjects || plan.op === RelationOp.RestrictObjects) {
+    // Fallback: materialize then iterate.
+    const rel = executeRelation(plan, kbState);
+    for (let subjectId = 0; subjectId < rel.rows.length; subjectId += 1) {
+      rel.rows[subjectId].iterateSetBits((objectId) => callback(subjectId, objectId, null));
+    }
+  }
+}
+
+function premiseIdForEdge(plan, kbState, store, subjectId, objectId) {
+  if (!store || !plan) return null;
+  if (plan.op === RelationOp.BaseRelation) {
+    return store.makeFactId(plan.predId, subjectId, objectId);
+  }
+  if (plan.op === RelationOp.InverseRelation) {
+    return store.makeFactId(plan.predId, objectId, subjectId);
+  }
+  // For composed / restricted plans, we only support premise IDs via the applyRelationRule fast-path.
+  return null;
+}
+
+function applyRelationRule(rule, kbApi, options) {
+  if (!rule || rule.kind !== "RelationRulePlan") return 0;
+  const kbState = kbApi?.kb;
+  if (!kbState) return 0;
+
+  const store = options?.justificationStore;
+  const ruleId = options?.ruleId;
+  const headPredId = rule.headPredId;
+  if (!Number.isInteger(headPredId)) return 0;
+
+  let added = 0;
+  const plan = rule.relation;
+
+  if (plan?.kind === "RelationPlan" && plan.op === RelationOp.Compose) {
+    const leftPlan = plan.left;
+    const rightPlan = plan.right;
+    iterRelationEdges(plan, kbState, (subjectId, objectId, mid) => {
+      if (!Number.isInteger(subjectId) || !Number.isInteger(objectId)) return;
+      if (kbApi.insertBinary(subjectId, headPredId, objectId)) {
+        added += 1;
+        if (store && Number.isInteger(ruleId) && Number.isInteger(mid)) {
+          const premiseA = premiseIdForEdge(leftPlan, kbState, store, subjectId, mid);
+          const premiseB = premiseIdForEdge(rightPlan, kbState, store, mid, objectId);
+          const premiseIds = [premiseA, premiseB].filter((x) => x !== null);
+          const factId = store.makeFactId(headPredId, subjectId, objectId);
+          store.addDerivedFact(factId, ruleId, premiseIds);
+        }
+        if (options?.deltaPred instanceof Set) {
+          options.deltaPred.add(headPredId);
+        }
+      }
+    });
+    return added;
+  }
+
+  iterRelationEdges(plan, kbState, (subjectId, objectId) => {
+    if (!Number.isInteger(subjectId) || !Number.isInteger(objectId)) return;
+    if (kbApi.insertBinary(subjectId, headPredId, objectId)) {
+      added += 1;
+      if (store && Number.isInteger(ruleId)) {
+        const premise = premiseIdForEdge(plan, kbState, store, subjectId, objectId);
+        const premiseIds = premise ? [premise] : [];
+        const factId = store.makeFactId(headPredId, subjectId, objectId);
+        store.addDerivedFact(factId, ruleId, premiseIds);
+      }
+      if (options?.deltaPred instanceof Set) {
+        options.deltaPred.add(headPredId);
+      }
+    }
+  });
+
+  return added;
 }
 
 function intersectsDeps(deps, deltaUnary, deltaPred, deltaAttr) {
@@ -166,8 +270,38 @@ function collectDepsFromSetPlan(plan, deps) {
   }
 }
 
+function collectDepsFromRelationPlan(plan, deps) {
+  if (!plan || plan.kind !== "RelationPlan" || !deps) return deps;
+  switch (plan.op) {
+    case RelationOp.BaseRelation:
+    case RelationOp.InverseRelation:
+      deps.predIds.add(plan.predId);
+      return deps;
+    case RelationOp.RestrictSubjects:
+      collectDepsFromRelationPlan(plan.relation, deps);
+      collectDepsFromSetPlan(plan.subjectSet, deps);
+      return deps;
+    case RelationOp.RestrictObjects:
+      collectDepsFromRelationPlan(plan.relation, deps);
+      collectDepsFromSetPlan(plan.objectSet, deps);
+      return deps;
+    case RelationOp.Compose:
+      collectDepsFromRelationPlan(plan.left, deps);
+      collectDepsFromRelationPlan(plan.right, deps);
+      return deps;
+    default:
+      return deps;
+  }
+}
+
 function computeRuleDeps(rule) {
   const deps = { unaryIds: new Set(), predIds: new Set(), attrIds: new Set() };
+  if (rule.kind === "RelationRulePlan") {
+    collectDepsFromRelationPlan(rule.relation, deps);
+    if (Number.isInteger(rule.headPredId)) deps.predIds.add(rule.headPredId);
+    return deps;
+  }
+
   collectDepsFromSetPlan(rule.body, deps);
   if (rule.head?.kind === "BinaryEmit") {
     deps.predIds.add(rule.head.predId);
@@ -262,7 +396,7 @@ export function createRuleStore() {
 
   function addRule(plan) {
     const id = rules.length;
-    if (plan && plan.kind === "RulePlan") {
+    if (plan && (plan.kind === "RulePlan" || plan.kind === "RelationRulePlan")) {
       plan.deps = computeRuleDeps(plan);
     }
     rules.push(plan);

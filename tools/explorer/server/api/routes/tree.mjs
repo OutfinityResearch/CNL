@@ -1,4 +1,4 @@
-import { ConceptKind, NLG, bitsetPopcount, getName, json, safeHasBit } from "../helpers.mjs";
+import { ConceptKind, NLG, bitsetPopcount, getName, json, safeHasBit, describeRuleNL } from "../helpers.mjs";
 
 export function handleTree(req, res, url, context) {
   if (req.method !== "GET" || url.pathname !== "/api/tree") return false;
@@ -111,10 +111,24 @@ export function handleTree(req, res, url, context) {
   const relChildren = [];
   for (let i = 0; i < predTotal; i++) {
     let linkCount = 0;
+    const connections = [];
     if (i < rawKb.relations.length) {
       const matrix = rawKb.relations[i];
       if (matrix) {
-        for (const row of matrix.rows) linkCount += bitsetPopcount(row);
+        for (let s = 0; s < matrix.rows.length; s++) {
+          const row = matrix.rows[s];
+          if (!row) continue;
+          for (let o = 0; o < entCount; o++) {
+            if (safeHasBit(row, o)) {
+              linkCount++;
+              if (connections.length < 5) {
+                const subj = getName(idStore, ConceptKind.Entity, s);
+                const obj = getName(idStore, ConceptKind.Entity, o);
+                connections.push(`${subj} → ${obj}`);
+              }
+            }
+          }
+        }
       }
     }
     totalConnections += linkCount;
@@ -125,9 +139,13 @@ export function handleTree(req, res, url, context) {
     if (isUserDefined || linkCount > 0) {
       const cleanName = NLG.formatPredicate(name);
       const connText = linkCount === 1 ? "1 connection" : `${linkCount} connections`;
+      const tooltip = connections.length > 0 
+        ? `${cleanName}: ${connections.join(", ")}${linkCount > 5 ? "..." : ""}`
+        : cleanName;
       relChildren.push({
         id: `p-${i}`,
         text: `${cleanName} — ${connText}`,
+        tooltip,
         icon: "link",
         type: "predicate",
         denseId: i,
@@ -154,9 +172,14 @@ export function handleTree(req, res, url, context) {
       icon: "folder",
     };
     rules.forEach((rule, idx) => {
+      let tooltip = `Rule #${idx}`;
+      try {
+        tooltip = describeRuleNL(rule, idStore);
+      } catch {}
       ruleNode.children.push({
         id: `r-${idx}`,
         text: `Rule #${idx}`,
+        tooltip,
         icon: "rule",
         type: "rule",
         denseId: idx,

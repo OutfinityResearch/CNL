@@ -1,0 +1,27 @@
+// This file is generated. Do not edit.
+// Source: ontologies/semantic-web-mini/mini.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: SemanticWebMini
+"agent" is a type.
+"agent" is a "unary predicate".
+"claim" is a type.
+"claim" is a "unary predicate".
+"person" is a type.
+"person" is a "unary predicate".
+
+// Binary predicates
+"asserts" is a "binary predicate".
+"believes" is a "binary predicate".
+"prior to" is a "binary predicate".
+"related to" is a "binary predicate".
+"subsequent to" is a "binary predicate".
+
+// Type hierarchy
+"person" is a subtype of "agent".
+
+// Domain and range constraints
+the domain of "asserts" is "claim".
+the domain of "believes" is "agent".
+the range of "believes" is "claim".

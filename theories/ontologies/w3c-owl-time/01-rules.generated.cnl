@@ -1,0 +1,34 @@
+// This file is generated. Do not edit.
+// Source: ontologies/w3c-owl-time/time.ttl
+
+--- CONTEXT: W3cOwlTime ---
+
+// Generated from ontology import: W3cOwlTime
+Rule: If X after Y, then Y before X.
+Rule: If X before Y and Y before Z, then X before Z.
+Rule: If X before Y, then Y after X.
+Rule: If X has-beginning Y, then X has-time Y.
+Rule: If X has-duration Y, then X has-temporal-duration Y.
+Rule: If X has-duration-description Y, then X has-temporal-duration Y.
+Rule: If X has-end Y, then X has-time Y.
+Rule: If X in-date-time-description Y, then X temporal-position Y.
+Rule: If X interval after Y, then X after Y.
+Rule: If X interval after Y, then X interval-disjoint Y.
+Rule: If X interval after Y, then Y interval before X.
+Rule: If X interval before Y, then X before Y.
+Rule: If X interval before Y, then X interval-disjoint Y.
+Rule: If X interval before Y, then Y interval after X.
+Rule: If X interval during Y, then X interval in Y.
+Rule: If X interval during Y, then Y interval-contains X.
+Rule: If X interval-contains Y, then Y interval during X.
+Rule: If X interval-finished-by Y, then Y interval-finishes X.
+Rule: If X interval-finishes Y, then X interval in Y.
+Rule: If X interval-finishes Y, then Y interval-finished-by X.
+Rule: If X interval-meets Y, then Y interval-met-by X.
+Rule: If X interval-met-by Y, then Y interval-meets X.
+Rule: If X interval-overlapped-by Y, then Y interval-overlaps X.
+Rule: If X interval-overlaps Y, then Y interval-overlapped-by X.
+Rule: If X interval-started-by Y, then Y interval-starts X.
+Rule: If X interval-starts Y, then X interval in Y.
+Rule: If X interval-starts Y, then Y interval-started-by X.
+Rule: If X time-position Y, then X temporal-position Y.

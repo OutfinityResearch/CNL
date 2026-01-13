@@ -13,6 +13,7 @@ export const SetOp = Object.freeze({
 
 export const RelationOp = Object.freeze({
   BaseRelation: "BaseRelation",
+  InverseRelation: "InverseRelation",
   RestrictSubjects: "RestrictSubjects",
   RestrictObjects: "RestrictObjects",
   Compose: "Compose",
@@ -78,6 +79,9 @@ export const Plans = {
   },
   baseRelation(predId) {
     return relationPlan(RelationOp.BaseRelation, { predId });
+  },
+  inverseRelation(predId) {
+    return relationPlan(RelationOp.InverseRelation, { predId });
   },
   restrictSubjects(relation, subjectSet) {
     return relationPlan(RelationOp.RestrictSubjects, { relation, subjectSet });

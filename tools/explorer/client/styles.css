@@ -666,15 +666,15 @@ body {
   box-shadow: 0 2px 12px rgba(0,0,0,0.2);
   font-size: 11px;
   z-index: 1000;
-  max-width: 400px;
-  white-space: nowrap;
+  max-width: 90vw;
+  width: max-content;
 }
 .node-popup .popup-section {
   margin-top: 8px;
-  white-space: normal;
 }
 .node-popup .popup-section div {
   margin: 2px 0;
+  white-space: nowrap;
 }
 
 /* Legend - inline in toolbar */
@@ -713,19 +713,6 @@ body {
 
 .graph-btn:active {
   background: #e0e0e0;
-}
-
-/* Node popup */
-.node-popup {
-  position: absolute;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 8px 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  font-size: 12px;
-  z-index: 100;
-  max-width: 200px;
 }
 
 /* Meta nodes (rules, actions) */

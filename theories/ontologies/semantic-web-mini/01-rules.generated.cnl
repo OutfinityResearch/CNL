@@ -1,0 +1,9 @@
+// This file is generated. Do not edit.
+// Source: ontologies/semantic-web-mini/mini.ttl
+
+--- CONTEXT: SemanticWebMini ---
+
+// Generated from ontology import: SemanticWebMini
+Rule: If X is prior to Y, then Y is subsequent to X.
+Rule: If X is related to Y, then Y is related to X.
+Rule: If X is subsequent to Y, then Y is prior to X.

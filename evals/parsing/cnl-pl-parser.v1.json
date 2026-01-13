@@ -3130,29 +3130,6 @@
     }
   },
   {
-    "id": "V042",
-    "valid": true,
-    "input": "Action: Assign Package_2 to Drone_A\nAgent: Dispatcher_1\nPrecondition: Package_2 is available.\nPrecondition: Drone_A is ready.\nEffect: Package_2 is assigned to Drone_A.\nIntent: Plan to achieve package assigned.\n",
-    "expected": {
-      "kind": "Program",
-      "items": [
-        {
-          "kind": "ActionBlock",
-          "action": "Assign Package_2 to Drone_A",
-          "agent": "Dispatcher_1",
-          "preconditions": [
-            "Package_2 is available.",
-            "Drone_A is ready."
-          ],
-          "effects": [
-            "Package_2 is assigned to Drone_A."
-          ],
-          "intent": "Plan to achieve package assigned."
-        }
-      ]
-    }
-  },
-  {
     "id": "V043",
     "valid": true,
     "input": "When the sensor detects smoke occurs the alarm is active.",

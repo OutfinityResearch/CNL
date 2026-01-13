@@ -167,6 +167,8 @@ export function executeRelation(plan, kb) {
   switch (plan.op) {
     case RelationOp.BaseRelation:
       return kbState.relations[plan.predId] ?? { rows: [] };
+    case RelationOp.InverseRelation:
+      return kbState.invRelations[plan.predId] ?? { rows: [] };
     case RelationOp.RestrictSubjects: {
       const relation = executeRelation(plan.relation, kbState);
       const subjectSet = executeSet(plan.subjectSet, kbState);

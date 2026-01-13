@@ -1,0 +1,32 @@
+@prefix ex: <http://example.org/science#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Entity a owl:Class .
+ex:PhysicalObject a owl:Class .
+ex:Substance a owl:Class .
+ex:Molecule a owl:Class .
+ex:Atom a owl:Class .
+ex:Element a owl:Class .
+
+ex:PhysicalObject rdfs:subClassOf ex:Entity .
+ex:Substance rdfs:subClassOf ex:PhysicalObject .
+ex:Molecule rdfs:subClassOf ex:Substance .
+ex:Atom rdfs:subClassOf ex:PhysicalObject .
+ex:Element rdfs:subClassOf ex:Entity .
+
+ex:partOf a owl:ObjectProperty ; rdf:type owl:TransitiveProperty .
+ex:contains a owl:ObjectProperty .
+ex:contains owl:inverseOf ex:partOf .
+
+ex:interactsWith a owl:ObjectProperty ; rdf:type owl:SymmetricProperty .
+
+ex:composedOf a owl:ObjectProperty .
+ex:composedOf rdfs:subPropertyOf ex:contains .
+
+ex:partOf rdfs:domain ex:PhysicalObject .
+ex:partOf rdfs:range ex:PhysicalObject .
+ex:interactsWith rdfs:domain ex:PhysicalObject .
+ex:interactsWith rdfs:range ex:PhysicalObject .
+

@@ -65,7 +65,10 @@ export function getName(idStore, kind, denseId) {
   const cid = idStore.getConceptualId(kind, denseId);
   if (cid === undefined) return `[${denseId}]`;
   const key = idStore.lookupKey(cid);
-  if (key && key.includes(":")) return key.split(":")[1];
+  if (key && key.includes(":")) {
+    const idx = key.indexOf(":");
+    return key.slice(idx + 1);
+  }
   return key || `[${denseId}]`;
 }
 
@@ -186,4 +189,37 @@ export function describeHeadNL(head, idStore) {
     return `it ${pred} something`;
   }
   return "effect";
+}
+
+// Describe a relation plan (for RelationRulePlan)
+function describeRelationPlanNL(rel, idStore) {
+  if (!rel) return "relation";
+  if (rel.op === "BaseRelation") {
+    return NLG.formatPredicate(getName(idStore, ConceptKind.Predicate, rel.predId));
+  }
+  if (rel.op === "InverseRelation") {
+    const pred = NLG.formatPredicate(getName(idStore, ConceptKind.Predicate, rel.predId));
+    return `inverse of ${pred}`;
+  }
+  if (rel.op === "Compose") {
+    const left = describeRelationPlanNL(rel.left, idStore);
+    const right = describeRelationPlanNL(rel.right, idStore);
+    return `${left} composed with ${right}`;
+  }
+  return "relation";
+}
+
+// Describe any rule (RulePlan or RelationRulePlan)
+export function describeRuleNL(rule, idStore) {
+  if (rule.kind === "RulePlan") {
+    const cond = describeSetPlanNL(rule.body, idStore);
+    const effect = describeHeadNL(rule.head, idStore);
+    return `If ${cond} then ${effect}`;
+  }
+  if (rule.kind === "RelationRulePlan") {
+    const rel = describeRelationPlanNL(rule.relation, idStore);
+    const head = NLG.formatPredicate(getName(idStore, ConceptKind.Predicate, rule.headPredId));
+    return `${rel} implies ${head}`;
+  }
+  return `Rule (${rule.kind})`;
 }

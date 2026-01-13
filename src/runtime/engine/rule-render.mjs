@@ -1,5 +1,5 @@
 import { ConceptKind } from "../../ids/interners.mjs";
-import { SetOp } from "../../plans/ir.mjs";
+import { RelationOp, SetOp } from "../../plans/ir.mjs";
 
 function lookupKey(state, kind, denseId) {
   const conceptId = state.idStore.getConceptualId(kind, denseId);
@@ -135,7 +135,42 @@ export function renderRuleSummary(ruleId, state) {
   if (!state?.ruleStore || !Number.isInteger(ruleId)) return null;
   const rules = state.ruleStore.getRules();
   const rule = rules[ruleId];
-  if (!rule || rule.kind !== "RulePlan") return null;
+  if (!rule) return null;
+  if (rule.kind === "RelationRulePlan") {
+    const headKey = lookupKey(state, ConceptKind.Predicate, rule.headPredId);
+    const headPhrase = displayPredPhrase(headKey) || `pred_${rule.headPredId}`;
+    const rel = rule.relation;
+    if (!rel || rel.kind !== "RelationPlan") {
+      return `If something is related, then something ${headPhrase} something.`;
+    }
+    if (rel.op === RelationOp.BaseRelation) {
+      const bodyKey = lookupKey(state, ConceptKind.Predicate, rel.predId);
+      const bodyPhrase = displayPredPhrase(bodyKey) || `pred_${rel.predId}`;
+      return `If something ${bodyPhrase} something, then something ${headPhrase} something.`;
+    }
+    if (rel.op === RelationOp.InverseRelation) {
+      const bodyKey = lookupKey(state, ConceptKind.Predicate, rel.predId);
+      const bodyPhrase = displayPredPhrase(bodyKey) || `pred_${rel.predId}`;
+      return `If something ${bodyPhrase} something, then something ${headPhrase} something (reversed).`;
+    }
+    if (rel.op === RelationOp.Compose) {
+      const left = rel.left;
+      const right = rel.right;
+      const leftKey =
+        left && left.kind === "RelationPlan" && left.op === RelationOp.BaseRelation
+          ? lookupKey(state, ConceptKind.Predicate, left.predId)
+          : null;
+      const rightKey =
+        right && right.kind === "RelationPlan" && right.op === RelationOp.BaseRelation
+          ? lookupKey(state, ConceptKind.Predicate, right.predId)
+          : null;
+      const leftPhrase = displayPredPhrase(leftKey) || "relates to";
+      const rightPhrase = displayPredPhrase(rightKey) || "relates to";
+      return `If something ${leftPhrase} something and that something ${rightPhrase} something, then something ${headPhrase} something.`;
+    }
+    return `If something is related, then something ${headPhrase} something.`;
+  }
+  if (rule.kind !== "RulePlan") return null;
   if (rule.head?.kind === "UnaryEmit" && rule.body?.kind === "SetPlan" && rule.body.op === SetOp.UnarySet) {
     const bodyKey = lookupKey(state, ConceptKind.UnaryPredicate, rule.body.unaryId);
     const headKey = lookupKey(state, ConceptKind.UnaryPredicate, rule.head.unaryId);

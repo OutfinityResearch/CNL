@@ -27,6 +27,7 @@ function renderTree(nodes, container, level = 0) {
     
     const el = document.createElement("div");
     el.className = "tree-node";
+    if (node.tooltip) el.title = node.tooltip;
     
     // Expand/collapse icon for folders
     const expandIcon = isFolder ? '<span class="tree-toggle">−</span>' : '<span class="tree-toggle-spacer"></span>';

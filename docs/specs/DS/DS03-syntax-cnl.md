@@ -223,7 +223,7 @@ A or B and C.
 - Statements end with `.`
 - `Rule:` and `Command:` lines end with `.`
 - `When ... occurs, then ...` is a transition rule.
-- Action blocks are multi-line with labels: `Action:`, `Agent:`, `Precondition:`, `Effect:`, `Intent:`.
+- Action blocks are multi-line with labels: `Action:`, `Agent:`, `Precondition:`, `Effect:`.
 - Context directives mark dictionary or theory segments: `--- CONTEXT: Name ---`.
 
 ## Command Forms

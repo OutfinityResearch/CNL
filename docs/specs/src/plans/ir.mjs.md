@@ -19,3 +19,10 @@ Defines Plan IR node constructors and type tags for SetPlan, RelationPlan, BoolP
 
 ## References
 - DS16 for plan operator definitions.
+
+## Notes
+Relation plans support:
+- base relations
+- inverse relations
+- restrictions on subjects/objects
+- relation composition (`compose`)

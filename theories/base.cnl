@@ -1,0 +1,142 @@
+// Base entrypoint for a fresh session.
+//
+// Supports a simple preprocessor directive handled by `CNLSession`:
+//   Load: "<relative-path>".
+// The loaded files are inlined (recursively) before parsing/compilation.
+
+--- CONTEXT: BaseDictionary ---
+
+// Core type declarations (concept-like)
+"entity" is a type.
+"object" is a type.
+"agent" is a type.
+"person" is a type.
+"place" is a type.
+"organization" is a type.
+"event" is a type.
+"time-point" is a type.
+"claim" is a type.
+
+// Core unary predicates
+"entity" is a "unary predicate".
+"object" is a "unary predicate".
+"agent" is a "unary predicate".
+"person" is a "unary predicate".
+"place" is a "unary predicate".
+"organization" is a "unary predicate".
+"event" is a "unary predicate".
+"time-point" is a "unary predicate".
+"claim" is a "unary predicate".
+
+// Core binary relations
+"part of" is a "binary predicate".
+"located in" is a "binary predicate".
+"member of" is a "binary predicate".
+"owns" is a "binary predicate".
+"inside of" is a "binary predicate".
+"adjacent to" is a "binary predicate".
+"overlaps with" is a "binary predicate".
+"performs" is a "binary predicate".
+"intends" is a "binary predicate".
+"causes" is a "binary predicate".
+"affects" is a "binary predicate".
+"prior to" is a "binary predicate".
+"subsequent to" is a "binary predicate".
+"happens during" is a "binary predicate".
+"believes" is a "binary predicate".
+"asserts" is a "binary predicate".
+
+// Type hierarchy
+"person" is a subtype of "agent".
+"agent" is a subtype of "entity".
+"object" is a subtype of "entity".
+"place" is a subtype of "entity".
+"organization" is a subtype of "entity".
+"event" is a subtype of "entity".
+"time-point" is a subtype of "entity".
+"claim" is a subtype of "entity".
+
+// Domain and range constraints
+the domain of "part of" is "entity".
+the range of "part of" is "entity".
+the domain of "located in" is "entity".
+the range of "located in" is "place".
+the domain of "member of" is "entity".
+the range of "member of" is "organization".
+the domain of "owns" is "agent".
+the range of "owns" is "entity".
+the domain of "inside of" is "entity".
+the range of "inside of" is "entity".
+the domain of "adjacent to" is "entity".
+the range of "adjacent to" is "entity".
+the domain of "overlaps with" is "event".
+the range of "overlaps with" is "event".
+the domain of "performs" is "agent".
+the range of "performs" is "event".
+the domain of "intends" is "agent".
+the range of "intends" is "event".
+the domain of "causes" is "event".
+the range of "causes" is "event".
+the domain of "affects" is "event".
+the range of "affects" is "entity".
+the domain of "prior to" is "time-point".
+the range of "prior to" is "time-point".
+the domain of "subsequent to" is "time-point".
+the range of "subsequent to" is "time-point".
+
+--- CONTEXT: CoreTypes ---
+
+Rule: If X is a person, then X is an agent.
+Rule: If X is an agent, then X is an entity.
+Rule: If X is an object, then X is an entity.
+Rule: If X is a place, then X is an entity.
+Rule: If X is an organization, then X is an entity.
+Rule: If X is an event, then X is an entity.
+Rule: If X is a time-point, then X is an entity.
+Rule: If X is a claim, then X is an entity.
+
+--- CONTEXT: CoreRelations ---
+
+Rule: If X is part of Y and Y is part of Z, then X is part of Z.
+Rule: If X is inside of Y, then X is located in Y.
+
+--- CONTEXT: Time ---
+
+Rule: If X is prior to Y, then Y is subsequent to X.
+Rule: If X is subsequent to Y, then Y is prior to X.
+Rule: If X is prior to Y and Y is prior to Z, then X is prior to Z.
+Rule: If X is subsequent to Y and Y is subsequent to Z, then X is subsequent to Z.
+Rule: If X overlaps with Y, then Y overlaps with X.
+
+--- CONTEXT: Space ---
+
+Rule: If X is inside of Y and Y is inside of Z, then X is inside of Z.
+Rule: If X is inside of Y, then X is located in Y.
+Rule: If X is adjacent to Y, then Y is adjacent to X.
+
+--- CONTEXT: Agency ---
+
+Rule: If X performs Y, then X is an agent.
+Rule: If X performs Y, then Y is an event.
+Rule: If X intends Y, then X is an agent.
+Rule: If X intends Y, then Y is an event.
+Rule: If X causes Y, then X is an event.
+Rule: If X causes Y, then Y is an event.
+Rule: If X affects Y, then X is an event.
+Rule: If X affects Y, then Y is an entity.
+
+--- CONTEXT: Epistemic ---
+
+Rule: If X believes Y, then X is an agent.
+Rule: If X asserts Y, then X is a claim.
+
+// Vendored, imported ontologies (generated from `ontologies/*/*.ttl`)
+Load: "theories/ontologies/w3c-owl-time/00-dictionary.generated.cnl".
+Load: "theories/ontologies/w3c-owl-time/00-dictionary.extra.cnl".
+Load: "theories/ontologies/w3c-owl-time/01-rules.generated.cnl".
+Load: "theories/ontologies/w3c-owl-time/01-rules.extra.cnl".
+
+Load: "theories/ontologies/w3c-prov-o/00-dictionary.generated.cnl".
+Load: "theories/ontologies/w3c-prov-o/00-dictionary.extra.cnl".
+Load: "theories/ontologies/w3c-prov-o/01-rules.generated.cnl".
+Load: "theories/ontologies/w3c-prov-o/01-rules.extra.cnl".

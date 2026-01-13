@@ -1,6 +1,11 @@
 import { randomUUID } from "node:crypto";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { CNLSession } from "../../../../src/session/cnl-session.mjs";
 import { json } from "./helpers.mjs";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PROJECT_ROOT = path.resolve(__dirname, "../../../../");
 
 export const SESSION_HEADER = "x-cnl-session";
 const sessions = new Map();
@@ -12,7 +17,7 @@ export async function initSession() {
 
 export function createSession() {
   const id = randomUUID();
-  const session = new CNLSession();
+  const session = new CNLSession({ rootDir: PROJECT_ROOT });
   sessions.set(id, session);
   return { id, session };
 }

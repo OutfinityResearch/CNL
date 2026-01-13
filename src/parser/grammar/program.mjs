@@ -64,6 +64,7 @@ function parseActionBlock(lines) {
     preconditions: [],
     effects: [],
     intent: null,
+    intents: [],
   };
   const seen = new Set();
 
@@ -75,7 +76,7 @@ function parseActionBlock(lines) {
     }
     const label = match[1].toLowerCase();
     const value = match[2].trim();
-    if ((label === "action" || label === "agent" || label === "intent") && seen.has(label)) {
+    if ((label === "action" || label === "agent") && seen.has(label)) {
       throw createError("SYN014", label);
     }
     seen.add(label);
@@ -84,7 +85,10 @@ function parseActionBlock(lines) {
     if (label === "agent") fields.agent = value;
     if (label === "precondition") fields.preconditions.push(value);
     if (label === "effect") fields.effects.push(value);
-    if (label === "intent") fields.intent = value;
+    if (label === "intent") {
+      if (fields.intent === null) fields.intent = value;
+      fields.intents.push(value);
+    }
   }
 
   if (!fields.action) {

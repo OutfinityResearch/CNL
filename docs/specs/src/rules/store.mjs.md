@@ -1,10 +1,11 @@
 # store.mjs
 
 ## Summary
-Stores RulePlan artifacts and supports delta-based execution.
+Stores RulePlan and RelationRulePlan artifacts and supports delta-based execution.
 
 ## Responsibilities
 - Register RulePlans with IDs.
+- Register RelationRulePlans (binary closure via relation plans).
 - Track rule metadata and dependencies.
 - Provide iteration over rules for forward chaining.
 - Apply RulePlans to a KB and return the count of newly inserted facts.

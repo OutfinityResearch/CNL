@@ -1,7 +1,11 @@
 import fs from "node:fs";
+import path from "node:path";
 import { parseProgram, parseProgramIncremental } from "../parser/grammar.mjs";
 import { createCompilerState, compileProgram } from "../compiler/compile.mjs";
 import { executeCommandAst, materializeRules } from "../runtime/engine.mjs";
+import { loadDefaultBaseBundle } from "../theories/loader.mjs";
+
+const LOAD_DIRECTIVE_RE = /^\s*Load\s*:\s*"([^"]+)"\s*\.\s*$/i;
 
 function createError(code, message) {
   return {
@@ -14,11 +18,94 @@ function createError(code, message) {
   };
 }
 
+function isWithinRoot(rootDir, absPath) {
+  const rel = path.relative(rootDir, absPath);
+  return rel && !rel.startsWith("..") && !path.isAbsolute(rel);
+}
+
+function resolveLoadPath(raw, options = {}) {
+  const rootDir = options.rootDir ?? process.cwd();
+  const source = options.source || null;
+  const baseDir = source ? path.dirname(source) : rootDir;
+  const cleaned = String(raw || "").trim();
+  if (!cleaned) {
+    throw new Error("Empty load path.");
+  }
+
+  const abs = path.isAbsolute(cleaned)
+    ? cleaned
+    : cleaned.startsWith("./") || cleaned.startsWith("../")
+      ? path.resolve(baseDir, cleaned)
+      : path.resolve(rootDir, cleaned);
+
+  const rootAbs = path.resolve(rootDir);
+  const absNorm = path.resolve(abs);
+  if (!isWithinRoot(rootAbs, absNorm)) {
+    throw new Error(`Load path escapes rootDir: ${cleaned}`);
+  }
+  return absNorm;
+}
+
+function inlineLoadDirectives(text, options = {}) {
+  const rootDir = options.rootDir ?? process.cwd();
+  const source = options.source || null;
+  const visited = options.visited ?? new Set();
+
+  const lines = String(text || "").replace(/\r\n/g, "\n").split("\n");
+  let out = "";
+  for (const line of lines) {
+    const match = line.match(LOAD_DIRECTIVE_RE);
+    if (!match) {
+      out += line + "\n";
+      continue;
+    }
+    const abs = resolveLoadPath(match[1], { rootDir, source });
+    if (visited.has(abs)) {
+      throw new Error(`Cyclic Load detected: ${abs}`);
+    }
+    visited.add(abs);
+    const loaded = fs.readFileSync(abs, "utf8");
+    const rel = path.relative(rootDir, abs).replace(/\\/g, "/");
+    out += `// --- LOAD: ${rel} ---\n`;
+    out += inlineLoadDirectives(loaded, { rootDir, source: abs, visited });
+    out += `// --- END LOAD: ${rel} ---\n`;
+  }
+  return out;
+}
+
+function hasLoadDirectives(text) {
+  const lines = String(text || "").replace(/\r\n/g, "\n").split("\n");
+  return lines.some((line) => LOAD_DIRECTIVE_RE.test(line));
+}
+
 export class CNLSession {
   constructor(options = {}) {
-    this.options = { projectEntityAttributes: false, validateDictionary: true, ...options };
+    this.options = {
+      projectEntityAttributes: false,
+      validateDictionary: true,
+      autoloadBase: true,
+      rootDir: process.cwd(),
+      ...options,
+    };
     this.state = createCompilerState(this.options);
     this.sources = [];
+
+    if (this.options.autoloadBase) {
+      const bundle = loadDefaultBaseBundle({ rootDir: this.options.rootDir });
+      const all = [...bundle.dictionary, ...bundle.theories];
+      for (const entry of all) {
+        const result = this.learnText(entry.text, {
+          transactional: false,
+          incremental: true,
+          source: entry.path,
+        });
+        if (result?.errors?.length) {
+          const first = result.errors[0];
+          const message = first?.message ?? "Failed to load base theory.";
+          throw new Error(`CNLSession autoloadBase failed: ${message}`);
+        }
+      }
+    }
   }
 
   learn(theoryFile, options = {}) {
@@ -29,13 +116,26 @@ export class CNLSession {
   learnText(cnlText, options = {}) {
     const transactional = options.transactional ?? true;
     const incremental = options.incremental ?? false;
+    const source = options.source || null;
+    let expandedText = cnlText;
+
+    if (hasLoadDirectives(cnlText)) {
+      try {
+        expandedText = inlineLoadDirectives(cnlText, { rootDir: this.options.rootDir, source, visited: new Set() });
+      } catch (error) {
+        return {
+          errors: [createError("SES021", `Failed to expand Load directives: ${error.message || error}`)],
+          applied: false,
+        };
+      }
+    }
 
     if (transactional && incremental) {
       return { errors: [createError("SES001", "Transactional and incremental are exclusive.")] };
     }
 
     if (transactional) {
-      const texts = [...this.sources, cnlText];
+      const texts = [...this.sources, expandedText];
       const state = this.#compileSources(texts);
       if (state.errors.length > 0) {
         return { errors: state.errors, applied: false };
@@ -46,7 +146,7 @@ export class CNLSession {
     }
 
     this.state.errors.length = 0;
-    const { program, errors: parseErrors } = parseProgramIncremental(cnlText);
+    const { program, errors: parseErrors } = parseProgramIncremental(expandedText);
     if (!program) {
       const errors = parseErrors.length ? parseErrors : [createError("SES009", "Parser error.")];
       return { errors, applied: false };
@@ -61,12 +161,15 @@ export class CNLSession {
       this.state.errors.push(...merged);
     }
     if (this.state.errors.length === 0) {
-      this.sources.push(cnlText);
+      this.sources.push(expandedText);
     }
     return { errors: this.state.errors, applied: this.state.errors.length === 0 };
   }
 
   execute(cnlText, options = {}) {
+    if (hasLoadDirectives(cnlText)) {
+      return this.learnText(cnlText, options);
+    }
     // Automatic routing: detect whether this is a command or a statement batch.
     let ast = null;
     try {

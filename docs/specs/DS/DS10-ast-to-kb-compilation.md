@@ -74,7 +74,7 @@ This ensures two implementations produce the same predicate IDs.
 
 ## Rule and Query Construction
 Conditional sentences compile into rule plans:
-- Body literals become bitset filters and joins.
+- Body literals become bitset filters and (for supported patterns) relation composition.
 - Head literals become unary or binary KB inserts.
 
 Queries compile into selection plans that produce:
@@ -87,6 +87,61 @@ Example:
 Rule: Every user who knows python is an engineer.
 ```
 Becomes a plan that intersects `Users` with `preimage(knows, {python})` and inserts the result into `engineer`.
+
+## Placeholder Rule Templates (X/Y/Z)
+In addition to universal-NP rules (e.g. `Every ...`), the compiler supports a small set of **template rules** written using single-letter placeholder names (`X`, `Y`, `Z`) inside `Rule:` conditional sentences.
+
+These placeholders are not general-purpose variables: only the patterns below are recognized and compiled.
+
+### Binary Composition (Join) via Relation Composition
+Pattern:
+```
+Rule: If X R Y and Y S Z, then X T Z.
+```
+Compiles into:
+- a relation plan: `compose(R, S)`
+- a relation rule: insert resulting pairs into `T`
+
+This enables transitivity and 2-hop inference without a general join engine.
+
+### Binary Inverse Mapping
+Pattern:
+```
+Rule: If X R Y, then Y S X.
+```
+Compiles into:
+- a relation plan: `inverse(R)`
+- a relation rule: insert into `S`
+
+### Binary Copy (Subproperty)
+Pattern:
+```
+Rule: If X R Y, then X S Y.
+```
+Compiles into:
+- a relation plan: `R`
+- a relation rule: insert into `S`
+
+### Binary-to-Unary Typing Helpers
+Pattern (subject side):
+```
+Rule: If X R Y, then X is a c.
+```
+Compiles into:
+- `preimage(R, AllEntities)` as the body set
+- unary emit into `c`
+
+Pattern (object side):
+```
+Rule: If X R Y, then Y is a c.
+```
+Compiles into:
+- `image(R, AllEntities)` as the body set
+- unary emit into `c`
+
+## Limitations
+- Only the above placeholder templates are compiled; arbitrary multi-variable rules are out of scope.
+- Placeholders are single-letter names by convention (`X`, `Y`, `Z`).
 
 ## Determinism Requirements
 - Canonical keys are derived directly from AST fields.

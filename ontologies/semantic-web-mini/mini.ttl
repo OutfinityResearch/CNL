@@ -1,0 +1,25 @@
+@prefix ex: <http://example.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Person a owl:Class .
+ex:Agent a owl:Class .
+ex:Claim a owl:Class .
+
+ex:Person rdfs:subClassOf ex:Agent .
+
+ex:believes a owl:ObjectProperty .
+ex:asserts a owl:ObjectProperty .
+
+ex:believes rdfs:domain ex:Agent .
+ex:believes rdfs:range ex:Claim .
+
+ex:asserts rdfs:domain ex:Claim .
+
+ex:relatedTo a owl:ObjectProperty ; rdf:type owl:SymmetricProperty .
+
+ex:priorTo a owl:ObjectProperty .
+ex:subsequentTo a owl:ObjectProperty .
+ex:priorTo owl:inverseOf ex:subsequentTo .
+

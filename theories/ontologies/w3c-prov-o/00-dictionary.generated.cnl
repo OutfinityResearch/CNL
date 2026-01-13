@@ -1,0 +1,276 @@
+// This file is generated. Do not edit.
+// Source: ontologies/w3c-prov-o/prov-o.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: W3cProvO
+"activity" is a type.
+"activity" is a "unary predicate".
+"activity-influence" is a type.
+"activity-influence" is a "unary predicate".
+"agent" is a type.
+"agent" is a "unary predicate".
+"agent-influence" is a type.
+"agent-influence" is a "unary predicate".
+"association" is a type.
+"association" is a "unary predicate".
+"attribution" is a type.
+"attribution" is a "unary predicate".
+"bundle" is a type.
+"bundle" is a "unary predicate".
+"collection" is a type.
+"collection" is a "unary predicate".
+"communication" is a type.
+"communication" is a "unary predicate".
+"delegation" is a type.
+"delegation" is a "unary predicate".
+"derivation" is a type.
+"derivation" is a "unary predicate".
+"empty-collection" is a type.
+"empty-collection" is a "unary predicate".
+"end" is a type.
+"end" is a "unary predicate".
+"entity" is a type.
+"entity" is a "unary predicate".
+"entity-influence" is a type.
+"entity-influence" is a "unary predicate".
+"generation" is a type.
+"generation" is a "unary predicate".
+"influence" is a type.
+"influence" is a "unary predicate".
+"instantaneous-event" is a type.
+"instantaneous-event" is a "unary predicate".
+"invalidation" is a type.
+"invalidation" is a "unary predicate".
+"location" is a type.
+"location" is a "unary predicate".
+"organization" is a type.
+"organization" is a "unary predicate".
+"person" is a type.
+"person" is a "unary predicate".
+"plan" is a type.
+"plan" is a "unary predicate".
+"primary-source" is a type.
+"primary-source" is a "unary predicate".
+"quotation" is a type.
+"quotation" is a "unary predicate".
+"revision" is a type.
+"revision" is a "unary predicate".
+"role" is a type.
+"role" is a "unary predicate".
+"software-agent" is a type.
+"software-agent" is a "unary predicate".
+"start" is a type.
+"start" is a "unary predicate".
+"usage" is a type.
+"usage" is a "unary predicate".
+"type" is a type.
+"type" is a "unary predicate".
+"date-time" is a type.
+"date-time" is a "unary predicate".
+"class" is a type.
+"class" is a "unary predicate".
+"restriction" is a type.
+"restriction" is a "unary predicate".
+"thing" is a type.
+"thing" is a "unary predicate".
+
+// Binary predicates
+"acted-on-behalf-of" is a "binary predicate".
+"activity" is a "binary predicate".
+"agent" is a "binary predicate".
+"alternate of" is a "binary predicate".
+"aq" is a "binary predicate".
+"rel-at-location" is a "binary predicate".
+"rel-at-time" is a "binary predicate".
+"constraints" is a "binary predicate".
+"definition" is a "binary predicate".
+"dm" is a "binary predicate".
+"editors-definition" is a "binary predicate".
+"ended-at-time" is a "binary predicate".
+"entity" is a "binary predicate".
+"generated" is a "binary predicate".
+"generated-at-time" is a "binary predicate".
+"rel-had-activity" is a "binary predicate".
+"rel-had-generation" is a "binary predicate".
+"rel-had-member" is a "binary predicate".
+"rel-had-plan" is a "binary predicate".
+"rel-had-primary-source" is a "binary predicate".
+"rel-had-role" is a "binary predicate".
+"rel-had-usage" is a "binary predicate".
+"influenced" is a "binary predicate".
+"influencer" is a "binary predicate".
+"invalidated" is a "binary predicate".
+"invalidated-at-time" is a "binary predicate".
+"n" is a "binary predicate".
+"qualified-association" is a "binary predicate".
+"qualified-attribution" is a "binary predicate".
+"qualified-communication" is a "binary predicate".
+"qualified-delegation" is a "binary predicate".
+"qualified-derivation" is a "binary predicate".
+"qualified-end" is a "binary predicate".
+"qualified-generation" is a "binary predicate".
+"qualified-influence" is a "binary predicate".
+"qualified-invalidation" is a "binary predicate".
+"qualified-primary-source" is a "binary predicate".
+"qualified-quotation" is a "binary predicate".
+"qualified-revision" is a "binary predicate".
+"qualified-start" is a "binary predicate".
+"qualified-usage" is a "binary predicate".
+"shares-definition-with" is a "binary predicate".
+"specialization of" is a "binary predicate".
+"started-at-time" is a "binary predicate".
+"unqualified-form" is a "binary predicate".
+"used" is a "binary predicate".
+"value" is a "binary predicate".
+"was-associated-with" is a "binary predicate".
+"was-attributed-to" is a "binary predicate".
+"was-derived-from" is a "binary predicate".
+"was-ended-by" is a "binary predicate".
+"was-generated-by" is a "binary predicate".
+"was-influenced-by" is a "binary predicate".
+"was-informed-by" is a "binary predicate".
+"was-invalidated-by" is a "binary predicate".
+"was-quoted-from" is a "binary predicate".
+"was-revision-of" is a "binary predicate".
+"was-started-by" is a "binary predicate".
+"see-also" is a "binary predicate".
+
+// Type hierarchy
+"activity-influence" is a subtype of "influence".
+"activity-influence" is a subtype of "restriction".
+"activity-influence" is a subtype of "type".
+"agent-influence" is a subtype of "influence".
+"association" is a subtype of "agent-influence".
+"attribution" is a subtype of "agent-influence".
+"bundle" is a subtype of "entity".
+"collection" is a subtype of "entity".
+"communication" is a subtype of "activity-influence".
+"delegation" is a subtype of "agent-influence".
+"derivation" is a subtype of "entity-influence".
+"empty-collection" is a subtype of "collection".
+"end" is a subtype of "entity-influence".
+"end" is a subtype of "instantaneous-event".
+"entity-influence" is a subtype of "influence".
+"generation" is a subtype of "activity-influence".
+"generation" is a subtype of "instantaneous-event".
+"invalidation" is a subtype of "activity-influence".
+"invalidation" is a subtype of "instantaneous-event".
+"organization" is a subtype of "agent".
+"person" is a subtype of "agent".
+"plan" is a subtype of "entity".
+"primary-source" is a subtype of "derivation".
+"quotation" is a subtype of "derivation".
+"revision" is a subtype of "derivation".
+"software-agent" is a subtype of "agent".
+"start" is a subtype of "entity-influence".
+"start" is a subtype of "instantaneous-event".
+"usage" is a subtype of "entity-influence".
+"usage" is a subtype of "instantaneous-event".
+
+// Domain and range constraints
+the domain of "acted-on-behalf-of" is "agent".
+the domain of "activity" is "activity-influence".
+the domain of "agent" is "agent-influence".
+the domain of "alternate of" is "entity".
+the domain of "ended-at-time" is "activity".
+the domain of "entity" is "entity-influence".
+the domain of "generated" is "activity".
+the domain of "generated-at-time" is "entity".
+the domain of "influencer" is "influence".
+the domain of "invalidated" is "activity".
+the domain of "invalidated-at-time" is "entity".
+the domain of "qualified-association" is "activity".
+the domain of "qualified-attribution" is "entity".
+the domain of "qualified-communication" is "activity".
+the domain of "qualified-delegation" is "agent".
+the domain of "qualified-derivation" is "entity".
+the domain of "qualified-end" is "activity".
+the domain of "qualified-generation" is "entity".
+the domain of "qualified-influence" is "class".
+the domain of "qualified-influence" is "type".
+the domain of "qualified-invalidation" is "entity".
+the domain of "qualified-primary-source" is "entity".
+the domain of "qualified-quotation" is "entity".
+the domain of "qualified-revision" is "entity".
+the domain of "qualified-start" is "activity".
+the domain of "qualified-usage" is "activity".
+the domain of "rel-at-location" is "class".
+the domain of "rel-at-location" is "type".
+the domain of "rel-at-time" is "instantaneous-event".
+the domain of "rel-had-activity" is "class".
+the domain of "rel-had-activity" is "influence".
+the domain of "rel-had-activity" is "type".
+the domain of "rel-had-generation" is "derivation".
+the domain of "rel-had-member" is "collection".
+the domain of "rel-had-plan" is "association".
+the domain of "rel-had-primary-source" is "entity".
+the domain of "rel-had-role" is "class".
+the domain of "rel-had-role" is "influence".
+the domain of "rel-had-role" is "type".
+the domain of "rel-had-usage" is "derivation".
+the domain of "specialization of" is "entity".
+the domain of "started-at-time" is "activity".
+the domain of "used" is "activity".
+the domain of "value" is "entity".
+the domain of "was-associated-with" is "activity".
+the domain of "was-attributed-to" is "entity".
+the domain of "was-derived-from" is "entity".
+the domain of "was-ended-by" is "activity".
+the domain of "was-generated-by" is "entity".
+the domain of "was-influenced-by" is "class".
+the domain of "was-influenced-by" is "type".
+the domain of "was-informed-by" is "activity".
+the domain of "was-invalidated-by" is "entity".
+the domain of "was-quoted-from" is "entity".
+the domain of "was-revision-of" is "entity".
+the domain of "was-started-by" is "activity".
+the range of "acted-on-behalf-of" is "agent".
+the range of "activity" is "activity".
+the range of "agent" is "agent".
+the range of "alternate of" is "entity".
+the range of "ended-at-time" is "date-time".
+the range of "entity" is "entity".
+the range of "generated" is "entity".
+the range of "generated-at-time" is "date-time".
+the range of "influencer" is "thing".
+the range of "invalidated" is "entity".
+the range of "invalidated-at-time" is "date-time".
+the range of "qualified-association" is "association".
+the range of "qualified-attribution" is "attribution".
+the range of "qualified-communication" is "communication".
+the range of "qualified-delegation" is "delegation".
+the range of "qualified-derivation" is "derivation".
+the range of "qualified-end" is "end".
+the range of "qualified-generation" is "generation".
+the range of "qualified-influence" is "influence".
+the range of "qualified-invalidation" is "invalidation".
+the range of "qualified-primary-source" is "primary-source".
+the range of "qualified-quotation" is "quotation".
+the range of "qualified-revision" is "revision".
+the range of "qualified-start" is "start".
+the range of "qualified-usage" is "usage".
+the range of "rel-at-location" is "location".
+the range of "rel-at-time" is "date-time".
+the range of "rel-had-activity" is "activity".
+the range of "rel-had-generation" is "generation".
+the range of "rel-had-member" is "entity".
+the range of "rel-had-plan" is "plan".
+the range of "rel-had-primary-source" is "entity".
+the range of "rel-had-role" is "role".
+the range of "rel-had-usage" is "usage".
+the range of "specialization of" is "entity".
+the range of "started-at-time" is "date-time".
+the range of "used" is "entity".
+the range of "was-associated-with" is "agent".
+the range of "was-attributed-to" is "agent".
+the range of "was-derived-from" is "entity".
+the range of "was-ended-by" is "entity".
+the range of "was-generated-by" is "activity".
+the range of "was-influenced-by" is "class".
+the range of "was-influenced-by" is "type".
+the range of "was-informed-by" is "activity".
+the range of "was-invalidated-by" is "activity".
+the range of "was-quoted-from" is "entity".
+the range of "was-revision-of" is "entity".
+the range of "was-started-by" is "entity".

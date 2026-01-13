@@ -31,6 +31,8 @@ Rules compile into bitset plans (DS10). Deduction is performed by forward chaini
 - Attribute heads update `numericIndex[attr]` and `entAttrIndex[attr]` and must participate in delta
   tracking so that rules depending on attributes are re-evaluated when attribute values change.
 
+Some binary closure rules compile to relation plans (DS10 placeholder templates) and are evaluated using relation primitives such as `compose` and inverse relations.
+
 Derived facts carry justifications as `RuleID + premise FactIDs` (DS09/DS15). FactIDs cover unary, binary,
 numeric attributes, and entity-valued attributes (DS18).
 
