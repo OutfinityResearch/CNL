@@ -16,10 +16,13 @@ function summarize(result) {
   switch (result.kind) {
     case "QueryResult":
     case "SolveResult":
-      return result.entities.map((entry) => displayEntityKey(entry.key)).join(", ");
+      return JSON.stringify(result.entities.map((entry) => displayEntityKey(entry.key)));
     case "ProofResult":
       return String(result.value);
     case "ExplainResult":
+      if (result.baseFacts && result.baseFacts.length > 0) {
+        return result.baseFacts.join(" | ");
+      }
       return result.justification?.kind ?? "explain";
     case "PlanResult":
       return result.status ?? "";

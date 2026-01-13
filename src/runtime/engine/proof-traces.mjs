@@ -1,0 +1,127 @@
+import { Plans } from "../../plans/ir.mjs";
+import { executeSet } from "../../plans/execute.mjs";
+import { compileCondition, compileNP } from "../../compiler/ast-to-plan.mjs";
+import { ConceptKind } from "../../ids/interners.mjs";
+import { isUniversalNounPhrase, resolveEntityId, resolvePredId, resolveUnaryId } from "./helpers.mjs";
+import { formatBinaryFact, formatUnaryFact } from "./facts.mjs";
+import { renderDerivation } from "./derivation.mjs";
+
+function factIdForAssertion(assertion, state, store) {
+  if (!assertion || !store) return null;
+  if (assertion.kind === "CopulaPredicateAssertion") {
+    const subjectId = resolveEntityId(assertion.subject, state);
+    const unaryId = resolveUnaryId(assertion.complement, state);
+    if (subjectId === null || unaryId === null) return null;
+    return store.makeUnaryFactId(unaryId, subjectId);
+  }
+  if (assertion.kind === "ActiveRelationAssertion" || assertion.kind === "PassiveRelationAssertion") {
+    const subjectId = resolveEntityId(assertion.subject, state);
+    const objectId = resolveEntityId(assertion.object, state);
+    const predId = resolvePredId(assertion, state);
+    if (subjectId === null || objectId === null || predId === null) return null;
+    return store.makeFactId(predId, subjectId, objectId);
+  }
+  return null;
+}
+
+function formatAssertionSentence(assertion, state) {
+  if (!assertion) return null;
+  if (assertion.kind === "CopulaPredicateAssertion") {
+    const subjectId = resolveEntityId(assertion.subject, state);
+    const unaryId = resolveUnaryId(assertion.complement, state);
+    if (subjectId === null || unaryId === null) return null;
+    return formatUnaryFact(unaryId, subjectId, state);
+  }
+  if (assertion.kind === "ActiveRelationAssertion" || assertion.kind === "PassiveRelationAssertion") {
+    const subjectId = resolveEntityId(assertion.subject, state);
+    const objectId = resolveEntityId(assertion.object, state);
+    const predId = resolvePredId(assertion, state);
+    if (subjectId === null || objectId === null || predId === null) return null;
+    return formatBinaryFact(predId, subjectId, objectId, state);
+  }
+  return null;
+}
+
+function universalCounterexample(condition, state) {
+  const assertion = condition?.assertion;
+  if (!assertion || assertion.subject?.kind !== "NounPhrase" || !isUniversalNounPhrase(assertion.subject)) {
+    return null;
+  }
+  const basePlan = compileNP(assertion.subject, state);
+  const satisfyPlan = compileCondition(condition, Plans.allEntities(), state);
+  const baseSet = executeSet(basePlan, state.kb.kb);
+  const satisfySet = executeSet(satisfyPlan, state.kb.kb);
+  const diff = baseSet.andNot(satisfySet);
+  let first = null;
+  diff.iterateSetBits((entityId) => {
+    if (first === null) first = entityId;
+  });
+  return first;
+}
+
+export function buildProofTraceForVerify(command, state, ok) {
+  const proposition = command?.proposition;
+  const store = state.justificationStore;
+  const answerSummary = String(ok);
+
+  if (proposition?.kind === "AtomicCondition") {
+    const assertion = proposition.assertion;
+    const isUniversal = assertion?.subject?.kind === "NounPhrase" && isUniversalNounPhrase(assertion.subject);
+    if (isUniversal) {
+      const counterexampleId = universalCounterexample(proposition, state);
+      const steps = [];
+      if (ok) {
+        steps.push("No counterexample found in the quantified domain.");
+      } else {
+        steps.push("Found a counterexample in the quantified domain.");
+      }
+      const proof = {
+        kind: "ProofTrace",
+        mode: "Universal",
+        conclusion: "universal claim",
+        answerSummary,
+        steps,
+      };
+      if (!ok && Number.isInteger(counterexampleId)) {
+        const conceptId = state.idStore.getConceptualId(ConceptKind.Entity, counterexampleId);
+        const key = conceptId ? state.idStore.lookupKey(conceptId) : null;
+        const fallback = `Entity_${counterexampleId}`;
+        const entity = key?.startsWith("E:") ? key.slice(2) : key || fallback;
+        proof.counterexample = { entity };
+      }
+      return proof;
+    }
+
+    const sentence = formatAssertionSentence(assertion, state);
+    if (ok && store) {
+      const factId = factIdForAssertion(assertion, state, store);
+      if (factId !== null) {
+        const { steps, premises } = renderDerivation(factId, state, store);
+        return {
+          kind: "ProofTrace",
+          mode: "Derivation",
+          conclusion: sentence || "atomic claim",
+          answerSummary,
+          steps,
+          premises,
+        };
+      }
+    }
+
+    return {
+      kind: "ProofTrace",
+      mode: "Derivation",
+      conclusion: sentence || "atomic claim",
+      answerSummary,
+      steps: [ok ? "Condition holds." : "Condition is not derivable from the current knowledge base."],
+    };
+  }
+
+  return {
+    kind: "ProofTrace",
+    mode: "Derivation",
+    conclusion: "proposition",
+    answerSummary,
+    steps: [ok ? "Condition holds." : "Condition does not hold."],
+  };
+}

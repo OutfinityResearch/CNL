@@ -36,10 +36,10 @@
 
         <h2 id="relations">RelationMatrix and Storage</h2>
         <p>
-          Binary relations (like "User accesses File") are stored in a specialized structure called a <strong>RelationMatrix</strong>. This is not a simple adjacency list. It is a collection of bitsets, where every row corresponds to a subject and the bits set in that row represent the objects it relates to.
+          Binary relations (like "user accesses file") are stored in a specialized structure called a <strong>RelationMatrix</strong>. This is not a simple adjacency list. It is a collection of bitsets, where every row corresponds to a subject and the bits set in that row represent the objects it relates to.
         </p>
         <p>
-          This layout enables extremely fast "forward" traversal. To find everything a User accesses, you simply retrieve one bitset. However, the KB also maintains <strong>Inverse Indices</strong>. A parallel RelationMatrix stores the transpose of the data, allowing "backward" traversal (finding all Users who access a specific File) with the same O(1) efficiency. This dual-indexing strategy is expensive in terms of memory but optimal for the graph-traversal nature of logical proofs.
+          This layout enables extremely fast "forward" traversal. To find everything a user accesses, you simply retrieve one bitset. However, the KB also maintains <strong>Inverse Indices</strong>. A parallel RelationMatrix stores the transpose of the data, allowing "backward" traversal (finding all users who access a specific file) with the same O(1) efficiency. This dual-indexing strategy is expensive in terms of memory but optimal for the graph-traversal nature of logical proofs.
         </p>
 
         <h2 id="indices">Numeric and Entity Attributes</h2>

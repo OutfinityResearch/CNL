@@ -4,11 +4,11 @@ import { parseProgram } from "../../src/parser/grammar.mjs";
 import { createDictionaryState, applyDictionaryStatement } from "../../src/compiler/dictionary.mjs";
 
 const source = `--- CONTEXT: BaseDictionary ---
-"likes" is a binary predicate.
+"likes" is a "binary predicate".
 the domain of "likes" is "Person".
 the range of "likes" is "Pizza".
-"capacity" is a numeric attribute.
-"capacity" is a functional attribute.
+"capacity" is a "numeric attribute".
+"capacity" is a "functional attribute".
 the comparator of "capacity" is "greater than".
 "Person" is a type.
 "Driver" is a subtype of "Person".`;

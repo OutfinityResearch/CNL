@@ -21,6 +21,9 @@ Defines the automated testing strategy for CNL-PL, including unit tests, parser 
 - AND/OR grouping rules and error detection.
 - Action block required fields and parsing.
 - Command parsing for all pragmatics.
+- Solve variable lists and CaseScope (`it is the case that`) parsing.
+- Aggregations (`number`, `sum`, `average`) in optimize commands.
+- Action blocks with multiple preconditions/effects.
 - Error code mapping and primaryToken accuracy.
 
 ## Test Organization

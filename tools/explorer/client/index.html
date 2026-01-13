@@ -8,10 +8,10 @@
   </head>
   <body>
     <header class="topbar">
-      <div class="topbar__title">CNL KB Explorer</div>
+      <div class="topbar__title">🧠 Knowledge Explorer</div>
       <div class="topbar__meta">
         <span id="sessionLabel" class="mono">Session Active</span>
-        <span id="kbStats" class="mono muted">Entities: 0</span>
+        <span id="kbStats" class="mono muted">Empty</span>
         <button id="resetBtn" type="button" class="btn btn--ghost">Reset</button>
       </div>
     </header>
@@ -19,16 +19,17 @@
     <main class="layout">
       <section class="tabs">
         <div class="tabs__bar">
-          <button id="tabChat" class="tab tab--active">Chat</button>
-          <button id="tabTree" class="tab">KB Tree</button>
-          <button id="tabExamples" class="tab">Examples</button>
+          <button id="tabChat" class="tab tab--active">💬 Chat</button>
+          <button id="tabTree" class="tab">📚 Knowledge</button>
+          <button id="tabGraph" class="tab">🔗 Graph</button>
+          <button id="tabExamples" class="tab">📖 Examples</button>
         </div>
 
         <!-- Chat / REPL Panel -->
         <div id="panelChat" class="tabs__panel tabs__panel--active">
           <div id="chatOutput" class="chat"></div>
           <div class="composer">
-            <textarea id="textInput" class="composer__input" rows="3" placeholder="Enter CNL command (e.g. 'John is a User.')"></textarea>
+            <textarea id="textInput" class="composer__input" rows="3" placeholder="Enter CNL (e.g. 'John is a user.' or 'Return every user.')"></textarea>
             <div class="composer__row--end">
               <button id="sendBtn" class="btn btn--primary">Execute</button>
             </div>
@@ -43,7 +44,20 @@
             </div>
             <div class="explorer__details">
               <div class="details__header">Details</div>
-              <div id="kbDetails" class="details">Select an item to view properties.</div>
+              <div id="kbDetails" class="details">Select an item to view details.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Graph Panel (DS17 Component E) -->
+        <div id="panelGraph" class="tabs__panel">
+          <div class="graph-container">
+            <div class="graph-toolbar">
+              <button id="graphRefresh" class="btn btn--sm">🔄 Refresh</button>
+              <span id="graphLegend" class="graph-legend"></span>
+            </div>
+            <div id="graphCanvas" class="graph-canvas">
+              <div class="graph-empty">No relationships to visualize.<br>Add facts like "John likes Pizza."</div>
             </div>
           </div>
         </div>
@@ -51,14 +65,16 @@
         <!-- Examples Panel -->
         <div id="panelExamples" class="tabs__panel">
           <div class="docs">
-            <h2>Pragmatic Examples</h2>
-            <p class="muted">Click on any example to load it into the console.</p>
+            <div class="examples-header">
+              <h2>Examples</h2>
+              <button class="btn btn--primary btn--sm" id="loadAllBtn">📥 Load All</button>
+            </div>
             <div id="examplesList"></div>
           </div>
         </div>
       </section>
     </main>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.mjs"></script>
   </body>
 </html>

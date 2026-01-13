@@ -133,6 +133,10 @@ function attributeKeyFromSelector(selector) {
 
 function objectToSetPlan(node, context) {
   if (!node) return Plans.allEntities();
+  if (node.kind === "Variable") {
+    recordError(context, "CMP019", "Variables are not supported in this context.", `?${node.name}`);
+    return Plans.allEntities();
+  }
   if (node.kind === "NounPhrase") return compileNP(node, context);
   const entityId = resolveEntityId(node, context);
   if (entityId === null) return Plans.allEntities();
@@ -195,6 +199,10 @@ function compileRelativeClause(node, context) {
 
 export function compileNP(node, context) {
   if (!node) return Plans.allEntities();
+  if (node.kind === "Variable") {
+    recordError(context, "CMP019", "Variables are not supported in this context.", `?${node.name}`);
+    return Plans.allEntities();
+  }
   if (node.kind === "Name") {
     const entityId = resolveEntityId(node, context);
     return entityId === null ? Plans.allEntities() : Plans.entitySet(entityId);
@@ -292,6 +300,8 @@ export function compileCondition(node, universePlan, context) {
         return Plans.not(compileCondition(node.operand, universePlan, context), universePlan);
       }
       return compileCondition(node.operand, universePlan, context);
+    case "GroupCondition":
+      return compileCondition(node.inner, universePlan, context);
     default:
       return universePlan ?? Plans.allEntities();
   }
@@ -385,6 +395,9 @@ export function compileCommand(node, context) {
       return { kind: "FindPlan", set: Plans.intersect([base, constraint]), expr: node.expr };
     }
     case "SolveCommand": {
+      if (node.variables && node.variables.length > 0) {
+        return { kind: "SolvePlan", variables: node.variables, constraint: node.constraint, expr: node.expr };
+      }
       const base = compileNP(node.expr, context);
       if (!node.constraint) {
         return { kind: "SolvePlan", set: base, expr: node.expr };

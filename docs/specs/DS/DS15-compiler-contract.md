@@ -114,6 +114,10 @@ Restrictions:
 - Every head variable must appear in the body.
 - OR in body is split into multiple RulePlans.
 
+Rule labels are syntactic: `Rule:` statements follow the same compilation rules as unlabeled statements.
+If the sentence is conditional or universally quantified, it yields a `RulePlan`; otherwise it compiles as a
+ground assertion (or a compilation error if non-ground without a universal quantifier).
+
 ## Action Blocks
 Action blocks compile into:
 - `PreconditionPlan` using the same SetPlan/BoolPlan operators.
@@ -121,10 +125,20 @@ Action blocks compile into:
 
 ## Provenance and Justifications
 Each inserted fact can carry provenance:
-- Base fact: source span and statement index.
+- Base fact: source metadata (span and statement index if available).
 - Derived fact: `DerivedFact(ruleID, premiseFactIDs[])`.
 
 Justification storage may be lazy, but must be sufficient to support EXPLAIN.
+
+FactIDs used for provenance include:
+- Unary facts: `U(subjectId, unaryId)`
+- Binary facts: `B(subjectId, predId, objectId)`
+- Numeric attributes: `N(subjectId, attrId, value)`
+- Entity-valued attributes: `EA(subjectId, attrId, entityId)`
+
+When a rule body includes attribute filters (`NumFilter`, `AttrEntityFilter`), premiseFactIDs should include
+the corresponding attribute facts for the chosen witness value(s) so that DS18 proof traces can expand
+rule chains across attribute-based reasoning.
 
 ## Compiler API (Minimum)
 ```
@@ -147,6 +161,7 @@ Compiler must emit structured errors for:
 - Attribute value type mismatch against BaseDictionary.
 - Unsupported comparator for an attribute.
 - Dictionary declaration used outside BaseDictionary context.
+- Variables used in learned statements or rules.
 
 ## References
 - DS03 for AST shapes.

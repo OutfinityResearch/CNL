@@ -13,6 +13,13 @@ function parseValue(raw) {
       return trimmed.slice(1, -1);
     }
   }
+  if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
+    try {
+      return JSON.parse(trimmed);
+    } catch {
+      return trimmed;
+    }
+  }
   return trimmed;
 }
 
@@ -89,6 +96,15 @@ function renderTable(title, columns, rows, colors) {
   }
 }
 
+function formatExpected(expectation) {
+  if (typeof expectation === "string") return expectation;
+  try {
+    return JSON.stringify(expectation);
+  } catch {
+    return String(expectation);
+  }
+}
+
 export async function runCaseSuite({ fileUrl, title, evaluate, compare, formatOutput }) {
   const raw = await readFile(fileUrl, "utf8");
   const cases = parseCases(raw);
@@ -106,54 +122,55 @@ export async function runCaseSuite({ fileUrl, title, evaluate, compare, formatOu
   for (const testCase of cases) {
     const input = testCase.input ?? "";
     const preview = summarizeInput(input);
-    if (!testCase.purpose) {
-      failed += 1;
-      rows.push({
-        status: "FAIL",
-        purpose: "(missing)",
-        case: preview,
-        note: "missing purpose",
-      });
-      continue;
-    }
-
-    if (evaluate) {
-      let output = null;
-      try {
-        output = await evaluate({ input, testCase });
-      } catch (error) {
+      if (!testCase.purpose) {
         failed += 1;
-        const message = error?.message ?? "evaluation error";
         rows.push({
           status: "FAIL",
-          purpose: testCase.purpose,
+          purpose: "(missing)",
           case: preview,
-          note: `evaluation error: ${message}`,
+          note: "missing purpose",
         });
         continue;
       }
 
-      if (output && output.error) {
-        failed += 1;
-        rows.push({
-          status: "FAIL",
-          purpose: testCase.purpose,
-          case: preview,
-          note: output.error,
-        });
-        continue;
-      }
+      if (evaluate) {
+        let output = null;
+        try {
+          output = await evaluate({ input, testCase });
+        } catch (error) {
+          failed += 1;
+          const message = error?.message ?? "evaluation error";
+          rows.push({
+            status: "FAIL",
+            purpose: testCase.purpose,
+            case: preview,
+            note: `evaluation error: ${message}`,
+          });
+          continue;
+        }
 
-      const hasExpectation = testCase.expect && !String(testCase.expect).includes("placeholder");
+        if (output && output.error) {
+          failed += 1;
+          rows.push({
+            status: "FAIL",
+            purpose: testCase.purpose,
+            case: preview,
+            note: output.error,
+          });
+          continue;
+        }
+
+      const hasExpectation =
+        testCase.expect !== undefined && testCase.expect !== null && !String(testCase.expect).includes("placeholder");
       if (hasExpectation) {
-        const ok = compare ? compare(testCase.expect, output) : String(output) === String(testCase.expect);
+        const ok = compare ? compare(testCase, output) : String(output) === String(testCase.expect);
         if (!ok) {
           failed += 1;
           rows.push({
             status: "FAIL",
             purpose: testCase.purpose,
             case: preview,
-            note: `expected ${testCase.expect} got ${formatOutput ? formatOutput(output) : String(output)}`,
+            note: `expected ${formatExpected(testCase.expect)} got ${formatOutput ? formatOutput(output) : String(output)}`,
           });
           continue;
         }

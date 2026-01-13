@@ -20,7 +20,13 @@ async function evaluate({ input }) {
 function formatOutput(output) {
   if (!output) return "";
   if (output.error) return output.error;
-  if (output.kind === "ExplainResult") return output.justification?.kind ?? "explain";
+  if (output.kind === "ExplainResult") {
+    const kind = output.justification?.kind ?? "explain";
+    const premises = Array.isArray(output.justification?.premiseIds)
+      ? output.justification.premiseIds.length
+      : 0;
+    return `${kind}:${premises}`;
+  }
   return output.kind ?? "";
 }
 
@@ -29,5 +35,6 @@ await runCaseSuite({
   fileUrl,
   title: "Explain",
   evaluate,
+  compare: (testCase, output) => String(testCase.expect) === formatOutput(output),
   formatOutput,
 });

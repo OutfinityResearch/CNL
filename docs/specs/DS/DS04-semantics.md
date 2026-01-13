@@ -26,6 +26,41 @@ The semantic meaning of a program is the effect of these steps on a KB, along wi
 
 These entities are stabilized by ConceptualID and dense IDs (DS08).
 
+## Identity vs Concepts (Common-Sense Model)
+CNL-PL distinguishes between:
+- **Things (entities):** concrete individuals with identity (a person, a specific machine, a specific package).
+- **Concepts (unary predicates):** abstract categories/properties (man, mortal, server, water, hot).
+
+### Names vs Noun Phrases
+- A **Name** (bare identifier token) denotes an entity and can be interned as an `E:<name>` key (DS08).
+  - Example: `Socrates`, `Server_A`, `Package_1`.
+- A **Noun Phrase** (with determiner/quantifier) denotes a *set description* and compiles to a SetPlan filter (DS15/DS16).
+  - Example: `a man`, `every server`, `the water`, `some packages`.
+
+Some Names are **symbolic constants** rather than concrete individuals:
+- A lowercase/hyphenated Name like `pizza` or `flat-earth` can be treated as a concept symbol (not a space/time individual).
+- These symbols are still representable in the KB as nodes, but the UI should render them as concepts (DS17).
+
+### Determiners are not identity
+Articles/quantifiers (`a/an/the/every/all/no/some/...`) are *grammar markers* and must not be treated as part of an entity identifier.
+The phrase `the water` does not create a new thing called `the_water`. It denotes "the set of entities that satisfy the concept `water`"
+under the current KB state.
+
+### Modeling substances and generic terms
+Concept words like `water` are not entities by default. If you need a particular water sample or portion, model it as a named entity and assert
+its type:
+```
+Water_1 is water.
+Water_1 has a temperature of 0.4.
+```
+
+The same applies to generic objects when you need a specific individual:
+```
+Robot_1 is a robot.
+Package_1 is a package.
+Robot_1 carries Package_1.
+```
+
 ## Pragmatics (Behavior and Outputs)
 Each pragmatic mode reuses the same KB and reasoning primitives but produces different outputs:
 
@@ -41,29 +76,35 @@ Each pragmatic mode reuses the same KB and reasoning primitives but produces dif
 
 ### Explain
 - Input: derived fact or proposition.
-- Output: justification chain (DAG) with rule and premise references.
+- Output: justification chain (DAG) with rule and premise references, plus an optional list of base facts rendered in CNL.
 - Semantics: traverse provenance created during deduction.
 
 ### Plan
 - Input: goal condition and action blocks.
 - Output: ordered action sequence.
 - Semantics: search in the state space defined by actions; preconditions and effects use the same query primitives as Query.
+  - Plan v1 uses BFS over ground actions (no variables) with a fixed depth limit of 6.
+  - If the goal is already satisfied, return `satisfied` with an empty step list even when no actions exist.
 
 ### Solve
 - Input: constraints and domains.
 - Output: variable bindings that satisfy constraints.
 - Semantics: CSP propagation over bitset domains, using KB relations as constraints.
 - Command form: `Solve for <expr> [such that <condition>].`
+  - Variable form: `Solve for ?X [and ?Y ...] such that <condition>.`
+  - Variable constraints must be conjunctions (no OR) in v1.
 
 ### Simulate
 - Input: transition rules and number of steps.
 - Output: state sequence or final state.
 - Semantics: apply effects deterministically to an evolving state overlay.
+  - Simulate v1 applies ground transition rules in order at each step.
 
 ### Optimize
 - Input: objective and constraints.
 - Output: best solution according to objective.
 - Semantics: Solve plus objective evaluation (cardinality or numeric aggregates).
+  - If constraints include variables, v1 checks satisfiability via Solve before evaluating the objective.
 
 ## Interaction Between Pragmatics
 Pragmatics do not call each other implicitly, but they share common infrastructure:

@@ -5,7 +5,7 @@ import { CNLSession } from "../../src/session/cnl-session.mjs";
 test("session query executes return command against learned facts", () => {
   const session = new CNLSession();
   const learn = session.learnText(`--- CONTEXT: BaseDictionary ---
-"role" is an entity attribute.
+"role" is an "entity attribute".
 --- CONTEXT: Core ---
 User1 is a user.
 User1 has a role of Admin.`);
@@ -39,7 +39,7 @@ test("session explain returns base justification for ground unary facts", () => 
 test("session solve returns filtered entities", () => {
   const session = new CNLSession();
   const learn = session.learnText(`--- CONTEXT: BaseDictionary ---
-"capacity" is a numeric attribute.
+"capacity" is a "numeric attribute".
 --- CONTEXT: Core ---
 Truck_A is a truck.
 Truck_B is a truck.

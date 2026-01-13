@@ -2,11 +2,16 @@ import { createError } from "../validator/errors.mjs";
 
 const isLetter = (ch) => /[A-Za-z_]/.test(ch);
 const isDigit = (ch) => /[0-9]/.test(ch);
-const isAlnum = (ch) => /[A-Za-z0-9_]/.test(ch);
+const isIdentTail = (ch) => /[A-Za-z0-9_-]/.test(ch);
 
 export function tokenize(input) {
+  return tokenizeWithOptions(input, {});
+}
+
+export function tokenizeWithOptions(input, options = {}) {
   const tokens = [];
   let i = 0;
+  const offset = Number.isInteger(options.offset) ? options.offset : 0;
 
   while (i < input.length) {
     const ch = input[i];
@@ -17,8 +22,31 @@ export function tokenize(input) {
     }
 
     if (ch === "." || ch === "," || ch === ":" || ch === "(" || ch === ")") {
-      tokens.push({ type: "punct", value: ch, raw: ch, lower: ch, start: i, end: i + 1 });
+      tokens.push({ type: "punct", value: ch, raw: ch, lower: ch, start: offset + i, end: offset + i + 1 });
       i += 1;
+      continue;
+    }
+
+    if (ch === "?") {
+      const start = i;
+      i += 1;
+      if (i >= input.length || !isLetter(input[i])) {
+        throw createError("LEX005", "?");
+      }
+      let name = "";
+      while (i < input.length && isIdentTail(input[i])) {
+        name += input[i];
+        i += 1;
+      }
+      const raw = `?${name}`;
+      tokens.push({
+        type: "var",
+        value: name,
+        raw,
+        lower: name.toLowerCase(),
+        start: offset + start,
+        end: offset + i,
+      });
       continue;
     }
 
@@ -54,8 +82,8 @@ export function tokenize(input) {
         value,
         raw: input.slice(start, i),
         lower: value.toLowerCase(),
-        start,
-        end: i,
+        start: offset + start,
+        end: offset + i,
       });
       continue;
     }
@@ -85,8 +113,8 @@ export function tokenize(input) {
         value: raw,
         raw,
         lower: raw.toLowerCase(),
-        start,
-        end: i,
+        start: offset + start,
+        end: offset + i,
       });
       continue;
     }
@@ -94,7 +122,7 @@ export function tokenize(input) {
     if (isLetter(ch)) {
       const start = i;
       let raw = "";
-      while (i < input.length && isAlnum(input[i])) {
+      while (i < input.length && isIdentTail(input[i])) {
         raw += input[i];
         i += 1;
       }
@@ -103,8 +131,8 @@ export function tokenize(input) {
         value: raw,
         raw,
         lower: raw.toLowerCase(),
-        start,
-        end: i,
+        start: offset + start,
+        end: offset + i,
       });
       continue;
     }

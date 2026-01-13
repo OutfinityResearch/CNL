@@ -15,7 +15,7 @@ CNL-PL is designed to:
 
 Example of the intended balance:
 ```
-Every user who is active and who knows Python is an admin.
+Every user who is active and who knows python is an admin.
 ```
 This is readable, but still deterministic because relative pronouns are explicit and the predicate types are fixed.
 

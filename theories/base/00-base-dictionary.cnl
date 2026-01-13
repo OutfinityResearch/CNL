@@ -1,0 +1,79 @@
+--- CONTEXT: BaseDictionary ---
+
+// Core type declarations
+"Entity" is a type.
+"Object" is a type.
+"Agent" is a type.
+"Person" is a type.
+"Place" is a type.
+"Organization" is a type.
+"Event" is a type.
+"TimePoint" is a type.
+
+// Core unary predicates
+"entity" is a unary predicate.
+"object" is a unary predicate.
+"agent" is a unary predicate.
+"person" is a unary predicate.
+"place" is a unary predicate.
+"organization" is a unary predicate.
+"event" is a unary predicate.
+"time_point" is a unary predicate.
+
+// Core binary relations
+"part_of" is a binary predicate.
+"located_in" is a binary predicate.
+"member_of" is a binary predicate.
+"has_role" is a binary predicate.
+"owns" is a binary predicate.
+"before" is a binary predicate.
+"after" is a binary predicate.
+"during" is a binary predicate.
+"overlaps" is a binary predicate.
+"inside" is a binary predicate.
+"adjacent_to" is a binary predicate.
+"performs" is a binary predicate.
+"intends" is a binary predicate.
+"causes" is a binary predicate.
+"affects" is a binary predicate.
+
+// Type hierarchy
+"Person" is a subtype of "Agent".
+"Agent" is a subtype of "Entity".
+"Object" is a subtype of "Entity".
+"Place" is a subtype of "Entity".
+"Organization" is a subtype of "Entity".
+"Event" is a subtype of "Entity".
+"TimePoint" is a subtype of "Entity".
+
+// Domain and range constraints
+the domain of "part_of" is "Entity".
+the range of "part_of" is "Entity".
+the domain of "located_in" is "Entity".
+the range of "located_in" is "Place".
+the domain of "member_of" is "Entity".
+the range of "member_of" is "Organization".
+the domain of "has_role" is "Agent".
+the range of "has_role" is "Entity".
+the domain of "owns" is "Agent".
+the range of "owns" is "Entity".
+the domain of "before" is "TimePoint".
+the range of "before" is "TimePoint".
+the domain of "after" is "TimePoint".
+the range of "after" is "TimePoint".
+the domain of "during" is "Event".
+the range of "during" is "TimePoint".
+the domain of "overlaps" is "Event".
+the range of "overlaps" is "Event".
+the domain of "inside" is "Entity".
+the range of "inside" is "Entity".
+the domain of "adjacent_to" is "Entity".
+the range of "adjacent_to" is "Entity".
+the domain of "performs" is "Agent".
+the range of "performs" is "Event".
+the domain of "intends" is "Agent".
+the range of "intends" is "Event".
+the domain of "causes" is "Event".
+the range of "causes" is "Event".
+the domain of "affects" is "Event".
+the range of "affects" is "Entity".

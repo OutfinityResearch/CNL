@@ -1,0 +1,104 @@
+[
+  {
+    "id": "V050",
+    "valid": true,
+    "input": "Solve for ?X and ?Y such that ?X manages ?Y.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "SolveCommand",
+            "variables": [
+              {
+                "kind": "Variable",
+                "name": "X"
+              },
+              {
+                "kind": "Variable",
+                "name": "Y"
+              }
+            ],
+            "constraint": {
+              "kind": "AtomicCondition"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V051",
+    "valid": true,
+    "input": "Verify that it is the case that John is active.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "VerifyCommand",
+            "proposition": {
+              "kind": "CaseScope",
+              "mode": "positive"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V052",
+    "valid": true,
+    "input": "Maximize the sum of weight of all packages such that every package is delivered.",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "CommandStatement",
+          "command": {
+            "kind": "MaximizeCommand",
+            "objective": {
+              "kind": "AggregationExpr",
+              "agg": "SumOf"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "V053",
+    "valid": true,
+    "input": "Action: Move Package_9\nAgent: Robot_4\nPrecondition: Package_9 is ready.\nPrecondition: Robot_4 is available.\nEffect: Package_9 is delivered.\nEffect: Robot_4 is idle.\nIntent: Return every package.\n",
+    "expected": {
+      "kind": "Program",
+      "items": [
+        {
+          "kind": "ActionBlock",
+          "action": "Move Package_9",
+          "agent": "Robot_4",
+          "preconditions": [
+            "Package_9 is ready.",
+            "Robot_4 is available."
+          ],
+          "effects": [
+            "Package_9 is delivered.",
+            "Robot_4 is idle."
+          ],
+          "intent": "Return every package."
+        }
+      ]
+    }
+  },
+  {
+    "id": "X050",
+    "valid": false,
+    "input": "A critical server is monitored.",
+    "expectedError": {
+      "code": "SYN018",
+      "name": "MultiWordNounRequiresQuotesError"
+    }
+  }
+]

@@ -1,0 +1,19 @@
+--- CONTEXT: CoreTypes ---
+
+// Foundational type hierarchy axioms
+Every person is an agent.
+Every agent is an entity.
+Every object is an entity.
+Every place is an entity.
+Every organization is an entity.
+Every event is an entity.
+Every time_point is an entity.
+
+// Basic type membership rules
+Rule: If X is a person, then X is an agent.
+Rule: If X is an agent, then X is an entity.
+Rule: If X is an object, then X is an entity.
+Rule: If X is a place, then X is an entity.
+Rule: If X is an organization, then X is an entity.
+Rule: If X is an event, then X is an entity.
+Rule: If X is a time_point, then X is an entity.

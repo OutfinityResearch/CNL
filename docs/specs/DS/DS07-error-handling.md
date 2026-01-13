@@ -30,7 +30,7 @@ Every error should include at least:
 - LEX001 - InvalidCharacterError
   - Trigger: character outside the allowed alphabet or punctuation set.
   - PrimaryToken: the invalid character.
-  - Hint: Use IDENT, NUMBER, or STRING tokens and permitted punctuation.
+  - Hint: Use IDENT, NUMBER, or STRING tokens and permitted punctuation (IDENT supports underscores and hyphens; see DS03).
 
 - LEX002 - UnterminatedStringError
   - Trigger: string starts with `"` but has no closing quote before EOF or line end.
@@ -47,6 +47,11 @@ Every error should include at least:
   - Trigger: invalid numeric format (for example `12.` or `01.2.3`).
   - PrimaryToken: the malformed number token.
   - Hint: Use `123` or `123.45`.
+
+- LEX005 - InvalidVariableTokenError
+  - Trigger: variable token starts with `?` but is missing a valid identifier.
+  - PrimaryToken: `?`
+  - Hint: Use `?X` with a letter after `?`.
 
 ## Syntax Errors
 - SYN001 - UnexpectedTokenError
@@ -102,7 +107,7 @@ Every error should include at least:
 - SYN011 - MixedBooleanOperatorsError
   - Trigger: `and` and `or` appear at the same level without explicit grouping.
   - PrimaryToken: the operator that introduces the mix.
-  - Hint: Use `either ... or ...`, `both ... and ...`, or parentheses.
+  - Hint: Use `either ... or ...`, `both ... and ...`, `it is the case that`, or parentheses.
 
 - SYN012 - MixedRelativeBooleanOperatorsError
   - Trigger: mixed boolean operators inside relative restrictions without grouping.
@@ -113,6 +118,11 @@ Every error should include at least:
   - Trigger: `at least` or `at most` missing a NUMBER.
   - PrimaryToken: the token where the number was expected.
   - Hint: Use `At least 2 users ...`.
+
+- SYN018 - MultiWordNounRequiresQuotesError
+  - Trigger: noun phrase head uses multiple unquoted words.
+  - PrimaryToken: the second core word.
+  - Hint: Quote the noun head, for example `a "critical server"`.
 
 ## Structural Errors
 - SYN013 - ActionBlockMissingRequiredFieldError

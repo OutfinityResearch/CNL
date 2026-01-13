@@ -41,7 +41,7 @@
           This engine is optimized for <strong>Explainability</strong>. When it executes an operation (like an Intersection), it records a "Justification Node".
         </p>
         <p>
-          If it derives that "John is Active", it records: <em>"John is Active BECAUSE (John is User) AND (John has logged in)."</em>
+          If it derives that "John is active", it records: <em>"John is active BECAUSE (John is a user) AND (John has logged in)."</em>
           <br/>This builds a <strong>DAG (Directed Acyclic Graph)</strong> of justifications. This overhead makes it slower than the Query Engine, but essential for the "Verify" and "Explain" pragmatics.
         </p>
 

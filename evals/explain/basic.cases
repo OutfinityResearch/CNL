@@ -1,5 +1,5 @@
 # Explain Evaluation Cases
 
-- input: "Server1 is a machine.\nServer1 handles Payments.\nEvery machine that handles Payments is a server.\nEvery server that handles Payments is critical.\nEvery server that is critical is encrypted.\nExplain why Server1 is encrypted."
+- input: "Server1 is a machine.\nServer1 handles payments.\nEvery machine that handles payments is a server.\nEvery server that handles payments is critical.\nEvery server that is critical is encrypted.\nExplain why Server1 is encrypted."
   purpose: "Explain derived unary fact from a rule chain."
-  expect: "explanation placeholder"
+  expect: "Derived:2"

@@ -50,9 +50,9 @@ Verify that no user is an admin and a guest.
           The AST is compiled into a <strong>SetPlan</strong>.
         </p>
         <ul class="list">
-          <li><code>User</code> -> Scans the `User` unary bitset.</li>
-          <li><code>who is active</code> -> Scans the `Active` unary bitset.</li>
-          <li><code>User who is active</code> -> Computes <code>Bitset(User) & Bitset(Active)</code>.</li>
+          <li><code>user</code> -> Scans the `user` unary bitset.</li>
+          <li><code>who is active</code> -> Scans the `active` unary bitset.</li>
+          <li><code>user who is active</code> -> Computes <code>Bitset(user) & Bitset(active)</code>.</li>
         </ul>
         <p>
           The result is a raw Bitset. The engine then "hydrates" this bitset by looking up the <code>name</code> attribute for each ID in the set, returning a JSON array of strings.

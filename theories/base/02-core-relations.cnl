@@ -1,0 +1,19 @@
+--- CONTEXT: CoreRelations ---
+
+// Part-whole transitivity
+Rule: If X is part of Y and Y is part of Z, then X is part of Z.
+
+// Location transitivity
+Rule: If X is located in Y and Y is located in Z, then X is located in Z.
+
+// Membership inheritance
+Rule: If X is member of Y and Y is part of Z, then X is member of Z.
+
+// Ownership transitivity (limited)
+Rule: If X owns Y and Y is part of Z, then X owns Z.
+
+// Inside relationship
+Rule: If X is inside Y, then X is located in Y.
+
+// Role inheritance
+Rule: If X has role Y and X is member of Z, then Z has role Y.

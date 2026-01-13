@@ -14,17 +14,29 @@
               "kind": "ActiveRelationAssertion",
               "subject": {
                 "kind": "Name",
-                "value": "John"
+                "value": "John",
+                "span": {
+                  "start": 0,
+                  "end": 4
+                }
               },
               "verbGroup": {
                 "kind": "VerbGroup",
                 "auxiliary": null,
                 "verb": "likes",
-                "particles": []
+                "particles": [],
+                "span": {
+                  "start": 5,
+                  "end": 10
+                }
               },
               "object": {
                 "kind": "Name",
-                "value": "pizza"
+                "value": "pizza",
+                "span": {
+                  "start": 11,
+                  "end": 16
+                }
               }
             }
           }
@@ -47,7 +59,11 @@
               "kind": "CopulaPredicateAssertion",
               "subject": {
                 "kind": "Name",
-                "value": "Truck_A"
+                "value": "Truck_A",
+                "span": {
+                  "start": 0,
+                  "end": 7
+                }
               },
               "copula": "is",
               "complement": {
@@ -60,7 +76,11 @@
                   "truck"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 11,
+                  "end": 18
+                }
               }
             }
           }
@@ -83,7 +103,11 @@
               "kind": "AttributeAssertion",
               "subject": {
                 "kind": "Name",
-                "value": "Truck_A"
+                "value": "Truck_A",
+                "span": {
+                  "start": 0,
+                  "end": 7
+                }
               },
               "determiner": "a",
               "attribute": {
@@ -95,7 +119,11 @@
               },
               "value": {
                 "kind": "NumberLiteral",
-                "value": 1000
+                "value": 1000,
+                "span": {
+                  "start": 26,
+                  "end": 30
+                }
               }
             }
           }
@@ -126,7 +154,11 @@
                   "temperature"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 15
+                }
               },
               "comparator": {
                 "kind": "Comparator",
@@ -134,7 +166,11 @@
               },
               "right": {
                 "kind": "NumberLiteral",
-                "value": 20
+                "value": 20,
+                "span": {
+                  "start": 32,
+                  "end": 34
+                }
               }
             }
           }
@@ -157,14 +193,22 @@
               "kind": "PassiveRelationAssertion",
               "subject": {
                 "kind": "Name",
-                "value": "Package_1"
+                "value": "Package_1",
+                "span": {
+                  "start": 0,
+                  "end": 9
+                }
               },
               "copula": "is",
               "verb": "assigned",
               "preposition": "to",
               "object": {
                 "kind": "Name",
-                "value": "Drone_A"
+                "value": "Drone_A",
+                "span": {
+                  "start": 25,
+                  "end": 32
+                }
               }
             }
           }
@@ -187,7 +231,11 @@
               "kind": "ActiveRelationAssertion",
               "subject": {
                 "kind": "Name",
-                "value": "User_1"
+                "value": "User_1",
+                "span": {
+                  "start": 0,
+                  "end": 6
+                }
               },
               "verbGroup": {
                 "kind": "VerbGroup",
@@ -195,11 +243,19 @@
                 "verb": "logged",
                 "particles": [
                   "in"
-                ]
+                ],
+                "span": {
+                  "start": 7,
+                  "end": 20
+                }
               },
               "object": {
                 "kind": "Name",
-                "value": "today"
+                "value": "today",
+                "span": {
+                  "start": 21,
+                  "end": 26
+                }
               }
             }
           }
@@ -222,7 +278,11 @@
               "kind": "ActiveRelationAssertion",
               "subject": {
                 "kind": "Name",
-                "value": "User_1"
+                "value": "User_1",
+                "span": {
+                  "start": 0,
+                  "end": 6
+                }
               },
               "verbGroup": {
                 "kind": "VerbGroup",
@@ -231,11 +291,19 @@
                 "particles": [
                   "in",
                   "to"
-                ]
+                ],
+                "span": {
+                  "start": 7,
+                  "end": 23
+                }
               },
               "object": {
                 "kind": "Name",
-                "value": "Portal_1"
+                "value": "Portal_1",
+                "span": {
+                  "start": 24,
+                  "end": 32
+                }
               }
             }
           }
@@ -266,7 +334,11 @@
                   "score"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 9
+                }
               },
               "comparator": {
                 "kind": "Comparator",
@@ -274,7 +346,11 @@
               },
               "right": {
                 "kind": "NumberLiteral",
-                "value": 10
+                "value": 10,
+                "span": {
+                  "start": 38,
+                  "end": 40
+                }
               }
             }
           }
@@ -305,7 +381,11 @@
                   "weight"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 10
+                }
               },
               "comparator": {
                 "kind": "Comparator",
@@ -313,7 +393,11 @@
               },
               "right": {
                 "kind": "NumberLiteral",
-                "value": 50
+                "value": 50,
+                "span": {
+                  "start": 36,
+                  "end": 38
+                }
               }
             }
           }
@@ -324,7 +408,7 @@
   {
     "id": "V010",
     "valid": true,
-    "input": "The permissions contains Admin.",
+    "input": "The permissions contains admin.",
     "expected": {
       "kind": "Program",
       "items": [
@@ -344,7 +428,11 @@
                   "permissions"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 15
+                }
               },
               "comparator": {
                 "kind": "Comparator",
@@ -352,7 +440,11 @@
               },
               "right": {
                 "kind": "Name",
-                "value": "Admin"
+                "value": "admin",
+                "span": {
+                  "start": 25,
+                  "end": 30
+                }
               }
             }
           }
@@ -363,7 +455,7 @@
   {
     "id": "V011",
     "valid": true,
-    "input": "The permissions does not contain Guest.",
+    "input": "The permissions does not contain guest.",
     "expected": {
       "kind": "Program",
       "items": [
@@ -383,7 +475,11 @@
                   "permissions"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 15
+                }
               },
               "comparator": {
                 "kind": "Comparator",
@@ -391,7 +487,11 @@
               },
               "right": {
                 "kind": "Name",
-                "value": "Guest"
+                "value": "guest",
+                "span": {
+                  "start": 33,
+                  "end": 38
+                }
               }
             }
           }
@@ -419,17 +519,29 @@
                     "kind": "ActiveRelationAssertion",
                     "subject": {
                       "kind": "Name",
-                      "value": "John"
+                      "value": "John",
+                      "span": {
+                        "start": 3,
+                        "end": 7
+                      }
                     },
                     "verbGroup": {
                       "kind": "VerbGroup",
                       "auxiliary": null,
                       "verb": "likes",
-                      "particles": []
+                      "particles": [],
+                      "span": {
+                        "start": 8,
+                        "end": 13
+                      }
                     },
                     "object": {
                       "kind": "Name",
-                      "value": "pizza"
+                      "value": "pizza",
+                      "span": {
+                        "start": 14,
+                        "end": 19
+                      }
                     }
                   }
                 },
@@ -439,17 +551,29 @@
                     "kind": "ActiveRelationAssertion",
                     "subject": {
                       "kind": "Name",
-                      "value": "Mary"
+                      "value": "Mary",
+                      "span": {
+                        "start": 24,
+                        "end": 28
+                      }
                     },
                     "verbGroup": {
                       "kind": "VerbGroup",
                       "auxiliary": null,
                       "verb": "likes",
-                      "particles": []
+                      "particles": [],
+                      "span": {
+                        "start": 29,
+                        "end": 34
+                      }
                     },
                     "object": {
                       "kind": "Name",
-                      "value": "sushi"
+                      "value": "sushi",
+                      "span": {
+                        "start": 35,
+                        "end": 40
+                      }
                     }
                   }
                 }
@@ -461,12 +585,20 @@
                 "kind": "CopulaPredicateAssertion",
                 "subject": {
                   "kind": "Name",
-                  "value": "John"
+                  "value": "John",
+                  "span": {
+                    "start": 46,
+                    "end": 50
+                  }
                 },
                 "copula": "is",
                 "complement": {
                   "kind": "Name",
-                  "value": "happy"
+                  "value": "happy",
+                  "span": {
+                    "start": 54,
+                    "end": 59
+                  }
                 }
               }
             }
@@ -492,17 +624,29 @@
                 "kind": "ActiveRelationAssertion",
                 "subject": {
                   "kind": "Name",
-                  "value": "John"
+                  "value": "John",
+                  "span": {
+                    "start": 3,
+                    "end": 7
+                  }
                 },
                 "verbGroup": {
                   "kind": "VerbGroup",
                   "auxiliary": null,
                   "verb": "likes",
-                  "particles": []
+                  "particles": [],
+                  "span": {
+                    "start": 8,
+                    "end": 13
+                  }
                 },
                 "object": {
                   "kind": "Name",
-                  "value": "pizza"
+                  "value": "pizza",
+                  "span": {
+                    "start": 14,
+                    "end": 19
+                  }
                 }
               }
             },
@@ -512,17 +656,29 @@
                 "kind": "ActiveRelationAssertion",
                 "subject": {
                   "kind": "Name",
-                  "value": "Mary"
+                  "value": "Mary",
+                  "span": {
+                    "start": 21,
+                    "end": 25
+                  }
                 },
                 "verbGroup": {
                   "kind": "VerbGroup",
                   "auxiliary": null,
                   "verb": "likes",
-                  "particles": []
+                  "particles": [],
+                  "span": {
+                    "start": 26,
+                    "end": 31
+                  }
                 },
                 "object": {
                   "kind": "Name",
-                  "value": "sushi"
+                  "value": "sushi",
+                  "span": {
+                    "start": 32,
+                    "end": 37
+                  }
                 }
               }
             }
@@ -560,7 +716,11 @@
                       "packages"
                     ],
                     "pp": [],
-                    "relative": null
+                    "relative": null,
+                    "span": {
+                      "start": 34,
+                      "end": 42
+                    }
                   }
                 },
                 "comparator": {
@@ -569,7 +729,11 @@
                 },
                 "right": {
                   "kind": "NumberLiteral",
-                  "value": 0
+                  "value": 0,
+                  "span": {
+                    "start": 59,
+                    "end": 60
+                  }
                 }
               }
             },
@@ -587,12 +751,20 @@
                     "route"
                   ],
                   "pp": [],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 0,
+                    "end": 7
+                  }
                 },
                 "copula": "is",
                 "complement": {
                   "kind": "Name",
-                  "value": "valid"
+                  "value": "valid",
+                  "span": {
+                    "start": 11,
+                    "end": 16
+                  }
                 }
               }
             }
@@ -616,12 +788,20 @@
               "kind": "CopulaPredicateAssertion",
               "subject": {
                 "kind": "Name",
-                "value": "System"
+                "value": "System",
+                "span": {
+                  "start": 0,
+                  "end": 6
+                }
               },
               "copula": "is",
               "complement": {
                 "kind": "Name",
-                "value": "stable"
+                "value": "stable",
+                "span": {
+                  "start": 10,
+                  "end": 16
+                }
               }
             },
             "because": {
@@ -633,17 +813,29 @@
                     "kind": "ActiveRelationAssertion",
                     "subject": {
                       "kind": "Name",
-                      "value": "John"
+                      "value": "John",
+                      "span": {
+                        "start": 25,
+                        "end": 29
+                      }
                     },
                     "verbGroup": {
                       "kind": "VerbGroup",
                       "auxiliary": null,
                       "verb": "likes",
-                      "particles": []
+                      "particles": [],
+                      "span": {
+                        "start": 30,
+                        "end": 35
+                      }
                     },
                     "object": {
                       "kind": "Name",
-                      "value": "pizza"
+                      "value": "pizza",
+                      "span": {
+                        "start": 36,
+                        "end": 41
+                      }
                     }
                   }
                 },
@@ -653,17 +845,29 @@
                     "kind": "ActiveRelationAssertion",
                     "subject": {
                       "kind": "Name",
-                      "value": "Mary"
+                      "value": "Mary",
+                      "span": {
+                        "start": 46,
+                        "end": 50
+                      }
                     },
                     "verbGroup": {
                       "kind": "VerbGroup",
                       "auxiliary": null,
                       "verb": "likes",
-                      "particles": []
+                      "particles": [],
+                      "span": {
+                        "start": 51,
+                        "end": 56
+                      }
                     },
                     "object": {
                       "kind": "Name",
-                      "value": "sushi"
+                      "value": "sushi",
+                      "span": {
+                        "start": 57,
+                        "end": 62
+                      }
                     }
                   }
                 }
@@ -722,11 +926,19 @@
                             "route"
                           ],
                           "pp": [],
-                          "relative": null
+                          "relative": null,
+                          "span": {
+                            "start": 62,
+                            "end": 71
+                          }
                         }
                       }
                     ],
-                    "relative": null
+                    "relative": null,
+                    "span": {
+                      "start": 46,
+                      "end": 71
+                    }
                   }
                 },
                 "comparator": {
@@ -756,11 +968,19 @@
                           "vehicle"
                         ],
                         "pp": [],
-                        "relative": null
+                        "relative": null,
+                        "span": {
+                          "start": 113,
+                          "end": 124
+                        }
                       }
                     }
                   ],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 97,
+                    "end": 124
+                  }
                 }
               }
             },
@@ -778,12 +998,20 @@
                     "route"
                   ],
                   "pp": [],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 6,
+                    "end": 13
+                  }
                 },
                 "copula": "is",
                 "complement": {
                   "kind": "Name",
-                  "value": "valid"
+                  "value": "valid",
+                  "span": {
+                    "start": 17,
+                    "end": 22
+                  }
                 }
               }
             }
@@ -822,12 +1050,20 @@
                         "location"
                       ],
                       "pp": [],
-                      "relative": null
+                      "relative": null,
+                      "span": {
+                        "start": 71,
+                        "end": 83
+                      }
                     },
                     "copula": "is",
                     "complement": {
                       "kind": "Name",
-                      "value": "secure"
+                      "value": "secure",
+                      "span": {
+                        "start": 87,
+                        "end": 93
+                      }
                     }
                   }
                 }
@@ -859,16 +1095,28 @@
                             "location"
                           ],
                           "pp": [],
-                          "relative": null
+                          "relative": null,
+                          "span": {
+                            "start": 112,
+                            "end": 124
+                          }
                         }
                       }
                     ],
-                    "relative": null
+                    "relative": null,
+                    "span": {
+                      "start": 97,
+                      "end": 124
+                    }
                   },
                   "copula": "is",
                   "complement": {
                     "kind": "Name",
-                    "value": "stormy"
+                    "value": "stormy",
+                    "span": {
+                      "start": 128,
+                      "end": 134
+                    }
                   }
                 }
               }
@@ -887,13 +1135,21 @@
                     "location"
                   ],
                   "pp": [],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 6,
+                    "end": 16
+                  }
                 },
                 "verbGroup": {
                   "kind": "VerbGroup",
                   "auxiliary": null,
                   "verb": "represents",
-                  "particles": []
+                  "particles": [],
+                  "span": {
+                    "start": 17,
+                    "end": 27
+                  }
                 },
                 "object": {
                   "kind": "NounPhrase",
@@ -905,7 +1161,11 @@
                     "hazard"
                   ],
                   "pp": [],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 28,
+                    "end": 36
+                  }
                 }
               }
             }
@@ -971,7 +1231,11 @@
                               },
                               "right": {
                                 "kind": "NumberLiteral",
-                                "value": 500
+                                "value": 500,
+                                "span": {
+                                  "start": 73,
+                                  "end": 76
+                                }
                               }
                             }
                           }
@@ -986,16 +1250,28 @@
                             "preposition": "at",
                             "object": {
                               "kind": "Name",
-                              "value": "Warehouse_Main"
+                              "value": "Warehouse_Main",
+                              "span": {
+                                "start": 100,
+                                "end": 114
+                              }
                             }
                           }
                         }
                       ]
+                    },
+                    "span": {
+                      "start": 28,
+                      "end": 114
                     }
                   }
                 }
               ],
-              "relative": null
+              "relative": null,
+              "span": {
+                "start": 16,
+                "end": 114
+              }
             }
           }
         }
@@ -1047,10 +1323,18 @@
                         },
                         "right": {
                           "kind": "NumberLiteral",
-                          "value": 100
+                          "value": 100,
+                          "span": {
+                            "start": 61,
+                            "end": 64
+                          }
                         }
                       }
                     }
+                  },
+                  "span": {
+                    "start": 21,
+                    "end": 64
                   }
                 },
                 "copula": "is",
@@ -1066,7 +1350,11 @@
                     "drone"
                   ],
                   "pp": [],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 80,
+                    "end": 87
+                  }
                 }
               }
             }
@@ -1110,19 +1398,35 @@
                         "kind": "VerbGroup",
                         "auxiliary": null,
                         "verb": "handles",
-                        "particles": []
+                        "particles": [],
+                        "span": {
+                          "start": 30,
+                          "end": 37
+                        }
                       },
                       "object": {
                         "kind": "Name",
-                        "value": "payments"
+                        "value": "payments",
+                        "span": {
+                          "start": 38,
+                          "end": 46
+                        }
                       }
                     }
+                  },
+                  "span": {
+                    "start": 12,
+                    "end": 46
                   }
                 },
                 "copula": "is",
                 "complement": {
                   "kind": "Name",
-                  "value": "encrypted"
+                  "value": "encrypted",
+                  "span": {
+                    "start": 50,
+                    "end": 59
+                  }
                 }
               }
             }
@@ -1166,11 +1470,19 @@
                       "meeting"
                     ],
                     "pp": [],
-                    "relative": null
+                    "relative": null,
+                    "span": {
+                      "start": 20,
+                      "end": 33
+                    }
                   }
                 }
               ],
-              "relative": null
+              "relative": null,
+              "span": {
+                "start": 5,
+                "end": 33
+              }
             },
             "constraint": {
               "kind": "AtomicCondition",
@@ -1187,7 +1499,11 @@
                     "meeting"
                   ],
                   "pp": [],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 44,
+                    "end": 54
+                  }
                 },
                 "verbGroup": {
                   "kind": "VerbGroup",
@@ -1195,7 +1511,11 @@
                   "verb": "overlaps",
                   "particles": [
                     "with"
-                  ]
+                  ],
+                  "span": {
+                    "start": 55,
+                    "end": 68
+                  }
                 },
                 "object": {
                   "kind": "NounPhrase",
@@ -1207,7 +1527,11 @@
                     "meeting"
                   ],
                   "pp": [],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 69,
+                    "end": 84
+                  }
                 }
               }
             }
@@ -1236,7 +1560,7 @@
   {
     "id": "V023",
     "valid": true,
-    "input": "Maximize the number of packages delivered such that every route is valid and the total fuel cost is less than 500.",
+    "input": "Maximize the number of packages that are delivered such that every route is valid and the total fuel cost is less than 500.",
     "expected": {
       "kind": "Program",
       "items": [
@@ -1255,11 +1579,29 @@
                   "value": "the"
                 },
                 "core": [
-                  "packages",
-                  "delivered"
+                  "packages"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": {
+                  "kind": "RelativeClause",
+                  "pronoun": "that",
+                  "body": {
+                    "kind": "RelCopulaPredicate",
+                    "copula": "are",
+                    "complement": {
+                      "kind": "Name",
+                      "value": "delivered",
+                      "span": {
+                        "start": 41,
+                        "end": 50
+                      }
+                    }
+                  }
+                },
+                "span": {
+                  "start": 23,
+                  "end": 50
+                }
               }
             },
             "constraint": {
@@ -1280,12 +1622,20 @@
                         "route"
                       ],
                       "pp": [],
-                      "relative": null
+                      "relative": null,
+                      "span": {
+                        "start": 61,
+                        "end": 72
+                      }
                     },
                     "copula": "is",
                     "complement": {
                       "kind": "Name",
-                      "value": "valid"
+                      "value": "valid",
+                      "span": {
+                        "start": 76,
+                        "end": 81
+                      }
                     }
                   }
                 },
@@ -1311,7 +1661,11 @@
                     },
                     "right": {
                       "kind": "NumberLiteral",
-                      "value": 500
+                      "value": 500,
+                      "span": {
+                        "start": 119,
+                        "end": 122
+                      }
                     }
                   }
                 }
@@ -1353,7 +1707,11 @@
                   "flights"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 33,
+                  "end": 44
+                }
               }
             },
             "constraint": {
@@ -1371,12 +1729,20 @@
                     "flight"
                   ],
                   "pp": [],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 55,
+                    "end": 64
+                  }
                 },
                 "copula": "is",
                 "complement": {
                   "kind": "Name",
-                  "value": "canceled"
+                  "value": "canceled",
+                  "span": {
+                    "start": 68,
+                    "end": 76
+                  }
                 }
               }
             }
@@ -1388,7 +1754,7 @@
   {
     "id": "V025",
     "valid": true,
-    "input": "Explain why Truck_A represents a valid choice.",
+    "input": "Explain why Truck_A represents a \"valid choice\".",
     "expected": {
       "kind": "Program",
       "items": [
@@ -1402,13 +1768,21 @@
                 "kind": "ActiveRelationAssertion",
                 "subject": {
                   "kind": "Name",
-                  "value": "Truck_A"
+                  "value": "Truck_A",
+                  "span": {
+                    "start": 12,
+                    "end": 19
+                  }
                 },
                 "verbGroup": {
                   "kind": "VerbGroup",
                   "auxiliary": null,
                   "verb": "represents",
-                  "particles": []
+                  "particles": [],
+                  "span": {
+                    "start": 20,
+                    "end": 30
+                  }
                 },
                 "object": {
                   "kind": "NounPhrase",
@@ -1417,11 +1791,14 @@
                     "value": "a"
                   },
                   "core": [
-                    "valid",
-                    "choice"
+                    "valid choice"
                   ],
                   "pp": [],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 31,
+                    "end": 47
+                  }
                 }
               }
             }
@@ -1453,17 +1830,29 @@
                   "sensor"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 5,
+                  "end": 15
+                }
               },
               "verbGroup": {
                 "kind": "VerbGroup",
                 "auxiliary": null,
                 "verb": "detects",
-                "particles": []
+                "particles": [],
+                "span": {
+                  "start": 16,
+                  "end": 23
+                }
               },
               "object": {
                 "kind": "Name",
-                "value": "smoke"
+                "value": "smoke",
+                "span": {
+                  "start": 24,
+                  "end": 29
+                }
               }
             }
           },
@@ -1481,12 +1870,20 @@
                   "alarm"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 43,
+                  "end": 52
+                }
               },
               "copula": "is",
               "complement": {
                 "kind": "Name",
-                "value": "active"
+                "value": "active",
+                "span": {
+                  "start": 56,
+                  "end": 62
+                }
               }
             }
           }
@@ -1497,7 +1894,7 @@
   {
     "id": "V027",
     "valid": true,
-    "input": "// 1. Type Definitions\n--- CONTEXT: LogisticsNetwork ---\nTruck is a vehicle.\nDrone is a vehicle.\n---\n// Facts\nTruck_A is a truck.\n",
+    "input": "// 1. Type Definitions\n--- CONTEXT: LogisticsNetwork ---\nTruck is a vehicle.\nDrone is a vehicle.\n// Facts\nTruck_A is a truck.\n",
     "expected": {
       "kind": "Program",
       "items": [
@@ -1513,7 +1910,11 @@
               "kind": "CopulaPredicateAssertion",
               "subject": {
                 "kind": "Name",
-                "value": "Truck"
+                "value": "Truck",
+                "span": {
+                  "start": 57,
+                  "end": 62
+                }
               },
               "copula": "is",
               "complement": {
@@ -1526,7 +1927,11 @@
                   "vehicle"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 66,
+                  "end": 75
+                }
               }
             }
           }
@@ -1539,7 +1944,11 @@
               "kind": "CopulaPredicateAssertion",
               "subject": {
                 "kind": "Name",
-                "value": "Drone"
+                "value": "Drone",
+                "span": {
+                  "start": 77,
+                  "end": 82
+                }
               },
               "copula": "is",
               "complement": {
@@ -1552,7 +1961,11 @@
                   "vehicle"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 86,
+                  "end": 95
+                }
               }
             }
           }
@@ -1565,7 +1978,11 @@
               "kind": "CopulaPredicateAssertion",
               "subject": {
                 "kind": "Name",
-                "value": "Truck_A"
+                "value": "Truck_A",
+                "span": {
+                  "start": 106,
+                  "end": 113
+                }
               },
               "copula": "is",
               "complement": {
@@ -1578,7 +1995,11 @@
                   "truck"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 117,
+                  "end": 124
+                }
               }
             }
           }
@@ -1614,7 +2035,11 @@
                     "preposition": "from",
                     "object": {
                       "kind": "Name",
-                      "value": "A"
+                      "value": "A",
+                      "span": {
+                        "start": 18,
+                        "end": 19
+                      }
                     }
                   },
                   {
@@ -1622,11 +2047,19 @@
                     "preposition": "to",
                     "object": {
                       "kind": "Name",
-                      "value": "B"
+                      "value": "B",
+                      "span": {
+                        "start": 23,
+                        "end": 24
+                      }
                     }
                   }
                 ],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 24
+                }
               },
               "comparator": {
                 "kind": "Comparator",
@@ -1634,7 +2067,11 @@
               },
               "right": {
                 "kind": "NumberLiteral",
-                "value": 12
+                "value": 12,
+                "span": {
+                  "start": 37,
+                  "end": 39
+                }
               }
             }
           }
@@ -1666,12 +2103,20 @@
                   "users"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 16
+                }
               },
               "copula": "are",
               "complement": {
                 "kind": "Name",
-                "value": "active"
+                "value": "active",
+                "span": {
+                  "start": 21,
+                  "end": 27
+                }
               }
             }
           }
@@ -1703,12 +2148,20 @@
                   "server"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 16
+                }
               },
               "copula": "is",
               "complement": {
                 "kind": "Name",
-                "value": "down"
+                "value": "down",
+                "span": {
+                  "start": 20,
+                  "end": 24
+                }
               }
             }
           }
@@ -1740,12 +2193,20 @@
                   "packages"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 13
+                }
               },
               "copula": "are",
               "complement": {
                 "kind": "Name",
-                "value": "delayed"
+                "value": "delayed",
+                "span": {
+                  "start": 18,
+                  "end": 25
+                }
               }
             }
           }
@@ -1777,12 +2238,20 @@
                   "package"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 10
+                }
               },
               "copula": "is",
               "complement": {
                 "kind": "Name",
-                "value": "lost"
+                "value": "lost",
+                "span": {
+                  "start": 14,
+                  "end": 18
+                }
               }
             }
           }
@@ -1813,7 +2282,11 @@
                   "meeting"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 15
+                }
               },
               "verbGroup": {
                 "kind": "VerbGroup",
@@ -1821,7 +2294,11 @@
                 "verb": "overlaps",
                 "particles": [
                   "with"
-                ]
+                ],
+                "span": {
+                  "start": 16,
+                  "end": 29
+                }
               },
               "object": {
                 "kind": "NounPhrase",
@@ -1833,7 +2310,11 @@
                   "meeting"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 30,
+                  "end": 41
+                }
               }
             }
           }
@@ -1872,9 +2353,17 @@
                     "copula": "is",
                     "complement": {
                       "kind": "Name",
-                      "value": "heavy"
+                      "value": "heavy",
+                      "span": {
+                        "start": 21,
+                        "end": 26
+                      }
                     }
                   }
+                },
+                "span": {
+                  "start": 0,
+                  "end": 26
                 }
               },
               "copula": "is",
@@ -1882,7 +2371,11 @@
               "preposition": "to",
               "object": {
                 "kind": "Name",
-                "value": "Truck_A"
+                "value": "Truck_A",
+                "span": {
+                  "start": 42,
+                  "end": 49
+                }
               }
             }
           }
@@ -1928,7 +2421,11 @@
                         "temperature"
                       ],
                       "pp": [],
-                      "relative": null
+                      "relative": null,
+                      "span": {
+                        "start": 18,
+                        "end": 33
+                      }
                     },
                     "comparator": {
                       "kind": "Comparator",
@@ -1936,15 +2433,27 @@
                     },
                     "right": {
                       "kind": "NumberLiteral",
-                      "value": 20
+                      "value": 20,
+                      "span": {
+                        "start": 50,
+                        "end": 52
+                      }
                     }
                   }
+                },
+                "span": {
+                  "start": 0,
+                  "end": 52
                 }
               },
               "copula": "is",
               "complement": {
                 "kind": "Name",
-                "value": "hot"
+                "value": "hot",
+                "span": {
+                  "start": 56,
+                  "end": 59
+                }
               }
             }
           }
@@ -1994,7 +2503,11 @@
                             "admin"
                           ],
                           "pp": [],
-                          "relative": null
+                          "relative": null,
+                          "span": {
+                            "start": 14,
+                            "end": 22
+                          }
                         }
                       }
                     },
@@ -2014,17 +2527,29 @@
                             "dev"
                           ],
                           "pp": [],
-                          "relative": null
+                          "relative": null,
+                          "span": {
+                            "start": 33,
+                            "end": 38
+                          }
                         }
                       }
                     }
                   ]
+                },
+                "span": {
+                  "start": 0,
+                  "end": 38
                 }
               },
               "copula": "is",
               "complement": {
                 "kind": "Name",
-                "value": "privileged"
+                "value": "privileged",
+                "span": {
+                  "start": 42,
+                  "end": 52
+                }
               }
             }
           }
@@ -2075,16 +2600,28 @@
                       },
                       "right": {
                         "kind": "NumberLiteral",
-                        "value": 10
+                        "value": 10,
+                        "span": {
+                          "start": 39,
+                          "end": 41
+                        }
                       }
                     }
                   }
+                },
+                "span": {
+                  "start": 0,
+                  "end": 41
                 }
               },
               "copula": "is",
               "complement": {
                 "kind": "Name",
-                "value": "valid"
+                "value": "valid",
+                "span": {
+                  "start": 45,
+                  "end": 50
+                }
               }
             }
           }
@@ -2141,15 +2678,27 @@
                               "warehouse"
                             ],
                             "pp": [],
-                            "relative": null
+                            "relative": null,
+                            "span": {
+                              "start": 31,
+                              "end": 44
+                            }
                           }
                         }
                       ],
-                      "relative": null
+                      "relative": null,
+                      "span": {
+                        "start": 16,
+                        "end": 44
+                      }
                     }
                   }
                 ],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 44
+                }
               },
               "comparator": {
                 "kind": "Comparator",
@@ -2157,7 +2706,11 @@
               },
               "right": {
                 "kind": "NumberLiteral",
-                "value": 500
+                "value": 500,
+                "span": {
+                  "start": 61,
+                  "end": 64
+                }
               }
             }
           }
@@ -2189,17 +2742,29 @@
                         "kind": "ActiveRelationAssertion",
                         "subject": {
                           "kind": "Name",
-                          "value": "John"
+                          "value": "John",
+                          "span": {
+                            "start": 9,
+                            "end": 13
+                          }
                         },
                         "verbGroup": {
                           "kind": "VerbGroup",
                           "auxiliary": null,
                           "verb": "likes",
-                          "particles": []
+                          "particles": [],
+                          "span": {
+                            "start": 14,
+                            "end": 19
+                          }
                         },
                         "object": {
                           "kind": "Name",
-                          "value": "pizza"
+                          "value": "pizza",
+                          "span": {
+                            "start": 20,
+                            "end": 25
+                          }
                         }
                       }
                     },
@@ -2209,17 +2774,29 @@
                         "kind": "ActiveRelationAssertion",
                         "subject": {
                           "kind": "Name",
-                          "value": "Mary"
+                          "value": "Mary",
+                          "span": {
+                            "start": 30,
+                            "end": 34
+                          }
                         },
                         "verbGroup": {
                           "kind": "VerbGroup",
                           "auxiliary": null,
                           "verb": "likes",
-                          "particles": []
+                          "particles": [],
+                          "span": {
+                            "start": 35,
+                            "end": 40
+                          }
                         },
                         "object": {
                           "kind": "Name",
-                          "value": "sushi"
+                          "value": "sushi",
+                          "span": {
+                            "start": 41,
+                            "end": 46
+                          }
                         }
                       }
                     }
@@ -2232,17 +2809,29 @@
                   "kind": "ActiveRelationAssertion",
                   "subject": {
                     "kind": "Name",
-                    "value": "Bob"
+                    "value": "Bob",
+                    "span": {
+                      "start": 52,
+                      "end": 55
+                    }
                   },
                   "verbGroup": {
                     "kind": "VerbGroup",
                     "auxiliary": null,
                     "verb": "likes",
-                    "particles": []
+                    "particles": [],
+                    "span": {
+                      "start": 56,
+                      "end": 61
+                    }
                   },
                   "object": {
                     "kind": "Name",
-                    "value": "salad"
+                    "value": "salad",
+                    "span": {
+                      "start": 62,
+                      "end": 67
+                    }
                   }
                 }
               }
@@ -2253,12 +2842,20 @@
                 "kind": "CopulaPredicateAssertion",
                 "subject": {
                   "kind": "Name",
-                  "value": "Party"
+                  "value": "Party",
+                  "span": {
+                    "start": 73,
+                    "end": 78
+                  }
                 },
                 "copula": "is",
                 "complement": {
                   "kind": "Name",
-                  "value": "on"
+                  "value": "on",
+                  "span": {
+                    "start": 82,
+                    "end": 84
+                  }
                 }
               }
             }
@@ -2289,7 +2886,11 @@
                 "package"
               ],
               "pp": [],
-              "relative": null
+              "relative": null,
+              "span": {
+                "start": 7,
+                "end": 20
+              }
             }
           }
         }
@@ -2316,10 +2917,10 @@
     "expectedError": {
       "code": "SYN011",
       "name": "MixedBooleanOperatorsError",
-      "message": "Mixed 'and'/'or' without explicit grouping (both/either/neither/it is the case that/parentheses).",
+      "message": "Mixed 'and'/'or' without explicit grouping (both/either/it is the case that/parentheses).",
       "severity": "error",
       "primaryToken": "or",
-      "hint": "Rewrite using 'either ... or ...' or parentheses."
+      "hint": "Rewrite using 'either ... or ...', 'both ... and ...', or parentheses."
     }
   },
   {
@@ -2338,20 +2939,20 @@
   {
     "id": "X004",
     "valid": false,
-    "input": "User who is active is trusted.",
+    "input": "user who is active is trusted.",
     "expectedError": {
       "code": "SYN009",
       "name": "InvalidNounPhraseStartError",
       "message": "Noun phrase must start with a determiner or quantifier.",
       "severity": "error",
-      "primaryToken": "User",
+      "primaryToken": "user",
       "hint": "Start with a/an/the/every/all/no/some/at least/at most/another."
     }
   },
   {
     "id": "X005",
     "valid": false,
-    "input": "A user who is active and knows Python is valid.",
+    "input": "A user who is active and knows python is valid.",
     "expectedError": {
       "code": "SYN010",
       "name": "RelativePronounRepetitionError",
@@ -2490,7 +3091,7 @@
       "message": "Command form is missing a required clause.",
       "severity": "error",
       "primaryToken": "steps",
-      "hint": "Use the required form, such as 'simulate 10 steps'."
+      "hint": "Use the required form, such as 'find ... such that ...'."
     }
   },
   {
@@ -2574,17 +3175,29 @@
                   "sensor"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 5,
+                  "end": 15
+                }
               },
               "verbGroup": {
                 "kind": "VerbGroup",
                 "auxiliary": null,
                 "verb": "detects",
-                "particles": []
+                "particles": [],
+                "span": {
+                  "start": 16,
+                  "end": 23
+                }
               },
               "object": {
                 "kind": "Name",
-                "value": "smoke"
+                "value": "smoke",
+                "span": {
+                  "start": 24,
+                  "end": 29
+                }
               }
             }
           },
@@ -2602,12 +3215,20 @@
                   "alarm"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 37,
+                  "end": 46
+                }
               },
               "copula": "is",
               "complement": {
                 "kind": "Name",
-                "value": "active"
+                "value": "active",
+                "span": {
+                  "start": 50,
+                  "end": 56
+                }
               }
             }
           }
@@ -2693,12 +3314,20 @@
                     "package"
                   ],
                   "pp": [],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 16,
+                    "end": 29
+                  }
                 },
                 "copula": "is",
                 "complement": {
                   "kind": "Name",
-                  "value": "delivered"
+                  "value": "delivered",
+                  "span": {
+                    "start": 33,
+                    "end": 42
+                  }
                 }
               }
             }
@@ -2726,17 +3355,29 @@
                   "kind": "ActiveRelationAssertion",
                   "subject": {
                     "kind": "Name",
-                    "value": "John"
+                    "value": "John",
+                    "span": {
+                      "start": 10,
+                      "end": 14
+                    }
                   },
                   "verbGroup": {
                     "kind": "VerbGroup",
                     "auxiliary": null,
                     "verb": "likes",
-                    "particles": []
+                    "particles": [],
+                    "span": {
+                      "start": 15,
+                      "end": 20
+                    }
                   },
                   "object": {
                     "kind": "Name",
-                    "value": "pizza"
+                    "value": "pizza",
+                    "span": {
+                      "start": 21,
+                      "end": 26
+                    }
                   }
                 }
               },
@@ -2746,17 +3387,29 @@
                   "kind": "ActiveRelationAssertion",
                   "subject": {
                     "kind": "Name",
-                    "value": "Mary"
+                    "value": "Mary",
+                    "span": {
+                      "start": 30,
+                      "end": 34
+                    }
                   },
                   "verbGroup": {
                     "kind": "VerbGroup",
                     "auxiliary": null,
                     "verb": "likes",
-                    "particles": []
+                    "particles": [],
+                    "span": {
+                      "start": 35,
+                      "end": 40
+                    }
                   },
                   "object": {
                     "kind": "Name",
-                    "value": "sushi"
+                    "value": "sushi",
+                    "span": {
+                      "start": 41,
+                      "end": 46
+                    }
                   }
                 }
               }
@@ -2767,12 +3420,20 @@
                 "kind": "CopulaPredicateAssertion",
                 "subject": {
                   "kind": "Name",
-                  "value": "Bob"
+                  "value": "Bob",
+                  "span": {
+                    "start": 52,
+                    "end": 55
+                  }
                 },
                 "copula": "is",
                 "complement": {
                   "kind": "Name",
-                  "value": "happy"
+                  "value": "happy",
+                  "span": {
+                    "start": 59,
+                    "end": 64
+                  }
                 }
               }
             }
@@ -2804,7 +3465,11 @@
                   "name"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 8
+                }
               },
               "comparator": {
                 "kind": "Comparator",
@@ -2812,7 +3477,11 @@
               },
               "right": {
                 "kind": "StringLiteral",
-                "value": "Alice"
+                "value": "Alice",
+                "span": {
+                  "start": 21,
+                  "end": 28
+                }
               }
             }
           }
@@ -2843,7 +3512,11 @@
                   "flag"
                 ],
                 "pp": [],
-                "relative": null
+                "relative": null,
+                "span": {
+                  "start": 0,
+                  "end": 8
+                }
               },
               "comparator": {
                 "kind": "Comparator",
@@ -2851,7 +3524,11 @@
               },
               "right": {
                 "kind": "BooleanLiteral",
-                "value": true
+                "value": true,
+                "span": {
+                  "start": 21,
+                  "end": 25
+                }
               }
             }
           }
@@ -2881,17 +3558,29 @@
                       "kind": "ActiveRelationAssertion",
                       "subject": {
                         "kind": "Name",
-                        "value": "John"
+                        "value": "John",
+                        "span": {
+                          "start": 21,
+                          "end": 25
+                        }
                       },
                       "verbGroup": {
                         "kind": "VerbGroup",
                         "auxiliary": null,
                         "verb": "likes",
-                        "particles": []
+                        "particles": [],
+                        "span": {
+                          "start": 26,
+                          "end": 31
+                        }
                       },
                       "object": {
                         "kind": "Name",
-                        "value": "pizza"
+                        "value": "pizza",
+                        "span": {
+                          "start": 32,
+                          "end": 37
+                        }
                       }
                     }
                   },
@@ -2901,17 +3590,29 @@
                       "kind": "ActiveRelationAssertion",
                       "subject": {
                         "kind": "Name",
-                        "value": "Mary"
+                        "value": "Mary",
+                        "span": {
+                          "start": 42,
+                          "end": 46
+                        }
                       },
                       "verbGroup": {
                         "kind": "VerbGroup",
                         "auxiliary": null,
                         "verb": "likes",
-                        "particles": []
+                        "particles": [],
+                        "span": {
+                          "start": 47,
+                          "end": 52
+                        }
                       },
                       "object": {
                         "kind": "Name",
-                        "value": "sushi"
+                        "value": "sushi",
+                        "span": {
+                          "start": 53,
+                          "end": 58
+                        }
                       }
                     }
                   }
@@ -2932,12 +3633,20 @@
                     "route"
                   ],
                   "pp": [],
-                  "relative": null
+                  "relative": null,
+                  "span": {
+                    "start": 0,
+                    "end": 7
+                  }
                 },
                 "copula": "is",
                 "complement": {
                   "kind": "Name",
-                  "value": "valid"
+                  "value": "valid",
+                  "span": {
+                    "start": 11,
+                    "end": 16
+                  }
                 }
               }
             }

@@ -6,7 +6,7 @@ import { ConceptKind } from "../../src/ids/interners.mjs";
 import { canonicalEntityKey, canonicalAttributeKey } from "../../src/compiler/canonical-keys.mjs";
 
 const source = `--- CONTEXT: BaseDictionary ---
-"status" is an entity attribute.
+"status" is an "entity attribute".
 --- CONTEXT: Core ---
 Truck_A has a status of Active.`;
 

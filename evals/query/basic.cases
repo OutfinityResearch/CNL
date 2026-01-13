@@ -1,11 +1,17 @@
 # Query Evaluation Cases
 
-- input: "--- CONTEXT: BaseDictionary ---\n\"role\" is an entity attribute.\n--- CONTEXT: Core ---\nUser1 is a user.\nUser1 has a role of Admin.\nEvery user whose role is equal to Admin is privileged.\nEvery user that is privileged is audited.\nReturn the name of every user that is audited."
+- input: "--- CONTEXT: BaseDictionary ---\n\"role\" is an \"entity attribute\".\n--- CONTEXT: Core ---\nUser1 is a user.\nUser1 has a role of admin.\nEvery user whose role is equal to admin is privileged.\nEvery user that is privileged is audited.\nReturn the name of every user that is audited."
   purpose: "Query with derived unary predicate from entity-valued attribute rule chain."
   expect: "User1"
-- input: "Server1 is a machine.\nServer1 handles Payments.\nEvery machine that handles Payments is a server.\nEvery server that handles Payments is critical.\nReturn the name of every server that is critical."
+  proofMode: "Witness"
+  proofStepsInclude: ["User1 has a role of admin."]
+- input: "Server1 is a machine.\nServer1 handles payments.\nEvery machine that handles payments is a server.\nEvery server that handles payments is critical.\nReturn the name of every server that is critical."
   purpose: "Query with derived unary predicate from relation-based rules."
   expect: "Server1"
-- input: "--- CONTEXT: BaseDictionary ---\n\"capacity\" is a numeric attribute.\n--- CONTEXT: Core ---\nTruck_A is a truck.\nTruck_A has a capacity of 1000.\nTruck_A is located at Warehouse_1.\nEvery truck whose capacity is greater than 500 and that is located at Warehouse_1 is eligible.\nEvery truck that is eligible is insured.\nReturn the name of every truck that is insured."
+  proofMode: "Witness"
+  proofStepsInclude: ["Server1 handles payments."]
+- input: "--- CONTEXT: BaseDictionary ---\n\"capacity\" is a \"numeric attribute\".\n--- CONTEXT: Core ---\nTruck_A is a truck.\nTruck_A has a capacity of 1000.\nTruck_A is located at Warehouse_1.\nEvery truck whose capacity is greater than 500 and that is located at Warehouse_1 is eligible.\nEvery truck that is eligible is insured.\nReturn the name of every truck that is insured."
   purpose: "Query with numeric+relation filters feeding a derived predicate chain."
   expect: "Truck_A"
+  proofMode: "Witness"
+  proofStepsInclude: ["Truck_A has a capacity of 1000.", "Truck_A is located at Warehouse_1."]

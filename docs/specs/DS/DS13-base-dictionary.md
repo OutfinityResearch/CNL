@@ -19,28 +19,35 @@ Within this context:
 - Only dictionary declarations are allowed.
 - Statements do not insert KB facts.
 - All keys must be explicit string literals to avoid ambiguity.
+- Multi-word declaration heads follow DS03 noun phrase rules and must be quoted.
+
+## Naming Alignment (Recommended)
+Even though dictionary keys are string literals, they should follow DS03 naming conventions to keep tooling and explanations consistent:
+- Unary predicate keys (concepts/categories): lowercase, hyphenated for compounds (example: `"traffic-light"`).
+- Binary predicate keys (verb phrases): lowercase words separated by spaces or particles (example: `"assigned to"`).
+- Type keys (used in domain/range): treat as concepts (lowercase, hyphenated for compounds) unless a project explicitly chooses a different style.
 
 ## Declaration Forms (CNL)
 The following forms are accepted inside the dictionary context.
 
 ### Predicate Declarations
 ```
-"likes" is a binary predicate.
-"active" is a unary predicate.
+"likes" is a "binary predicate".
+"active" is a "unary predicate".
 ```
 
 ### Domain and Range
 ```
-the domain of "likes" is "Person".
-the range of "likes" is "Pizza".
+the domain of "likes" is "person".
+the range of "likes" is "pizza".
 ```
 
 ### Attribute Declarations
 ```
-"capacity" is a numeric attribute.
-"status" is an entity attribute.
-"capacity" is a functional attribute.
-"tags" is a multivalued attribute.
+"capacity" is a "numeric attribute".
+"status" is an "entity attribute".
+"capacity" is a "functional attribute".
+"tags" is a "multivalued attribute".
 ```
 
 ### Comparator Allowances
@@ -51,8 +58,8 @@ the comparator of "capacity" is "equal to".
 
 ### Type Declarations and Hierarchy
 ```
-"Person" is a type.
-"Driver" is a subtype of "Person".
+"person" is a type.
+"driver" is a subtype of "person".
 ```
 
 ## Compilation Rules

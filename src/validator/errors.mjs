@@ -34,6 +34,11 @@ const ERROR_CATALOG = {
     message: "Invalid number format.",
     hint: "Use 123 or 123.45.",
   },
+  LEX005: {
+    name: "InvalidVariableTokenError",
+    message: "Invalid variable token.",
+    hint: "Use '?X' with a letter after '?'.",
+  },
   SYN001: {
     name: "UnexpectedTokenError",
     message: "Unexpected token in the current grammar position.",
@@ -87,8 +92,8 @@ const ERROR_CATALOG = {
   SYN011: {
     name: "MixedBooleanOperatorsError",
     message:
-      "Mixed 'and'/'or' without explicit grouping (both/either/neither/it is the case that/parentheses).",
-    hint: "Rewrite using 'either ... or ...' or parentheses.",
+      "Mixed 'and'/'or' without explicit grouping (both/either/it is the case that/parentheses).",
+    hint: "Rewrite using 'either ... or ...', 'both ... and ...', or parentheses.",
   },
   SYN012: {
     name: "MixedRelativeBooleanOperatorsError",
@@ -121,6 +126,11 @@ const ERROR_CATALOG = {
     message: "Quantifier requires a number after 'at least' or 'at most'.",
     hint: "Use 'At least 2 users ...'.",
   },
+  SYN018: {
+    name: "MultiWordNounRequiresQuotesError",
+    message: "Multi-word noun phrase heads must be quoted.",
+    hint: 'Use quotes, for example: a "critical server".',
+  },
 };
 
 export function createError(code, primaryToken, overrides = {}) {
@@ -143,4 +153,16 @@ export function createError(code, primaryToken, overrides = {}) {
     hint: overrides.hint ?? def.hint,
     offendingField: overrides.offendingField,
   });
+}
+
+export function MissingTerminatorError(primaryToken = "EOF", overrides = {}) {
+  return createError("SYN003", primaryToken, overrides);
+}
+
+export function HasFormDeterminismError(primaryToken = "EOF", overrides = {}) {
+  return createError("SYN008", primaryToken, overrides);
+}
+
+export function MixedBooleanOperatorsError(primaryToken = "EOF", overrides = {}) {
+  return createError("SYN011", primaryToken, overrides);
 }

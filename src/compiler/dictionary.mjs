@@ -58,7 +58,7 @@ function coreHas(core, word) {
 
 function normalizeCore(node) {
   if (!node || node.kind !== "NounPhrase") return [];
-  return node.core.map((item) => item.toLowerCase());
+  return node.core.flatMap((item) => item.toLowerCase().split(/\s+/).filter(Boolean));
 }
 
 function normalizeBinaryPredicateKey(key) {

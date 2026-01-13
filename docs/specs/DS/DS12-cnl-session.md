@@ -15,7 +15,7 @@ CNLSession manages:
 - Compiled KB and indices (DS09).
 - Rule plans and justification store (DS10, DS11).
 - Optional base dictionary declarations (predicate/attribute typing).
-- Source map: theory file -> list of asserted facts and rules.
+- Source list: ordered CNL inputs used for transactional rebuilds.
 
 ## Session Options
 - `projectEntityAttributes`: when true, entity-valued attributes are also projected into derived binary predicates `has_attr|<AttrKey>`.
@@ -33,6 +33,7 @@ session = new CNLSession(options)
 session.learn(theoryFile, options)
 session.learnText(cnlText, options)
 
+session.execute(cnlText, options)
 session.query(cnlQuery, options)
 session.proof(cnlStatement, options)
 session.explain(cnlStatement, options)
@@ -63,13 +64,15 @@ session.reset()
 - Transactional loading: if any compilation error occurs, the KB is not mutated.
 - Incremental loading: valid statements are applied, invalid statements are reported with source locations.
 - Transactional and incremental are mutually exclusive; if both are requested, return an error.
+  - Incremental parsing is line/block tolerant: a bad line does not prevent other statements from being compiled.
 
 ## Pragmatic Methods
-- `query`: returns a Bitset of EntityID plus optional projection.
+- `execute`: routes text to learning or command execution (exclusive).
+- `query`: returns a list of entity bindings with display keys.
 - `proof`: returns boolean plus optional justification trace.
-- `explain`: returns a minimal justification DAG.
-- `solve`: returns variable bindings or partial domains.
-- `plan`: returns action sequence signatures.
+- `explain`: returns a justification DAG and optional base fact summaries.
+- `solve`: returns variable bindings or partial domains (variables use `?X` syntax).
+- `plan`: returns ordered action steps.
 - `simulate`: returns state snapshots over time.
 - `optimize`: returns best solution and objective value.
 

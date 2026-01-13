@@ -31,7 +31,7 @@
           In a distributed or long-lived system, identity is hard. Strings are fragile (typos, renaming), and simple auto-incrementing integers are not stable across restarts. CNL-PL introduces the <strong>ConceptualID</strong>: a globally stable, 64-bit hash-based identifier for every concept in the system.
         </p>
         <p>
-          Whether it is a specific User, a Predicate definition, or an Attribute type, it receives a ConceptualID derived from its canonical definition. This allows the system to be "stateless" in a sense—recompiling the same source files will always produce the same logical relationships, even if the execution order changes. The <strong>SymbolTable</strong> maintains the bidirectional mapping, ensuring that we can always turn a number back into the string "User" for debugging or explanation.
+          Whether it is a specific user, a Predicate definition, or an Attribute type, it receives a ConceptualID derived from its canonical definition. This allows the system to be "stateless" in a sense—recompiling the same source files will always produce the same logical relationships, even if the execution order changes. The <strong>SymbolTable</strong> maintains the bidirectional mapping, ensuring that we can always turn a number back into the string "user" for debugging or explanation.
         </p>
 
         <h2 id="dense">Dense IDs for Performance</h2>
@@ -53,7 +53,7 @@
 
         <h2 id="provenance">FactID, RuleID, and Provenance</h2>
         <p>
-          Beyond simple entities, the system needs to track *truth*. A <strong>FactID</strong> is a unique identifier for a specific assertion (e.g., "Fact #42: John is Admin"). It is typically a hash of the triplet (SubjectID, PredID, ObjectID).
+          Beyond simple entities, the system needs to track *truth*. A <strong>FactID</strong> is a unique identifier for a specific assertion (e.g., "Fact #42: John is an admin"). It is typically a hash of the triplet (SubjectID, PredID, ObjectID).
         </p>
         <p>
           Similarly, a <strong>RuleID</strong> identifies a specific logic rule. These IDs are essential for <strong>Provenance</strong>. When the system explains "Why is John active?", it returns a <strong>DAG (Directed Acyclic Graph)</strong> of IDs: "John is active (Fact A) because Rule X applied to Fact B and Fact C." Without these unique IDs for facts and rules, the system could calculate the answer but could never explain it.

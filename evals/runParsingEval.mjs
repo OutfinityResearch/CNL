@@ -119,7 +119,7 @@ for (const testCase of cases) {
       console.log(`${colors.red}FAIL${colors.reset} ${id} (${_file}) [${label}] - expected ${expectedCode}: \"${preview}\"`);
       continue;
     }
-    if (!deepEqual(result, expected)) {
+    if (!matchExpected(result, expected)) {
       failed += 1;
       failures.push({ id, reason: "AST mismatch", expected, actual: result, file: _file });
       console.log(`${colors.red}FAIL${colors.reset} ${id} (${_file}) [${label}] - AST mismatch: \"${preview}\"`);

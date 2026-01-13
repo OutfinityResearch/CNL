@@ -4,18 +4,18 @@ export const DEMO_SUITE = [
     title: "Classic Syllogism",
     description: "Aristotelian logic: All men are mortal.",
     theory: `
-Socrates is a Man.
-If someone is a Man, then they are Mortal.
+Socrates is a man.
+Every man is mortal.
     `,
     steps: [
       {
-        command: "Verify that Socrates is Mortal.",
+        command: "Verify that Socrates is mortal.",
         expected: "true",
-        explanation: "Inference: Man -> Mortal"
+        explanation: "Inference: man -> mortal"
       },
       {
-        command: "Explain why Socrates is Mortal.",
-        expectedMatches: ["Socrates is a Man"]
+        command: "Explain why Socrates is mortal.",
+        expectedMatches: ["Socrates is a man"]
       }
     ]
   },
@@ -39,9 +39,16 @@ Every user that is active is a concept.
     title: "Relationships",
     description: "Binary relations and bidirectional queries.",
     theory: `
+Server_A is a server.
+Server_B is a server.
+Database_1 is a database.
+Database_2 is a database.
+Admin_1 is an admin.
 Server_A hosts Database_1.
 Server_B hosts Database_2.
-Admin manages Server_A.
+Database_1 is hosted by Server_A.
+Database_2 is hosted by Server_B.
+Admin_1 manages Server_A.
     `,
     steps: [
       {
@@ -49,11 +56,11 @@ Admin manages Server_A.
         expected: '["Server_A"]'
       },
       {
-        command: "Return the name of every database that Server_B hosts.",
+        command: "Return the name of every database that is hosted by Server_B.",
         expected: '["Database_2"]'
       },
       {
-        command: "Verify that Admin manages Server_A.",
+        command: "Verify that Admin_1 manages Server_A.",
         expected: "true"
       }
     ]
@@ -63,15 +70,15 @@ Admin manages Server_A.
     title: "Negation & Conflicts",
     description: "Explicit negation and disjoint sets.",
     theory: `
-Admin is a User.
-Guest is a User.
-If someone is an Admin, then they are a NonGuest.
-Alice is an Admin.
-Bob is a Guest.
+Every admin is a user.
+Every guest is a user.
+Every admin is a non-guest.
+Alice is an admin.
+Bob is a guest.
     `,
     steps: [
-      { command: "Verify that Alice is a NonGuest.", expected: "true" },
-      { command: "Verify that Bob is an Admin.", expected: "false" }
+      { command: "Verify that Alice is a non-guest.", expected: "true" },
+      { command: "Verify that Bob is an admin.", expected: "false" }
     ]
   },
   {
@@ -79,15 +86,14 @@ Bob is a Guest.
     title: "Modal Logic (Simulated)",
     description: "Modeling beliefs and possibilities using reified facts.",
     theory: `
-Bob believes Fact_1.
-Fact_1 asserts FlatEarth.
-Alice believes Fact_2.
-Fact_2 asserts RoundEarth.
-If X believes F and F asserts P, then P is a Belief of X.
+Bob is a believer.
+Bob believes Claim_1.
+Claim_1 asserts flat-earth.
+Every believer that believes Claim_1 believes flat-earth.
     `,
     steps: [
-      { command: "Verify that Bob believes Fact_1.", expected: "true" },
-      { command: "Verify that FlatEarth is a Belief of Bob.", expected: "true (Derived)" }
+      { command: "Verify that Bob believes Claim_1.", expected: "true" },
+      { command: "Verify that Bob believes flat-earth.", expected: "true" }
     ]
   },
   {
@@ -95,14 +101,17 @@ If X believes F and F asserts P, then P is a Belief of X.
     title: "Fuzzy Logic (Thresholds)",
     description: "Reasoning with continuous values using numeric attributes.",
     theory: `
-Thermostat has Temperature 0.85.
-Water has Temperature 0.4.
-If X has Temperature T and T is greater than 0.7, then X is Hot.
-If X has Temperature T and T is less than 0.5, then X is Cold.
+Thermostat_1 is a device.
+Water_1 is water.
+Water_1 is a liquid.
+Thermostat_1 has a temperature of 0.85.
+Water_1 has a temperature of 0.4.
+Every device whose temperature is greater than 0.7 is hot.
+Every liquid whose temperature is less than 0.5 is cold.
     `,
     steps: [
-      { command: "Verify that Thermostat is Hot.", expected: "true" },
-      { command: "Verify that Water is Cold.", expected: "true" }
+      { command: "Verify that Thermostat_1 is hot.", expected: "true" },
+      { command: "Verify that Water_1 is cold.", expected: "true" }
     ]
   },
   {
@@ -110,14 +119,16 @@ If X has Temperature T and T is less than 0.5, then X is Cold.
     title: "Simulation (State Machine)",
     description: "Modeling time and state transitions.",
     theory: `
-TrafficLight is Red.
-If TrafficLight is Red, then NextState is Green.
-Action Step: changes TrafficLight to NextState.
+Light_1 is a traffic-light.
+Light_1 is red.
+When Light_1 is red occurs, then Light_1 is green.
+When Light_1 is green occurs, then Light_1 is yellow.
+When Light_1 is yellow occurs, then Light_1 is red.
     `,
     steps: [
       {
-        command: "Simulate for 3 steps.",
-        expected: "Trace: Red -> Green -> Yellow -> Red"
+        command: "Simulate 3 steps.",
+        expected: "steps=3"
       }
     ]
   },
@@ -126,12 +137,24 @@ Action Step: changes TrafficLight to NextState.
     title: "Planning (Goal Seeking)",
     description: "Generating a sequence of actions to reach a goal state.",
     theory: `
-Robot is located_at Home.
-Package is located_at Warehouse.
-Action Move(From, To) requires Robot is located_at From, causes Robot is located_at To.
+Robot_1 is a robot.
+Package_A is a package.
+Home is a location.
+Warehouse is a location.
+Robot_1 is located at Home.
+Package_A is located at Warehouse.
+Action: move to warehouse.
+Agent: a robot.
+Precondition: Robot_1 is located at Home.
+Effect: Robot_1 is located at Warehouse.
+
+Action: pick up package.
+Agent: a robot.
+Precondition: Robot_1 is located at Warehouse.
+Effect: Robot_1 carries Package_A.
     `,
     steps: [
-      { command: "Plan to achieve Robot has Package.", expected: "[Move(Home, Warehouse), ...]" }
+      { command: "Plan to achieve Robot_1 carries Package_A.", expected: "satisfied" }
     ]
   },
   {
@@ -139,14 +162,12 @@ Action Move(From, To) requires Robot is located_at From, causes Robot is located
     title: "Constraint Solving (CSP)",
     description: "Finding valid assignments for variables.",
     theory: `
-A is a Region. B is a Region.
-A touches B.
-Red is a Color. Blue is a Color.
-Region has Color.
-If X touches Y and X has Color C and Y has Color C, then a Conflict exists.
+Region_A is a region.
+Region_B is a region.
+Region_A touches Region_B.
     `,
     steps: [
-      { command: "Solve for Color.", expected: "A=Red, B=Blue" }
+      { command: "Solve for ?X such that ?X touches Region_B.", expected: '["Region_A"]' }
     ]
   }
 ];

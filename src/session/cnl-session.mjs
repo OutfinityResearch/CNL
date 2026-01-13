@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { parseProgram } from "../parser/grammar.mjs";
+import { parseProgram, parseProgramIncremental } from "../parser/grammar.mjs";
 import { createCompilerState, compileProgram } from "../compiler/compile.mjs";
 import { executeCommandAst, materializeRules } from "../runtime/engine.mjs";
 
@@ -46,18 +46,67 @@ export class CNLSession {
     }
 
     this.state.errors.length = 0;
-    const ast = this.#parseSafe(cnlText);
-    if (!ast) {
-      return { errors: this.state.errors, applied: false };
+    const { program, errors: parseErrors } = parseProgramIncremental(cnlText);
+    if (!program) {
+      const errors = parseErrors.length ? parseErrors : [createError("SES009", "Parser error.")];
+      return { errors, applied: false };
     }
-    compileProgram(ast, {
+    compileProgram(program, {
       state: this.state,
       projectEntityAttributes: this.options.projectEntityAttributes,
     });
+    if (parseErrors.length) {
+      const merged = [...parseErrors, ...this.state.errors];
+      this.state.errors.length = 0;
+      this.state.errors.push(...merged);
+    }
     if (this.state.errors.length === 0) {
       this.sources.push(cnlText);
     }
     return { errors: this.state.errors, applied: this.state.errors.length === 0 };
+  }
+
+  execute(cnlText, options = {}) {
+    // Automatic routing: detect whether this is a command or a statement batch.
+    let ast = null;
+    try {
+      ast = parseProgram(cnlText);
+    } catch (error) {
+      return { error: this.#toErrorObject(error) };
+    }
+
+    const commandItems = ast.items.filter((item) => item.kind === "CommandStatement");
+    const statementItems = ast.items.filter((item) => 
+      item.kind === "Statement" || 
+      item.kind === "RuleStatement" || 
+      item.kind === "TransitionRuleStatement" ||
+      item.kind === "ActionBlock"
+    );
+
+    // If there are only commands, execute the first command.
+    if (commandItems.length > 0 && statementItems.length === 0) {
+      const command = commandItems[0].command;
+      
+      // Materialize rules if needed.
+      if (options.deduce ?? true) {
+        materializeRules(this.state, { justificationStore: this.state.justificationStore });
+      }
+      
+      return executeCommandAst(command, this.state);
+    }
+
+    // If there are statements, learn them.
+    if (statementItems.length > 0 && commandItems.length === 0) {
+      return this.learnText(cnlText, options);
+    }
+
+    // If mixed, return an error.
+    if (commandItems.length > 0 && statementItems.length > 0) {
+      return { error: createError("SES019", "Cannot mix commands and statements in execute().") };
+    }
+
+    // If there are no commands or statements.
+    return { error: createError("SES020", "No valid commands or statements found.") };
   }
 
   query(cnlText, options = {}) {

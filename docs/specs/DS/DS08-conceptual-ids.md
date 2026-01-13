@@ -45,6 +45,16 @@ ConceptualIDs are created by interning canonical keys:
 
 Interning is deterministic and uses the lossless AST fields from DS03. No heuristics are allowed in canonicalization. If a key cannot be produced deterministically, compilation must fail with an explicit error.
 
+### Naming Conventions (Lexical, not Heuristic)
+To preserve determinism and match common-sense semantics:
+- Entity keys (`E:<name>`) come only from **Name** tokens (proper names). Articles like `the` are not part of identity.
+- Unary predicate keys (`U:<concept>`) come from noun phrase heads and are typically lowercase (often hyphenated for compounds).
+- Identifier case and hyphens are preserved in canonical keys; only keywords are case-insensitive (DS03).
+
+In addition, tooling may treat lowercase/hyphenated Name tokens as **symbolic concept constants** rather than concrete individuals.
+These can be stored using a dedicated key prefix (for example `L:<symbol>`) so KB Explorer can display them as concepts while keeping
+the underlying representation uniform (still an EntityID in the dense universe).
+
 ## Dense Runtime Universes
 Bitsets require dense indices. Each ConceptualID of a supported kind is mapped to a dense integer in [0..N):
 - EntityID: dense index for entities and entity-like literals.

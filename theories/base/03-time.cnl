@@ -1,0 +1,16 @@
+--- CONTEXT: Time ---
+
+// Temporal ordering axioms
+Rule: If X is before Y, then Y is after X.
+Rule: If X is after Y, then Y is before X.
+
+// Temporal transitivity
+Rule: If X is before Y and Y is before Z, then X is before Z.
+Rule: If X is after Y and Y is after Z, then X is after Z.
+
+// During relationship
+Rule: If X occurs during Y and Y is before Z, then X is before Z.
+Rule: If X occurs during Y and Y is after Z, then X is after Z.
+
+// Overlap symmetry
+Rule: If X overlaps with Y, then Y overlaps with X.

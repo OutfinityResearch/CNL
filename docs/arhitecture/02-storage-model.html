@@ -36,7 +36,7 @@
 
         <h2>The RelationMatrix</h2>
         <p>
-          A binary predicate (like "User has Role") is stored as a <strong>RelationMatrix</strong>.
+          A binary predicate (like "user has role") is stored as a <strong>RelationMatrix</strong>.
         </p>
         <div class="code-block">
 <pre>
@@ -46,10 +46,10 @@ RelationMatrix {
 </pre>
         </div>
         <p>
-          If we want to know "What roles does User 42 have?", we simply read <code>rows[42]</code>. The result is a Bitset representing the set of roles.
+          If we want to know "What roles does User_42 have?", we simply read <code>rows[42]</code>. The result is a Bitset representing the set of roles.
         </p>
         <p>
-          Crucially, we often maintain the <strong>Inverse Matrix</strong> (transpose). This allows us to answer "Which users have the Admin role?" just as fast, by looking up the Admin ID in the inverse matrix.
+          Crucially, we often maintain the <strong>Inverse Matrix</strong> (transpose). This allows us to answer "Which users have the admin role?" just as fast, by looking up the admin ID in the inverse matrix.
         </p>
 
         <h2>Columnar Indices</h2>

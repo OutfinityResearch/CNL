@@ -30,6 +30,7 @@ async function serveStatic(res, filePath) {
     const contentType = {
       '.html': 'text/html',
       '.js': 'text/javascript',
+      '.mjs': 'text/javascript',
       '.css': 'text/css',
       '.json': 'application/json',
       '.svg': 'image/svg+xml'

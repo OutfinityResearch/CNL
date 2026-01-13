@@ -21,15 +21,18 @@ All reasoning modes depend on a small set of primitives:
 
 Example:
 - `image(likes, {Alice, Bob})` returns all objects liked by Alice or Bob.
-- `preimage(likes, {Pizza})` returns all subjects who like Pizza.
+- `preimage(likes, {Pizza_1})` returns all subjects who like Pizza_1.
 
 ## Deduction (Forward Chaining)
 Rules compile into bitset plans (DS10). Deduction is performed by forward chaining:
 - Use semi-naive evaluation with delta facts to avoid recomputation.
 - Unary heads set bits in `unaryIndex[UnaryPredID]`.
 - Binary heads set bits in `relations[pred].rows[s]` and `invRelations[pred].rows[o]`.
+- Attribute heads update `numericIndex[attr]` and `entAttrIndex[attr]` and must participate in delta
+  tracking so that rules depending on attributes are re-evaluated when attribute values change.
 
-Derived facts carry justifications as `RuleID + premise FactIDs` (DS09/DS15).
+Derived facts carry justifications as `RuleID + premise FactIDs` (DS09/DS15). FactIDs cover unary, binary,
+numeric attributes, and entity-valued attributes (DS18).
 
 ## Proof
 Proof reduces to membership checks in the materialized closure:
@@ -46,9 +49,13 @@ This is evaluated as:
 
 ## Explain
 Explain traverses the justification DAG:
-- Base facts are labeled `observed`.
+- Base facts are labeled `Base`.
 - Derived facts link to a `RuleID` and its premises.
-- The engine returns a minimal-cost path (default: fewest premises).
+- The engine may also surface a flattened list of base facts that support the result.
+
+Explain and proof traces should be able to reference attribute facts as premises:
+- Numeric attributes: `X has a capacity of 1000.`
+- Entity-valued attributes: `User1 has a role of admin.`
 
 ## Abduction
 Abduction constructs an AND/OR proof graph for a goal:
@@ -76,9 +83,9 @@ Queries compile to set plans:
 
 Example:
 ```
-Return the name of every user who is active and who knows Python.
+Return the name of every user who is active and who knows python.
 ```
-This becomes: `Users ∩ Active ∩ preimage(knows, {Python})`.
+This becomes: `Users ∩ Active ∩ preimage(knows, {python})`.
 
 ## Solve (Constraints)
 Each variable has a domain Bitset. For a binary constraint `R(X,Y)`:
@@ -87,11 +94,18 @@ Each variable has a domain Bitset. For a binary constraint `R(X,Y)`:
 
 Use AC-3 style propagation until fixpoint or failure.
 
+Variables use the `?X` syntax and denote entity domains. Solve v1 supports conjunctive
+constraints only (no OR branches); each atomic constraint must be grounded except
+for variable subject/object positions.
+
 ## Plan and Simulate
 State is represented as a base KB plus delta overlays:
 - Preconditions are Bitset queries on the current state.
 - Effects add/remove bits or update attributes in the delta layer.
 - Simulation iterates transition rules for N steps.
+
+Plan v1 is restricted to ground actions (no variables) and uses BFS with a fixed depth limit of 6.
+Simulate v1 applies ground transition rules in sequence per step.
 
 ## Optimize
 Optimization combines Solve with an objective:

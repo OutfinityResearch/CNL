@@ -84,9 +84,9 @@ Queries compile into selection plans that produce:
 
 Example:
 ```
-Rule: Every user who knows Python is an engineer.
+Rule: Every user who knows python is an engineer.
 ```
-Becomes a plan that intersects `Users` with `preimage(knows, {Python})` and inserts the result into `engineer`.
+Becomes a plan that intersects `Users` with `preimage(knows, {python})` and inserts the result into `engineer`.
 
 ## Determinism Requirements
 - Canonical keys are derived directly from AST fields.

@@ -49,13 +49,16 @@
           <div class="card">
             <h3>Boolean Logic</h3>
             <p><strong>Correct:</strong> <span class="good">If (A and B) or C.</span></p>
-            <p><strong>Correct:</strong> <span class="good">If either A and B, or C.</span></p>
+            <p><strong>Correct:</strong> <span class="good">If either A or B.</span></p>
             <p><strong>Incorrect:</strong> <span class="bad">If A and B or C.</span> <small>(Ambiguous precedence)</small></p>
           </div>
           <div class="card">
             <h3>Noun Phrases</h3>
             <p><strong>Correct:</strong> <span class="good">The user checks the logs.</span></p>
             <p><strong>Incorrect:</strong> <span class="bad">User checks logs.</span> <small>(Missing determiners)</small></p>
+            <p><strong>Correct:</strong> <span class="good">A critical-server is monitored.</span> <small>(Compound head via hyphen)</small></p>
+            <p><strong>Correct:</strong> <span class="good">A critical-server is monitored.</span> <small>(Hyphenated head)</small></p>
+            <p><strong>Incorrect:</strong> <span class="bad">A critical server is monitored.</span> <small>(Multi-word heads need hyphens)</small></p>
           </div>
           <div class="card">
             <h3>Relative Clauses</h3>
@@ -68,21 +71,21 @@
       <section class="section">
         <h2>Example: structured relative clauses</h2>
         <div class="code-block">
-<pre>A user who is active and who knows Python and whose score is greater than 10.</pre>
+<pre>A user who is active and who knows python and whose score is greater than 10.</pre>
         </div>
       </section>
 
       <section class="section">
         <h2>Example: explicit grouping</h2>
         <div class="code-block">
-<pre>If either the user is an admin or the user is a dev, and the system is prod.</pre>
+<pre>If (either the user is an admin or the user is a dev) and the system is prod.</pre>
         </div>
       </section>
 
       <section class="section">
         <h2>Example: pragmatics command</h2>
         <div class="code-block">
-<pre>Return the name of every user whose role is equal to Admin and who has logged in today.</pre>
+<pre>Return the name of every user whose role is equal to admin and who has logged in today.</pre>
         </div>
       </section>
 

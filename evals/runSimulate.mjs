@@ -22,8 +22,8 @@ async function evaluate({ input }) {
   return executeCommandAst(commandItem.command, state);
 }
 
-function compare(expected, output) {
-  return summarizeSimulation(output) === String(expected);
+function compare(testCase, output) {
+  return summarizeSimulation(output) === String(testCase.expect);
 }
 
 const fileUrl = new URL("./simulate/basic.cases", import.meta.url);

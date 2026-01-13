@@ -1,6 +1,6 @@
 # Parsing Evaluation Cases
 
-- input: "A user who is active and who knows Python."
+- input: "A user who is active and who knows python."
   expect: "AST hash placeholder"
-- input: "Return the name of every user whose role is equal to Admin."
+- input: "Return the name of every user whose role is equal to admin."
   expect: "AST hash placeholder"

@@ -134,6 +134,18 @@ function recordBaseUnary(state, unaryId, subjectId) {
   state.justificationStore.addBaseFact(factId, { kind: "BaseFact" });
 }
 
+function recordBaseNumeric(state, attrId, subjectId, value) {
+  if (!state.justificationStore) return;
+  const factId = state.justificationStore.makeNumericFactId(attrId, subjectId, value);
+  state.justificationStore.addBaseFact(factId, { kind: "BaseFact" });
+}
+
+function recordBaseEntityAttr(state, attrId, subjectId, entityId) {
+  if (!state.justificationStore) return;
+  const factId = state.justificationStore.makeEntityAttrFactId(attrId, subjectId, entityId);
+  state.justificationStore.addBaseFact(factId, { kind: "BaseFact" });
+}
+
 function hasTypeMembership(state, entityId, typeKey) {
   const unaryKey = `U:${typeKey}`;
   const conceptId = state.idStore.internConcept(ConceptKind.UnaryPredicate, unaryKey);
@@ -223,6 +235,7 @@ function handleAttributeAssertion(assertion, state, options) {
       return;
     }
     state.kb.setNumeric(attrId, subjectId, value.value);
+    recordBaseNumeric(state, attrId, subjectId, value.value);
     return;
   }
 
@@ -254,6 +267,7 @@ function handleAttributeAssertion(assertion, state, options) {
   }
 
   state.kb.insertEntityAttr(attrId, subjectId, entityId, { projectPredId });
+  recordBaseEntityAttr(state, attrId, subjectId, entityId);
 }
 
 function handleAssertion(assertion, state, options) {
@@ -361,8 +375,32 @@ function isNonGroundSubject(assertion) {
   return subject && subject.kind === "NounPhrase";
 }
 
+function findVariable(node) {
+  if (!node || typeof node !== "object") return null;
+  if (node.kind === "Variable") return node.name;
+  if (Array.isArray(node)) {
+    for (const item of node) {
+      const found = findVariable(item);
+      if (found) return found;
+    }
+    return null;
+  }
+  for (const value of Object.values(node)) {
+    if (value && typeof value === "object") {
+      const found = findVariable(value);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
 function compileSentence(sentence, state, options) {
   if (!sentence) return;
+  const variableName = findVariable(sentence);
+  if (variableName) {
+    state.errors.push(createError("CMP019", "Variables are not allowed in learned statements.", `?${variableName}`));
+    return;
+  }
   if (sentence.kind === "AssertionSentence") {
     if (isNonGroundSubject(sentence.assertion)) {
       if (isUniversalNounPhrase(sentence.assertion.subject)) {
@@ -378,17 +416,26 @@ function compileSentence(sentence, state, options) {
     return;
   }
   if (sentence.kind === "BecauseSentence") {
+    // A) `X because C` ≈ regulă `If C then X` (derivare + justificare ca fapt derivat)
+    // Compilăm ca o regulă condițională: If C then X
+    const condition = sentence.because;
+    const thenSentence = { kind: "AssertionSentence", assertion: sentence.assertion };
+    
     if (isNonGroundSubject(sentence.assertion)) {
       if (isUniversalNounPhrase(sentence.assertion.subject)) {
-        const body = compileNP(sentence.assertion.subject, state);
-        const head = compileRuleHead(sentence, state);
+        const body = compileRuleBody(condition, state);
+        const head = compileRuleHead(thenSentence, state);
         state.ruleStore.addRule({ kind: "RulePlan", body, head });
         return;
       }
       state.errors.push(createError("CMP018", "Non-ground assertion requires a universal quantifier.", "subject"));
       return;
     }
-    handleAssertion(sentence.assertion, state, options);
+    
+    // Pentru ground facts cu because, compilăm ca regulă cu body-ul being condition
+    const body = compileRuleBody(condition, state);
+    const head = compileRuleHead(thenSentence, state);
+    state.ruleStore.addRule({ kind: "RulePlan", body, head });
     return;
   }
   if (sentence.kind === "ConditionalSentence") {
@@ -444,13 +491,7 @@ export function compileProgram(ast, options = {}) {
         compileSentence(item.sentence, state, { projectEntityAttributes });
         break;
       case "RuleStatement":
-        if (item.sentence?.kind === "ConditionalSentence") {
-          const plan = compileRuleBody(item.sentence.condition, state);
-          const head = compileRuleHead(item.sentence.then, state);
-          state.ruleStore.addRule({ kind: "RulePlan", body: plan, head });
-        } else {
-          state.ruleStore.addRule({ kind: "RuleAst", sentence: item.sentence });
-        }
+        compileSentence(item.sentence, state, { projectEntityAttributes });
         break;
       case "CommandStatement":
         state.commandStore.push(compileCommand(item.command, state));

@@ -15,11 +15,15 @@ Defines the evaluation suites for CNL-PL, including parsing benchmarks and reaso
 - Compiler suite: inputs mapped to KB summary counts (no inference).
 
 ## Output Expectations
-- Parsing: AST hash or structured JSON match.
-- Reasoning: boolean success with optional proof trace.
-- Planning: ordered action list with justification.
+- Parsing: structured JSON match against an expected subset (extra AST fields such as spans are allowed).
+- Reasoning: boolean success with optional (and increasingly required) proof trace (DS18).
+- Planning: ordered action list when actions are available (empty list when already satisfied).
 - Solving: variable bindings that satisfy constraints.
 - Compiler: KB summary counts for unary/binary/numeric/entity-attr facts.
+
+Pragmatics suites may assert ProofTrace properties beyond the primary answer:
+- `proofMode` (e.g. `Derivation`, `Universal`, `Witness`)
+- substring checks over `proof.steps` / `proof.premises` (e.g. `proofStepsInclude`, `proofPremisesInclude`)
 
 ## Dataset Structure
 - `evals/parsing/` - case files and expected AST outputs.
@@ -31,9 +35,10 @@ Defines the evaluation suites for CNL-PL, including parsing benchmarks and reaso
 ## Parsing Evaluation Summary
 The parsing suite includes canonical corpora with both valid and invalid cases:
 - Files: `evals/parsing/cnl-pl-parser.v1.json`, `evals/parsing/cnl-pl-actions-and-labels.v1.json`, `evals/parsing/cnl-pl-labels.v1.json`.
+- Feature coverage: `evals/parsing/cnl-pl-parser-features.v1.json` (Solve variables, CaseScope, aggregations, action blocks).
 - Valid cases: V001-V049 (atomic assertions, commands, rules, relative clauses, action blocks, transition rules).
 - Invalid cases: X001-X028 (missing terminators, mixed operators, invalid comparators, malformed blocks, label syntax).
-- Expected results: full AST matches for valid inputs and DS07 error objects for invalid inputs.
+- Expected results: subset AST matches for valid inputs and DS07 error objects for invalid inputs.
 
 ## Reporting
 - Track pass/fail with version tags.

@@ -45,8 +45,8 @@ and no user has more than 5 tasks.
           The compiler identifies the variables (<code>schedule</code>, <code>task</code>, <code>user</code>) and the constraints.
         </p>
         <p>
-          1. <strong>Domain Definition:</strong> <code>User</code> is the set of all users in KB. <code>Task</code> is the set of tasks.
-          <br>2. <strong>Constraint Propagation:</strong> "User has skill" filters the domain of possible assignments.
+          1. <strong>Domain Definition:</strong> <code>user</code> is the set of all users in KB. <code>task</code> is the set of tasks.
+          <br>2. <strong>Constraint Propagation:</strong> "user has skill" filters the domain of possible assignments.
           <br>3. <strong>Solver Backend:</strong> The problem is often handed off to an SMT solver (like Z3) or a backtracking solver to find a valid assignment matrix.
         </p>
       </section>

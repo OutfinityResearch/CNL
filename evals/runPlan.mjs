@@ -22,8 +22,8 @@ async function evaluate({ input }) {
   return executeCommandAst(commandItem.command, state);
 }
 
-function compare(expected, output) {
-  return summarizePlan(output) === String(expected);
+function compare(testCase, output) {
+  return summarizePlan(output) === String(testCase.expect);
 }
 
 const fileUrl = new URL("./planning/basic.cases", import.meta.url);

@@ -9,12 +9,19 @@ function displayEntityKey(key) {
   if (key.startsWith("E:lit:str:")) return key.slice("E:lit:str:".length);
   if (key.startsWith("E:lit:bool:")) return key.slice("E:lit:bool:".length);
   if (key.startsWith("E:")) return key.slice(2);
+  if (key.startsWith("L:")) return key.slice(2);
   return key;
 }
 
 function summarizeSolve(result) {
   if (!result || result.kind !== "SolveResult") return "";
   return result.entities.map((entry) => displayEntityKey(entry.key)).join(", ");
+}
+
+function listIncludesAll(haystack, needles) {
+  if (!Array.isArray(needles) || needles.length === 0) return true;
+  const text = Array.isArray(haystack) ? haystack.join("\n") : String(haystack ?? "");
+  return needles.every((needle) => text.includes(String(needle)));
 }
 
 async function evaluate({ input }) {
@@ -31,9 +38,20 @@ async function evaluate({ input }) {
   return executeCommandAst(commandItem.command, state);
 }
 
-function compare(expected, output) {
+function compare(testCase, output) {
+  const expected = testCase.expect;
   if (!output || output.kind !== "SolveResult") return false;
-  return summarizeSolve(output) === String(expected);
+  if (summarizeSolve(output) !== String(expected)) return false;
+  if (testCase.proofMode || testCase.proofStepsInclude || testCase.proofPremisesInclude) {
+    const proof = output.proof;
+    if (!proof || proof.kind !== "ProofTrace") return false;
+    if (testCase.proofMode && proof.mode !== testCase.proofMode) return false;
+    if (testCase.proofStepsInclude && !listIncludesAll(proof.steps ?? [], testCase.proofStepsInclude)) return false;
+    if (testCase.proofPremisesInclude && !listIncludesAll(proof.premises ?? [], testCase.proofPremisesInclude)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 const fileUrl = new URL("./solve/basic.cases", import.meta.url);

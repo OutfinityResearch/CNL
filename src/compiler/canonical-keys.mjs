@@ -1,8 +1,12 @@
 export function canonicalEntityKey(node) {
   if (!node) return null;
   switch (node.kind) {
-    case "Name":
-      return `E:${node.value}`;
+    case "Name": {
+      const value = node.value;
+      if (!value) return null;
+      const isThingLike = /^[A-Z]/.test(value) || /[_0-9]/.test(value);
+      return isThingLike ? `E:${value}` : `L:${value}`;
+    }
     case "NumberLiteral":
       return `E:lit:num:${node.value}`;
     case "StringLiteral":

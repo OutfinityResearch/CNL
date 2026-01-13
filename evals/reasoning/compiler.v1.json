@@ -13,7 +13,7 @@
   {
     "id": "comp-002",
     "purpose": "Entity-valued attribute compilation with dictionary typing.",
-    "input": "--- CONTEXT: BaseDictionary ---\n\"status\" is an entity attribute.\n--- CONTEXT: Core ---\nTruck_A has a status of Active.",
+    "input": "--- CONTEXT: BaseDictionary ---\n\"status\" is an \"entity attribute\".\n--- CONTEXT: Core ---\nTruck_A has a status of active.",
     "expected": {
       "unaryFacts": 0,
       "binaryFacts": 0,
@@ -24,7 +24,7 @@
   {
     "id": "comp-003",
     "purpose": "Binary relation compilation (active verb).",
-    "input": "Server1 handles Payments.\nServer2 handles Payments.",
+    "input": "Server1 handles payments.\nServer2 handles payments.",
     "expected": {
       "unaryFacts": 0,
       "binaryFacts": 2,
@@ -57,7 +57,7 @@
   {
     "id": "comp-006",
     "purpose": "Multi-valued entity attributes compile into entAttrIndex.",
-    "input": "--- CONTEXT: BaseDictionary ---\n\"role\" is an entity attribute.\n--- CONTEXT: Core ---\nUser1 has a role of Admin.\nUser1 has a role of Editor.",
+    "input": "--- CONTEXT: BaseDictionary ---\n\"role\" is an \"entity attribute\".\n--- CONTEXT: Core ---\nUser1 has a role of admin.\nUser1 has a role of editor.",
     "expected": {
       "unaryFacts": 0,
       "binaryFacts": 0,
@@ -68,7 +68,7 @@
   {
     "id": "comp-007",
     "purpose": "Mixed unary + binary + numeric compilation in one program.",
-    "input": "Server1 handles Payments.\nServer1 is encrypted.\nServer1 has a latency of 5.",
+    "input": "Server1 handles payments.\nServer1 is encrypted.\nServer1 has a latency of 5.",
     "expected": {
       "unaryFacts": 1,
       "binaryFacts": 1,

@@ -17,9 +17,31 @@ async function evaluate({ input }) {
   return executeCommandAst(commandItem.command, state);
 }
 
-function compare(expected, output) {
+function listIncludesAll(haystack, needles) {
+  if (!Array.isArray(needles) || needles.length === 0) return true;
+  const text = Array.isArray(haystack) ? haystack.join("\n") : String(haystack ?? "");
+  return needles.every((needle) => text.includes(String(needle)));
+}
+
+function compare(testCase, output) {
+  const expected = testCase.expect;
   if (!output || output.kind !== "ProofResult") return false;
-  return String(output.value) === String(expected);
+  if (String(output.value) !== String(expected)) return false;
+
+  const proof = output.proof;
+  if (testCase.proofMode) {
+    if (!proof || proof.kind !== "ProofTrace") return false;
+    if (proof.mode !== testCase.proofMode) return false;
+  }
+  if (testCase.proofStepsInclude) {
+    if (!proof || proof.kind !== "ProofTrace") return false;
+    if (!listIncludesAll(proof.steps ?? [], testCase.proofStepsInclude)) return false;
+  }
+  if (testCase.proofPremisesInclude) {
+    if (!proof || proof.kind !== "ProofTrace") return false;
+    if (!listIncludesAll(proof.premises ?? [], testCase.proofPremisesInclude)) return false;
+  }
+  return true;
 }
 
 function formatOutput(output) {
