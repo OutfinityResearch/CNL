@@ -38,6 +38,7 @@ function buildHeaderMenu(root) {
     ["Home", "index.html"],
     ["Theory", "theory/index.html"],
     ["Architecture", "arhitecture/index.html"],
+    ["Ontologies", "ontologies/index.html"],
     ["Wiki", "wiki/index.html"],
     ["Syntax", "syntax/index.html"],
     ["Specs", "specs/index.html"]

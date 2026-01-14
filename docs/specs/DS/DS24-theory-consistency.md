@@ -3,7 +3,9 @@
 ## Summary
 Defines a stable taxonomy for *theory issues* produced by:
 - the compiler dictionary validator (`src/compiler/dictionary.mjs`)
-- the static checker (`tools/check-theories.mjs`)
+- the shared theory diagnostics module (`src/theories/diagnostics.mjs`)
+- the static checker CLI (`tools/check-theories.mjs`)
+- CNLSession base loading (`src/session/cnl-session.mjs`)
 - the KB Explorer UI (`tools/explorer/*`)
 
 The goal is to keep theory problems actionable, deterministic, and consistently presented across tools.
@@ -60,14 +62,26 @@ The checker reports file-level issues such as:
 - `FILE_NOT_FOUND` (error)
 - `PARSE_ERROR` (error)
 - `COMPILE_ERROR` (error)
-- `CYCLIC_LOAD` (warning)
-- `DUPLICATE_TYPE` (warning)
-- `DUPLICATE_PREDICATE` (warning)
-- `TYPE_PREDICATE_CONFLICT` (warning)
-- `REFLEXIVE_SUBTYPE` (warning)
-- `CYCLIC_SUBTYPE` (warning)
+- `LOAD_ERROR` (error)
 
-Note: duplicates are *idempotent at compile time* and are not treated as runtime warnings by default. The checker is the preferred way to audit large imported bundles.
+### Cross-ontology duplicates (`src/theories/diagnostics.mjs`)
+The shared diagnostics module detects when multiple loaded ontologies emit the same surface form.
+
+Duplicate kinds (warning):
+- `DuplicateTypeDeclaration`
+  - Same type key appears in more than one loaded file.
+  - Treated as **benign** by default and can be omitted from session issues.
+- `DuplicatePredicateDeclaration`
+  - Same binary predicate key appears in more than one loaded file.
+  - Treated as **benign** by default and can be omitted from session issues.
+
+Conflict kinds (warning):
+- `DuplicateTypeDifferentParents`
+  - Same type key is declared in multiple files with different subtype parents.
+- `DuplicatePredicateDifferentConstraints`
+  - Same binary predicate key is declared in multiple files with different `domain` / `range` sets.
+
+Note: duplicates are *idempotent at runtime* (the dictionary is deterministic), but conflicts reduce clarity and can hide ontology mismatches. Sessions typically surface **conflicts** and keep benign duplicates for offline auditing.
 
 ## KB Explorer Grouping Rules
 KB Explorer shows issues under the `⚠️ issues` folder (last in the Knowledge Tree).
@@ -98,3 +112,4 @@ Additionally, the renderer resolves **key-level collisions**:
 - DS07 for `severity` semantics and error object shape.
 - DS22 for ontology import scope and naming strategy.
 - DS17 for KB Explorer presentation rules.
+- DS12 for session load behavior and diagnostics attachment.

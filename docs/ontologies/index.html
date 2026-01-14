@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ontologies</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Ontologies</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Ontology Library</span>
+        <h1>Supported Ontologies</h1>
+        <p>
+          CNL-PL supports importing standard Semantic Web ontologies to bootstrap domain knowledge. 
+          This page documents the vendored ontologies available for import and their intended usage scenarios.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Foundational Ontologies</h2>
+        <p>These provide the upper-level structure for modeling reality.</p>
+        <div class="grid">
+          <a class="card" href="../mdview.html?file=ontologies/bfo/SOURCE.md">
+            <h3>BFO (Basic Formal Ontology)</h3>
+            <p>Rigorous distinction between continuants (objects) and occurrents (processes). Best for scientific and engineering domains.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=ontologies/dul/SOURCE.md">
+            <h3>DUL (DOLCE+DnS Ultra Lite)</h3>
+            <p>Models physical and social reality, including descriptions, situations, and plans. Great for complex social/cognitive modeling.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Domain & Utility Ontologies</h2>
+        <div class="grid">
+          <a class="card" href="../mdview.html?file=ontologies/ro/SOURCE.md">
+            <h3>RO (Relation Ontology)</h3>
+            <p>The standard library of relationship types (part_of, located_in, derives_from) with defined logical properties.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=ontologies/iao/SOURCE.md">
+            <h3>IAO (Information Artifact Ontology)</h3>
+            <p>For modeling documents, data sets, algorithms, and metadata.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=ontologies/w3c-owl-time/SOURCE.md">
+            <h3>OWL-Time</h3>
+            <p>W3C standard for temporal intervals, instants, and durations.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=ontologies/geosparql/SOURCE.md">
+            <h3>GeoSPARQL</h3>
+            <p>OGC standard for spatial objects, geometries, and topological reasoning.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=ontologies/w3c-prov-o/SOURCE.md">
+            <h3>PROV-O</h3>
+            <p>W3C standard for provenance (activity, agent, entity derivation).</p>
+          </a>
+          <a class="card" href="../mdview.html?file=ontologies/foaf/SOURCE.md">
+            <h3>FOAF</h3>
+            <p>Social networking: people, groups, and basic profiles.</p>
+          </a>
+           <a class="card" href="../mdview.html?file=ontologies/frbr/SOURCE.md">
+            <h3>FRBR</h3>
+            <p>Bibliographic records: Work, Expression, Manifestation, Item.</p>
+          </a>
+           <a class="card" href="../mdview.html?file=ontologies/fabio/SOURCE.md">
+            <h3>FaBiO</h3>
+            <p>Bibliographic ontology compatible with FRBR, for publishing.</p>
+          </a>
+           <a class="card" href="../mdview.html?file=ontologies/lkif-core/SOURCE.md">
+            <h3>LKIF-Core</h3>
+            <p>Legal norms, rights, powers, and normative statements.</p>
+          </a>
+           <a class="card" href="../mdview.html?file=ontologies/wgs84/SOURCE.md">
+            <h3>WGS84 Geo</h3>
+            <p>Simple latitude/longitude point tagging.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example & Mini Ontologies</h2>
+        <p>Small, custom ontologies used for testing and tutorials.</p>
+        <div class="grid">
+          <a class="card" href="../mdview.html?file=ontologies/science-mini/SOURCE.md">
+            <h3>Science Mini</h3>
+            <p>Basic physical objects, atoms, and molecules.</p>
+          </a>
+          <a class="card" href="../mdview.html?file=ontologies/semantic-web-mini/SOURCE.md">
+            <h3>Semantic Web Mini</h3>
+            <p>Agents, claims, and beliefs.</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>CNL Programming Language</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

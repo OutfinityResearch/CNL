@@ -13,6 +13,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { parseProgram } from "../src/parser/grammar.mjs";
 import { createCompilerState, compileProgram } from "../src/compiler/compile.mjs";
+import { analyzeCrossOntologyDuplicates, expandTheoryEntrypoint } from "../src/theories/diagnostics.mjs";
 
 const LOAD_DIRECTIVE_RE = /^\s*Load\s*:\s*"([^"]+)"\s*\.\s*$/i;
 
@@ -109,10 +110,25 @@ class TheoryChecker {
   }
 
   check(entrypoint) {
-    const absPath = path.resolve(this.rootDir, entrypoint);
-    
-    // Phase 1: Collect all files via Load directives
-    this.collectFiles(absPath);
+    let expanded = null;
+    try {
+      expanded = expandTheoryEntrypoint(entrypoint, { rootDir: this.rootDir });
+    } catch (err) {
+      this.errors.push({
+        kind: "LOAD_ERROR",
+        severity: "error",
+        message: `Failed to expand Load directives: ${err.message || String(err)}`,
+        file: entrypoint,
+      });
+      return this.generateReport();
+    }
+
+    this.loadedFiles.clear();
+    this.loadOrder.length = 0;
+    for (const f of expanded.files) {
+      this.loadedFiles.set(f.absPath, { text: f.text, relPath: f.relPath, errors: [], warnings: [] });
+      this.loadOrder.push(f.absPath);
+    }
     
     // Phase 2: Parse each file individually and collect errors
     this.parseFiles();
@@ -247,188 +263,20 @@ class TheoryChecker {
   }
 
   analyzeConceptualIssues() {
-    // Analyze declarations for duplicates and conflicts using text patterns
-    const typeDeclarations = new Map(); // key -> [{ file }]
-    const predicateDeclarations = new Map();
-    const subtypeDeclarations = []; // { child, parent, file }
-    
-    // Patterns for matching declarations
-    const typePattern = /^"([^"]+)"\s+is\s+a\s+type\s*\./i;
-    const unaryPredicatePattern = /^"([^"]+)"\s+is\s+a\s+"unary predicate"\s*\./i;
-    const binaryPredicatePattern = /^"([^"]+)"\s+is\s+a\s+"binary predicate"\s*\./i;
-    const subtypePattern = /^"([^"]+)"\s+is\s+a\s+subtype\s+of\s+"([^"]+)"\s*\./i;
-    const domainPattern = /^the\s+domain\s+of\s+"([^"]+)"\s+is\s+"([^"]+)"\s*\./i;
-    const rangePattern = /^the\s+range\s+of\s+"([^"]+)"\s+is\s+"([^"]+)"\s*\./i;
-    
-    for (const filePath of this.loadOrder) {
-      const entry = this.loadedFiles.get(filePath);
-      const lines = entry.text.split("\n");
-      
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (!line || line.startsWith("//") || line.startsWith("---")) continue;
-        
-        // Check for type declarations
-        let match = line.match(typePattern);
-        if (match) {
-          const key = match[1];
-          if (!typeDeclarations.has(key)) {
-            typeDeclarations.set(key, []);
-          }
-          typeDeclarations.get(key).push({ file: entry.relPath, line: i + 1 });
-        }
-        
-        // Check for binary predicate declarations
-        match = line.match(binaryPredicatePattern);
-        if (match) {
-          const key = match[1];
-          if (!predicateDeclarations.has(key)) {
-            predicateDeclarations.set(key, []);
-          }
-          predicateDeclarations.get(key).push({ file: entry.relPath, line: i + 1, type: "binary" });
-        }
-        
-        // Check for subtype declarations
-        match = line.match(subtypePattern);
-        if (match) {
-          const child = match[1];
-          const parent = match[2];
-          subtypeDeclarations.push({ child, parent, file: entry.relPath, line: i + 1 });
-        }
+    const files = [...this.loadedFiles.entries()].map(([absPath, entry]) => ({
+      absPath,
+      relPath: entry.relPath,
+      text: entry.text,
+    }));
+
+    const issues = analyzeCrossOntologyDuplicates(files, { includeBenign: true });
+    for (const i of issues) {
+      this.warnings.push({ kind: i.kind, severity: i.severity, message: i.message });
+      if (i.kind.startsWith("DuplicateType")) {
+        this.duplicateTypes.set(i.key, i.details?.files || []);
       }
-    }
-    
-    // Find duplicates
-    for (const [key, locs] of typeDeclarations) {
-      if (locs.length > 1) {
-        this.duplicateTypes.set(key, locs);
-        const fileList = [...new Set(locs.map(l => l.file))].join(", ");
-        this.warnings.push({
-          kind: "DUPLICATE_TYPE",
-          severity: "warning",
-          message: `Type "${key}" declared ${locs.length} times in: ${fileList}`,
-        });
-      }
-    }
-    
-    for (const [key, locs] of predicateDeclarations) {
-      if (locs.length > 1) {
-        this.duplicatePredicates.set(key, locs);
-        const fileList = [...new Set(locs.map(l => l.file))].join(", ");
-        this.warnings.push({
-          kind: "DUPLICATE_PREDICATE",
-          severity: "warning",
-          message: `Predicate "${key}" declared ${locs.length} times in: ${fileList}`,
-        });
-      }
-    }
-    
-    // Find type/predicate conflicts
-    for (const key of typeDeclarations.keys()) {
-      if (predicateDeclarations.has(key)) {
-        this.typePredicateConflicts.push(key);
-        this.warnings.push({
-          kind: "TYPE_PREDICATE_CONFLICT",
-          severity: "warning",
-          message: `"${key}" is declared both as a type and as a binary predicate`,
-        });
-      }
-    }
-    
-    // Find reflexive subtypes
-    for (const { child, parent, file, line } of subtypeDeclarations) {
-      if (child === parent) {
-        this.reflexiveSubtypes.push({ type: child, file, line });
-        this.warnings.push({
-          kind: "REFLEXIVE_SUBTYPE",
-          severity: "warning",
-          message: `Reflexive subtype: "${child}" is a subtype of itself (${file}:${line})`,
-        });
-      }
-    }
-    
-    // Find cyclic subtypes
-    const subtypeGraph = new Map();
-    for (const { child, parent } of subtypeDeclarations) {
-      if (child === parent) continue; // Skip reflexive for cycle detection
-      if (!subtypeGraph.has(child)) {
-        subtypeGraph.set(child, new Set());
-      }
-      subtypeGraph.get(child).add(parent);
-    }
-    
-    const findCycle = (start, current, path) => {
-      if (current === start && path.length > 0) return [...path, start];
-      if (path.includes(current)) return null;
-      const parents = subtypeGraph.get(current);
-      if (!parents) return null;
-      for (const parent of parents) {
-        const cycle = findCycle(start, parent, [...path, current]);
-        if (cycle) return cycle;
-      }
-      return null;
-    };
-    
-    const reportedCycles = new Set();
-    for (const node of subtypeGraph.keys()) {
-      const cycle = findCycle(node, node, []);
-      if (cycle && cycle.length > 2) {
-        const cycleKey = [...cycle].sort().join(",");
-        if (!reportedCycles.has(cycleKey)) {
-          reportedCycles.add(cycleKey);
-          this.cyclicSubtypes.push(cycle);
-          this.warnings.push({
-            kind: "CYCLIC_SUBTYPE",
-            severity: "warning",
-            message: `Cyclic subtype chain: ${cycle.join(" -> ")}`,
-          });
-        }
-      }
-    }
-    
-    // Find non-English labels
-    const nonEnglishPatterns = [
-      { pattern: /^sello-de-/, lang: "Spanish" },
-      { pattern: /^sistema-de-/, lang: "Spanish" },
-      { pattern: /^tipo-de-/, lang: "Spanish" },
-      { pattern: /^dia$/, lang: "Spanish" },
-    ];
-    
-    for (const key of [...typeDeclarations.keys(), ...predicateDeclarations.keys()]) {
-      for (const { pattern, lang } of nonEnglishPatterns) {
-        if (pattern.test(key)) {
-          this.nonEnglishLabels.push({ key, lang });
-          this.warnings.push({
-            kind: "NON_ENGLISH_LABEL",
-            severity: "warning",
-            message: `Non-English label (${lang}) detected: "${key}"`,
-          });
-          break;
-        }
-      }
-    }
-    
-    // Check for hash-like generated names
-    const hashPattern = /^term-[a-f0-9]{8,}$/i;
-    for (const key of typeDeclarations.keys()) {
-      if (hashPattern.test(key)) {
-        this.warnings.push({
-          kind: "HASH_NAME",
-          severity: "warning",
-          message: `Hash-based type name detected: "${key}" - consider providing a readable label`,
-        });
-      }
-    }
-    
-    // Check for numeric ID names (like bfo-0000050, obi-0000011)
-    const numericIdPattern = /^(bfo|ro|obi|cob|chebi|iao)-\d+$/i;
-    for (const key of [...typeDeclarations.keys(), ...predicateDeclarations.keys()]) {
-      if (numericIdPattern.test(key)) {
-        this.warnings.push({
-          kind: "NUMERIC_ID_NAME",
-          severity: "warning",
-          message: `Numeric ID used as name: "${key}" - consider using rdfs:label instead`,
-        });
+      if (i.kind.startsWith("DuplicatePredicate")) {
+        this.duplicatePredicates.set(i.key, i.details?.files || []);
       }
     }
   }
