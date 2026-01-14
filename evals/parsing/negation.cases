@@ -1,0 +1,17 @@
+# Parsing Evaluation Cases for Negation
+
+- input: "X is not valid."
+  purpose: "Parse simple negation with copula."
+  expect: "AST hash placeholder"
+
+- input: "Rule: If X is not valid, then X is rejected."
+  purpose: "Parse negation in rule antecedent."
+  expect: "AST hash placeholder"
+
+- input: "every contract that is not signed is pending."
+  purpose: "Parse negation in relative clause."
+  expect: "AST hash placeholder"
+
+- input: "Rule: If X permits Y, then Y is not prohibited by X."
+  purpose: "Parse negation in rule consequent (passive)."
+  expect: "AST hash placeholder"

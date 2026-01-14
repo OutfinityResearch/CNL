@@ -15,6 +15,19 @@ import { evaluateAggregation } from "./optimize.mjs";
 import { explainAssertion } from "./explain.mjs";
 import { buildProofTraceForVerify } from "./proof-traces.mjs";
 import { buildWitnessTraceForSet } from "./witness-traces.mjs";
+import { renderNodeText, renderConditionText } from "./ast-render.mjs";
+
+function describeObjective(expr) {
+  if (!expr) return "objective";
+  if (expr.kind === "NumberLiteral") return String(expr.value);
+  if (expr.kind !== "AggregationExpr") return expr.kind || "objective";
+  const setText = renderNodeText(expr.set);
+  if (expr.agg === "NumberOf") {
+    return `the number of ${setText || "entities"}`;
+  }
+  const attrText = expr.attribute ? renderNodeText(expr.attribute) : "attribute";
+  return `${expr.agg.toLowerCase()} of ${attrText} of ${setText || "entities"}`;
+}
 
 export function executeCommandAst(command, state) {
   if (!command) return { error: "Missing command." };
@@ -82,18 +95,60 @@ export function executeCommandAst(command, state) {
       }
       const constraintVars = new Set();
       collectVariables(command.constraint, constraintVars);
+      let solveProof = null;
       if (constraintVars.size > 0) {
         const variables = Array.from(constraintVars, (name) => ({ kind: "Variable", name }));
         const solveResult = solveWithVariables({ ...command, variables, expr: null }, state);
         if (solveResult?.error) return solveResult;
+        solveProof = solveResult?.proof ?? null;
         const hasAny = Object.values(solveResult.bindings ?? {}).some((list) => list.length > 0);
         if (!hasAny) {
-          return { kind: "OptimizeResult", status: "unsatisfied", value: Number.NaN };
+          const steps = [];
+          steps.push(`Constraint: ${renderConditionText(command.constraint) || "constraint"}.`);
+          if (solveProof?.kind === "ProofTrace") {
+            steps.push("Search found no feasible assignment.");
+            solveProof.steps?.slice(0, 60).forEach((line) => steps.push(String(line)));
+          } else {
+            steps.push("Search found no feasible assignment.");
+          }
+          return {
+            kind: "OptimizeResult",
+            status: "unsatisfied",
+            value: Number.NaN,
+            proof: {
+              kind: "ProofTrace",
+              mode: "SolveSearch",
+              conclusion: "optimization (unsatisfied)",
+              answerSummary: "unsatisfied",
+              steps,
+              premises: solveProof?.premises ?? [],
+            },
+          };
         }
       } else {
         const ok = evaluateCondition(command.constraint, state);
         if (!ok) {
-          return { kind: "OptimizeResult", status: "unsatisfied", value: Number.NaN };
+          const constraintProof = buildProofTraceForVerify({ proposition: command.constraint }, state, false);
+          const steps = [];
+          steps.push(`Constraint: ${renderConditionText(command.constraint) || "constraint"}.`);
+          if (constraintProof?.steps?.length) {
+            constraintProof.steps.slice(0, 40).forEach((line) => steps.push(String(line)));
+          } else {
+            steps.push("Constraint is not satisfied in the current state.");
+          }
+          return {
+            kind: "OptimizeResult",
+            status: "unsatisfied",
+            value: Number.NaN,
+            proof: {
+              kind: "ProofTrace",
+              mode: "Derivation",
+              conclusion: "optimization (unsatisfied)",
+              answerSummary: "unsatisfied",
+              steps,
+              premises: constraintProof?.premises ?? [],
+            },
+          };
         }
       }
       let value = Number.NaN;
@@ -102,7 +157,29 @@ export function executeCommandAst(command, state) {
       } else if (command.objective?.kind === "NumberLiteral") {
         value = command.objective.value;
       }
-      return { kind: "OptimizeResult", status: "ok", value };
+      const steps = [];
+      steps.push(`Constraint: ${renderConditionText(command.constraint) || "constraint"}.`);
+      if (solveProof?.kind === "ProofTrace") {
+        steps.push("Feasible assignments exist (witnessed by solve search).");
+        solveProof.steps?.slice(0, 30).forEach((line) => steps.push(String(line)));
+      } else {
+        steps.push("Constraint holds.");
+      }
+      steps.push(`Objective: ${describeObjective(command.objective)}.`);
+      steps.push(`Value: ${String(value)}.`);
+      return {
+        kind: "OptimizeResult",
+        status: "ok",
+        value,
+        proof: {
+          kind: "ProofTrace",
+          mode: solveProof ? "SolveSearch" : "Derivation",
+          conclusion: "optimization",
+          answerSummary: `value=${String(value)}`,
+          steps,
+          premises: solveProof?.premises ?? [],
+        },
+      };
     }
     default:
       return { error: `Unsupported command: ${command.kind}` };

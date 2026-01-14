@@ -1,0 +1,1082 @@
+// This file is generated. Do not edit.
+// Source: ontologies/fabio/fabio.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Fabio
+
+// Resolved key collisions (type vs binary predicate):
+// - "abstract": chose class (dropped property)
+"abstract" is a type.
+"abstract" is a "unary predicate".
+"academic-proceedings" is a type.
+"academic-proceedings" is a "unary predicate".
+"addendum" is a type.
+"addendum" is a "unary predicate".
+"algorithm" is a type.
+"algorithm" is a "unary predicate".
+"analog-item" is a type.
+"analog-item" is a "unary predicate".
+"analog-manifestation" is a type.
+"analog-manifestation" is a "unary predicate".
+"analog-storage-medium" is a type.
+"analog-storage-medium" is a "unary predicate".
+"announcement" is a type.
+"announcement" is a "unary predicate".
+"anthology" is a type.
+"anthology" is a "unary predicate".
+"application-profile" is a type.
+"application-profile" is a "unary predicate".
+"api" is a type.
+"api" is a "unary predicate".
+"archival-document" is a type.
+"archival-document" is a "unary predicate".
+"archival-document-set" is a type.
+"archival-document-set" is a "unary predicate".
+"archival-record" is a type.
+"archival-record" is a "unary predicate".
+"archival-record-set" is a type.
+"archival-record-set" is a "unary predicate".
+"article" is a type.
+"article" is a "unary predicate".
+"artistic-work" is a type.
+"artistic-work" is a "unary predicate".
+"audio-document" is a type.
+"audio-document" is a "unary predicate".
+"authority-file" is a type.
+"authority-file" is a "unary predicate".
+"bachelor-s-thesis" is a type.
+"bachelor-s-thesis" is a "unary predicate".
+"bibliographic-database" is a type.
+"bibliographic-database" is a "unary predicate".
+"bibliographic-metadata" is a type.
+"bibliographic-metadata" is a "unary predicate".
+"biography" is a type.
+"biography" is a "unary predicate".
+"blog" is a type.
+"blog" is a "unary predicate".
+"blog-post" is a type.
+"blog-post" is a "unary predicate".
+"book" is a type.
+"book" is a "unary predicate".
+"book-chapter" is a type.
+"book-chapter" is a "unary predicate".
+"book-review" is a type.
+"book-review" is a "unary predicate".
+"book-series" is a type.
+"book-series" is a "unary predicate".
+"book-set" is a type.
+"book-set" is a "unary predicate".
+"brief-report" is a type.
+"brief-report" is a "unary predicate".
+"call-for-applications" is a type.
+"call-for-applications" is a "unary predicate".
+"case-for-support" is a type.
+"case-for-support" is a "unary predicate".
+"case-for-support-document" is a type.
+"case-for-support-document" is a "unary predicate".
+"case-report" is a type.
+"case-report" is a "unary predicate".
+"catalog" is a type.
+"catalog" is a "unary predicate".
+"chapter" is a type.
+"chapter" is a "unary predicate".
+"citation-metadata" is a type.
+"citation-metadata" is a "unary predicate".
+"clinical-case-report" is a type.
+"clinical-case-report" is a "unary predicate".
+"clinical-guideline" is a type.
+"clinical-guideline" is a "unary predicate".
+"clinical-trial-design" is a type.
+"clinical-trial-design" is a "unary predicate".
+"clinical-trial-report" is a type.
+"clinical-trial-report" is a "unary predicate".
+"collected-works" is a type.
+"collected-works" is a "unary predicate".
+"comment" is a type.
+"comment" is a "unary predicate".
+"complete-works" is a type.
+"complete-works" is a "unary predicate".
+"computer-application" is a type.
+"computer-application" is a "unary predicate".
+"computer-file" is a type.
+"computer-file" is a "unary predicate".
+"computer-program" is a type.
+"computer-program" is a "unary predicate".
+"conference-paper" is a type.
+"conference-paper" is a "unary predicate".
+"conference-poster" is a type.
+"conference-poster" is a "unary predicate".
+"conference-proceedings" is a type.
+"conference-proceedings" is a "unary predicate".
+"controlled-vocabulary" is a type.
+"controlled-vocabulary" is a "unary predicate".
+"correction" is a type.
+"correction" is a "unary predicate".
+"corrigendum" is a type.
+"corrigendum" is a "unary predicate".
+"cover" is a type.
+"cover" is a "unary predicate".
+"critical-edition" is a type.
+"critical-edition" is a "unary predicate".
+"data-file" is a type.
+"data-file" is a "unary predicate".
+"data-management-plan" is a type.
+"data-management-plan" is a "unary predicate".
+"data-management-policy" is a type.
+"data-management-policy" is a "unary predicate".
+"data-management-policy-document" is a type.
+"data-management-policy-document" is a "unary predicate".
+"data-repository" is a type.
+"data-repository" is a "unary predicate".
+"database" is a type.
+"database" is a "unary predicate".
+"database-management-system" is a type.
+"database-management-system" is a "unary predicate".
+"dataset" is a type.
+"dataset" is a "unary predicate".
+"definitive-version" is a type.
+"definitive-version" is a "unary predicate".
+"demo-paper" is a type.
+"demo-paper" is a "unary predicate".
+"diary" is a type.
+"diary" is a "unary predicate".
+"digital-item" is a type.
+"digital-item" is a "unary predicate".
+"digital-manifestation" is a type.
+"digital-manifestation" is a "unary predicate".
+"digital-storage-medium" is a type.
+"digital-storage-medium" is a "unary predicate".
+"directory" is a type.
+"directory" is a "unary predicate".
+"discipline-dictionary" is a type.
+"discipline-dictionary" is a "unary predicate".
+"doctoral-thesis" is a type.
+"doctoral-thesis" is a "unary predicate".
+"document-repository" is a type.
+"document-repository" is a "unary predicate".
+"dust-jacket" is a type.
+"dust-jacket" is a "unary predicate".
+"editorial" is a type.
+"editorial" is a "unary predicate".
+"e-mail" is a type.
+"e-mail" is a "unary predicate".
+"entity-metadata" is a type.
+"entity-metadata" is a "unary predicate".
+"entry" is a type.
+"entry" is a "unary predicate".
+"erratum" is a type.
+"erratum" is a "unary predicate".
+"essay" is a type.
+"essay" is a "unary predicate".
+"examination-paper" is a type.
+"examination-paper" is a "unary predicate".
+"excerpt" is a type.
+"excerpt" is a "unary predicate".
+"executive-summary" is a type.
+"executive-summary" is a "unary predicate".
+"experimental-protocol" is a type.
+"experimental-protocol" is a "unary predicate".
+"expression" is a type.
+"expression" is a "unary predicate".
+"expression-collection" is a type.
+"expression-collection" is a "unary predicate".
+"figure" is a type.
+"figure" is a "unary predicate".
+"film" is a type.
+"film" is a "unary predicate".
+"folksonomy" is a type.
+"folksonomy" is a "unary predicate".
+"gantt-chart" is a type.
+"gantt-chart" is a "unary predicate".
+"grant-application" is a type.
+"grant-application" is a "unary predicate".
+"grant-application-document" is a type.
+"grant-application-document" is a "unary predicate".
+"hardback" is a type.
+"hardback" is a "unary predicate".
+"image" is a type.
+"image" is a "unary predicate".
+"in-brief" is a type.
+"in-brief" is a "unary predicate".
+"in-use-paper" is a type.
+"in-use-paper" is a "unary predicate".
+"index" is a type.
+"index" is a "unary predicate".
+"instruction-manual" is a type.
+"instruction-manual" is a "unary predicate".
+"instructional-work" is a type.
+"instructional-work" is a "unary predicate".
+"item" is a type.
+"item" is a "unary predicate".
+"item-collection" is a type.
+"item-collection" is a "unary predicate".
+"journal" is a type.
+"journal" is a "unary predicate".
+"journal-article" is a type.
+"journal-article" is a "unary predicate".
+"journal-editorial" is a type.
+"journal-editorial" is a "unary predicate".
+"journal-issue" is a type.
+"journal-issue" is a "unary predicate".
+"journal-news-item" is a type.
+"journal-news-item" is a "unary predicate".
+"journal-volume" is a type.
+"journal-volume" is a "unary predicate".
+"laboratory-notebook" is a type.
+"laboratory-notebook" is a "unary predicate".
+"lecture-notes" is a type.
+"lecture-notes" is a "unary predicate".
+"legal-opinion" is a type.
+"legal-opinion" is a "unary predicate".
+"letter" is a type.
+"letter" is a "unary predicate".
+"library-catalog" is a type.
+"library-catalog" is a "unary predicate".
+"literary-artistic-work" is a type.
+"literary-artistic-work" is a "unary predicate".
+"magazine" is a type.
+"magazine" is a "unary predicate".
+"magazine-article" is a type.
+"magazine-article" is a "unary predicate".
+"magazine-editorial" is a type.
+"magazine-editorial" is a "unary predicate".
+"magazine-issue" is a type.
+"magazine-issue" is a "unary predicate".
+"magazine-news-item" is a type.
+"magazine-news-item" is a "unary predicate".
+"manifestation" is a type.
+"manifestation" is a "unary predicate".
+"manifestation-collection" is a type.
+"manifestation-collection" is a "unary predicate".
+"manuscript" is a type.
+"manuscript" is a "unary predicate".
+"master-s-thesis" is a type.
+"master-s-thesis" is a "unary predicate".
+"meeting-report" is a type.
+"meeting-report" is a "unary predicate".
+"metadata" is a type.
+"metadata" is a "unary predicate".
+"metadata-document" is a type.
+"metadata-document" is a "unary predicate".
+"methods-paper" is a type.
+"methods-paper" is a "unary predicate".
+"microblog" is a type.
+"microblog" is a "unary predicate".
+"micropost" is a type.
+"micropost" is a "unary predicate".
+"minimal-information-standard" is a type.
+"minimal-information-standard" is a "unary predicate".
+"model" is a type.
+"model" is a "unary predicate".
+"movie" is a type.
+"movie" is a "unary predicate".
+"moving-image" is a type.
+"moving-image" is a "unary predicate".
+"musical-composition" is a type.
+"musical-composition" is a "unary predicate".
+"nanopublication" is a type.
+"nanopublication" is a "unary predicate".
+"news-item" is a type.
+"news-item" is a "unary predicate".
+"news-report" is a type.
+"news-report" is a "unary predicate".
+"newspaper" is a type.
+"newspaper" is a "unary predicate".
+"newspaper-article" is a type.
+"newspaper-article" is a "unary predicate".
+"newspaper-editorial" is a type.
+"newspaper-editorial" is a "unary predicate".
+"newspaper-issue" is a type.
+"newspaper-issue" is a "unary predicate".
+"newspaper-news-item" is a type.
+"newspaper-news-item" is a "unary predicate".
+"notebook" is a type.
+"notebook" is a "unary predicate".
+"notification-of-receipt" is a type.
+"notification-of-receipt" is a "unary predicate".
+"novel" is a type.
+"novel" is a "unary predicate".
+"obituary" is a type.
+"obituary" is a "unary predicate".
+"ontology" is a type.
+"ontology" is a "unary predicate".
+"ontology-document" is a type.
+"ontology-document" is a "unary predicate".
+"opinion" is a type.
+"opinion" is a "unary predicate".
+"oration" is a type.
+"oration" is a "unary predicate".
+"page" is a type.
+"page" is a "unary predicate".
+"paperback" is a type.
+"paperback" is a "unary predicate".
+"patent" is a type.
+"patent" is a "unary predicate".
+"patent-application" is a type.
+"patent-application" is a "unary predicate".
+"patent-application-document" is a type.
+"patent-application-document" is a "unary predicate".
+"patent-document" is a type.
+"patent-document" is a "unary predicate".
+"periodical" is a type.
+"periodical" is a "unary predicate".
+"periodical-issue" is a type.
+"periodical-issue" is a "unary predicate".
+"periodical-item" is a type.
+"periodical-item" is a "unary predicate".
+"periodical-volume" is a type.
+"periodical-volume" is a "unary predicate".
+"personal-communication" is a type.
+"personal-communication" is a "unary predicate".
+"ph-d-symposium-paper" is a type.
+"ph-d-symposium-paper" is a "unary predicate".
+"play" is a type.
+"play" is a "unary predicate".
+"poem" is a type.
+"poem" is a "unary predicate".
+"policy" is a type.
+"policy" is a "unary predicate".
+"policy-document" is a type.
+"policy-document" is a "unary predicate".
+"position-paper" is a type.
+"position-paper" is a "unary predicate".
+"poster-paper" is a type.
+"poster-paper" is a "unary predicate".
+"postprint" is a type.
+"postprint" is a "unary predicate".
+"preprint" is a type.
+"preprint" is a "unary predicate".
+"presentation" is a type.
+"presentation" is a "unary predicate".
+"press-release" is a type.
+"press-release" is a "unary predicate".
+"print-object" is a type.
+"print-object" is a "unary predicate".
+"proceedings-paper" is a type.
+"proceedings-paper" is a "unary predicate".
+"product-review" is a type.
+"product-review" is a "unary predicate".
+"project-metadata" is a type.
+"project-metadata" is a "unary predicate".
+"project-plan" is a type.
+"project-plan" is a "unary predicate".
+"deliverable-report" is a type.
+"deliverable-report" is a "unary predicate".
+"deliverable" is a type.
+"deliverable" is a "unary predicate".
+"proof" is a type.
+"proof" is a "unary predicate".
+"proposition" is a type.
+"proposition" is a "unary predicate".
+"questionnaire" is a type.
+"questionnaire" is a "unary predicate".
+"quotation" is a type.
+"quotation" is a "unary predicate".
+"rapid-communication" is a type.
+"rapid-communication" is a "unary predicate".
+"reference-book" is a type.
+"reference-book" is a "unary predicate".
+"reference-entry" is a type.
+"reference-entry" is a "unary predicate".
+"reference-work" is a type.
+"reference-work" is a "unary predicate".
+"relational-database" is a type.
+"relational-database" is a "unary predicate".
+"reply" is a type.
+"reply" is a "unary predicate".
+"report" is a type.
+"report" is a "unary predicate".
+"report-document" is a type.
+"report-document" is a "unary predicate".
+"reporting-standard" is a type.
+"reporting-standard" is a "unary predicate".
+"repository" is a type.
+"repository" is a "unary predicate".
+"research-paper" is a type.
+"research-paper" is a "unary predicate".
+"resource-paper" is a type.
+"resource-paper" is a "unary predicate".
+"retraction" is a type.
+"retraction" is a "unary predicate".
+"retraction-notice" is a type.
+"retraction-notice" is a "unary predicate".
+"review" is a type.
+"review" is a "unary predicate".
+"review-article" is a type.
+"review-article" is a "unary predicate".
+"review-paper" is a type.
+"review-paper" is a "unary predicate".
+"scholarly-work" is a type.
+"scholarly-work" is a "unary predicate".
+"screenplay" is a type.
+"screenplay" is a "unary predicate".
+"script" is a type.
+"script" is a "unary predicate".
+"series" is a type.
+"series" is a "unary predicate".
+"short-story" is a type.
+"short-story" is a "unary predicate".
+"song" is a type.
+"song" is a "unary predicate".
+"sound-recording" is a type.
+"sound-recording" is a "unary predicate".
+"specification" is a type.
+"specification" is a "unary predicate".
+"specification-document" is a type.
+"specification-document" is a "unary predicate".
+"spreadsheet" is a type.
+"spreadsheet" is a "unary predicate".
+"standard-operating-procedure" is a type.
+"standard-operating-procedure" is a "unary predicate".
+"still-image" is a type.
+"still-image" is a "unary predicate".
+"storage-medium" is a type.
+"storage-medium" is a "unary predicate".
+"structured-summary" is a type.
+"structured-summary" is a "unary predicate".
+"subject-discipline" is a type.
+"subject-discipline" is a "unary predicate".
+"subject-term" is a type.
+"subject-term" is a "unary predicate".
+"supplement" is a type.
+"supplement" is a "unary predicate".
+"supplementary-information-file" is a type.
+"supplementary-information-file" is a "unary predicate".
+"systematic-review" is a type.
+"systematic-review" is a "unary predicate".
+"table" is a type.
+"table" is a "unary predicate".
+"table-of-contents" is a type.
+"table-of-contents" is a "unary predicate".
+"taxonomy" is a type.
+"taxonomy" is a "unary predicate".
+"technical-report" is a type.
+"technical-report" is a "unary predicate".
+"technical-standard" is a type.
+"technical-standard" is a "unary predicate".
+"term-dictionary" is a type.
+"term-dictionary" is a "unary predicate".
+"textbook" is a type.
+"textbook" is a "unary predicate".
+"thesaurus" is a type.
+"thesaurus" is a "unary predicate".
+"thesis" is a type.
+"thesis" is a "unary predicate".
+"timetable" is a type.
+"timetable" is a "unary predicate".
+"trial-report" is a type.
+"trial-report" is a "unary predicate".
+"triplestore" is a type.
+"triplestore" is a "unary predicate".
+"tweet" is a type.
+"tweet" is a "unary predicate".
+"uncontrolled-vocabulary" is a type.
+"uncontrolled-vocabulary" is a "unary predicate".
+"vocabulary" is a type.
+"vocabulary" is a "unary predicate".
+"vocabulary-document" is a type.
+"vocabulary-document" is a "unary predicate".
+"vocabulary-mapping" is a type.
+"vocabulary-mapping" is a "unary predicate".
+"vocabulary-mapping-document" is a type.
+"vocabulary-mapping-document" is a "unary predicate".
+"web-archive" is a type.
+"web-archive" is a "unary predicate".
+"web-content" is a type.
+"web-content" is a "unary predicate".
+"web-manifestation" is a type.
+"web-manifestation" is a "unary predicate".
+"web-page" is a type.
+"web-page" is a "unary predicate".
+"web-site" is a type.
+"web-site" is a "unary predicate".
+"white-paper" is a type.
+"white-paper" is a "unary predicate".
+"wiki" is a type.
+"wiki" is a "unary predicate".
+"wiki-entry" is a type.
+"wiki-entry" is a "unary predicate".
+"wikipedia-entry" is a type.
+"wikipedia-entry" is a "unary predicate".
+"work" is a type.
+"work" is a "unary predicate".
+"work-collection" is a type.
+"work-collection" is a "unary predicate".
+"work-package" is a type.
+"work-package" is a "unary predicate".
+"workflow" is a type.
+"workflow" is a "unary predicate".
+"working-paper" is a type.
+"working-paper" is a "unary predicate".
+"workshop-paper" is a type.
+"workshop-paper" is a "unary predicate".
+"workshop-proceedings" is a type.
+"workshop-proceedings" is a "unary predicate".
+"endeavour" is a type.
+"endeavour" is a "unary predicate".
+"place" is a type.
+"place" is a "unary predicate".
+"type" is a type.
+"type" is a "unary predicate".
+"datatype" is a type.
+"datatype" is a "unary predicate".
+"any-uri" is a type.
+"any-uri" is a "unary predicate".
+"date" is a type.
+"date" is a "unary predicate".
+"date-time" is a type.
+"date-time" is a "unary predicate".
+"g-year" is a type.
+"g-year" is a "unary predicate".
+"non-negative-integer" is a type.
+"non-negative-integer" is a "unary predicate".
+"positive-integer" is a type.
+"positive-integer" is a "unary predicate".
+"string" is a type.
+"string" is a "unary predicate".
+"class" is a type.
+"class" is a "unary predicate".
+"restriction" is a type.
+"restriction" is a "unary predicate".
+"thing" is a type.
+"thing" is a "unary predicate".
+"concept" is a type.
+"concept" is a "unary predicate".
+"concept-scheme" is a type.
+"concept-scheme" is a "unary predicate".
+
+// Binary predicates
+"date-last-updated" is a "binary predicate".
+"has-access-date" is a "binary predicate".
+"has-ar-xiv-identifier" is a "binary predicate".
+"has-coden" is a "binary predicate".
+"has-character-count" is a "binary predicate".
+"has-copyright-year" is a "binary predicate".
+"has-correction-date" is a "binary predicate".
+"has-date-collected" is a "binary predicate".
+"has-date-received" is a "binary predicate".
+"has-deadline" is a "binary predicate".
+"has-decision-date" is a "binary predicate".
+"has-deposit-date" is a "binary predicate".
+"has-discipline" is a "binary predicate".
+"has-preprint-dissemination-date" is a "binary predicate".
+"has-electronic-article-identifier" is a "binary predicate".
+"has-embargo-date" is a "binary predicate".
+"has-embargo-period" is a "binary predicate".
+"has-handle" is a "binary predicate".
+"has-issn-l" is a "binary predicate".
+"has-manifestation" is a "binary predicate".
+"has-national-library-of-medicine-journal-title-abbreviation" is a "binary predicate".
+"has-national-library-of-medicine-journal-identifier" is a "binary predicate".
+"has-pii" is a "binary predicate".
+"has-page-count" is a "binary predicate".
+"has-patent-number" is a "binary predicate".
+"has-place-of-publication" is a "binary predicate".
+"has-portrayal" is a "binary predicate".
+"has-primary-subject-term" is a "binary predicate".
+"has-pub-med-central-identifier" is a "binary predicate".
+"has-pub-med-identifier" is a "binary predicate".
+"has-publication-year" is a "binary predicate".
+"has-representation" is a "binary predicate".
+"has-request-date" is a "binary predicate".
+"has-retraction-date" is a "binary predicate".
+"has-sici" is a "binary predicate".
+"has-season" is a "binary predicate".
+"has-number" is a "binary predicate".
+"has-short-title" is a "binary predicate".
+"has-standard-number" is a "binary predicate".
+"has-subject-term" is a "binary predicate".
+"has-subtitle" is a "binary predicate".
+"has-translated-subtitle" is a "binary predicate".
+"has-translated-title" is a "binary predicate".
+"has-url" is a "binary predicate".
+"has-volume-count" is a "binary predicate".
+"discipline of" is a "binary predicate".
+"manifestation of" is a "binary predicate".
+"portrayal of" is a "binary predicate".
+"representation of" is a "binary predicate".
+"scheme of" is a "binary predicate".
+"stored on" is a "binary predicate".
+"stores" is a "binary predicate".
+"uses-calendar" is a "binary predicate".
+"alternate-title" is a "binary predicate".
+"has-doi" is a "binary predicate".
+"has-e-issn" is a "binary predicate".
+"has-edition" is a "binary predicate".
+"has-ending-page" is a "binary predicate".
+"has-isbn" is a "binary predicate".
+"has-issn" is a "binary predicate".
+"has-issue-identifier" is a "binary predicate".
+"has-keyword" is a "binary predicate".
+"has-page-range" is a "binary predicate".
+"has-publication-date" is a "binary predicate".
+"section" is a "binary predicate".
+"has-starting-page" is a "binary predicate".
+"has-version-identifier" is a "binary predicate".
+"has-volume-identifier" is a "binary predicate".
+"has-word-count" is a "binary predicate".
+"has-creation-date" is a "binary predicate".
+"has-creator" is a "binary predicate".
+"has-date" is a "binary predicate".
+"has-acceptance-date" is a "binary predicate".
+"has-copyright-date" is a "binary predicate".
+"has-submission-date" is a "binary predicate".
+"has-format" is a "binary predicate".
+"has-identifier" is a "binary predicate".
+"has-issue-date" is a "binary predicate".
+"has-language" is a "binary predicate".
+"has-license" is a "binary predicate".
+"has-modification-date" is a "binary predicate".
+"has-publisher" is a "binary predicate".
+"has-rights" is a "binary predicate".
+"has-title" is a "binary predicate".
+"has-validity-date" is a "binary predicate".
+"has-embodiment" is a "binary predicate".
+"embodiment of" is a "binary predicate".
+"has-exemplar" is a "binary predicate".
+"exemplar of" is a "binary predicate".
+"has-part" is a "binary predicate".
+"part of" is a "binary predicate".
+"has-realization" is a "binary predicate".
+"realization of" is a "binary predicate".
+"related-endeavour" is a "binary predicate".
+"top-data-property" is a "binary predicate".
+"top-object-property" is a "binary predicate".
+"in-scheme" is a "binary predicate".
+
+// Type hierarchy
+// Dropped subtype edges:
+// - abstract-to-concrete: 2 (e.g. "type" -> "periodical-item", "class" -> "periodical-item")
+"abstract" is a subtype of "expression".
+"academic-proceedings" is a subtype of "restriction".
+"academic-proceedings" is a subtype of "type".
+"addendum" is a subtype of "expression".
+"algorithm" is a subtype of "specification".
+"analog-item" is a subtype of "restriction".
+"analog-item" is a subtype of "type".
+"analog-manifestation" is a subtype of "restriction".
+"analog-manifestation" is a subtype of "type".
+"analog-storage-medium" is a subtype of "restriction".
+"analog-storage-medium" is a subtype of "type".
+"announcement" is a subtype of "work".
+"anthology" is a subtype of "expression-collection".
+"api" is a subtype of "computer-program".
+"application-profile" is a subtype of "metadata".
+"archival-document" is a subtype of "expression".
+"archival-document-set" is a subtype of "restriction".
+"archival-document-set" is a subtype of "type".
+"archival-record" is a subtype of "restriction".
+"archival-record" is a subtype of "type".
+"archival-record-set" is a subtype of "restriction".
+"archival-record-set" is a subtype of "type".
+"article" is a subtype of "expression".
+"artistic-work" is a subtype of "work".
+"audio-document" is a subtype of "restriction".
+"audio-document" is a subtype of "type".
+"authority-file" is a subtype of "controlled-vocabulary".
+"bachelor-s-thesis" is a subtype of "thesis".
+"bibliographic-database" is a subtype of "database".
+"bibliographic-metadata" is a subtype of "metadata".
+"biography" is a subtype of "work".
+"blog" is a subtype of "web-manifestation".
+"blog-post" is a subtype of "entry".
+"blog-post" is a subtype of "web-content".
+"book" is a subtype of "expression".
+"book-chapter" is a subtype of "restriction".
+"book-chapter" is a subtype of "type".
+"book-review" is a subtype of "review".
+"book-series" is a subtype of "restriction".
+"book-series" is a subtype of "type".
+"book-set" is a subtype of "restriction".
+"book-set" is a subtype of "type".
+"brief-report" is a subtype of "class".
+"brief-report" is a subtype of "type".
+"call-for-applications" is a subtype of "restriction".
+"call-for-applications" is a subtype of "type".
+"case-for-support" is a subtype of "work".
+"case-for-support-document" is a subtype of "restriction".
+"case-for-support-document" is a subtype of "type".
+"case-report" is a subtype of "report".
+"catalog" is a subtype of "specification".
+"chapter" is a subtype of "expression".
+"citation-metadata" is a subtype of "metadata".
+"clinical-case-report" is a subtype of "case-report".
+"clinical-guideline" is a subtype of "instructional-work".
+"clinical-trial-design" is a subtype of "specification".
+"clinical-trial-report" is a subtype of "trial-report".
+"collected-works" is a subtype of "anthology".
+"comment" is a subtype of "expression".
+"complete-works" is a subtype of "collected-works".
+"computer-application" is a subtype of "computer-program".
+"computer-file" is a subtype of "digital-item".
+"computer-program" is a subtype of "expression".
+"conference-paper" is a subtype of "proceedings-paper".
+"conference-poster" is a subtype of "expression".
+"conference-proceedings" is a subtype of "restriction".
+"conference-proceedings" is a subtype of "type".
+"controlled-vocabulary" is a subtype of "vocabulary".
+"correction" is a subtype of "work".
+"corrigendum" is a subtype of "correction".
+"cover" is a subtype of "expression".
+"critical-edition" is a subtype of "work".
+"data-file" is a subtype of "restriction".
+"data-file" is a subtype of "type".
+"data-management-plan" is a subtype of "restriction".
+"data-management-plan" is a subtype of "type".
+"data-management-policy" is a subtype of "policy".
+"data-management-policy-document" is a subtype of "policy-document".
+"data-repository" is a subtype of "repository".
+"database" is a subtype of "expression".
+"database-management-system" is a subtype of "computer-program".
+"dataset" is a subtype of "work".
+"definitive-version" is a subtype of "manuscript".
+"deliverable" is a subtype of "restriction".
+"deliverable" is a subtype of "type".
+"deliverable-report" is a subtype of "report".
+"demo-paper" is a subtype of "expression".
+"diary" is a subtype of "restriction".
+"diary" is a subtype of "type".
+"digital-item" is a subtype of "restriction".
+"digital-item" is a subtype of "type".
+"digital-manifestation" is a subtype of "restriction".
+"digital-manifestation" is a subtype of "type".
+"digital-storage-medium" is a subtype of "restriction".
+"digital-storage-medium" is a subtype of "type".
+"directory" is a subtype of "database".
+"discipline-dictionary" is a subtype of "restriction".
+"discipline-dictionary" is a subtype of "type".
+"doctoral-thesis" is a subtype of "thesis".
+"document-repository" is a subtype of "repository".
+"dust-jacket" is a subtype of "expression".
+"e-mail" is a subtype of "expression".
+"editorial" is a subtype of "restriction".
+"editorial" is a subtype of "type".
+"entity-metadata" is a subtype of "metadata".
+"entry" is a subtype of "expression".
+"erratum" is a subtype of "correction".
+"essay" is a subtype of "work".
+"examination-paper" is a subtype of "work".
+"excerpt" is a subtype of "expression".
+"executive-summary" is a subtype of "brief-report".
+"experimental-protocol" is a subtype of "specification".
+"expression" is a subtype of "restriction".
+"expression" is a subtype of "type".
+"expression-collection" is a subtype of "restriction".
+"expression-collection" is a subtype of "type".
+"figure" is a subtype of "restriction".
+"figure" is a subtype of "type".
+"film" is a subtype of "movie".
+"folksonomy" is a subtype of "uncontrolled-vocabulary".
+"gantt-chart" is a subtype of "expression".
+"grant-application" is a subtype of "work".
+"grant-application-document" is a subtype of "restriction".
+"grant-application-document" is a subtype of "type".
+"hardback" is a subtype of "print-object".
+"image" is a subtype of "work".
+"in-brief" is a subtype of "class".
+"in-brief" is a subtype of "type".
+"in-use-paper" is a subtype of "scholarly-work".
+"index" is a subtype of "expression".
+"instruction-manual" is a subtype of "restriction".
+"instruction-manual" is a subtype of "type".
+"instructional-work" is a subtype of "work".
+"item" is a subtype of "restriction".
+"item" is a subtype of "type".
+"item-collection" is a subtype of "restriction".
+"item-collection" is a subtype of "type".
+"journal" is a subtype of "restriction".
+"journal" is a subtype of "type".
+"journal-article" is a subtype of "restriction".
+"journal-article" is a subtype of "type".
+"journal-editorial" is a subtype of "restriction".
+"journal-editorial" is a subtype of "type".
+"journal-issue" is a subtype of "restriction".
+"journal-issue" is a subtype of "type".
+"journal-news-item" is a subtype of "restriction".
+"journal-news-item" is a subtype of "type".
+"journal-volume" is a subtype of "restriction".
+"journal-volume" is a subtype of "type".
+"laboratory-notebook" is a subtype of "notebook".
+"lecture-notes" is a subtype of "expression".
+"legal-opinion" is a subtype of "opinion".
+"letter" is a subtype of "expression".
+"library-catalog" is a subtype of "catalog".
+"literary-artistic-work" is a subtype of "artistic-work".
+"magazine" is a subtype of "restriction".
+"magazine" is a subtype of "type".
+"magazine-article" is a subtype of "restriction".
+"magazine-article" is a subtype of "type".
+"magazine-editorial" is a subtype of "restriction".
+"magazine-editorial" is a subtype of "type".
+"magazine-issue" is a subtype of "restriction".
+"magazine-issue" is a subtype of "type".
+"magazine-news-item" is a subtype of "restriction".
+"magazine-news-item" is a subtype of "type".
+"manifestation" is a subtype of "class".
+"manifestation" is a subtype of "type".
+"manifestation-collection" is a subtype of "restriction".
+"manifestation-collection" is a subtype of "type".
+"manuscript" is a subtype of "expression".
+"master-s-thesis" is a subtype of "thesis".
+"meeting-report" is a subtype of "report".
+"metadata" is a subtype of "work".
+"metadata-document" is a subtype of "restriction".
+"metadata-document" is a subtype of "type".
+"methods-paper" is a subtype of "scholarly-work".
+"microblog" is a subtype of "blog".
+"micropost" is a subtype of "entry".
+"micropost" is a subtype of "web-content".
+"minimal-information-standard" is a subtype of "specification".
+"model" is a subtype of "work".
+"movie" is a subtype of "restriction".
+"movie" is a subtype of "type".
+"moving-image" is a subtype of "image".
+"musical-composition" is a subtype of "literary-artistic-work".
+"nanopublication" is a subtype of "expression".
+"news-item" is a subtype of "restriction".
+"news-item" is a subtype of "type".
+"news-report" is a subtype of "report".
+"newspaper" is a subtype of "restriction".
+"newspaper" is a subtype of "type".
+"newspaper-article" is a subtype of "restriction".
+"newspaper-article" is a subtype of "type".
+"newspaper-editorial" is a subtype of "restriction".
+"newspaper-editorial" is a subtype of "type".
+"newspaper-issue" is a subtype of "restriction".
+"newspaper-issue" is a subtype of "type".
+"newspaper-news-item" is a subtype of "restriction".
+"newspaper-news-item" is a subtype of "type".
+"notebook" is a subtype of "book".
+"notification-of-receipt" is a subtype of "announcement".
+"novel" is a subtype of "literary-artistic-work".
+"obituary" is a subtype of "news-report".
+"ontology" is a subtype of "controlled-vocabulary".
+"ontology-document" is a subtype of "restriction".
+"ontology-document" is a subtype of "type".
+"opinion" is a subtype of "work".
+"oration" is a subtype of "expression".
+"page" is a subtype of "manifestation".
+"paperback" is a subtype of "print-object".
+"patent" is a subtype of "specification".
+"patent-application" is a subtype of "specification".
+"patent-application-document" is a subtype of "restriction".
+"patent-application-document" is a subtype of "type".
+"patent-document" is a subtype of "restriction".
+"patent-document" is a subtype of "type".
+"periodical" is a subtype of "restriction".
+"periodical" is a subtype of "type".
+"periodical-issue" is a subtype of "restriction".
+"periodical-issue" is a subtype of "type".
+"periodical-item" is a subtype of "class".
+"periodical-item" is a subtype of "type".
+"periodical-volume" is a subtype of "restriction".
+"periodical-volume" is a subtype of "type".
+"personal-communication" is a subtype of "expression".
+"ph-d-symposium-paper" is a subtype of "expression".
+"play" is a subtype of "literary-artistic-work".
+"poem" is a subtype of "literary-artistic-work".
+"policy" is a subtype of "work".
+"policy-document" is a subtype of "restriction".
+"policy-document" is a subtype of "type".
+"position-paper" is a subtype of "opinion".
+"position-paper" is a subtype of "scholarly-work".
+"poster-paper" is a subtype of "expression".
+"postprint" is a subtype of "manuscript".
+"preprint" is a subtype of "manuscript".
+"presentation" is a subtype of "expression".
+"press-release" is a subtype of "news-item".
+"print-object" is a subtype of "analog-manifestation".
+"proceedings-paper" is a subtype of "expression".
+"product-review" is a subtype of "review".
+"project-metadata" is a subtype of "metadata".
+"project-plan" is a subtype of "expression".
+"proof" is a subtype of "manuscript".
+"proposition" is a subtype of "work".
+"questionnaire" is a subtype of "work".
+"quotation" is a subtype of "expression".
+"rapid-communication" is a subtype of "expression".
+"reference-book" is a subtype of "restriction".
+"reference-book" is a subtype of "type".
+"reference-entry" is a subtype of "restriction".
+"reference-entry" is a subtype of "type".
+"reference-work" is a subtype of "work".
+"relational-database" is a subtype of "database".
+"reply" is a subtype of "work".
+"report" is a subtype of "work".
+"report-document" is a subtype of "restriction".
+"report-document" is a subtype of "type".
+"reporting-standard" is a subtype of "specification".
+"repository" is a subtype of "expression".
+"research-paper" is a subtype of "scholarly-work".
+"resource-paper" is a subtype of "scholarly-work".
+"retraction" is a subtype of "announcement".
+"retraction-notice" is a subtype of "restriction".
+"retraction-notice" is a subtype of "type".
+"review" is a subtype of "work".
+"review-article" is a subtype of "restriction".
+"review-article" is a subtype of "type".
+"review-paper" is a subtype of "review".
+"review-paper" is a subtype of "scholarly-work".
+"scholarly-work" is a subtype of "work".
+"screenplay" is a subtype of "literary-artistic-work".
+"script" is a subtype of "computer-program".
+"series" is a subtype of "expression-collection".
+"short-story" is a subtype of "literary-artistic-work".
+"song" is a subtype of "musical-composition".
+"sound-recording" is a subtype of "work".
+"specification" is a subtype of "work".
+"specification-document" is a subtype of "restriction".
+"specification-document" is a subtype of "type".
+"spreadsheet" is a subtype of "expression".
+"standard-operating-procedure" is a subtype of "specification".
+"still-image" is a subtype of "image".
+"structured-summary" is a subtype of "restriction".
+"structured-summary" is a subtype of "type".
+"subject-discipline" is a subtype of "restriction".
+"subject-discipline" is a subtype of "type".
+"subject-term" is a subtype of "restriction".
+"subject-term" is a subtype of "type".
+"supplement" is a subtype of "expression".
+"supplementary-information-file" is a subtype of "expression".
+"systematic-review" is a subtype of "review".
+"table" is a subtype of "expression".
+"table-of-contents" is a subtype of "table".
+"taxonomy" is a subtype of "controlled-vocabulary".
+"technical-report" is a subtype of "report".
+"technical-standard" is a subtype of "specification".
+"term-dictionary" is a subtype of "restriction".
+"term-dictionary" is a subtype of "type".
+"textbook" is a subtype of "restriction".
+"textbook" is a subtype of "type".
+"thesaurus" is a subtype of "controlled-vocabulary".
+"thesis" is a subtype of "book".
+"timetable" is a subtype of "dataset".
+"trial-report" is a subtype of "report".
+"triplestore" is a subtype of "database".
+"tweet" is a subtype of "micropost".
+"uncontrolled-vocabulary" is a subtype of "vocabulary".
+"vocabulary" is a subtype of "work".
+"vocabulary-document" is a subtype of "restriction".
+"vocabulary-document" is a subtype of "type".
+"vocabulary-mapping" is a subtype of "specification".
+"vocabulary-mapping-document" is a subtype of "restriction".
+"vocabulary-mapping-document" is a subtype of "type".
+"web-archive" is a subtype of "repository".
+"web-content" is a subtype of "restriction".
+"web-content" is a subtype of "type".
+"web-manifestation" is a subtype of "digital-manifestation".
+"web-page" is a subtype of "page".
+"web-page" is a subtype of "web-manifestation".
+"web-site" is a subtype of "web-manifestation".
+"white-paper" is a subtype of "report-document".
+"wiki" is a subtype of "web-manifestation".
+"wiki-entry" is a subtype of "entry".
+"wiki-entry" is a subtype of "web-content".
+"wikipedia-entry" is a subtype of "wiki-entry".
+"work" is a subtype of "class".
+"work" is a subtype of "type".
+"work-collection" is a subtype of "restriction".
+"work-collection" is a subtype of "type".
+"work-package" is a subtype of "work".
+"workflow" is a subtype of "specification".
+"working-paper" is a subtype of "work".
+"workshop-paper" is a subtype of "proceedings-paper".
+"workshop-proceedings" is a subtype of "restriction".
+"workshop-proceedings" is a subtype of "type".
+
+// Domain and range constraints
+the domain of "discipline of" is "subject-discipline".
+the domain of "has-access-date" is "item".
+the domain of "has-character-count" is "endeavour".
+the domain of "has-copyright-year" is "endeavour".
+the domain of "has-deposit-date" is "item".
+the domain of "has-discipline" is "class".
+the domain of "has-discipline" is "type".
+the domain of "has-doi" is "endeavour".
+the domain of "has-e-issn" is "endeavour".
+the domain of "has-edition" is "endeavour".
+the domain of "has-electronic-article-identifier" is "endeavour".
+the domain of "has-ending-page" is "endeavour".
+the domain of "has-handle" is "endeavour".
+the domain of "has-isbn" is "endeavour".
+the domain of "has-issn" is "endeavour".
+the domain of "has-issue-identifier" is "endeavour".
+the domain of "has-keyword" is "endeavour".
+the domain of "has-manifestation" is "work".
+the domain of "has-national-library-of-medicine-journal-identifier" is "endeavour".
+the domain of "has-number" is "endeavour".
+the domain of "has-page-count" is "endeavour".
+the domain of "has-page-range" is "endeavour".
+the domain of "has-place-of-publication" is "endeavour".
+the domain of "has-portrayal" is "work".
+the domain of "has-pub-med-central-identifier" is "endeavour".
+the domain of "has-pub-med-identifier" is "endeavour".
+the domain of "has-publication-date" is "endeavour".
+the domain of "has-representation" is "expression".
+the domain of "has-short-title" is "endeavour".
+the domain of "has-sici" is "endeavour".
+the domain of "has-starting-page" is "endeavour".
+the domain of "has-subject-term" is "endeavour".
+the domain of "has-subtitle" is "endeavour".
+the domain of "has-url" is "endeavour".
+the domain of "has-version-identifier" is "endeavour".
+the domain of "has-volume-count" is "endeavour".
+the domain of "has-volume-identifier" is "endeavour".
+the domain of "has-word-count" is "endeavour".
+the domain of "in-scheme" is "concept".
+the domain of "manifestation of" is "manifestation".
+the domain of "portrayal of" is "item".
+the domain of "representation of" is "item".
+the domain of "scheme of" is "concept-scheme".
+the domain of "stored on" is "item".
+the domain of "stores" is "storage-medium".
+the range of "date-last-updated" is "date-time".
+the range of "discipline of" is "class".
+the range of "discipline of" is "type".
+the range of "has-acceptance-date" is "date-time".
+the range of "has-access-date" is "date-time".
+the range of "has-character-count" is "positive-integer".
+the range of "has-copyright-date" is "date".
+the range of "has-copyright-year" is "g-year".
+the range of "has-correction-date" is "date-time".
+the range of "has-creation-date" is "date-time".
+the range of "has-date-collected" is "date-time".
+the range of "has-date-received" is "date-time".
+the range of "has-deadline" is "date-time".
+the range of "has-decision-date" is "date-time".
+the range of "has-deposit-date" is "date-time".
+the range of "has-discipline" is "subject-discipline".
+the range of "has-embargo-date" is "date-time".
+the range of "has-handle" is "string".
+the range of "has-manifestation" is "manifestation".
+the range of "has-modification-date" is "date-time".
+the range of "has-national-library-of-medicine-journal-identifier" is "datatype".
+the range of "has-national-library-of-medicine-journal-identifier" is "type".
+the range of "has-page-count" is "positive-integer".
+the range of "has-place-of-publication" is "place".
+the range of "has-portrayal" is "item".
+the range of "has-preprint-dissemination-date" is "date-time".
+the range of "has-pub-med-central-identifier" is "string".
+the range of "has-pub-med-identifier" is "string".
+the range of "has-publication-date" is "datatype".
+the range of "has-publication-date" is "type".
+the range of "has-publication-year" is "g-year".
+the range of "has-representation" is "item".
+the range of "has-retraction-date" is "date-time".
+the range of "has-short-title" is "string".
+the range of "has-sici" is "string".
+the range of "has-subject-term" is "subject-term".
+the range of "has-submission-date" is "date-time".
+the range of "has-subtitle" is "string".
+the range of "has-url" is "any-uri".
+the range of "has-validity-date" is "date-time".
+the range of "has-volume-count" is "non-negative-integer".
+the range of "has-word-count" is "positive-integer".
+the range of "in-scheme" is "concept-scheme".
+the range of "manifestation of" is "work".
+the range of "portrayal of" is "work".
+the range of "representation of" is "expression".
+the range of "scheme of" is "concept".
+the range of "stored on" is "storage-medium".
+the range of "stores" is "item".

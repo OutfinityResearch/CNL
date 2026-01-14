@@ -22,35 +22,64 @@
       <section class="hero">
         <span class="tag">Pragmatic Mode</span>
         <h1>Solve</h1>
-        <p>Resolve constraints and find valid variable assignments.</p>
+        <p>Find variable bindings that satisfy a set of constraints.</p>
       </section>
 
       <section class="section">
         <h2>Concept</h2>
         <p>
-          The <strong>Solve</strong> pragmatic treats the CNL input as a <strong>Constraint Satisfaction Problem (CSP)</strong>. It is used when you don't know <em>who</em> or <em>what</em> fits, but you know the <em>rules</em> they must follow.
+          The <strong>Solve</strong> pragmatic performs Constraint Satisfaction (CSP) over entity domains. It allows you to find "who" or "what" fits a specific set of rules using variables (e.g., <code>?X</code>).
         </p>
 
         <h2>Syntax</h2>
         <div class="code-block">
 <pre>
-Solve for every schedule such that every task is assigned to a user
-and every user has the skill for the task
-and no user has more than 5 tasks.
+Solve for &lt;variables&gt; [such that &lt;constraints&gt;].
 </pre>
         </div>
 
-        <h2>Execution Logic</h2>
-        <p>
-          The compiler identifies the variables (<code>schedule</code>, <code>task</code>, <code>user</code>) and the constraints.
-        </p>
-        <p>
-          1. <strong>Domain Definition:</strong> <code>user</code> is the set of all users in KB. <code>task</code> is the set of tasks.
-          <br>2. <strong>Constraint Propagation:</strong> "user has skill" filters the domain of possible assignments.
-          <br>3. <strong>Solver Backend:</strong> The problem is often handed off to an SMT solver (like Z3) or a backtracking solver to find a valid assignment matrix.
-        </p>
+        <h3>Example</h3>
+        <div class="code-block">
+<pre>
+Solve for ?X and ?Y such that
+    ?X is a User
+    ?Y is a Server
+    ?X manages ?Y.
+</pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Constraint Rules (DS21)</h2>
+        <p>The solver supports a specific subset of logic to ensure determinism and performance:</p>
+        <ul>
+            <li><strong>Allowed:</strong> Conjunctions (AND) of atomic conditions.</li>
+            <li><strong>Allowed:</strong> Unary membership (<code>?X is a type</code>) and Binary relations (<code>?X relates to ?Y</code>).</li>
+            <li><strong>Rejected:</strong> Disjunctions (OR) inside constraints.</li>
+            <li><strong>Rejected:</strong> Negated constraints (<code>it is not the case that...</code>).</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Execution Model</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>1. Domain Propagation (AC-3)</h3>
+                <p>Initial domains are established for each variable. Constraints reduce these domains iteratively (e.g., if <code>?X manages ?Y</code>, then <code>?X</code> must be in the set of managers).</p>
+            </div>
+            <div class="card">
+                <h3>2. Backtracking Search (v2)</h3>
+                <p>Propagation alone guarantees local consistency but not global solutions. The solver performs a bounded backtracking search to find valid assignments for all variables simultaneously.</p>
+            </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Reference</h2>
+        <p>Defined in <a href="../specs/DS/DS21-constraint-solving.md">DS21 - Constraint Solving</a>.</p>
       </section>
     </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Pragmatics</div></footer>
   </div>
 </body>
 </html>

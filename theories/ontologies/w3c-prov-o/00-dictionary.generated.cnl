@@ -4,8 +4,9 @@
 --- CONTEXT: BaseDictionary ---
 
 // Generated from ontology import: W3cProvO
-"activity" is a type.
-"activity" is a "unary predicate".
+
+// Resolved key collisions (type vs binary predicate):
+// - "activity": chose property (dropped class)
 "activity-influence" is a type.
 "activity-influence" is a "unary predicate".
 "agent" is a type.
@@ -78,7 +79,7 @@
 // Binary predicates
 "acted-on-behalf-of" is a "binary predicate".
 "activity" is a "binary predicate".
-"agent" is a "binary predicate".
+"prov-agent" is a "binary predicate".
 "alternate of" is a "binary predicate".
 "aq" is a "binary predicate".
 "rel-at-location" is a "binary predicate".
@@ -88,7 +89,7 @@
 "dm" is a "binary predicate".
 "editors-definition" is a "binary predicate".
 "ended-at-time" is a "binary predicate".
-"entity" is a "binary predicate".
+"prov-entity" is a "binary predicate".
 "generated" is a "binary predicate".
 "generated-at-time" is a "binary predicate".
 "rel-had-activity" is a "binary predicate".
@@ -109,6 +110,7 @@
 "qualified-delegation" is a "binary predicate".
 "qualified-derivation" is a "binary predicate".
 "qualified-end" is a "binary predicate".
+"qualified-form" is a "binary predicate".
 "qualified-generation" is a "binary predicate".
 "qualified-influence" is a "binary predicate".
 "qualified-invalidation" is a "binary predicate".
@@ -171,21 +173,15 @@
 // Domain and range constraints
 the domain of "acted-on-behalf-of" is "agent".
 the domain of "activity" is "activity-influence".
-the domain of "agent" is "agent-influence".
 the domain of "alternate of" is "entity".
-the domain of "ended-at-time" is "activity".
-the domain of "entity" is "entity-influence".
-the domain of "generated" is "activity".
 the domain of "generated-at-time" is "entity".
 the domain of "influencer" is "influence".
-the domain of "invalidated" is "activity".
 the domain of "invalidated-at-time" is "entity".
-the domain of "qualified-association" is "activity".
+the domain of "prov-agent" is "agent-influence".
+the domain of "prov-entity" is "entity-influence".
 the domain of "qualified-attribution" is "entity".
-the domain of "qualified-communication" is "activity".
 the domain of "qualified-delegation" is "agent".
 the domain of "qualified-derivation" is "entity".
-the domain of "qualified-end" is "activity".
 the domain of "qualified-generation" is "entity".
 the domain of "qualified-influence" is "class".
 the domain of "qualified-influence" is "type".
@@ -193,8 +189,6 @@ the domain of "qualified-invalidation" is "entity".
 the domain of "qualified-primary-source" is "entity".
 the domain of "qualified-quotation" is "entity".
 the domain of "qualified-revision" is "entity".
-the domain of "qualified-start" is "activity".
-the domain of "qualified-usage" is "activity".
 the domain of "rel-at-location" is "class".
 the domain of "rel-at-location" is "type".
 the domain of "rel-at-time" is "instantaneous-event".
@@ -210,32 +204,25 @@ the domain of "rel-had-role" is "influence".
 the domain of "rel-had-role" is "type".
 the domain of "rel-had-usage" is "derivation".
 the domain of "specialization of" is "entity".
-the domain of "started-at-time" is "activity".
-the domain of "used" is "activity".
 the domain of "value" is "entity".
-the domain of "was-associated-with" is "activity".
 the domain of "was-attributed-to" is "entity".
 the domain of "was-derived-from" is "entity".
-the domain of "was-ended-by" is "activity".
 the domain of "was-generated-by" is "entity".
 the domain of "was-influenced-by" is "class".
 the domain of "was-influenced-by" is "type".
-the domain of "was-informed-by" is "activity".
 the domain of "was-invalidated-by" is "entity".
 the domain of "was-quoted-from" is "entity".
 the domain of "was-revision-of" is "entity".
-the domain of "was-started-by" is "activity".
 the range of "acted-on-behalf-of" is "agent".
-the range of "activity" is "activity".
-the range of "agent" is "agent".
 the range of "alternate of" is "entity".
 the range of "ended-at-time" is "date-time".
-the range of "entity" is "entity".
 the range of "generated" is "entity".
 the range of "generated-at-time" is "date-time".
 the range of "influencer" is "thing".
 the range of "invalidated" is "entity".
 the range of "invalidated-at-time" is "date-time".
+the range of "prov-agent" is "agent".
+the range of "prov-entity" is "entity".
 the range of "qualified-association" is "association".
 the range of "qualified-attribution" is "attribution".
 the range of "qualified-communication" is "communication".
@@ -252,7 +239,6 @@ the range of "qualified-start" is "start".
 the range of "qualified-usage" is "usage".
 the range of "rel-at-location" is "location".
 the range of "rel-at-time" is "date-time".
-the range of "rel-had-activity" is "activity".
 the range of "rel-had-generation" is "generation".
 the range of "rel-had-member" is "entity".
 the range of "rel-had-plan" is "plan".
@@ -266,11 +252,8 @@ the range of "was-associated-with" is "agent".
 the range of "was-attributed-to" is "agent".
 the range of "was-derived-from" is "entity".
 the range of "was-ended-by" is "entity".
-the range of "was-generated-by" is "activity".
 the range of "was-influenced-by" is "class".
 the range of "was-influenced-by" is "type".
-the range of "was-informed-by" is "activity".
-the range of "was-invalidated-by" is "activity".
 the range of "was-quoted-from" is "entity".
 the range of "was-revision-of" is "entity".
 the range of "was-started-by" is "entity".

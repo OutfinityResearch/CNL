@@ -6,12 +6,13 @@ import { handleCommand } from "./api/routes/command.mjs";
 import { handleTree } from "./api/routes/tree.mjs";
 import { handleEntity } from "./api/routes/entity.mjs";
 import { handleGraph } from "./api/routes/graph.mjs";
+import { handleOverview } from "./api/routes/overview.mjs";
 
 export { initSession };
 
 export async function handleApi(req, res, url) {
   try {
-    if (handleSessionCreate(req, res, url)) return;
+    if (await handleSessionCreate(req, res, url)) return;
     if (handleExamples(req, res, url)) return;
 
     const sessionData = requireSession(req, res);
@@ -33,6 +34,7 @@ export async function handleApi(req, res, url) {
     if (handleTree(req, res, url, context)) return;
     if (handleEntity(req, res, url, context)) return;
     if (handleGraph(req, res, url, context)) return;
+    if (handleOverview(req, res, url, context)) return;
 
     json(res, 404, { ok: false, error: "Unknown API endpoint." });
   } catch (error) {

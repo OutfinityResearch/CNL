@@ -10,6 +10,8 @@ export function json(res, status, data) {
   res.end(
     JSON.stringify(data, (_key, value) => {
       if (typeof value === "bigint") return value.toString();
+      if (value instanceof Map) return { __type: "Map", entries: [...value.entries()] };
+      if (value instanceof Set) return { __type: "Set", values: [...value.values()] };
       return value;
     })
   );
@@ -189,6 +191,97 @@ export function describeHeadNL(head, idStore) {
     return `it ${pred} something`;
   }
   return "effect";
+}
+
+function renderNodeText(node) {
+  if (!node) return "";
+  if (node.kind === "Name") return node.value;
+  if (node.kind === "Variable") return `?${node.name}`;
+  if (node.kind === "NumberLiteral") return String(node.value);
+  if (node.kind === "NounPhrase") {
+    const core = Array.isArray(node.core) ? node.core.join(" ") : "";
+    const prefix = node.prefix?.kind === "Quantifier" ? node.prefix.q : node.prefix?.kind === "Determiner" ? node.prefix.d : "";
+    const parts = [prefix, core].filter(Boolean);
+    return parts.join(" ").trim();
+  }
+  return node.kind || "";
+}
+
+function renderVerbGroup(vg) {
+  if (!vg) return "";
+  const parts = [];
+  if (vg.auxiliary) parts.push(vg.auxiliary);
+  if (vg.verb) parts.push(vg.verb);
+  (vg.particles ?? []).forEach((p) => parts.push(p));
+  return parts.filter(Boolean).join(" ");
+}
+
+function renderComplement(comp) {
+  if (!comp) return "";
+  if (comp.kind === "Name") return comp.value;
+  if (comp.kind === "NounPhrase") return renderNodeText(comp);
+  return renderNodeText(comp);
+}
+
+function renderAssertion(assertion) {
+  if (!assertion) return "";
+  switch (assertion.kind) {
+    case "CopulaPredicateAssertion":
+      return `${renderNodeText(assertion.subject)} is a ${renderComplement(assertion.complement)}`.trim();
+    case "ActiveRelationAssertion":
+      return `${renderNodeText(assertion.subject)} ${renderVerbGroup(assertion.verbGroup)} ${renderNodeText(assertion.object)}`.trim();
+    case "PassiveRelationAssertion":
+      return `${renderNodeText(assertion.subject)} is ${assertion.verb} ${assertion.preposition} ${renderNodeText(assertion.object)}`.trim();
+    case "AttributeAssertion":
+      return `${renderNodeText(assertion.subject)} has a ${renderNodeText(assertion.attribute)} of ${renderNodeText(assertion.value)}`.trim();
+    case "ComparisonAssertion":
+      return `${renderNodeText(assertion.left)} is ${assertion.comparator?.op} ${renderNodeText(assertion.right)}`.trim();
+    default:
+      return `${assertion.kind}`.trim();
+  }
+}
+
+function renderCondition(condition) {
+  if (!condition) return "";
+  switch (condition.kind) {
+    case "AtomicCondition":
+      return renderAssertion(condition.assertion);
+    case "AndChain":
+      return (condition.items ?? []).map(renderCondition).filter(Boolean).join(" and ");
+    case "OrChain":
+      return (condition.items ?? []).map(renderCondition).filter(Boolean).join(" or ");
+    case "EitherOr":
+      return [renderCondition(condition.left), renderCondition(condition.right)].filter(Boolean).join(" or ");
+    case "BothAnd":
+      return [renderCondition(condition.left), renderCondition(condition.right)].filter(Boolean).join(" and ");
+    case "CaseScope":
+      if (condition.mode === "negative") return `it is not the case that (${renderCondition(condition.operand)})`;
+      return renderCondition(condition.operand);
+    case "GroupCondition":
+      return `(${renderCondition(condition.inner)})`;
+    default:
+      return condition.kind || "";
+  }
+}
+
+export function describeTransitionRuleNL(rule) {
+  if (!rule || (rule.kind !== "TransitionRule" && rule.kind !== "TransitionRuleStatement")) return null;
+  const event = renderCondition(rule.event);
+  const effectSentence =
+    rule.effect?.kind === "AssertionSentence"
+      ? renderAssertion(rule.effect.assertion)
+      : rule.effect?.kind === "BecauseSentence"
+        ? `${renderAssertion(rule.effect.assertion)} because ${renderCondition(rule.effect.because)}`
+        : rule.effect?.kind
+          ? rule.effect.kind
+          : "";
+  const whenText = event ? `When ${event} occurs` : "When an event occurs";
+  const thenText = effectSentence || "nothing happens";
+  return {
+    natural: `${whenText}, then ${thenText}.`,
+    event: event || "(unrenderable event)",
+    effect: effectSentence || "(unrenderable effect)",
+  };
 }
 
 // Describe a relation plan (for RelationRulePlan)

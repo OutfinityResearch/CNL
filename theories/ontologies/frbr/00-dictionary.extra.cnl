@@ -1,0 +1,10 @@
+// Manual additions for BaseDictionary (kept across regenerations).
+
+--- CONTEXT: BaseDictionary ---
+
+// Connect FRBR types to core ontology
+"work" is a subtype of "object".
+"expression" is a subtype of "object".
+"manifestation" is a subtype of "object".
+"item" is a subtype of "object".
+"corporate-body" is a subtype of "organization".

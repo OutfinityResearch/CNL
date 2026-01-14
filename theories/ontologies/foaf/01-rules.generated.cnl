@@ -8,10 +8,10 @@ Rule: If X aim-chat-id Y, then X nickname Y.
 Rule: If X creator Y, then X maker Y.
 Rule: If X depiction Y, then Y depicts X.
 Rule: If X depicts Y, then Y depiction X.
+Rule: If X foaf-image Y, then X depiction Y.
 Rule: If X homepage Y, then X page Y.
 Rule: If X homepage Y, then X primary-topic-of Y.
 Rule: If X icq-chat-id Y, then X nickname Y.
-Rule: If X image Y, then X depiction Y.
 Rule: If X made Y, then Y maker X.
 Rule: If X maker Y, then X creator Y.
 Rule: If X maker Y, then Y made X.

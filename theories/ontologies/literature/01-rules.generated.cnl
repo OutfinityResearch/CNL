@@ -1,0 +1,11 @@
+// This file is generated. Do not edit.
+// Source: ontologies/literature/literature.ttl
+
+--- CONTEXT: Literature ---
+
+// Generated from ontology import: Literature
+Rule: If X author of Y, then Y written by X.
+Rule: If X influences Y, then Y is influenced by X.
+Rule: If X interacts with Y, then Y interacts with X.
+Rule: If X is influenced by Y, then Y influences X.
+Rule: If X written by Y, then Y author of X.

@@ -1,6 +1,6 @@
 # Ontologies (Local, Vendored)
 
-This folder stores **local ontology sources** (e.g. Turtle `.ttl`) that can be imported into CNL using the ontology importer (DS22).
+This folder stores **local ontology sources** (e.g. Turtle `.ttl`) that can be imported into CNL using the ontology importer.
 
 ## Why this exists
 - Keep ontology inputs **vendored in-repo** (no runtime network dependency).
@@ -33,8 +33,8 @@ See `tools/ontology-import/README.md` for details.
 
 Note: the importer prefers English labels (`@en`, `@en-*`) when the source ontology includes multilingual `rdfs:label` / `skos:prefLabel`.
 
-## Downloading classic ontologies
-Some upstream ontologies are published as RDF/XML (`.rdf` / `.owl`). To keep the importer simple (Turtle-only), we provide a helper that downloads and converts sources to `.ttl`:
-```
-npm run downloadOntologies
-```
+## Adding ontologies
+This repo intentionally avoids hidden download scripts. Add upstream sources explicitly:
+- Download (example): `wget -O ontologies/<id>/source.ttl --timeout=20 --tries=2 "<url>"`
+- Convert RDF/XML to Turtle if needed (example): `rapper -q -i rdfxml -o turtle source.owl > source.ttl`
+- Record provenance in `ontologies/<id>/SOURCE.md` (URL + version/date).

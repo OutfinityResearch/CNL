@@ -63,6 +63,10 @@ function tokenizeTurtle(text) {
       i += 1;
       continue;
     }
+    if (ch === "#") {
+      while (i < src.length && src[i] !== "\n") i += 1;
+      continue;
+    }
     if (isPunct(ch)) {
       tokens.push({ type: "punct", value: ch });
       i += 1;
@@ -84,9 +88,20 @@ function tokenizeTurtle(text) {
       continue;
     }
     if (ch === '"') {
-      i += 1;
+      const isTriple = src[i + 1] === '"' && src[i + 2] === '"';
+      i += isTriple ? 3 : 1;
       let value = "";
       while (i < src.length) {
+        if (isTriple) {
+          if (src[i] === '"' && src[i + 1] === '"' && src[i + 2] === '"') {
+            i += 3;
+            break;
+          }
+          value += src[i];
+          i += 1;
+          continue;
+        }
+
         const current = src[i];
         if (current === "\\") {
           const next = src[i + 1];
@@ -154,6 +169,22 @@ function parsePrefixLine(line, prefixMap) {
   return true;
 }
 
+function parseSparqlPrefixLine(line, prefixMap) {
+  const trimmed = stripComment(line).trim();
+  if (!trimmed) return false;
+  const match = trimmed.match(/^prefix\s+([A-Za-z][\w-]*)\s*:\s*<([^>]+)>\s*$/i);
+  if (!match) return false;
+  const prefix = match[1];
+  const iri = match[2];
+  prefixMap.set(prefix, iri);
+  return true;
+}
+
+function isBaseLine(line) {
+  const trimmed = stripComment(line).trim();
+  return /^base\s+<[^>]+>\s*$/i.test(trimmed);
+}
+
 function expandTerm(token, prefixMap) {
   if (!token) return null;
   if (token.type === "iri") return token.value;
@@ -164,6 +195,7 @@ function expandTerm(token, prefixMap) {
   if (value === "a") return `${RDF}type`;
   if (value.startsWith("_:")) return { blank: value };
   if (value.startsWith("[")) return { blank: value };
+  if (value === "(" || value === ")") return { blank: value };
 
   const colon = value.indexOf(":");
   if (colon !== -1) {
@@ -195,8 +227,9 @@ export function parseTurtleToTriples(text) {
   const nonPrefixLines = [];
   for (const line of lines) {
     if (parsePrefixLine(line, prefixMap)) continue;
-    const cleaned = stripComment(line);
-    if (cleaned.trim()) nonPrefixLines.push(cleaned);
+    if (parseSparqlPrefixLine(line, prefixMap)) continue;
+    if (isBaseLine(line)) continue;
+    if (String(line || "").trim()) nonPrefixLines.push(line);
   }
 
   const flat = nonPrefixLines.join("\n");

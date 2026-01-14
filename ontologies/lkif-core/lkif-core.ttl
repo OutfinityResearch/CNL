@@ -1,0 +1,1119 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix : <http://www.estrellaproject.org/lkif-core/norm.owl#> .
+@prefix laction: <http://www.estrellaproject.org/lkif-core/legal-action.owl#> .
+@prefix expression: <http://www.estrellaproject.org/lkif-core/expression.owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix daml: <http://www.daml.org/2001/03/daml+oil#> .
+
+expression:Document
+    owl:disjointWith :Custom .
+
+<http://www.estrellaproject.org/lkif-core/norm.owl>
+    a owl:Ontology ;
+    owl:imports <http://www.estrellaproject.org/lkif-core/legal-action.owl> ;
+    owl:versionInfo """
+	LKIF Core, version 1.1, copyright (C) 2008, the ESTRELLA consortium
+	"""^^xsd:string, """
+	The LKIF-Core ontology, version 1.0, is part of Deliverable 1.4 of the European project for Standardised Transparent Representations in order to Extend Legal Accessibility (ESTRELLA, IST-2004-027665), http://www.estrellaproject.org
+
+	The use of this ontology, and the OWL files through which it is distributed, is covered by the GNU Lesser General Public License (LGPL), version 2.1 (http://www.gnu.org/copyleft/lesser.html) in as far as the copyright is not covered by additional restrictions of the ESTRELLA consortium agreement (info@estrellaproject.org). The LGPL license places copyright restrictions on the ontology itself but does not apply these restrictions to software that merely links with concepts defined in the ontology library. Please read the license restrictions before using this work. 
+
+	"""^^xsd:string, """
+	This module is part of LKIF-Core, version 1.1, part of Deliverable 1.4 of ESTRELLA, IST-2004-027665
+	"""^^xsd:string, """Partner contributions from the University of Amsterdam (UvA) and the University of Bologna (UNIBO).
+
+	Editor:       Rinke Hoekstra (UvA)
+	Authors:      Rinke Hoekstra (UvA), Alexander Boer (UvA), Kasper van den Berg (UvA)
+	Contributors: Joost Breuker (UvA), Rosella Rubino (UNIBO)"""^^xsd:string .
+
+:Action_Power
+    a owl:Class ;
+    rdfs:comment "An action-power consists in a generic power to produce a legal effect through an action determining it. Also called Subjections"^^xsd:string ;
+    rdfs:subClassOf :Hohfeldian_Power .
+
+:Allowed
+    a owl:Class ;
+    rdfs:comment "See normatively qualified. Alternative labels: permitted, sanctioned, let, licensed."^^xsd:string ;
+    rdfs:subClassOf :Normatively_Qualified ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty :normatively_equivalent_or_worse ;
+        owl:someValuesFrom :Normatively_Qualified
+    ], [
+        a owl:Restriction ;
+        owl:onProperty :allowed_by ;
+        owl:someValuesFrom :Permission
+    ] .
+
+:Allowed_And_Disallowed
+    a owl:Class ;
+    rdfs:comment "Something which is both allowed and disallowed through some norm"^^xsd:string ;
+    rdfs:subClassOf :Allowed, :Disallowed ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (:Disallowed
+            :Allowed
+        )
+    ] .
+
+:Belief_In_Violation
+    a owl:Class ;
+    rdfs:comment "A belief in some violation"^^xsd:string ;
+    rdfs:subClassOf expression:Belief ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (expression:Belief
+            [
+                a owl:Restriction ;
+                owl:onProperty expression:towards ;
+                owl:someValuesFrom :Disallowed
+            ]
+        )
+    ] .
+
+:Code
+    a owl:Class ;
+    rdfs:comment "A legal code bears one or more norms, all of which are uttered by some legislative body. It cannot bear expressions which are not uttered by a legislative body."^^xsd:string ;
+    rdfs:subClassOf :Legal_Document, [
+        a owl:Restriction ;
+        owl:onProperty expression:bears ;
+        owl:someValuesFrom [
+            a owl:Class ;
+            owl:intersectionOf (:Norm
+                [
+                    a owl:Restriction ;
+                    owl:onProperty expression:utterer ;
+                    owl:someValuesFrom laction:Legislative_Body
+                ]
+            )
+        ]
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty expression:utterer ;
+            owl:someValuesFrom laction:Legislative_Body
+        ] ;
+        owl:onProperty expression:bears
+    ] .
+
+:Code_of_Conduct
+    a owl:Class ;
+    rdfs:comment "a code outlining the responsibilities of or best practice for an individual or organisation, such as a set of principles of good corporate behaviour adopted by a business\\"^^xsd:string ;
+    rdfs:subClassOf :Legal_Document, :Soft_Law .
+
+:Contract
+    a owl:Class ;
+    rdfs:comment "A contract bears one or more norms, all of which are uttered by some natural person or legal person. It cannot bear expressions which are uttered by a different kind of agent."^^xsd:string ;
+    rdfs:subClassOf :Legal_Document, [
+        a owl:Restriction ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty expression:utterer ;
+            owl:someValuesFrom [
+                a owl:Class ;
+                owl:unionOf (laction:Natural_Person
+                    laction:Legal_Person
+                )
+            ]
+        ] ;
+        owl:onProperty expression:bears
+    ], [
+        a owl:Restriction ;
+        owl:onProperty expression:bears ;
+        owl:someValuesFrom [
+            a owl:Class ;
+            owl:intersectionOf (:Norm
+                [
+                    a owl:Restriction ;
+                    owl:onProperty expression:utterer ;
+                    owl:someValuesFrom [
+                        a owl:Class ;
+                        owl:unionOf (laction:Natural_Person
+                            laction:Legal_Person
+                        )
+                    ]
+                ]
+            )
+        ]
+    ] .
+
+:Custom
+    a owl:Class ;
+    rdfs:comment "The collective memory of some group of agents, i.e. propositions beared by custom are shared (i.e. held) by all members of the group"^^xsd:string ;
+    rdfs:subClassOf expression:Medium ;
+    owl:disjointWith expression:Document .
+
+:Customary_Law
+    a owl:Class ;
+    rdfs:comment "In law, custom, or customary law consists of established patterns of behaviour that can be objectively verified within a particular social setting."^^xsd:string ;
+    rdfs:subClassOf :Custom, :Legal_Source .
+
+:Declarative_Power
+    a owl:Class ;
+    rdfs:comment "A declarative power covers the case when an effect is produced through the party’s declaration of it"^^xsd:string, "We say that j has the declarative power to realize A to mean that if j declares A, then it is legally valid that A. For example, if x has the declarative power to terminate y’s obligation toward x to do then if x declares that y’s obligation toward x finishes, then it is legally valid that this obligation finishes."^^xsd:string ;
+    rdfs:subClassOf :Potestative_Expression .
+
+:Decree
+    a owl:Class ;
+    rdfs:comment "The word decree is often used as a derogative term for any authoritarian decision"^^xsd:string ;
+    rdfs:subClassOf :Legal_Document, :Proclamation .
+
+:Definitional_Expression
+    a owl:Class ;
+    rdfs:comment "A definition in a legal context (for example “x means y” or “by x it is meant y”);"^^xsd:string ;
+    rdfs:subClassOf :Legal_Expression .
+
+:Directive
+    a owl:Class ;
+    rdfs:comment "Examples are European Union directive, a legislative act of the European Union and Directives, used by United States Government agencies (particularly the Department of Defense) to convey policies, responsibilities, and procedures."^^xsd:string ;
+    rdfs:subClassOf :Legal_Document, :Proclamation .
+
+:Disallowed
+    a owl:Class ;
+    rdfs:comment "See Qualified. Alternative labels: violation, prohibited, forbidden"^^xsd:string ;
+    rdfs:subClassOf :Normatively_Qualified ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty :disallowed_by ;
+        owl:someValuesFrom :Prohibition
+    ], [
+        a owl:Restriction ;
+        owl:onProperty :normatively_strictly_better ;
+        owl:someValuesFrom :Allowed
+    ] .
+
+:Disallowed_Intention
+    a owl:Class ;
+    rdfs:comment "The propositional content (i.e. that which is intended) of the intention is disallowed. Interesting concept for establishing mens rea (guilty mind), although 'disallowed' is a weaker qualification than criminal. Note the distinction between purposely committing a crime and knowingly committing a crime. The crime committed does not have to match the crime intended for establishing intent!"^^xsd:string ;
+    rdfs:subClassOf expression:Intention ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (expression:Intention
+            [
+                a owl:Restriction ;
+                owl:onProperty expression:towards ;
+                owl:someValuesFrom :Disallowed
+            ]
+        )
+    ] .
+
+:Enabling_Power
+    a owl:Class ;
+    rdfs:comment "An enabling power is used in cases where the law aims at enabling some agent to produce an effect in a particular way."^^xsd:string ;
+    rdfs:subClassOf :Potestative_Expression .
+
+:Evaluative_Expression
+    a owl:Class ;
+    rdfs:comment "A legal evaluative expression asserts that something is good or bad, is a value to be optimised or an evil to be minimised (for example “human dignity is value”, “participation ought to be promoted”);"^^xsd:string ;
+    rdfs:subClassOf expression:Evaluative_Proposition, :Legal_Expression .
+
+:Exclusionary_Right
+    a owl:Class ;
+    rdfs:comment """An exclusionary right concerns the prohibition against performing certain inferences (against reasoning in certain ways), or 
+against using certain kinds of premises for certain purposes, in the interest of a particular person. This is especially the case with anti-discrimination rules."""^^xsd:string ;
+    rdfs:subClassOf :Obligative_Right .
+
+:Existential_Expression
+    a owl:Class ;
+    rdfs:comment "Establishes or terminates the existence of a legal entity (for example “the company ceases to exist”);"^^xsd:string ;
+    rdfs:subClassOf :Legal_Expression .
+
+:Hohfeldian_Power
+    a owl:Class ;
+    rdfs:comment "A hohfeldian power covers any action which determines a legal effect."^^xsd:string ;
+    rdfs:subClassOf :Potestative_Expression .
+
+:Immunity
+    a owl:Class ;
+    rdfs:comment "Also called Disabilities"^^xsd:string ;
+    rdfs:subClassOf :Hohfeldian_Power .
+
+:International_Agreement
+    a owl:Class ;
+    rdfs:comment "An agreement entered into by actors in international law, namely states and international organizations. "^^xsd:string ;
+    rdfs:subClassOf :Legal_Source .
+
+:International_Arbitration
+    a owl:Class ;
+    rdfs:comment "International Arbitration is the established method today for resolving disputes between parties to international commercial agreements. As with arbitration generally, it is a creature of contract, i.e., the parties' decision to submit any disputes to private adjudication by one or more arbitrators appointed in accordance with rules the parties themselves have agreed to adopt, usually by including a provision for the same in their contract. The practice of international arbitration has developed so as to allow parties from different legal and cultural backgrounds to resolve their disputes, generally without the formalities of their underlying legal systems."^^xsd:string ;
+    rdfs:subClassOf :Soft_Law .
+
+:Legal_Doctrine
+    a owl:Class ;
+    rdfs:comment "Legal doctrine is a framework, set of rules, procedural steps, or test, often established through precedent in the common law, through which judgments can be determined in a given legal cas"^^xsd:string ;
+    rdfs:subClassOf :Legal_Source .
+
+:Legal_Document
+    a owl:Class ;
+    rdfs:comment "A legal document is a document bearing norms or normative statements. By virtue of this definition the norm-as-propositional-attitude is reified as norm-as proposition. In other words, the norm being expressed through the legal source is an expression of the propositional attitude."^^xsd:string, "Subclasses of legal source can be distinguished through the authority of the agent creating the expression (i.e. the agent holding the norm)."^^xsd:string ;
+    rdfs:subClassOf expression:Document, :Legal_Source .
+
+:Legal_Expression
+    a owl:Class ;
+    rdfs:comment "Legal expressions are created by  some legal speech act and qualified by a communicated attitude"^^xsd:string ;
+    rdfs:subClassOf expression:Expression, [
+        a owl:Restriction ;
+        owl:onProperty expression:attitude ;
+        owl:someValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty <http://www.estrellaproject.org/lkif-core/process.owl#created_by> ;
+            owl:someValuesFrom laction:Public_Act
+        ]
+    ] .
+
+:Legal_Source
+    a owl:Class ;
+    rdfs:comment "A legal source is a source for legal statements, both norms and legal expressions. In a sense it is literally a 'source' of law"^^xsd:string ;
+    rdfs:subClassOf expression:Medium ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty expression:bears ;
+        owl:someValuesFrom [
+            a owl:Class ;
+            owl:unionOf (:Norm
+                :Legal_Expression
+            )
+        ]
+    ] .
+
+:Liability_Right
+    a owl:Class ;
+    rdfs:comment "A liability right expresses some right to act that brings with it some liability to perform another (compensating) act. For instance, if some k performs the permitted action A, then k will have to perform another action B for the benefit of j."^^xsd:string ;
+    rdfs:subClassOf :Right .
+
+:Liberty_Right
+    a owl:Class ;
+    rdfs:comment "When, for the benefit of a person, this person is both permitted to perform and to omit an action – that is, when the action is facultative – we can say that he or she has a liberty right with regard to that action."^^xsd:string ;
+    rdfs:subClassOf :Right .
+
+:Mandatory_Precedent
+    a owl:Class ;
+    rdfs:comment "In law, a binding precedent (also mandatory precedent or binding authority) is a precedent which must be followed by all lower courts. It is usually created by the decision of a higher court, such as the House of Lords in the United Kingdom. Binding precedent relies on the legal principle of stare decisis."^^xsd:string ;
+    rdfs:subClassOf :Precedent .
+
+:Non-binding_International_Agreement
+    a owl:Class ;
+    rdfs:comment "Some international agreement that is not binding under international law"^^xsd:string ;
+    rdfs:subClassOf :International_Agreement, :Soft_Law ;
+    owl:disjointWith :Treaty .
+
+:Norm
+    a owl:Class ;
+    rdfs:comment "A norm is a kind of Qualification. A qualification which normatively qualifies some thing (i.e. some normatively qualified): i.e. a qualification which allows or disallows some thing."^^xsd:string ;
+    rdfs:subClassOf expression:Qualification ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty expression:qualifies ;
+        owl:someValuesFrom :Normatively_Qualified
+    ] .
+
+:Normatively_Qualified
+    a owl:Class ;
+    rdfs:comment "Some thing which is qualified (allowed, disallowed) by a norm, i.e. a norm applies to the thing. Taking the principle of deontic choice to mean that the utterer of a normative statement intends to influence choices made by the addressee of the statement, the qualified thing should is comparable to some alternative. Note that Qualified does not partition into Allowed and Disallowed. Firstly, things can be Allowed by one Norm and Disallowed by another one. Secondly, the logical complement of the thing allowed by a permission is qualified (as worse or equal than the thing allowed), but neither allowed nor disallowed."^^xsd:string ;
+    rdfs:subClassOf expression:Qualified, [
+        a owl:Restriction ;
+        owl:onProperty :normatively_comparable ;
+        owl:someValuesFrom :Normatively_Qualified
+    ] ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty expression:qualified_by ;
+        owl:someValuesFrom :Norm
+    ] .
+
+:Obligation
+    a owl:Class ;
+    rdfs:comment "See prohibition"^^xsd:string ;
+    rdfs:subClassOf :Permission ;
+    owl:equivalentClass :Prohibition .
+
+:Obligative_Right
+    a owl:Class ;
+    rdfs:comment "Directed obligative ought-to-do are also called obligative rights. k has the obligative  right that j does A iff it is obligatory, toward k, that j does A. An example of obligative  right is “it is obligatory, toward Mary, that Tom pays 1,000 euro to John”"^^xsd:string ;
+    rdfs:subClassOf :Right .
+
+:Obliged
+    a owl:Class ;
+    rdfs:comment "Is allowed by an Obligation, i.e. the alternative is strictly_worse according to the Obligation. Alternative labels: directed, commanded."^^xsd:string ;
+    rdfs:subClassOf :Allowed ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty :allowed_by ;
+        owl:someValuesFrom :Obligation
+    ], [
+        a owl:Restriction ;
+        owl:onProperty :normatively_strictly_worse ;
+        owl:someValuesFrom :Disallowed
+    ] .
+
+:Observation_of_Violation
+    a owl:Class ;
+    rdfs:comment "An observation of a violation, i.e. of something that is Disallowed."^^xsd:string ;
+    rdfs:subClassOf expression:Problem ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (expression:Observation
+            [
+                a owl:Restriction ;
+                owl:onProperty <http://www.estrellaproject.org/lkif-core/role.owl#played_by> ;
+                owl:someValuesFrom :Disallowed
+            ]
+        )
+    ] .
+
+:Permission
+    a owl:Class ;
+    rdfs:comment "Permission allows propositions, to which therefore the predication Allowed applies. The thing(s) allowed is/are a subset of the thing(s) qualified by the permission. If S then P(A) means that S is qualified and S and A is allowed."^^xsd:string ;
+    rdfs:subClassOf :Norm ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf ([
+                a owl:Restriction ;
+                owl:onProperty :allows ;
+                owl:someValuesFrom :Allowed
+            ]
+            [
+                a owl:Restriction ;
+                owl:allValuesFrom :Allowed ;
+                owl:onProperty :allows
+            ]
+        )
+    ] .
+
+:Permissive_Right
+    a owl:Class ;
+    rdfs:comment "The  negation of a directed obligation is a directed permission. However, it counts as a right,  namely, a permissive right, only when such negation is aimed at benefitting the author of  the permitted action. "^^xsd:string ;
+    rdfs:subClassOf :Right .
+
+:Persuasive_Precedent
+    a owl:Class ;
+    rdfs:comment "In law, a persuasive precedent or advisory precedent is a precedent that need not be followed under the legal principle of stare decisis, but is nevertheless followed. Sources of persuasive precedent include the obiter dicta in the judgment of a court whose judgment would otherwise be binding, and the judgments of courts in other jurisdictions where the facts and/or legal system are similar to the case at hand. If a superior court adopts a persuasive precedent, it may become binding in the jurisdiction."^^xsd:string ;
+    rdfs:subClassOf :Precedent .
+
+:Potestative_Expression
+    a owl:Class ;
+    rdfs:comment "Attributes a power to some agent (for example “a worker has the power to terminate his work contract”);"^^xsd:string ;
+    rdfs:subClassOf :Legal_Expression .
+
+:Potestative_Right
+    a owl:Class ;
+    rdfs:comment """A potestative right is an enabling power which is meant to benefit the holder of the power. For example, if some animal y does not 
+belong to anybody, then x has the potestative-right to start x’s ownership of the animal,  by capturing y."""^^xsd:string ;
+    rdfs:subClassOf :Enabling_Power .
+
+:Precedent
+    a owl:Class ;
+    rdfs:comment "In law, a precedent or authority is a legal case establishing a principle or rule that a court may need to adopt when deciding subsequent cases with similar issues or facts. The term may also refer to the collective body of case law that a court should consider when interpreting the law. When a precedent establishes an important legal principle, or represents new or changed law on a particular issue, that precedent is often known as a landmark decision."^^xsd:string ;
+    rdfs:subClassOf :Legal_Source .
+
+:Proclamation
+    a owl:Class ;
+    rdfs:comment "A proclamation (Lat. proclamare, to make public by announcement) is an official declaration."^^xsd:string ;
+    rdfs:subClassOf :Legal_Source .
+
+:Prohibition
+    a owl:Class ;
+    rdfs:comment "Prohibition obliges/allows thing(s), to which therefore the predication Obliged applies, and disallows thing(s), to which therefore the predication Disallowed applies. The union of the thing(s) allowed and the thing(s) disallowed is qualified by the prohibition. The things allowed and disallowed by the prohibition are disjoint (and completely partition the space of things qualified). If S then O(A) means that S is qualified, S and A is obliged/allowed, and S and not A is disallowed. If S then F(A) means that S is qualified, S and A is disallowed, and S and not A is obliged/allowed. The difference between Obligation and Prohibition is in which part of the partition of the qualified space is explicitly described by the normative statement. Alternative label: directive"^^xsd:string ;
+    rdfs:subClassOf :Permission ;
+    owl:equivalentClass :Obligation, [
+        a owl:Class ;
+        owl:intersectionOf ([
+                a owl:Restriction ;
+                owl:allValuesFrom :Obliged ;
+                owl:onProperty :allows
+            ]
+            [
+                a owl:Restriction ;
+                owl:onProperty :allows ;
+                owl:someValuesFrom :Obliged
+            ]
+            [
+                a owl:Restriction ;
+                owl:allValuesFrom :Disallowed ;
+                owl:onProperty :disallows
+            ]
+            [
+                a owl:Restriction ;
+                owl:onProperty :disallows ;
+                owl:someValuesFrom :Disallowed
+            ]
+        )
+    ] .
+
+:Qualificatory_Expression
+    a owl:Class ;
+    rdfs:comment "Ascribes a legal role to a person or an object (for example,  “x is a citizen”, “x is an intellectual work”, “x is a technical invention”);"^^xsd:string ;
+    rdfs:subClassOf :Legal_Expression .
+
+:Regulation
+    a owl:Class ;
+    rdfs:comment "A regulation bears one or more norms, all of which are uttered by some legislative body. It cannot bear expressions which are not uttered by a legislative body."^^xsd:string ;
+    rdfs:subClassOf :Legal_Document, [
+        a owl:Restriction ;
+        owl:onProperty expression:bears ;
+        owl:someValuesFrom [
+            a owl:Class ;
+            owl:intersectionOf (:Norm
+                [
+                    a owl:Restriction ;
+                    owl:onProperty expression:utterer ;
+                    owl:someValuesFrom laction:Legislative_Body
+                ]
+            )
+        ]
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty expression:utterer ;
+            owl:someValuesFrom laction:Legislative_Body
+        ] ;
+        owl:onProperty expression:bears
+    ] .
+
+:Resolution
+    a owl:Class ;
+    rdfs:comment "A resolution is a written motion adopted by a deliberative body. The substance of the resolution can be anything that can normally be proposed as a motion."^^xsd:string ;
+    rdfs:subClassOf :International_Agreement, :Soft_Law .
+
+:Right
+    a owl:Class ;
+    rdfs:comment "A right is the legal or moral entitlement to do or refrain from doing something or to obtain or refrain from obtaining an action, thing or recogition in civil society."^^xsd:string ;
+    rdfs:subClassOf :Norm .
+
+:Soft_Law
+    a owl:Class ;
+    rdfs:comment "The term \"soft law\" refers to quasi-legal instruments which do not have any binding force, or whose binding force is somewhat \"weaker\" than the binding force of traditional law, often referred to as \"hard law\", in this context. The term \"soft law\" initially appeared in the area of international law, but more recently it has been transferred to other branches of law."^^xsd:string ;
+    rdfs:subClassOf :Legal_Source .
+
+:Statute
+    a owl:Class ;
+    rdfs:comment "A statute bears one or more norms, all of which are uttered by some legal person. It cannot bear expressions which are uttered by a different kind of agent."^^xsd:string ;
+    rdfs:subClassOf :Legal_Document, [
+        a owl:Restriction ;
+        owl:onProperty expression:bears ;
+        owl:someValuesFrom [
+            a owl:Class ;
+            owl:intersectionOf (:Norm
+                [
+                    a owl:Restriction ;
+                    owl:onProperty expression:utterer ;
+                    owl:someValuesFrom laction:Legal_Person
+                ]
+            )
+        ]
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty expression:utterer ;
+            owl:someValuesFrom laction:Legal_Person
+        ] ;
+        owl:onProperty expression:bears
+    ] .
+
+:Strictly_Allowed
+    a owl:Class ;
+    rdfs:comment "Loose end."^^xsd:string ;
+    rdfs:subClassOf :Allowed .
+
+:Strictly_Disallowed
+    a owl:Class ;
+    rdfs:comment "Loose end."^^xsd:string ;
+    rdfs:subClassOf :Disallowed .
+
+:Treaty
+    a owl:Class ;
+    rdfs:comment "A treaty is a binding agreement under international law entered into by actors in international law, namely states and international organizations. Treaties are called by several names: treaties, international agreements, protocols, covenants, conventions, exchanges of letters, exchanges of notes, etc."^^xsd:string ;
+    rdfs:subClassOf :International_Agreement, :Legal_Document ;
+    owl:disjointWith :Non-binding_International_Agreement .
+
+:allowed_by
+    a owl:ObjectProperty ;
+    rdfs:comment "Relates a qualified Allowed to the norm allowing it"^^xsd:string ;
+    rdfs:domain :Allowed ;
+    rdfs:subPropertyOf expression:qualified_by ;
+    owl:inverseOf :allows .
+
+:allows
+    a owl:ObjectProperty ;
+    rdfs:comment "Relates a norm to the thing it allows"^^xsd:string ;
+    rdfs:range :Allowed ;
+    rdfs:subPropertyOf expression:qualifies ;
+    owl:inverseOf :allowed_by .
+
+:commanded_by
+    a owl:ObjectProperty ;
+    rdfs:domain :Obliged ;
+    rdfs:subPropertyOf :allowed_by ;
+    owl:inverseOf :commands .
+
+:commands
+    a owl:ObjectProperty ;
+    rdfs:range :Obliged ;
+    rdfs:subPropertyOf :allows ;
+    owl:inverseOf :commanded_by .
+
+:disallowed_by
+    a owl:ObjectProperty ;
+    rdfs:comment "Relates a qualified Disallowed to the norm disallowing it"^^xsd:string ;
+    rdfs:domain :Disallowed ;
+    rdfs:subPropertyOf expression:qualified_by ;
+    owl:inverseOf :disallows .
+
+:disallows
+    a owl:ObjectProperty ;
+    rdfs:comment "Relates a norm to the thing it disallows"^^xsd:string ;
+    rdfs:range :Disallowed ;
+    rdfs:subPropertyOf expression:qualifies ;
+    owl:inverseOf :disallowed_by .
+
+:normatively_comparable
+    a owl:ObjectProperty ;
+    rdfs:domain :Normatively_Qualified ;
+    rdfs:range :Normatively_Qualified ;
+    rdfs:subPropertyOf expression:qualitatively_comparable .
+
+:normatively_equivalent_or_better
+    a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:range :Allowed ;
+    rdfs:subPropertyOf :normatively_comparable ;
+    owl:inverseOf :normatively_equivalent_or_worse .
+
+:normatively_equivalent_or_worse
+    a owl:ObjectProperty ;
+    rdfs:domain :Allowed ;
+    rdfs:subPropertyOf :normatively_comparable ;
+    owl:inverseOf :normatively_equivalent_or_better .
+
+:normatively_not_equivalent
+    a owl:ObjectProperty, owl:SymmetricProperty ;
+    rdfs:subPropertyOf :normatively_comparable ;
+    owl:inverseOf :normatively_not_equivalent .
+
+:normatively_strictly_better
+    a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:domain :Disallowed ;
+    rdfs:range :Obliged ;
+    rdfs:subPropertyOf :normatively_equivalent_or_better, :normatively_not_equivalent ;
+    owl:inverseOf :normatively_strictly_worse .
+
+:normatively_strictly_worse
+    a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:domain :Obliged ;
+    rdfs:range :Disallowed ;
+    rdfs:subPropertyOf :normatively_equivalent_or_worse, :normatively_not_equivalent ;
+    owl:inverseOf :normatively_strictly_better .
+
+:strictly_equivalent
+    a owl:ObjectProperty, owl:SymmetricProperty, owl:TransitiveProperty ;
+    rdfs:domain :Allowed ;
+    rdfs:range :Allowed ;
+    rdfs:subPropertyOf :normatively_equivalent_or_better, :normatively_equivalent_or_worse ;
+    owl:inverseOf :strictly_equivalent .
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix role: <http://www.estrellaproject.org/lkif-core/role.owl#> .
+@prefix daml: <http://www.daml.org/2001/03/daml+oil#> .
+@prefix : <http://www.estrellaproject.org/lkif-core/legal-role.owl#> .
+
+<http://www.estrellaproject.org/lkif-core/legal-role.owl>
+    a owl:Ontology ;
+    owl:imports <http://www.estrellaproject.org/lkif-core/role.owl> ;
+    owl:versionInfo """
+LKIF Core, version 1.1, copyright (C) 2008, the ESTRELLA consortium
+"""^^xsd:string, """
+Partner contributions from the University of Amsterdam (UvA).
+
+Editor:       Rinke Hoekstra (UvA)
+Authors:      Rinke Hoekstra (UvA)
+Contributors: Joost Breuker (UvA)
+"""^^xsd:string, """
+The LKIF-Core ontology, version 1.0, is part of Deliverable 1.4 of the European project for Standardised Transparent Representations in order to Extend Legal Accessibility (ESTRELLA, IST-2004-027665), http://www.estrellaproject.org
+
+The use of this ontology, and the OWL files through which it is distributed, is covered by the GNU Lesser General Public License (LGPL), version 2.1 (http://www.gnu.org/copyleft/lesser.html) in as far as the copyright is not covered by additional restrictions of the ESTRELLA consortium agreement (info@estrellaproject.org). The LGPL license places copyright restrictions on the ontology itself but does not apply these restrictions to software that merely links with concepts defined in the ontology library. Please read the license restrictions before using this work. 
+
+"""^^xsd:string, """
+This module is part of LKIF-Core, version 1.1, part of Deliverable 1.4 of ESTRELLA, IST-2004-027665
+"""^^xsd:string .
+
+:Legal_Role
+    a owl:Class ;
+    rdfs:comment "A legal role is a role played in a legal context. Legal role players can be both Agents and other 'things'"^^xsd:string ;
+    rdfs:subClassOf role:Role, [
+        a owl:Restriction ;
+        owl:onProperty role:played_by ;
+        owl:someValuesFrom <http://www.estrellaproject.org/lkif-core/action.owl#Agent>
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom <http://www.estrellaproject.org/lkif-core/action.owl#Agent> ;
+        owl:onProperty role:played_by
+    ] .
+
+:Professional_Legal_Role
+    a owl:Class ;
+    rdfs:comment "A professional legal role is a legal profession of some person, examples: lawyer, judge etc."^^xsd:string ;
+    rdfs:subClassOf :Social_Legal_Role, role:Organisation_Role, [
+        a owl:Restriction ;
+        owl:allValuesFrom <http://www.estrellaproject.org/lkif-core/action.owl#Person> ;
+        owl:onProperty role:played_by
+    ] .
+
+:Social_Legal_Role
+    a owl:Class ;
+    rdfs:comment "A social legal role is played by some agent in the context of legal activities."^^xsd:string ;
+    rdfs:subClassOf :Legal_Role, role:Social_Role .
+
+role:Social_Role
+    owl:disjointWith role:Function .
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix action: <http://www.estrellaproject.org/lkif-core/action.owl#> .
+@prefix expression: <http://www.estrellaproject.org/lkif-core/expression.owl#> .
+@prefix : <http://www.estrellaproject.org/lkif-core/legal-action.owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix role: <http://www.estrellaproject.org/lkif-core/role.owl#> .
+@prefix daml: <http://www.daml.org/2001/03/daml+oil#> .
+
+action:Person
+    owl:equivalentClass :Natural_Person .
+
+<http://www.estrellaproject.org/lkif-core/legal-action.owl>
+    a owl:Ontology ;
+    owl:imports <http://www.estrellaproject.org/lkif-core/expression.owl> ;
+    owl:versionInfo """
+LKIF Core, version 1.1, copyright (C) 2008, the ESTRELLA consortium
+"""^^xsd:string, """
+Partner contributions from the University of Amsterdam (UvA) and the University of Bologna (UNIBO).
+
+Editor:       Rinke Hoekstra (UvA)
+Authors:      Rinke Hoekstra (UvA), Alexander Boer (UvA)
+Contributors: Joost Breuker (UvA), Rosella Rubino (UNIBO)
+"""^^xsd:string, """
+The LKIF-Core ontology, version 1.0, is part of Deliverable 1.4 of the European project for Standardised Transparent Representations in order to Extend Legal Accessibility (ESTRELLA, IST-2004-027665), http://www.estrellaproject.org
+
+The use of this ontology, and the OWL files through which it is distributed, is covered by the GNU Lesser General Public License (LGPL), version 2.1 (http://www.gnu.org/copyleft/lesser.html) in as far as the copyright is not covered by additional restrictions of the ESTRELLA consortium agreement (info@estrellaproject.org). The LGPL license places copyright restrictions on the ontology itself but does not apply these restrictions to software that merely links with concepts defined in the ontology library. Please read the license restrictions before using this work. 
+
+"""^^xsd:string, """
+This module is part of LKIF-Core, version 1.1, part of Deliverable 1.4 of ESTRELLA, IST-2004-027665
+"""^^xsd:string .
+
+:Act_of_Law
+    a owl:Class ;
+    rdfs:comment "Act of law: a public act by a legislative body which creates an expression with legal status; the legal status depends on the jurisdiction of the legislative body."^^xsd:string ;
+    rdfs:subClassOf :Legal_Speech_Act, :Public_Act, [
+        a owl:Restriction ;
+        owl:onProperty action:actor ;
+        owl:someValuesFrom :Legislative_Body
+    ] .
+
+:Assignment
+    a owl:Class ;
+    rdfs:comment "A public act that attributes a power to perform a public act to a public body."^^xsd:string ;
+    rdfs:subClassOf :Legal_Speech_Act, :Public_Act, [
+        a owl:Restriction ;
+        owl:onProperty <http://www.estrellaproject.org/lkif-core/mereology.owl#strict_part_of> ;
+        owl:someValuesFrom action:Transaction
+    ], [
+        a owl:Restriction ;
+        owl:onProperty action:actor ;
+        owl:someValuesFrom :Public_Body
+    ] .
+
+:Association
+    a owl:Class ;
+    rdfs:comment "A voluntary association (also sometimes called an unincorporated association, or just an association) is a group of individuals who voluntarily enter into an agreement to form a body (or organization) to accomplish a purpose."^^xsd:string ;
+    rdfs:subClassOf :Private_Legal_Person ;
+    owl:equivalentClass :Society .
+
+:Co-operative
+    a owl:Class ;
+    rdfs:comment "An autonomous association of persons united voluntarily to meet their common economic, social, and cultural needs and aspirations through a jointly-owned and democratically-controlled enterprise."^^xsd:string ;
+    rdfs:subClassOf :Society .
+
+:Company
+    a owl:Class ;
+    rdfs:comment "A company refers to a legal entity formed which has a separate legal identity from its members, and is ordinarily incorporated to undertake commercial business. Although some jurisdictions refer to unincorporated entities as companies, in most jurisdictions the term refers only to incorporated entities. "^^xsd:string ;
+    rdfs:subClassOf :Private_Legal_Person ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:unionOf (:Limited_Company
+            :Public_Limited_Company
+        )
+    ] .
+
+:Corporation
+    a owl:Class ;
+    rdfs:comment "A corporation is a legal entity which, while being composed of natural persons, exists completely separately from them. This separation gives the corporation unique powers which other legal entities lack. "^^xsd:string ;
+    rdfs:subClassOf :Private_Legal_Person ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:unionOf (:Unincorporated
+            :Foundation
+            :Incorporated
+        )
+    ] .
+
+:Decision
+    a owl:Class ;
+    rdfs:comment "Decision: A (written) decision of a public body to perform a public act using a public power assigned by law."^^xsd:string, "NOTE: Cannot express that the 'promised' act corresponds to the act qualified by the statement in writing"^^xsd:string ;
+    rdfs:subClassOf :Legal_Speech_Act, [
+        a owl:Restriction ;
+        owl:onProperty <http://www.estrellaproject.org/lkif-core/process.owl#creation> ;
+        owl:someValuesFrom [
+            a owl:Class ;
+            owl:intersectionOf (expression:Promise
+                [
+                    a owl:Restriction ;
+                    owl:onProperty expression:towards ;
+                    owl:someValuesFrom :Public_Act
+                ]
+            )
+        ]
+    ], [
+        a owl:Restriction ;
+        owl:onProperty action:actor ;
+        owl:someValuesFrom :Public_Body
+    ], [
+        a owl:Restriction ;
+        owl:onProperty <http://www.estrellaproject.org/lkif-core/process.owl#creation> ;
+        owl:someValuesFrom [
+            a owl:Class ;
+            owl:intersectionOf (expression:Statement_In_Writing
+                [
+                    a owl:Restriction ;
+                    owl:onProperty expression:towards ;
+                    owl:someValuesFrom :Public_Act
+                ]
+            )
+        ]
+    ] .
+
+:Delegation
+    a owl:Class ;
+    rdfs:comment "Delegate: entrust a task or responsibility to some other person"^^xsd:string ;
+    rdfs:subClassOf :Legal_Speech_Act, :Public_Act, [
+        a owl:Restriction ;
+        owl:onProperty action:actor ;
+        owl:someValuesFrom :Public_Body
+    ], [
+        a owl:Restriction ;
+        owl:onProperty <http://www.estrellaproject.org/lkif-core/mereology.owl#strict_part_of> ;
+        owl:someValuesFrom action:Transaction
+    ] .
+
+:Foundation
+    a owl:Class ;
+    rdfs:comment "A kind of (philanthropic) organization, set up as a legal entity either by individuals or institutions, with the purpose of distributing grants to support causes in line with the goals of the foundation"^^xsd:string ;
+    rdfs:subClassOf :Corporation ;
+    owl:disjointWith :Incorporated, :Unincorporated .
+
+:Incorporated
+    a owl:Class ;
+    rdfs:comment "An organisation formed into a legal corporation"^^xsd:string ;
+    rdfs:subClassOf :Corporation ;
+    owl:disjointWith :Foundation, :Unincorporated ;
+    owl:equivalentClass :Public_Limited_Company .
+
+:Legal_Person
+    a owl:Class ;
+    rdfs:comment """A legal entity is a natural person or a legal construct through which the law allows a group of natural persons to act as if it were a single composite individual for certain purposes. The most common purposes are lawsuits, property ownership, and contracts. Sometimes referred to as corporate personhood or legal personality, this concept allows for easy conduct of business by having ownership, lawsuits, and agreements under the name of the legal entity instead of the several names of the people making up the entity.
+
+A legal entity is not necessarily distinct from the natural persons of which it is composed. Most legal entities are simply amalgamations of the persons that make it up for convenience's sake. A legal entity that does have a separate existence from its members is called a company or corporation. This distinction gives the corporation its unique perpetual succession privilege and is usually also the source of the limited liability of corporate members. Some other legal entities also enjoy limited liability of members, but not on account of separate existence (Source: Wikipedia.org)"""^^xsd:string ;
+    rdfs:subClassOf action:Organisation .
+
+:Legal_Speech_Act
+    a owl:Class ;
+    rdfs:comment "A legal speech act creates some propositional attitude towards a legal expression."^^xsd:string ;
+    rdfs:subClassOf expression:Speech_Act .
+
+:Legislative_Body
+    a owl:Class ;
+    rdfs:comment "A legislature is a type of (representative) deliberative assembly with the power to adopt laws."^^xsd:string ;
+    rdfs:label "Legislative Body"^^xsd:string, "Legislature"^^xsd:string ;
+    rdfs:subClassOf :Public_Body .
+
+:Limited_Company
+    a owl:Class ;
+    rdfs:comment "A limited company is a corporation whose liability is limited by law"^^xsd:string ;
+    rdfs:subClassOf :Company ;
+    owl:equivalentClass :Unincorporated .
+
+:Mandate
+    a owl:Class ;
+    rdfs:comment "Mandate: give (someone) authority to act in a certain way"^^xsd:string ;
+    rdfs:subClassOf :Public_Act, [
+        a owl:Restriction ;
+        owl:onProperty <http://www.estrellaproject.org/lkif-core/mereology.owl#strict_part_of> ;
+        owl:someValuesFrom action:Transaction
+    ], [
+        a owl:Restriction ;
+        owl:onProperty action:actor ;
+        owl:someValuesFrom :Public_Body
+    ] .
+
+:Natural_Person
+    a owl:Class ;
+    rdfs:comment "A natural person is a human being perceptible through the senses and subject to physical laws, as opposed to an artificial person, i.e., an organization that the law treats for some purposes as if it were a person distinct from its members or owner."^^xsd:string ;
+    rdfs:subClassOf action:Person ;
+    owl:equivalentClass action:Person .
+
+:Private_Legal_Person
+    a owl:Class ;
+    rdfs:comment "A legal person as defined in private law"^^xsd:string ;
+    rdfs:label "Legal Person (Private Law)"^^xsd:string ;
+    rdfs:subClassOf :Legal_Person ;
+    owl:disjointWith :Public_Body .
+
+:Public_Act
+    a owl:Class ;
+    rdfs:comment "A public act is an act by some Person or Organisation which creates (at least) a communicated attitude (and thereby an expression)"^^xsd:string ;
+    rdfs:subClassOf action:Action .
+
+:Public_Body
+    a owl:Class ;
+    rdfs:comment "A public body or body created by an act of law to serve a public interest"^^xsd:string ;
+    rdfs:subClassOf :Legal_Person ;
+    owl:disjointWith :Private_Legal_Person .
+
+:Public_Limited_Company
+    a owl:Class ;
+    rdfs:comment "Similar to the US corporation, offers several advantages over trading as sole trader."^^xsd:string ;
+    rdfs:label "PLC"^^xsd:string ;
+    rdfs:subClassOf :Company ;
+    owl:equivalentClass :Incorporated .
+
+:Society
+    a owl:Class ;
+    rdfs:comment "An organized group of people associated together for religious, benevolent, cultural, scientific, political, patriotic, or other purposes."^^xsd:string ;
+    rdfs:subClassOf :Private_Legal_Person ;
+    owl:equivalentClass :Association .
+
+:Unincorporated
+    a owl:Class ;
+    rdfs:subClassOf :Corporation ;
+    owl:disjointWith :Foundation, :Incorporated ;
+    owl:equivalentClass :Limited_Company .
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix : <http://www.estrellaproject.org/lkif-core/action.owl#> .
+@prefix owl2xml: <http://www.w3.org/2006/12/owl2-xml#> .
+@prefix lkif-top: <http://www.estrellaproject.org/lkif-core/lkif-top.owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix process: <http://www.estrellaproject.org/lkif-core/process.owl#> .
+@prefix mereology: <http://www.estrellaproject.org/lkif-core/mereology.owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix daml: <http://www.daml.org/2001/03/daml+oil#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+<http://www.estrellaproject.org/lkif-core/action.owl>
+    a owl:Ontology ;
+    rdfs:comment "Currently this module does not commit to any particular theory on/framework of thematic roles (i.e. subproperties of participant). This has consequences for the detail in which actions are described in this ontology."^^xsd:string ;
+    owl:imports <http://www.estrellaproject.org/lkif-core/process.owl> ;
+    owl:versionInfo "LKIF Core, version 1.1, copyright (C) 2008, the ESTRELLA consortium"^^xsd:string, """Partner contributions from the University of Amsterdam (UvA).
+
+Editor:       Rinke Hoekstra (UvA)
+Authors:      Rinke Hoekstra (UvA), Alexander Boer (UvA), Kasper van den Berg (UvA)
+Contributors: Joost Breuker (UvA)"""^^xsd:string, """The LKIF-Core ontology, version 1.0, is part of Deliverable 1.4 of the European project for Standardised Transparent Representations in order to Extend Legal Accessibility (ESTRELLA, IST-2004-027665), http://www.estrellaproject.org
+
+The use of this ontology, and the OWL files through which it is distributed, is covered by the GNU Lesser General Public License (LGPL), version 2.1 (http://www.gnu.org/copyleft/lesser.html) in as far as the copyright is not covered by additional restrictions of the ESTRELLA consortium agreement (info@estrellaproject.org). The LGPL license places copyright restrictions on the ontology itself but does not apply these restrictions to software that merely links with concepts defined in the ontology library. Please read the license restrictions before using this work."""^^xsd:string, "This module is part of LKIF-Core, version 1.1, part of Deliverable 1.4 of ESTRELLA, IST-2004-027665"^^xsd:string .
+
+:Action
+    a owl:Class ;
+    rdfs:comment "An action is a change which is brought about by a single agent, playing a role. The agent is the holder of some indended outcome of the action: an action is always intentional. The intention of the agent has usually corresponds with an expectation the intended outcome to be brought about: the agent believes in some expectation. Note that the intention might not correspond with the *actual* outcome of the action."^^xsd:string ;
+    rdfs:subClassOf process:Process, [
+        a owl:Restriction ;
+        owl:allValuesFrom :Agent ;
+        owl:onProperty :actor
+    ] ;
+    owl:disjointWith :Plan ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :actor
+    ] .
+
+:Agent
+    a owl:Class ;
+    rdfs:comment "An agent is any owl:Thing which can act, i.e. play the 'actor' role wrt. an action"^^xsd:string, "It is a holder for propositional attitudes"^^xsd:string ;
+    rdfs:subClassOf owl:Thing, [
+        a owl:Restriction ;
+        owl:allValuesFrom :Action ;
+        owl:onProperty :actor_in
+    ], [
+        a owl:Restriction ;
+        owl:allValuesFrom process:Change ;
+        owl:onProperty process:participant_in
+    ] ;
+    owl:disjointWith process:Change ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty :actor_in ;
+        owl:someValuesFrom :Action
+    ] .
+
+:Artifact
+    a owl:Class ;
+    rdfs:comment "A physical object created by some person to fulfill a particular purpose"^^xsd:string ;
+    rdfs:subClassOf process:Physical_Object ;
+    owl:disjointWith :Natural_Object, :Person ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty process:result_of ;
+        owl:someValuesFrom :Creation
+    ] .
+
+:Collaborative_Plan
+    a owl:Class ;
+    rdfs:comment "A collaborative plan is a plan which is shared (and executed) between at least two agents a and b."^^xsd:string, "NOTE: this definition cannot currently be expressed in OWL"^^xsd:string ;
+    rdfs:subClassOf :Plan ;
+    owl:disjointWith :Personal_Plan .
+
+:Creation
+    a owl:Class ;
+    rdfs:comment "An act which results in the creation of some entity/individual"^^xsd:string ;
+    rdfs:subClassOf :Action ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty process:creation
+    ] .
+
+:Natural_Object
+    a owl:Class ;
+    rdfs:comment "A natural object is an object not created by man."^^xsd:string ;
+    rdfs:subClassOf process:Physical_Object .
+
+:Organisation
+    a owl:Class ;
+    rdfs:comment "An organisation is a group of other organisations or persons which acts 'as one'. An organisation can be both formal (i.e. created by law or decree) or informal."^^xsd:string ;
+    rdfs:subClassOf :Agent, [
+        a owl:Restriction ;
+        owl:allValuesFrom [
+            a owl:Class ;
+            owl:unionOf (:Organisation
+                :Person
+            )
+        ] ;
+        owl:onProperty mereology:member
+    ] ;
+    owl:disjointWith :Person ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty mereology:member ;
+        owl:someValuesFrom :Person
+    ] .
+
+:Person
+    a owl:Class ;
+    rdfs:comment "A person is an individual agent. Usually associated with 'human being'."^^xsd:string ;
+    rdfs:subClassOf :Agent, :Natural_Object .
+
+:Personal_Plan
+    a owl:Class ;
+    rdfs:comment "A personal plan is a plan which is held (and can be executed) by at most one agent."^^xsd:string ;
+    rdfs:subClassOf :Plan .
+
+:Plan
+    a owl:Class ;
+    rdfs:comment "A plan is a structure of multiple other plans or actions. These can be both sequential or concurrent. Usually a plan is referred to in the context of the intention to act of some agent, however when executed the plan itself comes into effect."^^xsd:string ;
+    rdfs:subClassOf lkif-top:Mental_Object, [
+        a owl:Restriction ;
+        owl:allValuesFrom [
+            a owl:Class ;
+            owl:unionOf (:Action
+                :Plan
+            )
+        ] ;
+        owl:onProperty mereology:part
+    ] ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:onProperty mereology:part ;
+        owl:someValuesFrom :Action
+    ] .
+
+:Reaction
+    a owl:Class ;
+    rdfs:comment "A reaction is an action that is (at least) performed by an agent that has observed some other action (this is an intensional view): Action <-> Reaction"^^xsd:string ;
+    rdfs:subClassOf :Action .
+
+:Trade
+    a owl:Class ;
+    rdfs:comment "A trade is an exchange of some things between two agents a and b. Consists of two actions A and B where a is the actor of action A and the recipient of action B, and vice versa. Usually these actions are performed concurrently, but these may also be done consequently. The ownership of the things being traded is the requirement/result pair for each action."^^xsd:string ;
+    rdfs:subClassOf :Transaction .
+
+:Transaction
+    a owl:Class ;
+    rdfs:comment "A transaction is an exchange or interaction between at least two agents a and b. Consists of two actions A and B where a is the actor of action A and the recipient of action B, and vice versa. Usually these actions are performed concurrently, but these may also be done consequently."^^xsd:string ;
+    rdfs:subClassOf :Collaborative_Plan, [
+        a owl:Restriction ;
+        owl:allValuesFrom :Action ;
+        owl:onProperty mereology:direct_part
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "2"^^xsd:nonNegativeInteger ;
+        owl:onProperty mereology:direct_part
+    ] .
+
+:actor
+    a owl:ObjectProperty ;
+    rdfs:comment "Specifies that some participant is an actor in the action."^^xsd:string ;
+    rdfs:domain :Action ;
+    rdfs:range :Agent ;
+    rdfs:subPropertyOf process:participant .
+
+:actor_in
+    a owl:ObjectProperty ;
+    rdfs:comment "Specifies that the participant is an actor in some action."^^xsd:string ;
+    rdfs:domain :Agent ;
+    rdfs:range :Action ;
+    rdfs:subPropertyOf process:participant_in ;
+    owl:inverseOf :actor .
+
+lkif-top:Mental_Object
+    a owl:Class .
+
+mereology:direct_part
+    a owl:ObjectProperty .
+
+mereology:member
+    a owl:ObjectProperty .
+
+mereology:part
+    a owl:ObjectProperty .
+
+process:Change
+    a owl:Class ;
+    owl:disjointWith process:Physical_Object .
+
+process:Physical_Object
+    a owl:Class .
+
+process:Process
+    a owl:Class .
+
+process:creation
+    a owl:ObjectProperty .
+
+process:participant
+    a owl:ObjectProperty .
+
+process:participant_in
+    a owl:ObjectProperty .
+
+process:result_of
+    a owl:ObjectProperty .
+
+owl:Thing
+    a owl:Class .
+

@@ -1,0 +1,337 @@
+// This file is generated. Do not edit.
+// Source: ontologies/literature/literature.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Literature
+"allegory" is a type.
+"allegory" is a "unary predicate".
+"allusion" is a type.
+"allusion" is a "unary predicate".
+"anger" is a type.
+"anger" is a "unary predicate".
+"antagonist" is a type.
+"antagonist" is a "unary predicate".
+"author" is a type.
+"author" is a "unary predicate".
+"autobiography" is a type.
+"autobiography" is a "unary predicate".
+"biography" is a type.
+"biography" is a "unary predicate".
+"book" is a type.
+"book" is a "unary predicate".
+"canon" is a type.
+"canon" is a "unary predicate".
+"catharsis" is a type.
+"catharsis" is a "unary predicate".
+"chapter" is a type.
+"chapter" is a "unary predicate".
+"character" is a type.
+"character" is a "unary predicate".
+"character-trait" is a type.
+"character-trait" is a "unary predicate".
+"climax" is a type.
+"climax" is a "unary predicate".
+"comedy" is a type.
+"comedy" is a "unary predicate".
+"conflict" is a type.
+"conflict" is a "unary predicate".
+"craftsmanship" is a type.
+"craftsmanship" is a "unary predicate".
+"creative-work" is a type.
+"creative-work" is a "unary predicate".
+"critic" is a type.
+"critic" is a "unary predicate".
+"critique" is a type.
+"critique" is a "unary predicate".
+"depth" is a type.
+"depth" is a "unary predicate".
+"dialogue" is a type.
+"dialogue" is a "unary predicate".
+"drama" is a type.
+"drama" is a "unary predicate".
+"dynamic-character" is a type.
+"dynamic-character" is a "unary predicate".
+"editor" is a type.
+"editor" is a "unary predicate".
+"emotion" is a type.
+"emotion" is a "unary predicate".
+"empathy" is a type.
+"empathy" is a "unary predicate".
+"essay" is a type.
+"essay" is a "unary predicate".
+"exposition" is a type.
+"exposition" is a "unary predicate".
+"fantasy" is a type.
+"fantasy" is a "unary predicate".
+"fear" is a type.
+"fear" is a "unary predicate".
+"fiction" is a type.
+"fiction" is a "unary predicate".
+"first-person" is a type.
+"first-person" is a "unary predicate".
+"flashback" is a type.
+"flashback" is a "unary predicate".
+"flat-character" is a type.
+"flat-character" is a "unary predicate".
+"foreshadowing" is a type.
+"foreshadowing" is a "unary predicate".
+"genre" is a type.
+"genre" is a "unary predicate".
+"historical-fiction" is a type.
+"historical-fiction" is a "unary predicate".
+"imagery" is a type.
+"imagery" is a "unary predicate".
+"influence" is a type.
+"influence" is a "unary predicate".
+"interpretation" is a type.
+"interpretation" is a "unary predicate".
+"irony" is a type.
+"irony" is a "unary predicate".
+"joy" is a type.
+"joy" is a "unary predicate".
+"literary-device" is a type.
+"literary-device" is a "unary predicate".
+"literary-movement" is a type.
+"literary-movement" is a "unary predicate".
+"literary-quality" is a type.
+"literary-quality" is a "unary predicate".
+"literary-work" is a type.
+"literary-work" is a "unary predicate".
+"memoir" is a type.
+"memoir" is a "unary predicate".
+"metaphor" is a type.
+"metaphor" is a "unary predicate".
+"mood" is a type.
+"mood" is a "unary predicate".
+"motif" is a type.
+"motif" is a "unary predicate".
+"motivation" is a type.
+"motivation" is a "unary predicate".
+"mystery" is a type.
+"mystery" is a "unary predicate".
+"narrative-arc" is a type.
+"narrative-arc" is a "unary predicate".
+"narrative-element" is a type.
+"narrative-element" is a "unary predicate".
+"narrator" is a type.
+"narrator" is a "unary predicate".
+"non-fiction" is a type.
+"non-fiction" is a "unary predicate".
+"novel" is a type.
+"novel" is a "unary predicate".
+"omniscient" is a type.
+"omniscient" is a "unary predicate".
+"originality" is a type.
+"originality" is a "unary predicate".
+"paragraph" is a type.
+"paragraph" is a "unary predicate".
+"personification" is a type.
+"personification" is a "unary predicate".
+"play" is a type.
+"play" is a "unary predicate".
+"plot" is a type.
+"plot" is a "unary predicate".
+"poem" is a type.
+"poem" is a "unary predicate".
+"poetry" is a type.
+"poetry" is a "unary predicate".
+"point-of-view" is a type.
+"point-of-view" is a "unary predicate".
+"protagonist" is a type.
+"protagonist" is a "unary predicate".
+"publisher" is a type.
+"publisher" is a "unary predicate".
+"readability" is a type.
+"readability" is a "unary predicate".
+"reader" is a type.
+"reader" is a "unary predicate".
+"resolution" is a type.
+"resolution" is a "unary predicate".
+"review" is a type.
+"review" is a "unary predicate".
+"romance" is a type.
+"romance" is a "unary predicate".
+"round-character" is a type.
+"round-character" is a "unary predicate".
+"sadness" is a type.
+"sadness" is a "unary predicate".
+"scene" is a type.
+"scene" is a "unary predicate".
+"science-fiction" is a type.
+"science-fiction" is a "unary predicate".
+"setting" is a type.
+"setting" is a "unary predicate".
+"short-story" is a type.
+"short-story" is a "unary predicate".
+"simile" is a type.
+"simile" is a "unary predicate".
+"stanza" is a type.
+"stanza" is a "unary predicate".
+"static-character" is a type.
+"static-character" is a "unary predicate".
+"surprise" is a type.
+"surprise" is a "unary predicate".
+"suspense" is a type.
+"suspense" is a "unary predicate".
+"symbol" is a type.
+"symbol" is a "unary predicate".
+"text" is a type.
+"text" is a "unary predicate".
+"theme" is a type.
+"theme" is a "unary predicate".
+"third-person" is a type.
+"third-person" is a "unary predicate".
+"tone" is a type.
+"tone" is a "unary predicate".
+"tragedy" is a type.
+"tragedy" is a "unary predicate".
+"voice" is a type.
+"voice" is a "unary predicate".
+
+// Binary predicates
+"author of" is a "binary predicate".
+"belongs-to-genre" is a "binary predicate".
+"rel-contains-chapter" is a "binary predicate".
+"critiques" is a "binary predicate".
+"evokes-emotion" is a "binary predicate".
+"has-character" is a "binary predicate".
+"has-motivation" is a "binary predicate".
+"has-plot" is a "binary predicate".
+"has-quality" is a "binary predicate".
+"has-setting" is a "binary predicate".
+"has-theme" is a "binary predicate".
+"has-trait" is a "binary predicate".
+"in-canon" is a "binary predicate".
+"influenced by" is a "binary predicate".
+"influences" is a "binary predicate".
+"interacts with" is a "binary predicate".
+"part-of-movement" is a "binary predicate".
+"part-of-work" is a "binary predicate".
+"published by" is a "binary predicate".
+"represents-theme" is a "binary predicate".
+"set in" is a "binary predicate".
+"symbolizes" is a "binary predicate".
+"uses-device" is a "binary predicate".
+"written by" is a "binary predicate".
+"written-by-critic" is a "binary predicate".
+
+// Type hierarchy
+"allegory" is a subtype of "literary-device".
+"allusion" is a subtype of "literary-device".
+"anger" is a subtype of "emotion".
+"antagonist" is a subtype of "character".
+"autobiography" is a subtype of "biography".
+"biography" is a subtype of "non-fiction".
+"book" is a subtype of "literary-work".
+"chapter" is a subtype of "text".
+"climax" is a subtype of "narrative-element".
+"comedy" is a subtype of "drama".
+"conflict" is a subtype of "narrative-element".
+"craftsmanship" is a subtype of "literary-quality".
+"depth" is a subtype of "literary-quality".
+"dialogue" is a subtype of "text".
+"drama" is a subtype of "genre".
+"dynamic-character" is a subtype of "character".
+"empathy" is a subtype of "emotion".
+"essay" is a subtype of "literary-work".
+"exposition" is a subtype of "narrative-element".
+"fantasy" is a subtype of "fiction".
+"fear" is a subtype of "emotion".
+"fiction" is a subtype of "genre".
+"first-person" is a subtype of "point-of-view".
+"flashback" is a subtype of "literary-device".
+"flat-character" is a subtype of "character".
+"foreshadowing" is a subtype of "literary-device".
+"historical-fiction" is a subtype of "fiction".
+"imagery" is a subtype of "literary-device".
+"irony" is a subtype of "literary-device".
+"joy" is a subtype of "emotion".
+"literary-work" is a subtype of "creative-work".
+"memoir" is a subtype of "biography".
+"metaphor" is a subtype of "literary-device".
+"motif" is a subtype of "narrative-element".
+"mystery" is a subtype of "fiction".
+"narrative-arc" is a subtype of "narrative-element".
+"narrator" is a subtype of "character".
+"non-fiction" is a subtype of "genre".
+"novel" is a subtype of "book".
+"omniscient" is a subtype of "point-of-view".
+"originality" is a subtype of "literary-quality".
+"paragraph" is a subtype of "text".
+"personification" is a subtype of "literary-device".
+"play" is a subtype of "literary-work".
+"plot" is a subtype of "narrative-element".
+"poem" is a subtype of "literary-work".
+"poetry" is a subtype of "genre".
+"protagonist" is a subtype of "character".
+"readability" is a subtype of "literary-quality".
+"resolution" is a subtype of "narrative-element".
+"review" is a subtype of "critique".
+"romance" is a subtype of "fiction".
+"round-character" is a subtype of "character".
+"sadness" is a subtype of "emotion".
+"scene" is a subtype of "text".
+"science-fiction" is a subtype of "fiction".
+"setting" is a subtype of "narrative-element".
+"short-story" is a subtype of "literary-work".
+"simile" is a subtype of "literary-device".
+"stanza" is a subtype of "text".
+"static-character" is a subtype of "character".
+"surprise" is a subtype of "emotion".
+"suspense" is a subtype of "emotion".
+"symbol" is a subtype of "narrative-element".
+"theme" is a subtype of "narrative-element".
+"third-person" is a subtype of "point-of-view".
+"tragedy" is a subtype of "drama".
+
+// Domain and range constraints
+the domain of "author of" is "author".
+the domain of "belongs-to-genre" is "literary-work".
+the domain of "critiques" is "critique".
+the domain of "evokes-emotion" is "literary-work".
+the domain of "has-character" is "literary-work".
+the domain of "has-motivation" is "character".
+the domain of "has-plot" is "literary-work".
+the domain of "has-quality" is "literary-work".
+the domain of "has-setting" is "literary-work".
+the domain of "has-theme" is "literary-work".
+the domain of "has-trait" is "character".
+the domain of "in-canon" is "literary-work".
+the domain of "influenced by" is "author".
+the domain of "influences" is "author".
+the domain of "interacts with" is "character".
+the domain of "part-of-movement" is "author".
+the domain of "part-of-work" is "text".
+the domain of "published by" is "literary-work".
+the domain of "rel-contains-chapter" is "book".
+the domain of "represents-theme" is "motif".
+the domain of "set in" is "literary-work".
+the domain of "symbolizes" is "symbol".
+the domain of "uses-device" is "literary-work".
+the domain of "written by" is "literary-work".
+the domain of "written-by-critic" is "critique".
+the range of "author of" is "literary-work".
+the range of "belongs-to-genre" is "genre".
+the range of "critiques" is "literary-work".
+the range of "evokes-emotion" is "emotion".
+the range of "has-character" is "character".
+the range of "has-motivation" is "motivation".
+the range of "has-plot" is "plot".
+the range of "has-quality" is "literary-quality".
+the range of "has-setting" is "setting".
+the range of "has-theme" is "theme".
+the range of "has-trait" is "character-trait".
+the range of "in-canon" is "canon".
+the range of "influenced by" is "author".
+the range of "influences" is "author".
+the range of "interacts with" is "character".
+the range of "part-of-movement" is "literary-movement".
+the range of "part-of-work" is "literary-work".
+the range of "published by" is "publisher".
+the range of "rel-contains-chapter" is "chapter".
+the range of "represents-theme" is "theme".
+the range of "set in" is "setting".
+the range of "uses-device" is "literary-device".
+the range of "written by" is "author".
+the range of "written-by-critic" is "critic".

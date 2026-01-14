@@ -5,40 +5,36 @@
 
 Load: "theories/base.cnl".
 
-// People / organizations
-Load: "theories/ontologies/foaf/00-dictionary.generated.cnl".
-Load: "theories/ontologies/foaf/00-dictionary.extra.cnl".
-Load: "theories/ontologies/foaf/01-rules.generated.cnl".
-Load: "theories/ontologies/foaf/01-rules.extra.cnl".
+// Provenance and spatial semantics (formal, science-friendly)
+Load: "theories/ontologies/w3c-prov-o/00-dictionary.generated.cnl".
+Load: "theories/ontologies/w3c-prov-o/00-dictionary.extra.cnl".
+Load: "theories/ontologies/w3c-prov-o/01-rules.generated.cnl".
+Load: "theories/ontologies/w3c-prov-o/01-rules.extra.cnl".
 
-// Space / geodata (enable after vendoring the ontology .ttl and running `npm run generateTheories`)
 Load: "theories/ontologies/geosparql/00-dictionary.generated.cnl".
 Load: "theories/ontologies/geosparql/00-dictionary.extra.cnl".
 Load: "theories/ontologies/geosparql/01-rules.generated.cnl".
 Load: "theories/ontologies/geosparql/01-rules.extra.cnl".
 
-Load: "theories/ontologies/wgs84/00-dictionary.generated.cnl".
-Load: "theories/ontologies/wgs84/00-dictionary.extra.cnl".
-Load: "theories/ontologies/wgs84/01-rules.generated.cnl".
-Load: "theories/ontologies/wgs84/01-rules.extra.cnl".
-//
-// Upper / foundational (enable after vendoring the ontology .ttl and running `npm run generateTheories`)
-// Load: "theories/ontologies/dul/00-dictionary.generated.cnl".
-// Load: "theories/ontologies/dul/00-dictionary.extra.cnl".
-// Load: "theories/ontologies/dul/01-rules.generated.cnl".
-// Load: "theories/ontologies/dul/01-rules.extra.cnl".
-//
-// Load: "theories/ontologies/bfo/00-dictionary.generated.cnl".
-// Load: "theories/ontologies/bfo/00-dictionary.extra.cnl".
-// Load: "theories/ontologies/bfo/01-rules.generated.cnl".
-// Load: "theories/ontologies/bfo/01-rules.extra.cnl".
-//
-// Load: "theories/ontologies/ro/00-dictionary.generated.cnl".
-// Load: "theories/ontologies/ro/00-dictionary.extra.cnl".
-// Load: "theories/ontologies/ro/01-rules.generated.cnl".
-// Load: "theories/ontologies/ro/01-rules.extra.cnl".
-//
-// Load: "theories/ontologies/iao/00-dictionary.generated.cnl".
-// Load: "theories/ontologies/iao/00-dictionary.extra.cnl".
-// Load: "theories/ontologies/iao/01-rules.generated.cnl".
-// Load: "theories/ontologies/iao/01-rules.extra.cnl".
+// `foaf` and `wgs84` are already loaded by `theories/base.cnl`.
+
+// Upper / foundational
+Load: "theories/ontologies/dul/00-dictionary.generated.cnl".
+Load: "theories/ontologies/dul/00-dictionary.extra.cnl".
+Load: "theories/ontologies/dul/01-rules.generated.cnl".
+Load: "theories/ontologies/dul/01-rules.extra.cnl".
+
+Load: "theories/ontologies/bfo/00-dictionary.generated.cnl".
+Load: "theories/ontologies/bfo/00-dictionary.extra.cnl".
+Load: "theories/ontologies/bfo/01-rules.generated.cnl".
+Load: "theories/ontologies/bfo/01-rules.extra.cnl".
+
+Load: "theories/ontologies/ro/00-dictionary.generated.cnl".
+Load: "theories/ontologies/ro/00-dictionary.extra.cnl".
+Load: "theories/ontologies/ro/01-rules.generated.cnl".
+Load: "theories/ontologies/ro/01-rules.extra.cnl".
+
+Load: "theories/ontologies/iao/00-dictionary.generated.cnl".
+Load: "theories/ontologies/iao/00-dictionary.extra.cnl".
+Load: "theories/ontologies/iao/01-rules.generated.cnl".
+Load: "theories/ontologies/iao/01-rules.extra.cnl".

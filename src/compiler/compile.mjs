@@ -506,7 +506,8 @@ export function compileProgram(ast, options = {}) {
         state.actionStore.addAction(item);
         break;
       case "TransitionRuleStatement":
-        state.ruleStore.addRule({ kind: "TransitionRule", ...item });
+        // Ensure the stored plan kind is stable (do not let the AST item.kind override it).
+        state.ruleStore.addRule({ ...item, kind: "TransitionRule" });
         break;
       default:
         state.errors.push(createError("CMP011", "Unsupported program item.", item.kind));

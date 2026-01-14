@@ -33,7 +33,9 @@
         <p>
           Every entity in the system is interned to a dense integer ID (0..N). A <strong>Bitset</strong> is simply a compact array of bits where the N-th bit is 1 if Entity N is in the set.
         </p>
+      </section>
 
+      <section class="section">
         <h2>The RelationMatrix</h2>
         <p>
           A binary predicate (like "user has role") is stored as a <strong>RelationMatrix</strong>.
@@ -49,23 +51,36 @@ RelationMatrix {
           If we want to know "What roles does User_42 have?", we simply read <code>rows[42]</code>. The result is a Bitset representing the set of roles.
         </p>
         <p>
-          Crucially, we often maintain the <strong>Inverse Matrix</strong> (transpose). This allows us to answer "Which users have the admin role?" just as fast, by looking up the admin ID in the inverse matrix.
+          Crucially, we maintain the <strong>Inverse Matrix</strong>. This allows us to answer "Which users have the admin role?" instantly by looking up the admin ID in the inverse matrix.
         </p>
+      </section>
 
-        <h2>Columnar Indices</h2>
-        <p>
-          For data that isn't boolean (like numbers), we use <strong>NumericIndex</strong>.
-        </p>
-        <div class="code-block">
-<pre>
-NumericIndex {
-  values: Float64Array  // values[EntityID] -> number
-  hasValue: Bitset      // tracks which entities actually have a value
-}
-</pre>
+      <section class="section">
+        <h2>Attribute Indices</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>NumericIndex</h3>
+                <p>Stores primitive values like integers or floats.</p>
+                <p><code>NumericIndex { values: Float64Array, hasValue: Bitset }</code></p>
+                <p>Separates existence (hasValue) from magnitude, enabling fast filtering.</p>
+            </div>
+            <div class="card">
+                <h3>EntityAttrIndex</h3>
+                <p>Stores attributes that point to other entities (e.g., <code>User has a role of Admin</code>).</p>
+                <p><code>EntityAttrIndex { values: Bitset[] }</code></p>
+                <p>Allows attributes to behave like relations but be scoped as properties.</p>
+            </div>
         </div>
+      </section>
+
+      <section class="section">
+        <h2>FactID & Provenance</h2>
         <p>
-          This separates the <em>existence</em> of data from the <em>value</em> of data. The <code>hasValue</code> bitset allows us to quickly intersect "Entities with a Salary" with "Entities who are Engineers", before we even look at the salary values.
+          To explain "Why?", every bit in the KB must be traceable. However, storing an ID for every bit is expensive.
+        </p>
+        <p>
+            <strong>FactID Strategy:</strong> We derive a stable 64-bit or 128-bit hash from the tuple <code>(PredID, SubjectID, ObjectID)</code>.
+            This allows us to look up justification trees (provenance) in a separate store without bloating the hot reasoning path.
         </p>
       </section>
     </main>

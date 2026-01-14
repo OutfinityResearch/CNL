@@ -1,0 +1,30 @@
+// Manual additions for ontology rules (kept across regenerations).
+
+--- CONTEXT: FabioExtra ---
+
+// Document types
+Rule: If X is a book, then X is a work.
+Rule: If X is a novel, then X is a book.
+Rule: If X is an article, then X is a work.
+Rule: If X is a journal, then X is a work.
+Rule: If X is a journal-article, then X is an article.
+Rule: If X is a conference-paper, then X is an article.
+Rule: If X is a book-chapter, then X is a work.
+Rule: If X is a thesis, then X is a work.
+Rule: If X is a master-s-thesis, then X is a thesis.
+Rule: If X is a doctoral-thesis, then X is a thesis.
+Rule: If X is a bachelor-s-thesis, then X is a thesis.
+
+// Literary works
+Rule: If X is a poem, then X is a work.
+Rule: If X is a play, then X is a work.
+Rule: If X is a short-story, then X is a work.
+Rule: If X is an essay, then X is a work.
+Rule: If X is a biography, then X is a work.
+Rule: If X is a fiction, then X is a work.
+Rule: If X is a non-fiction, then X is a work.
+
+// Digital works
+Rule: If X is a blog-post, then X is a work.
+Rule: If X is a web-page, then X is a work.
+Rule: If X is a dataset, then X is a work.

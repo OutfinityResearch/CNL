@@ -11,7 +11,12 @@
       <div class="topbar__title">🧠 Knowledge Explorer</div>
       <div class="topbar__meta">
         <span id="sessionLabel" class="mono">Session Active</span>
+        <span id="baseLabel" class="mono muted">Base: default</span>
         <span id="kbStats" class="mono muted">Empty</span>
+        <select id="baseSelect" class="select" title="Base theory bundle">
+          <option value="default">Base (minimal)</option>
+          <option value="formal">Base (formal)</option>
+        </select>
         <button id="resetBtn" type="button" class="btn btn--ghost">Reset</button>
       </div>
     </header>
@@ -64,10 +69,13 @@
 
         <!-- Examples Panel -->
         <div id="panelExamples" class="tabs__panel">
-          <div class="docs">
+            <div class="docs">
             <div class="examples-header">
               <h2>Examples</h2>
-              <button class="btn btn--primary btn--sm" id="loadAllBtn">📥 Load All</button>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <button class="btn btn--secondary btn--sm" id="testAllBtn">🧪 Test All</button>
+                <button class="btn btn--primary btn--sm" id="loadAllBtn">📥 Load All</button>
+              </div>
             </div>
             <div id="examplesList"></div>
           </div>

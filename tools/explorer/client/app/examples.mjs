@@ -1,6 +1,8 @@
 import { API } from "./api.mjs";
 import { UI } from "./ui.mjs";
 import { executeCommand } from "./command.mjs";
+import { Session } from "./session.mjs";
+import { formatProofTrace } from "./proof.mjs";
 
 function escapeHtml(text) {
   return String(text)
@@ -10,27 +12,57 @@ function escapeHtml(text) {
     .replace(/"/g, "&quot;");
 }
 
-function formatProof(proof) {
-  if (!proof || proof.kind !== "ProofTrace") return "";
-  const lines = [];
-  lines.push(`Proof (${proof.mode})`);
-  if (Array.isArray(proof.premises) && proof.premises.length) {
-    lines.push("");
-    lines.push("Premises:");
-    proof.premises.slice(0, 30).forEach((p) => lines.push(`- ${p}`));
-    if (proof.premises.length > 30) {
-      lines.push(`(and ${proof.premises.length - 30} more)`);
-    }
+const BASE_PREF_KEY = "cnl.explorer.base";
+
+function normalizeBasePref(value) {
+  const v = String(value || "").trim().toLowerCase();
+  return v === "formal" ? "formal" : "default";
+}
+
+function getBasePref() {
+  try {
+    return normalizeBasePref(localStorage.getItem(BASE_PREF_KEY));
+  } catch {
+    return "default";
   }
-  if (proof.counterexample?.entity) {
-    lines.push("");
-      lines.push(`Counterexample: ${proof.counterexample.entity}`);
-    }
-  if (Array.isArray(proof.steps) && proof.steps.length) {
-    lines.push("");
-    lines.push(...proof.steps);
+}
+
+function displayEntityKey(key) {
+  if (!key) return "";
+  if (key.startsWith("E:lit:num:")) return key.slice("E:lit:num:".length);
+  if (key.startsWith("E:lit:str:")) return key.slice("E:lit:str:".length);
+  if (key.startsWith("E:lit:bool:")) return key.slice("E:lit:bool:".length);
+  if (key.startsWith("E:")) return key.slice(2);
+  if (key.startsWith("L:")) return key.slice(2);
+  return key;
+}
+
+function summarizeResult(result) {
+  if (!result) return "";
+  switch (result.kind) {
+    case "QueryResult":
+    case "SolveResult":
+      return JSON.stringify((result.entities ?? []).map((entry) => displayEntityKey(entry.key)));
+    case "ProofResult":
+      return String(result.value);
+    case "ExplainResult":
+      if (Array.isArray(result.baseFacts) && result.baseFacts.length > 0) {
+        return result.baseFacts.join(" | ");
+      }
+      return result.justification?.kind ?? "explain";
+    case "PlanResult":
+      return result.status ?? "";
+    case "SimulationResult":
+      return `steps=${result.steps}`;
+    case "OptimizeResult":
+      return `${result.status}:${result.value}`;
+    default:
+      return "";
   }
-  return lines.join("\n");
+}
+
+function renderReport(reportEl, lines) {
+  UI.log(lines.join("\n"), "system");
 }
 
 export async function renderExamples() {
@@ -65,6 +97,96 @@ export async function renderExamples() {
       for (const ex of data.suite) {
         UI.log(`[${ex.title}]`, "system");
         await executeCommand(ex.theory);
+      }
+    };
+  }
+
+  const testAllBtn = document.getElementById("testAllBtn");
+  if (testAllBtn) {
+    testAllBtn.onclick = async () => {
+      if (!confirm("Run TestAll? This will restart the session and run all example steps.")) return;
+
+      testAllBtn.disabled = true;
+      try {
+        const base = getBasePref();
+        loadedExamples.clear();
+
+        UI.log(`[TestAll] Restarting session (base: ${base})...`, "system");
+        Session.setBase(base);
+        await Session.startNew({ base });
+
+        const report = [];
+        let passed = 0;
+        let failed = 0;
+        let skipped = 0;
+
+        for (const ex of data.suite) {
+          // Keep examples independent, but keep the same session id.
+          await API.reset();
+          loadedExamples.delete(ex.id);
+
+          UI.log(`[Test: ${ex.title}]`, "system");
+          UI.log(ex.theory.trim(), "user");
+          const learnRes = await executeCommand(ex.theory);
+          if (!learnRes?.ok) {
+            failed += ex.steps.length;
+            report.push(`FAIL [${ex.id}] learn context`);
+            for (const step of ex.steps) {
+              report.push(`  FAIL ${step.command}`);
+            }
+            continue;
+          }
+
+          for (const step of ex.steps) {
+            UI.log(step.command, "user");
+            const res = await executeCommand(step.command);
+            if (!res?.ok) {
+              failed += 1;
+              report.push(`FAIL [${ex.id}] ${step.command}`);
+              continue;
+            }
+
+            const output = summarizeResult(res.result);
+            if (Array.isArray(step.expectedMatches) && step.expectedMatches.length > 0) {
+              const ok = step.expectedMatches.some((token) => output.includes(token));
+              if (!ok) {
+                failed += 1;
+                report.push(`FAIL [${ex.id}] ${step.command}`);
+                report.push(`  expected match: ${step.expectedMatches.join(" | ")}`);
+                report.push(`  found: ${output}`);
+              } else {
+                passed += 1;
+                report.push(`PASS [${ex.id}] ${step.command}`);
+              }
+              continue;
+            }
+
+            if (step.expected !== undefined && step.expected !== null) {
+              if (String(step.expected) !== output) {
+                failed += 1;
+                report.push(`FAIL [${ex.id}] ${step.command}`);
+                report.push(`  expected: ${step.expected}`);
+                report.push(`  found: ${output}`);
+                continue;
+              }
+            }
+
+            if (!step.expected) {
+              skipped += 1;
+              report.push(`SKIP [${ex.id}] ${step.command}`);
+              continue;
+            }
+
+            passed += 1;
+            report.push(`PASS [${ex.id}] ${step.command}`);
+          }
+        }
+
+        report.unshift(`TestAll results: ${passed} passed, ${failed} failed, ${skipped} skipped.`);
+        renderReport(null, report);
+        UI.log(`[TestAll] Done: ${passed} passed, ${failed} failed, ${skipped} skipped.`, "system");
+      } finally {
+        testAllBtn.disabled = false;
       }
     };
   }
@@ -148,7 +270,7 @@ export async function renderExamples() {
           await ensureContextLoaded(ex);
           const res = await API.sendCommand(step.command);
           if (res.ok && res.result?.proof) {
-            proofEl.textContent = formatProof(res.result.proof) || "(empty proof)";
+            proofEl.textContent = formatProofTrace(res.result.proof) || "(empty proof)";
           } else if (res.ok) {
             proofEl.textContent = "(no proof returned for this step)";
           } else {

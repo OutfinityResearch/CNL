@@ -22,36 +22,59 @@
       <section class="hero">
         <span class="tag">Pragmatic Mode</span>
         <h1>Simulate</h1>
-        <p>Run state transitions over time to model future states.</p>
+        <p>Execute transition rules over time to observe state evolution.</p>
       </section>
 
       <section class="section">
         <h2>Concept</h2>
         <p>
-          <strong>Simulate</strong> is used to see "what happens next". It applies transition rules iteratively for N steps. Unlike "Plan" (which seeks a goal), Simulate simply evolves the system based on its current physics/rules.
+          The <strong>Simulate</strong> pragmatic steps forward in time, applying <strong>Transition Rules</strong> to the Knowledge Base. Unlike Planning (which searches for a goal), Simulation is deterministic and follows the defined rules step-by-step.
         </p>
 
         <h2>Syntax</h2>
         <div class="code-block">
 <pre>
-Simulate for 10 steps.
+Simulate &lt;number&gt; steps.
 </pre>
         </div>
+      </section>
 
-        <h2>Execution Logic</h2>
-        <p>
-          The engine identifies all <strong>Active Actions</strong> (actions whose preconditions are currently met).
-        </p>
-        <ul class="list">
-          <li><strong>Step 1:</strong> Identify enabled actions (e.g., "Timer Ticks", "Process Queue").</li>
-          <li><strong>Step 2:</strong> Apply effects (update bitsets).</li>
-          <li><strong>Step 3:</strong> Re-evaluate preconditions for the next step.</li>
+      <section class="section">
+        <h2>Transition Rules</h2>
+        <p>Transitions describe how the world changes when specific events or conditions occur.</p>
+        <div class="code-block">
+<pre>
+When Light_1 is red occurs, then Light_1 is green.
+When Light_1 is green occurs, then Light_1 is yellow.
+</pre>
+        </div>
+        <ul>
+            <li><strong>Condition:</strong> Evaluated against the state at the start of the step.</li>
+            <li><strong>Effect:</strong> Applied to the state for the next step.</li>
         </ul>
-        <p>
-          This turns the KB into a State Machine. The output is a trace of state changes over time.
-        </p>
+      </section>
+
+      <section class="section">
+        <h2>Execution Model (v1)</h2>
+        <ol>
+            <li>Clone current KB state.</li>
+            <li>For step 1 to N:
+                <ul>
+                    <li>Evaluate all transition rules.</li>
+                    <li>Apply effects of fired rules.</li>
+                    <li>Record state snapshot.</li>
+                </ul>
+            </li>
+            <li>Return sequence of steps and state changes.</li>
+        </ol>
+      </section>
+
+      <section class="section">
+        <h2>Reference</h2>
+        <p>Defined in <a href="../specs/DS/DS20-simulation.md">DS20 - Simulation</a>.</p>
       </section>
     </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Pragmatics</div></footer>
   </div>
 </body>
 </html>

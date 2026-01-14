@@ -1,0 +1,12 @@
+// Manual additions for BaseDictionary (kept across regenerations).
+
+--- CONTEXT: BaseDictionary ---
+
+// Connect FaBiO types to core ontology
+"book" is a subtype of "object".
+"article" is a subtype of "object".
+"journal" is a subtype of "object".
+"novel" is a subtype of "book".
+"poem" is a subtype of "object".
+"play" is a subtype of "object".
+"essay" is a subtype of "object".

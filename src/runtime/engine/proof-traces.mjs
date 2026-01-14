@@ -5,6 +5,7 @@ import { ConceptKind } from "../../ids/interners.mjs";
 import { isUniversalNounPhrase, resolveEntityId, resolvePredId, resolveUnaryId } from "./helpers.mjs";
 import { formatBinaryFact, formatUnaryFact } from "./facts.mjs";
 import { renderDerivation } from "./derivation.mjs";
+import { buildWitnessTraceForSet } from "./witness-traces.mjs";
 
 function factIdForAssertion(assertion, state, store) {
   if (!assertion || !store) return null;
@@ -42,23 +43,6 @@ function formatAssertionSentence(assertion, state) {
   return null;
 }
 
-function universalCounterexample(condition, state) {
-  const assertion = condition?.assertion;
-  if (!assertion || assertion.subject?.kind !== "NounPhrase" || !isUniversalNounPhrase(assertion.subject)) {
-    return null;
-  }
-  const basePlan = compileNP(assertion.subject, state);
-  const satisfyPlan = compileCondition(condition, Plans.allEntities(), state);
-  const baseSet = executeSet(basePlan, state.kb.kb);
-  const satisfySet = executeSet(satisfyPlan, state.kb.kb);
-  const diff = baseSet.andNot(satisfySet);
-  let first = null;
-  diff.iterateSetBits((entityId) => {
-    if (first === null) first = entityId;
-  });
-  return first;
-}
-
 export function buildProofTraceForVerify(command, state, ok) {
   const proposition = command?.proposition;
   const store = state.justificationStore;
@@ -74,7 +58,7 @@ export function buildProofTraceForVerify(command, state, ok) {
           mode: "Negation",
           conclusion: `not (${sentence})`,
           answerSummary,
-          steps: [`No derivation found for: ${sentence}`],
+          steps: [`No derivation found for: ${sentence}`, `Therefore: not (${sentence}).`],
           premises: [],
         };
       }
@@ -115,11 +99,22 @@ export function buildProofTraceForVerify(command, state, ok) {
     const assertion = proposition.assertion;
     const isUniversal = assertion?.subject?.kind === "NounPhrase" && isUniversalNounPhrase(assertion.subject);
     if (isUniversal) {
-      const counterexampleId = universalCounterexample(proposition, state);
+      const basePlan = compileNP(assertion.subject, state);
+      const satisfyPlan = compileCondition(proposition, Plans.allEntities(), state);
+      const baseSet = executeSet(basePlan, state.kb.kb);
+      const satisfySet = executeSet(satisfyPlan, state.kb.kb);
+      const diff = baseSet.andNot(satisfySet);
+      const domainSize = baseSet.popcount();
+      let counterexampleId = null;
+      diff.iterateSetBits((entityId) => {
+        if (counterexampleId === null) counterexampleId = entityId;
+      });
       const steps = [];
       if (ok) {
+        steps.push(`Domain size: ${domainSize}.`);
         steps.push("No counterexample found in the quantified domain.");
       } else {
+        steps.push(`Domain size: ${domainSize}.`);
         steps.push("Found a counterexample in the quantified domain.");
       }
       const proof = {
@@ -135,6 +130,26 @@ export function buildProofTraceForVerify(command, state, ok) {
         const fallback = `Entity_${counterexampleId}`;
         const entity = key?.startsWith("E:") ? key.slice(2) : key || fallback;
         proof.counterexample = { entity };
+
+        // Best-effort witness: show why the counterexample is in the domain, and what is missing.
+        const witness = buildWitnessTraceForSet(basePlan, [{ id: counterexampleId, key }], state, { limit: 1 });
+        if (witness?.steps?.length) {
+          proof.steps.push("Witness (domain membership):");
+          witness.steps
+            .filter((line) => !String(line).startsWith("Returned "))
+            .slice(0, 40)
+            .forEach((line) => proof.steps.push(`  ${String(line)}`));
+        }
+        if (assertion.kind === "CopulaPredicateAssertion") {
+          const unaryId = resolveUnaryId(assertion.complement, state);
+          if (unaryId !== null) {
+            const missing = formatUnaryFact(unaryId, counterexampleId, state);
+            proof.steps.push(`Missing: no derivation for ${missing}`);
+          }
+        }
+        if (witness?.premises?.length) {
+          proof.premises = (proof.premises ?? []).concat(witness.premises);
+        }
       }
       return proof;
     }

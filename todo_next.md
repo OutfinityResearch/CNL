@@ -1,24 +1,22 @@
 # TODO Next — aliniere implementare ↔ specificații
 
-## Taskuri Rămase
-- T20: ProofTrace v1 pentru toate răspunsurile (Plan/Simulate/Optimize) — TODO
-- T21: Proof pentru negație / absența unui fapt (counterexample + lipsa derivabilității) — TODO
-- T22: Explorer UI: panou dedicat pentru Proof (collapse, copy/export) — TODO
-- T23: Universal proof: include mărimea domeniului + detalii despre contraexemplu (witness facts) — TODO
+## Status curent (după fixuri)
+- `npm run checkTheories -e theories/base.formal.cnl`: `0` erori, `114` warning-uri.
+- Rezolvate complet:
+  - Subtipuri reflexive: `0`
+  - Cicluri în ierarhia de subtipuri: `0`
+  - Label-uri non-engleze importate: `0`
+- Importer-ul normalizează acum subtipurile (dedupe, cycle-break, filtrează metaclasele care “curg” în domeniu).
+- Parserul Turtle ignoră acum corect comentarii `#` și suportă `"""..."""` ca să nu pierdem `rdfs:label` după definiții multi-line.
+- Conflicte globale tip vs predicat: `0` (rezolvat prin redenumiri deterministe la generare, ex: `prov-entity`, `foaf-image`).
+- Termeni OBO fără label (ID-uri opace): scoși din output și scriși separat în `00-dictionary.unlabeled.generated.cnl` (audit-only; neload-uit).
 
-## Taskuri Completate (șterse)
-- T04: Spans în AST - done
-- T06: BecauseSentence semantica - done  
-- T07: Justificări reale - done
-- T08: Semi-naive materialization - done
-- T09: Simplificare API Session - done
-- T19: NP core multi-cuvânt cu quotes - done
-- T15: Base theories - done
-- T16: FactID BigInt - done
-- T11: Solve cu variabile (?X) + CSP v1 - done
-- T12: Plan BFS v1 cu acțiuni ground - done
-- T13: Simulate v1 cu tranziții - done
-- T14: Optimize v1 peste Solve - done
-- T18: KBDemo aliniat la sintaxă - done
-- T24: DS18 (Proof Traces) + proof în evals/query/solve/proof — done
-- T25: Provenance pentru atribute (numeric + entity) + deps/delta în materializare — done
+## TODO R1 — Duplicate între ontologii (cross-ontology)
+
+### Problema
+Mai rămân multe warning-uri `DUPLICATE_TYPE` și `DUPLICATE_PREDICATE` (aceleași cuvinte definite în mai multe ontologii).
+Unele sunt “legitime” (aceeași noțiune în mai multe ontologii), altele pot ascunde suprapuneri sau semnificații diferite.
+
+### Solutie
+ le acceptăm ca warning-uri  `checkTheories`, dar hai sa cautam o solutie sa difenretiem intre ce e legitim (si poate fi ignorat) si ce e conflict real si trebuie sa acceptam ca acelasi cuvint poate avea sensuri 
+ diferite in teorii diferite

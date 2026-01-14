@@ -1,14 +1,42 @@
 import { json, getStats, getSummary } from "../helpers.mjs";
-import { createSession } from "../session-store.mjs";
+import { readBody } from "../helpers.mjs";
+import { createSession, deleteSession, getSessionId } from "../session-store.mjs";
 import * as NLG from "../../nlg.mjs";
 
-export function handleSessionCreate(req, res, url) {
+function normalizeBaseMode(value) {
+  const v = String(value || "").trim().toLowerCase();
+  if (v === "formal" || v === "base.formal" || v === "base.formal.cnl") return "formal";
+  return "default";
+}
+
+function baseEntrypointForMode(mode) {
+  return mode === "formal" ? "theories/base.formal.cnl" : "theories/base.cnl";
+}
+
+export async function handleSessionCreate(req, res, url) {
   if (req.method !== "POST" || url.pathname !== "/api/session") return false;
-  const { id, session } = createSession();
+  let body = {};
+  try {
+    body = await readBody(req);
+  } catch {
+    body = {};
+  }
+
+  const mode = normalizeBaseMode(body.base);
+  const baseEntrypoint = baseEntrypointForMode(mode);
+
+  const previous = getSessionId(req);
+  if (previous && body.replace === true) {
+    deleteSession(previous);
+  }
+
+  const { id, session } = createSession({ baseEntrypoint });
   const summary = getSummary(session);
   json(res, 200, {
     ok: true,
     sessionId: id,
+    base: mode,
+    baseEntrypoint,
     stats: getStats(session),
     summary,
     message: "Session ready. Start adding facts.",

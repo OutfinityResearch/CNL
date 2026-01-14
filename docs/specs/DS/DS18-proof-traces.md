@@ -59,12 +59,16 @@ Command:
   Verify that Socrates is mortal.
 
 ProofTrace.steps (sketch):
+  Fact: Socrates is a man.
   Applied rule: Every man is mortal.
   Therefore: Socrates is mortal.
 
 ProofTrace.premises (sketch):
   - Socrates is a man.
 ```
+
+**Presentation note (Explorer):** UIs should render `premises` before `steps` (premise-first). For compactness, it is acceptable to
+present premises as `Fact: ...` lines and avoid a separate "Premises:" block if the UI interleaves them into the derivation narrative.
 
 ### Witness (Set Membership)
 Used for query/solve results that return entities.
@@ -84,6 +88,10 @@ Used for `Verify that every ...` forms.
 
 - If `true`: the trace should explain that there are no counterexamples (optionally listing the evaluated domain).
 - If `false`: include one counterexample entity and a note that the consequent is not derivable for that entity.
+
+**Required (v1.1):**
+- Include domain size (e.g. `Domain size: 12.`) when it can be computed deterministically.
+- For `false`, include a best-effort witness for domain membership of the counterexample (base facts / derivations) when available.
 
 ### PlanSearch
 Used for `Plan to achieve ...`.
@@ -113,6 +121,8 @@ The trace should include:
 - If `true`: a clear "not derivable" explanation for the inner claim.
 - If `false`: show that the inner claim is derivable, and (when available) include its derivation.
 
+**Recommended:** end the trace with an explicit `Therefore: not (<claim>).` line for readability.
+
 ## Provenance Requirements
 To support meaningful traces across features:
 - Unary and binary facts MUST record base and derived justifications (existing DS11/DS15 behavior).
@@ -123,7 +133,7 @@ To support meaningful traces across features:
 ## Integration Points
 - `CNLSession.execute/query/proof/solve/plan/simulate/optimize/explain` may attach `proof` to results.
 - The KB Explorer API returns `proof` alongside `result`.
-- UI renders the answer and a collapsible proof panel.
+- UI renders the answer and an inline proof block in the Chat transcript (no separate proof panel/widget).
 
 ## Related Specs
 - DS11 for justifications and provenance.

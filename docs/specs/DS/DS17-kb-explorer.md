@@ -127,6 +127,7 @@ When ProofTrace is present:
 - Display the answer as usual.
 - Display `proof.mode`, and render `proof.premises` before `proof.steps` (premise-first).
 - For Derivation mode, prefer compact lines such as `Applied rule: ...` and `Therefore: ...` and avoid requiring RuleIDs in user-facing text.
+- Proofs are rendered inline in the Chat response (as a compact text block). KB Explorer must not use a separate proof widget/panel.
 
 ### Explain Responses
 ```
@@ -170,28 +171,63 @@ Response: "I don't understand this. Try: 'John is a user.'
 │   ├── admin — 1 member
 │   ├── food — 2 members
 │   └── ...
-├── 🔗 relationships (3)
-│   ├── likes — 4 connections
-│   ├── manages — 2 connections
-│   └── assigned to — 1 connection
-├── 📋 rules (2)
-│   ├── If admin then user
-│   └── If manages then admin
-└── ⚡ actions (1)
-    └── deliver package
+├── 🔗 relationships (3)           <-- Grouped by first relevant concept
+│   ├── likes (4 connections)
+│   │   ├── user (3)
+│   │   │   ├── John (2)
+│   │   │   │   ├── Pizza_1
+│   │   │   │   └── Coffee_1
+│   │   │   └── Alice (1)
+│   │   │       └── Tea_1
+│   ├── manages (2)
+│   │   ├── admin (2)
+│   │   │   └── John (2)
+│   │   │       └── Alice
+│   └── assigned to (1)
+│       ├── truck (1)
+│       │   └── Truck_1 (1)
+│       │       └── Depot_A
+├── 📋 rules (2)                   <-- Grouped by first relevant concept
+│   ├── admin (1 rule)
+│   │   └── If admin then user
+│   └── manages (1 rule)
+│       └── If manages then admin
+├── ⚡ actions (1)
+│   └── deliver package
+└── ⚠️ issues (3)                  <-- Must be LAST
+    ├── ❌ Errors (1)
+    │   └── TypeBinaryPredicateConflict (1)
+    │       └── year (1)
+    │           └── Dictionary key 'year' is declared both as a type and as a binary predicate.
+    └── ⚠️ Warnings (2)
+        └── DuplicateRule (2)
+            └── duplicate-rules (2)
+                ├── Rule #0 has 2 duplicates
+                └── Rule #3 has 2 duplicates
 ```
 
 ### Node Display Rules
-1. **Things (Entities):** Show name + top 2 categories
-2. **Categories:** Show name + member count
-3. **Relationships:** Show verb phrase + connection count
-4. **Rules:** Show condensed IF-THEN summary
-5. **Actions:** Show action name
+1. **Top-level folder order:** `Things`, `concepts`, `relationships`, `rules`, `transitions`, `actions`, **issues (last)**.
+2. **Warnings:**
+   - The tree uses the label `⚠️ issues` and includes both errors and warnings.
+   - Grouped by `severity` → `kind` → `key` (concept/term).
+   - Leaf: specific issue text + kind + severity + raw JSON.
+3. **Things (Entities):** Show name + top 2 categories; leaf shows full inbound/outbound relations + raw JSON.
+4. **Categories:** Show name + member count; leaf shows full member list + raw JSON.
+5. **Relationships (Binary predicates):**
+   - Level 1: predicate name + total connection count.
+   - Level 2: **first relevant concept** for the connection set (currently: subject's first category; fallback: `(uncategorized)`).
+   - Level 3: subject (Thing) + count.
+   - Level 4: object leaf; clicking shows the specific fact + raw JSON (ids, formatted sentence, existence check).
+6. **Rules (Deductive):**
+   - Level 1: **first relevant concept** in the rule's condition (deterministic: smallest unary dependency id; else smallest predicate dependency id; else `general`).
+   - Level 2: rule leaf; clicking shows IF/THEN + raw JSON (rule plan).
+7. **Actions:** Action name; leaf shows preconditions/effects + raw JSON.
 
 ### Expand/Collapse
-- Top-level folders start expanded
-- Entity list collapses if >10 items
-- Click folder to toggle children
+- Folders have a `+`/`−` toggle control.
+- Clicking a node selects it and renders a report/details view in the details panel.
+- Default expansion is data-dependent (for example, Things may auto-collapse if too large).
 
 ### Empty State
 ```
@@ -445,10 +481,11 @@ Each node displays:
 - Zoom range: 0.25x to 4x
 
 #### Node Selection
-- Click node: Select and highlight
-- Selected node: Thicker border, show details panel
-- Connected nodes: Slightly highlighted
-- Unconnected nodes: Dimmed (0.3 opacity)
+- Click node: select and highlight the connected subgraph (both upstream and downstream reachability).
+- Selected node: thicker border + highlighted background.
+- Reachable nodes: highlighted; unreachable nodes: heavily dimmed.
+- Reachable edges: thicker + show edge labels; unreachable edges: heavily dimmed.
+- Click empty space: clear selection.
 
 #### Node Dragging
 - Drag node: Reposition manually
@@ -629,6 +666,113 @@ For rule-derived relationships, option to show hierarchy:
 
 ---
 
+## Component F: Intermediate Node Interaction (Scoped Summaries)
+
+### Problem
+The tree view contains intermediate grouping nodes (e.g., a "User" folder inside Warnings, or a "Likes" folder inside Relationships). Clicking these nodes currently does nothing or shows generic info. Users need to see a **comprehensive summary report** of the subtree they just clicked.
+
+### Solution: Scoped Overviews
+Clicking any non-leaf node MUST render a "Report View" in the details panel.
+
+**Requirements:**
+1.  **Contextual:** The report lists only items within that specific branch.
+2.  **Copy-Paste Friendly:** Information should be presented in text/tables that are easy to select and copy.
+3.  **Aggregated Stats:** Show counts and specific details for the group.
+4.  **Concept Cloud:** The report SHOULD render a compact "concept cloud" (colored bubbles sized by connectivity/frequency). Clicking a bubble reveals and selects the corresponding node in the Knowledge Tree and opens its details.
+
+**Applies to:** all non-leaf nodes, including top-level folders (`Things`, `concepts`, `relationships`, `rules`, `warnings`, etc.). In these views, the cloud is the primary visualization; list/table views may be kept as a collapsible "List View" for copy/paste.
+
+### Scoped View Types
+
+#### 1. Warning Group (by Concept)
+**Clicking:** `issues > ⚠️ Warnings > AmbiguousPredicateArity > user`
+**Displays:**
+- **Title:** "Issues regarding 'user'"
+- **List:** All error messages associated with this concept.
+- **Reasons:** Detailed explanation for each error.
+- **Suggested Fixes:** (If available)
+- **Developer View:** raw JSON for all warning items in this group.
+
+#### 2. Predicate Group
+**Clicking:** `Relationships > likes`
+**Displays:**
+- **Title:** "Predicate: likes"
+- **Stats:** Total connections, unique subjects, unique objects.
+- **Table:** Full list of `Subject -> Object` pairs.
+- **Definition:** Domain/Range info (if declared).
+- **Developer View:** raw JSON (ids and connection list).
+
+#### 3. Predicate Category Group
+**Clicking:** `Relationships > likes > user`
+**Displays:**
+- **Title:** "likes — user"
+- **Stats:** Total connections inside this category group.
+- **Table:** Full list of `Subject -> Object` pairs within the group.
+- **Developer View:** raw JSON (ids and filtered connections).
+
+#### 4. Subject Group
+**Clicking:** `Relationships > likes > user > John`
+**Displays:**
+- **Title:** "John likes..."
+- **List:** All objects John likes.
+- **Provenance:** Is this stated or derived?
+- **Developer View:** raw JSON (ids and target list).
+
+#### 5. Relationship Fact Leaf
+**Clicking:** `Relationships > likes > user > John > Pizza_1`
+**Displays:**
+- **Title:** "Relationship Fact"
+- **Sentence:** "John likes Pizza_1"
+- **Existence check:** whether the fact is currently present in the compiled KB.
+- **Developer View:** raw JSON (predicate id, subject id, object id, formatted sentence).
+
+#### 6. Rule Trigger Group
+**Clicking:** `Rules > admin`
+**Displays:**
+- **Title:** "Rules triggered by 'admin'"
+- **List:** All rules where 'admin' is the primary condition.
+- **Natural Language:** The full text of these rules.
+- **Developer View:** raw JSON (rule ids in the group).
+
+---
+
+## Component G: Rich Leaf Details
+
+Every leaf node in the tree must provide complete, relevant context.
+
+### 1. Entity Leaf
+- **Current:** Basic properties.
+- **Improved:**
+    - **Raw Key:** `E:John`
+    - **Provenance:** Source file or "User Input".
+    - **Full Relations:** Both incoming and outgoing, clickable.
+    - **Rules Affected:** Which rules apply to this entity? (e.g. "Matches Rule #1").
+    - **Developer View:** a raw JSON dump of the underlying session structures relevant to this entity (conceptual ids, category ids, relation ids).
+
+### 2. Rule Leaf
+- **Current:** Basic IF/THEN.
+- **Improved:**
+    - **Copyable Text:** The exact CNL text to recreate the rule.
+    - **Matches:** List of entities currently satisfying the condition.
+    - **Derived Facts:** List of facts generated *specifically* by this rule.
+    - **Developer View:** raw JSON dump of the rule plan (including dependencies/sets).
+
+### 3. Relationship Fact Leaf
+- **Improved:**
+    - **Sentence:** "John likes Pizza_1"
+    - **IDs:** predicate id, subject id, object id
+    - **Existence check:** whether the fact is currently present in the compiled KB
+    - **Developer View:** raw JSON dump of the connection payload.
+
+### 4. Warning Leaf
+- **Improved:**
+    - **Concept/Term:** what the warning is about
+    - **Kind + Severity:** classification
+    - **Message:** what is wrong
+    - **Developer View:** raw JSON dump of the warning object.
+
+---
+
 ## API Contract
 
 ### POST /api/session
@@ -639,7 +783,7 @@ Create new session.
 {
   "ok": true,
   "sessionId": "uuid",
-  "summary": { "things": 0, "categories": 0, "relationships": 0, "rules": 0 },
+  "summary": { "warnings": 0, "things": 0, "categories": 0, "relationships": 0, "rules": 0 },
   "message": "Session ready. Start adding facts."
 }
 ```
@@ -652,10 +796,32 @@ Get session stats.
 {
   "ok": true,
   "sessionId": "uuid",
-  "summary": { "things": 12, "categories": 5, "relationships": 3, "rules": 2 },
+  "summary": { "warnings": 3, "things": 12, "categories": 5, "relationships": 3, "rules": 2 },
   "message": "12 things known across 5 categories"
 }
 ```
+
+### GET /api/tree
+Get the Knowledge Tree for the current session.
+
+**Key requirement:** the server MUST provide an explicit `open` action for every node, so the client does not rely on fragile `id` heuristics.
+
+**Node shape (minimal):**
+```json
+{
+  "id": "p-0-c-12-s-3-o-9",
+  "text": "Pizza_1",
+  "icon": "tag",
+  "tooltip": "optional",
+  "expanded": false,
+  "children": [],
+  "open": { "type": "overview", "kind": "scoped", "id": "p-0-c-12-s-3-o-9" }
+}
+```
+
+**open actions:**
+- `{ "type": "overview", "kind": "<overviewKind>", "id": "<optionalScopedId>" }` → `GET /api/overview?kind=<overviewKind>&id=<optionalScopedId>`
+- `{ "type": "entity", "entityType": "<entityKind>", "id": <denseId> }` → `GET /api/entity?type=<entityKind>&id=<denseId>`
 
 ### POST /api/command
 Execute CNL.
@@ -669,7 +835,7 @@ Execute CNL.
   "mode": "learn",
   "message": "✓ Noted: John is now a user.",
   "changes": { "newEntities": ["John"], "newCategories": ["user"], "newFacts": 1 },
-  "summary": { "things": 1, "categories": 1, "relationships": 0, "rules": 0 }
+  "summary": { "warnings": 0, "things": 1, "categories": 1, "relationships": 0, "rules": 0 }
 }
 ```
 
@@ -691,6 +857,16 @@ Get knowledge tree.
 {
   "ok": true,
   "knowledge": {
+    "warnings": [
+       {
+         "concept": "user",
+         "count": 2,
+         "issues": [
+            { "message": "declared as both type and attribute", "reason": "ambiguous usage" },
+            { "message": "usage without determiner", "reason": "syntax rule violation" }
+         ]
+       }
+    ],
     "entities": [
       { "id": 0, "name": "John", "categories": ["user","admin"], "summary": "John is a user and admin" }
     ],
@@ -698,10 +874,23 @@ Get knowledge tree.
       { "id": 0, "name": "user", "memberCount": 3, "members": ["John","Alice","Bob"] }
     ],
     "relationships": [
-      { "id": 0, "name": "likes", "connectionCount": 2, "sample": "John likes Pizza_1" }
+      { 
+        "name": "likes", 
+        "count": 4, 
+        "subjects": [
+           { "name": "John", "count": 2, "objects": ["Pizza_1", "Coffee_1"] },
+           { "name": "Alice", "count": 1, "objects": ["Tea_1"] }
+        ]
+      }
     ],
     "rules": [
-      { "id": 0, "summary": "If admin then user", "appliedCount": 1 }
+      { 
+        "trigger": "admin", 
+        "count": 1, 
+        "items": [
+           { "id": 0, "summary": "If admin then user" }
+        ]
+      }
     ],
     "actions": [
       { "id": 0, "name": "deliver package" }
@@ -885,3 +1074,4 @@ function formatList(items, max = 5) {
 - DS04: Semantics
 - DS07: Error handling
 - DS12: Session API
+- DS24: Theory consistency checks and issue taxonomy

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pragmatics: Optimize</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Pragmatics</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Pragmatic Mode</span>
+        <h1>Optimize</h1>
+        <p>Find variable bindings that maximize or minimize a specific objective.</p>
+      </section>
+
+      <section class="section">
+        <h2>Concept</h2>
+        <p>
+          The <strong>Optimize</strong> pragmatic extends constraint solving. Instead of just finding <em>any</em> valid assignment, it searches for the assignment that produces the highest or lowest value for a given objective function (an attribute or an aggregation).
+        </p>
+
+        <h2>Syntax</h2>
+        <div class="code-block">
+<pre>
+Maximize &lt;Objective&gt; [Subject to &lt;Constraints&gt;].
+Minimize &lt;Objective&gt; [Subject to &lt;Constraints&gt;].
+</pre>
+        </div>
+
+        <h3>Examples</h3>
+        <div class="code-block">
+<pre>
+// Direct Attribute Optimization
+Maximize the price of ?product
+Subject to:
+    ?product is a Laptop.
+    ?product is in-stock.
+
+// Aggregation Optimization
+Minimize the total weight of ?route
+Subject to:
+    ?route is a DeliveryPath.
+    ?route is active.
+</pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Objective Functions</h2>
+        <p>The objective must evaluate to a numeric value:</p>
+        <ul>
+            <li><strong>Direct Attribute:</strong> <code>Maximize the capacity of ?server.</code> (Requires a variable binding).</li>
+            <li><strong>Aggregation:</strong> <code>Minimize the sum of weight of ?items.</code> (Supports <code>total of</code>, <code>sum of</code>, <code>average of</code>, <code>number of</code>).</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Execution Logic</h2>
+        <p>
+            1. <strong>Constraint Resolution:</strong> The `Subject to` clause is converted into a constraint satisfaction problem (same as <code>Solve</code>).<br>
+            2. <strong>Evaluation:</strong> For each valid variable assignment, the objective function is computed.<br>
+            3. <strong>Selection:</strong> The system tracks and returns the solution(s) with the optimal score.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Reference</h2>
+        <p>Defined in <a href="../specs/DS/DS23-optimization.md">DS23 - Optimization</a>.</p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Pragmatics</div></footer>
+  </div>
+</body>
+</html>

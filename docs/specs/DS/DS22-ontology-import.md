@@ -40,6 +40,8 @@ Ignored:
 Notes:
 - Language tags on literals (e.g. `"Label"@en`) are parsed and used for label selection.
 - Datatype annotations on literals (e.g. `"3"^^xsd:int`) are tolerated but not interpreted.
+- Triple-quoted literals (`"""..."""`) are tolerated so that OBO-style definitions/comments do not block label extraction.
+- `#` comments are ignored by the tokenizer (outside of literals/IRIs), to avoid corrupting multi-line literals that contain `#`.
 
 ## Supported Ontology Constructs (Subset)
 ### Vocabulary
@@ -67,6 +69,12 @@ Label preference rules:
 - Otherwise, prefer untagged labels.
 - Otherwise, fall back to the IRI local name.
 
+Non-English language-tagged labels are **ignored** (never selected), to avoid importing vocabulary that violates the repo-wide "English-only" rule.
+
+Additional label sources (lower priority than `rdfs:label` / `skos:prefLabel`):
+- `oboInOwl:hasExactSynonym`
+- `IAO:0000111` (editor preferred term)
+
 If the resulting predicate verb would collide with a CNL keyword, the importer falls back to a single hyphenated verb token (to keep the generated theory parseable).
 
 OWL-style `hasX` property names are mapped to a single hyphenated verb token (example: `has-beginning`) to avoid the reserved CNL keyword `has` (which is used for attributes).
@@ -79,6 +87,7 @@ Predicate phrase constraints:
 For an output directory `theories/semantic-web/<id>/`, the importer writes:
 - `00-dictionary.generated.cnl` (BaseDictionary context only)
 - `00-dictionary.extra.cnl` (BaseDictionary manual additions)
+- `00-dictionary.unlabeled.generated.cnl` (audit-only list of dropped opaque-ID terms, written only when needed)
 - `01-rules.generated.cnl` (schema rules in a chosen context)
 - `01-rules.extra.cnl` (manual schema rules in a separate `...Extra` context)
 
@@ -105,6 +114,26 @@ On regeneration:
 - `.extra.cnl` is preserved, but single-line statements that match generated statements are removed.
 - Context directives and comments are preserved in `.extra.cnl`.
 
+## Subtype Edge Normalization
+The importer normalizes subtype edges before emitting them:
+- Reflexive edges (`"X" is a subtype of "X".`) are dropped.
+- Duplicate identical edges are deduplicated.
+- Cycles in the subtype graph are broken deterministically (edges that would introduce a cycle are dropped).
+- Obvious metamodel leaks are filtered: abstract OWL/RDFS metaclasses like `"restriction"`, `"class"`, `"type"` are not allowed to become subtypes of concrete domain types.
+
+## Opaque-ID Term Policy
+Some ontologies contain IRIs that encode opaque identifiers (e.g. `CHEBI_50906`, `COB_0000121`), and some of those IRIs do not provide any English label.
+
+To keep generated CNL readable by default:
+- If a term has **no English label** and its derived key looks like an opaque ID (`term-<hash>` or `bfo-000...` / `ro-000...` / `chebi-...` / `cob-...` / etc), it is **dropped** from the generated dictionary.
+- Dropped terms are recorded in `00-dictionary.unlabeled.generated.cnl` (audit-only; not loaded by base bundles).
+
+## Cross-Ontology Key Conflicts
+Multiple ontologies may reuse the same English surface form for different kinds (type vs binary predicate).
+To keep bundle loading deterministic and unambiguous:
+- The importer may apply deterministic, ontology-scoped renames for a small set of known conflict keys (example: `prov-entity`, `foaf-image`).
+- Renames are applied during generation so that both dictionary and rules remain consistent.
+
 ## Implementation Reference
 - Tool entrypoint: `tools/ontology-import/import.mjs`
 - Parser: `tools/ontology-import/lib/turtle.mjs`
@@ -116,3 +145,4 @@ On regeneration:
 - DS03 for syntax and naming conventions.
 - DS10 for placeholder rule templates used by imported schema rules.
 - DS13/DS14 for BaseDictionary + base bundle philosophy.
+- DS24 for theory consistency checks and ontology collision resolution.

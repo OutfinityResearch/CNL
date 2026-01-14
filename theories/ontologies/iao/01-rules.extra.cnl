@@ -1,0 +1,5 @@
+// Manual additions for ontology rules (kept across regenerations).
+
+--- CONTEXT: IaoExtra ---
+
+// Add manual statements here. Re-running the ontology importer will remove duplicates.

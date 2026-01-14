@@ -78,7 +78,16 @@ export function parseAssertionFromTokens(tokens) {
 
   if (next.type === "word" && COPULAS.has(next.lower)) {
     const copula = stream.consume().lower;
-    if (stream.peek().type === "word" && PREPOSITIONS.has(stream.peek(1).lower)) {
+    
+    // Check for negation: "is not", "are not", etc.
+    let negated = false;
+    if (stream.peek().type === "word" && stream.peek().lower === "not") {
+      stream.consume();
+      negated = true;
+    }
+    
+    const peek1 = stream.peek(1);
+    if (stream.peek().type === "word" && peek1 && PREPOSITIONS.has(peek1.lower)) {
       const verb = parseIdentifier(stream).raw;
       const preposition = stream.consume().lower;
       const object = parseObjectRef(stream);
@@ -91,6 +100,7 @@ export function parseAssertionFromTokens(tokens) {
         kind: "PassiveRelationAssertion",
         subject,
         copula,
+        negated,
         verb,
         preposition,
         object,
@@ -116,6 +126,7 @@ export function parseAssertionFromTokens(tokens) {
       kind: "CopulaPredicateAssertion",
       subject,
       copula,
+      negated,
       complement,
       span: { start: startToken.start, end: endToken.end },
     };
@@ -318,10 +329,7 @@ export function parseConditionTokens(tokens) {
     const endToken = filtered[filtered.length - 1];
     return {
       kind: "AndChain",
-      items: parts.map((part) => ({
-        kind: "AtomicCondition",
-        assertion: parseAssertionFromTokens(part),
-      })),
+      items: parts.map((part) => parseConditionTokens(part)),
       span: { start: startToken.start, end: endToken.end },
     };
   }
@@ -332,10 +340,7 @@ export function parseConditionTokens(tokens) {
     const endToken = filtered[filtered.length - 1];
     return {
       kind: "OrChain",
-      items: parts.map((part) => ({
-        kind: "AtomicCondition",
-        assertion: parseAssertionFromTokens(part),
-      })),
+      items: parts.map((part) => parseConditionTokens(part)),
       span: { start: startToken.start, end: endToken.end },
     };
   }

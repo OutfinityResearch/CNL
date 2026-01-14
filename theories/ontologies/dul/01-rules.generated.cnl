@@ -1,0 +1,251 @@
+// This file is generated. Do not edit.
+// Source: ontologies/dul/dul.ttl
+
+--- CONTEXT: Dul ---
+
+// Generated from ontology import: Dul
+Rule: If X about Y, then X is associated with Y.
+Rule: If X about Y, then Y reference of X.
+Rule: If X action-included-in Y, then X event-included-in Y.
+Rule: If X action-included-in Y, then Y includes-action X.
+Rule: If X acts for Y, then X is associated with Y.
+Rule: If X acts for Y, then Y acts through X.
+Rule: If X acts through Y, then X is associated with Y.
+Rule: If X acts through Y, then Y acts for X.
+Rule: If X agent-included-in Y, then X object-included-in Y.
+Rule: If X agent-included-in Y, then Y includes-agent X.
+Rule: If X agent-involved-in Y, then X participant in Y.
+Rule: If X agent-involved-in Y, then Y involves-agent X.
+Rule: If X characterizes Y, then X is associated with Y.
+Rule: If X characterizes Y, then Y is characterized by X.
+Rule: If X classifies Y, then X is associated with Y.
+Rule: If X classifies Y, then Y is classified by X.
+Rule: If X co-participates-with Y, then X is associated with Y.
+Rule: If X co-participates-with Y, then Y co-participates-with X.
+Rule: If X co-participates-with Y, then Y co-participates-with X.
+Rule: If X component of Y, then X propert-part-of Y.
+Rule: If X component of Y, then Y has-component X.
+Rule: If X concept-expressed-by Y, then X is expressed by Y.
+Rule: If X concept-expressed-by Y, then Y expresses-concept X.
+Rule: If X concept-used-in Y, then X is associated with Y.
+Rule: If X concept-used-in Y, then Y uses-concept X.
+Rule: If X conceptualizes Y, then X is associated with Y.
+Rule: If X conceptualizes Y, then Y is conceptualized by X.
+Rule: If X concretely-expressed-by Y, then X is associated with Y.
+Rule: If X concretely-expressed-by Y, then Y concretely-expresses X.
+Rule: If X concretely-expresses Y, then X is associated with Y.
+Rule: If X concretely-expresses Y, then Y concretely-expressed-by X.
+Rule: If X constituent of Y, then X is associated with Y.
+Rule: If X constituent of Y, then Y has-constituent X.
+Rule: If X constraint for Y, then X classifies Y.
+Rule: If X constraint for Y, then Y has-constraint X.
+Rule: If X covers Y, then X is associated with Y.
+Rule: If X covers Y, then Y is covered by X.
+Rule: If X defines Y, then X uses-concept Y.
+Rule: If X defines Y, then Y is defined in X.
+Rule: If X defines-role Y, then X defines Y.
+Rule: If X defines-role Y, then Y role-defined-in X.
+Rule: If X defines-task Y, then X defines Y.
+Rule: If X defines-task Y, then Y task-defined-in X.
+Rule: If X describes Y, then X is associated with Y.
+Rule: If X describes Y, then Y is described by X.
+Rule: If X directly-follows Y, then X follows Y.
+Rule: If X directly-follows Y, then Y directly-precedes X.
+Rule: If X directly-precedes Y, then X precedes Y.
+Rule: If X directly-precedes Y, then Y directly-follows X.
+Rule: If X event-included-in Y, then X has-setting Y.
+Rule: If X event-included-in Y, then Y includes-event X.
+Rule: If X executes-task Y, then X is classified by Y.
+Rule: If X executes-task Y, then Y is executed in X.
+Rule: If X expands Y, then X related-to-description Y.
+Rule: If X expands Y, then Y is expanded in X.
+Rule: If X expresses Y, then X is associated with Y.
+Rule: If X expresses Y, then Y is expressed by X.
+Rule: If X expresses-concept Y, then X expresses Y.
+Rule: If X expresses-concept Y, then Y concept-expressed-by X.
+Rule: If X far from Y, then X is associated with Y.
+Rule: If X far from Y, then Y far from X.
+Rule: If X far from Y, then Y far from X.
+Rule: If X follows Y and Y follows Z, then X follows Z.
+Rule: If X follows Y, then X is associated with Y.
+Rule: If X follows Y, then Y precedes X.
+Rule: If X has-common-boundary Y, then X is associated with Y.
+Rule: If X has-common-boundary Y, then Y has-common-boundary X.
+Rule: If X has-common-boundary Y, then Y has-common-boundary X.
+Rule: If X has-component Y, then X has-proper-part Y.
+Rule: If X has-component Y, then Y component of X.
+Rule: If X has-constituent Y, then X is associated with Y.
+Rule: If X has-constituent Y, then Y constituent of X.
+Rule: If X has-constraint Y, then X is classified by Y.
+Rule: If X has-constraint Y, then Y constraint for X.
+Rule: If X has-event-date Y, then X has-data-value Y.
+Rule: If X has-in-scope Y, then X is associated with Y.
+Rule: If X has-interval-date Y, then X has-region-data-value Y.
+Rule: If X has-location Y, then X is associated with Y.
+Rule: If X has-location Y, then Y location of X.
+Rule: If X has-member Y, then X is associated with Y.
+Rule: If X has-member Y, then Y is member of X.
+Rule: If X has-parameter Y, then X related-to-concept Y.
+Rule: If X has-parameter Y, then Y parameter for X.
+Rule: If X has-parameter-data-value Y, then X has-data-value Y.
+Rule: If X has-part Y and Y has-part Z, then X has-part Z.
+Rule: If X has-part Y, then X is associated with Y.
+Rule: If X has-part Y, then Y is part of X.
+Rule: If X has-participant Y, then X is associated with Y.
+Rule: If X has-participant Y, then Y participant in X.
+Rule: If X has-postcondition Y, then X directly-precedes Y.
+Rule: If X has-postcondition Y, then Y postcondition of X.
+Rule: If X has-precondition Y, then X directly-follows Y.
+Rule: If X has-precondition Y, then Y precondition of X.
+Rule: If X has-proper-part Y and Y has-proper-part Z, then X has-proper-part Z.
+Rule: If X has-proper-part Y, then X has-part Y.
+Rule: If X has-proper-part Y, then Y propert-part-of X.
+Rule: If X has-quality Y, then X is associated with Y.
+Rule: If X has-quality Y, then Y quality of X.
+Rule: If X has-region Y, then X is associated with Y.
+Rule: If X has-region Y, then Y region for X.
+Rule: If X has-region-data-value Y, then X has-data-value Y.
+Rule: If X has-role Y, then X is classified by Y.
+Rule: If X has-role Y, then Y role of X.
+Rule: If X has-setting Y, then X is associated with Y.
+Rule: If X has-setting Y, then Y setting for X.
+Rule: If X has-task Y, then X related-to-concept Y.
+Rule: If X has-task Y, then Y task of X.
+Rule: If X has-time-interval Y, then X has-region Y.
+Rule: If X has-time-interval Y, then Y time-interval-of X.
+Rule: If X in-the-same-setting-as Y, then X is associated with Y.
+Rule: If X in-the-same-setting-as Y, then Y in-the-same-setting-as X.
+Rule: If X in-the-same-setting-as Y, then Y in-the-same-setting-as X.
+Rule: If X includes-action Y, then X includes-event Y.
+Rule: If X includes-action Y, then Y action-included-in X.
+Rule: If X includes-agent Y, then X includes-object Y.
+Rule: If X includes-agent Y, then Y agent-included-in X.
+Rule: If X includes-event Y, then X setting for Y.
+Rule: If X includes-event Y, then Y event-included-in X.
+Rule: If X includes-object Y, then X setting for Y.
+Rule: If X includes-object Y, then Y object-included-in X.
+Rule: If X includes-part Y, then X setting for Y.
+Rule: If X includes-time Y, then X setting for Y.
+Rule: If X includes-time Y, then Y time-included-in X.
+Rule: If X includes-whole Y, then X setting for Y.
+Rule: If X introduces Y, then X is associated with Y.
+Rule: If X introduces Y, then Y is introduced by X.
+Rule: If X involves-agent Y, then X has-participant Y.
+Rule: If X involves-agent Y, then Y agent-involved-in X.
+Rule: If X is associated with Y and Y is associated with Z, then X is associated with Z.
+Rule: If X is associated with Y, then Y is associated with X.
+Rule: If X is associated with Y, then Y is associated with X.
+Rule: If X is characterized by Y, then X is associated with Y.
+Rule: If X is characterized by Y, then Y characterizes X.
+Rule: If X is classified by Y, then X is associated with Y.
+Rule: If X is classified by Y, then Y classifies X.
+Rule: If X is conceptualized by Y, then X is associated with Y.
+Rule: If X is conceptualized by Y, then Y conceptualizes X.
+Rule: If X is covered by Y, then X is associated with Y.
+Rule: If X is covered by Y, then Y covers X.
+Rule: If X is defined in Y, then X concept-used-in Y.
+Rule: If X is defined in Y, then Y defines X.
+Rule: If X is described by Y, then X is associated with Y.
+Rule: If X is described by Y, then Y describes X.
+Rule: If X is executed in Y, then X classifies Y.
+Rule: If X is executed in Y, then Y executes-task X.
+Rule: If X is expanded in Y, then X related-to-description Y.
+Rule: If X is expanded in Y, then Y expands X.
+Rule: If X is expressed by Y, then X is associated with Y.
+Rule: If X is expressed by Y, then Y expresses X.
+Rule: If X is introduced by Y, then X is associated with Y.
+Rule: If X is introduced by Y, then Y introduces X.
+Rule: If X is member of Y, then X is associated with Y.
+Rule: If X is member of Y, then Y has-member X.
+Rule: If X is parametrized by Y, then X is classified by Y.
+Rule: If X is parametrized by Y, then Y parametrizes X.
+Rule: If X is part of Y and Y is part of Z, then X is part of Z.
+Rule: If X is part of Y, then X is associated with Y.
+Rule: If X is part of Y, then Y has-part X.
+Rule: If X is realized by Y, then X is associated with Y.
+Rule: If X is realized by Y, then Y realizes X.
+Rule: If X is satisfied by Y, then X is associated with Y.
+Rule: If X is satisfied by Y, then Y satisfies X.
+Rule: If X is specialized by Y and Y is specialized by Z, then X is specialized by Z.
+Rule: If X is specialized by Y, then X is associated with Y.
+Rule: If X is specialized by Y, then Y specializes X.
+Rule: If X is subordinated to Y, then X directly-follows Y.
+Rule: If X is subordinated to Y, then X related-to-concept Y.
+Rule: If X is subordinated to Y, then Y is superordinated to X.
+Rule: If X is superordinated to Y, then X directly-precedes Y.
+Rule: If X is superordinated to Y, then X related-to-concept Y.
+Rule: If X is superordinated to Y, then Y is subordinated to X.
+Rule: If X is unified by Y, then X is associated with Y.
+Rule: If X is unified by Y, then Y unifies X.
+Rule: If X location of Y, then X is associated with Y.
+Rule: If X location of Y, then Y has-location X.
+Rule: If X near to Y, then X is associated with Y.
+Rule: If X near to Y, then Y near to X.
+Rule: If X near to Y, then Y near to X.
+Rule: If X object-included-in Y, then X has-setting Y.
+Rule: If X object-included-in Y, then Y includes-object X.
+Rule: If X observable at Y, then X has-region Y.
+Rule: If X observable at Y, then Y time-of-observation-of X.
+Rule: If X overlaps Y, then X is associated with Y.
+Rule: If X overlaps Y, then Y overlaps X.
+Rule: If X overlaps Y, then Y overlaps X.
+Rule: If X parameter for Y, then X related-to-concept Y.
+Rule: If X parameter for Y, then Y has-parameter X.
+Rule: If X parametrizes Y, then X classifies Y.
+Rule: If X parametrizes Y, then Y is parametrized by X.
+Rule: If X participant in Y, then X is associated with Y.
+Rule: If X participant in Y, then Y has-participant X.
+Rule: If X postcondition of Y, then X directly-follows Y.
+Rule: If X postcondition of Y, then Y has-postcondition X.
+Rule: If X precedes Y and Y precedes Z, then X precedes Z.
+Rule: If X precedes Y, then X is associated with Y.
+Rule: If X precedes Y, then Y follows X.
+Rule: If X precondition of Y, then X directly-precedes Y.
+Rule: If X precondition of Y, then Y has-precondition X.
+Rule: If X propert-part-of Y and Y propert-part-of Z, then X propert-part-of Z.
+Rule: If X propert-part-of Y, then X is part of Y.
+Rule: If X propert-part-of Y, then Y has-proper-part X.
+Rule: If X quality of Y, then X is associated with Y.
+Rule: If X quality of Y, then Y has-quality X.
+Rule: If X realizes Y, then X is associated with Y.
+Rule: If X realizes Y, then Y is realized by X.
+Rule: If X realizes-information-about Y, then X is associated with Y.
+Rule: If X realizes-information-about Y, then Y reference-of-information-realized-by X.
+Rule: If X realizes-self-information Y, then X realizes-information-about Y.
+Rule: If X reference of Y, then X is associated with Y.
+Rule: If X reference of Y, then Y about X.
+Rule: If X reference-of-information-realized-by Y, then X is associated with Y.
+Rule: If X reference-of-information-realized-by Y, then Y realizes-information-about X.
+Rule: If X region for Y, then X is associated with Y.
+Rule: If X region for Y, then Y has-region X.
+Rule: If X related-to-concept Y, then X is associated with Y.
+Rule: If X related-to-concept Y, then Y related-to-concept X.
+Rule: If X related-to-concept Y, then Y related-to-concept X.
+Rule: If X related-to-description Y, then X is associated with Y.
+Rule: If X related-to-description Y, then Y related-to-description X.
+Rule: If X related-to-description Y, then Y related-to-description X.
+Rule: If X role of Y, then X classifies Y.
+Rule: If X role of Y, then Y has-role X.
+Rule: If X role-defined-in Y, then X is defined in Y.
+Rule: If X role-defined-in Y, then Y defines-role X.
+Rule: If X satisfies Y, then X is associated with Y.
+Rule: If X satisfies Y, then Y is satisfied by X.
+Rule: If X setting for Y, then X is associated with Y.
+Rule: If X setting for Y, then Y has-setting X.
+Rule: If X specializes Y and Y specializes Z, then X specializes Z.
+Rule: If X specializes Y, then X is associated with Y.
+Rule: If X specializes Y, then Y is specialized by X.
+Rule: If X task of Y, then X related-to-concept Y.
+Rule: If X task of Y, then Y has-task X.
+Rule: If X task-defined-in Y, then X is defined in Y.
+Rule: If X task-defined-in Y, then Y defines-task X.
+Rule: If X time-included-in Y, then X has-setting Y.
+Rule: If X time-included-in Y, then Y includes-time X.
+Rule: If X time-interval-of Y, then X region for Y.
+Rule: If X time-interval-of Y, then Y has-time-interval X.
+Rule: If X time-of-observation-of Y, then X region for Y.
+Rule: If X time-of-observation-of Y, then Y observable at X.
+Rule: If X unifies Y, then X is associated with Y.
+Rule: If X unifies Y, then Y is unified by X.
+Rule: If X uses-concept Y, then X is associated with Y.
+Rule: If X uses-concept Y, then Y concept-used-in X.

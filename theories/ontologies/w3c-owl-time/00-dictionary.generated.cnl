@@ -4,12 +4,17 @@
 --- CONTEXT: BaseDictionary ---
 
 // Generated from ontology import: W3cOwlTime
+
+// Resolved key collisions (type vs binary predicate):
+// - "day-of-week": chose property (dropped class)
+// - "month-of-year": chose property (dropped class)
+// - "temporal-position": chose property (dropped class)
+// - "time-position": chose property (dropped class)
+// - "year": chose property (dropped class)
 "date-time-description" is a type.
 "date-time-description" is a "unary predicate".
 "date-time-interval" is a type.
 "date-time-interval" is a "unary predicate".
-"day-of-week" is a type.
-"day-of-week" is a "unary predicate".
 "time-duration" is a type.
 "time-duration" is a "unary predicate".
 "duration-description" is a type.
@@ -24,34 +29,26 @@
 "time-interval" is a "unary predicate".
 "january" is a type.
 "january" is a "unary predicate".
-"month-of-year" is a type.
-"month-of-year" is a "unary predicate".
 "proper-interval" is a type.
 "proper-interval" is a "unary predicate".
-"trs" is a type.
-"trs" is a "unary predicate".
+"temporal-reference-system" is a type.
+"temporal-reference-system" is a "unary predicate".
 "temporal-duration" is a type.
 "temporal-duration" is a "unary predicate".
 "temporal-entity" is a type.
 "temporal-entity" is a "unary predicate".
-"temporal-position" is a type.
-"temporal-position" is a "unary predicate".
 "temporal-unit" is a type.
 "temporal-unit" is a "unary predicate".
-"time-position" is a type.
-"time-position" is a "unary predicate".
 "time-zone" is a type.
 "time-zone" is a "unary predicate".
-"year" is a type.
-"year" is a "unary predicate".
 "type" is a type.
 "type" is a "unary predicate".
 "date" is a type.
 "date" is a "unary predicate".
 "date-time" is a type.
 "date-time" is a "unary predicate".
-"sello-de-tiempo" is a type.
-"sello-de-tiempo" is a "unary predicate".
+"date-time-stamp" is a type.
+"date-time-stamp" is a "unary predicate".
 "decimal" is a type.
 "decimal" is a "unary predicate".
 "duration" is a type.
@@ -74,7 +71,7 @@
 // Binary predicates
 "after" is a "binary predicate".
 "before" is a "binary predicate".
-"dia" is a "binary predicate".
+"day" is a "binary predicate".
 "day-of-week" is a "binary predicate".
 "day-of-year" is a "binary predicate".
 "days-duration" is a "binary predicate".
@@ -83,7 +80,7 @@
 "has-duration" is a "binary predicate".
 "has-duration-description" is a "binary predicate".
 "has-end" is a "binary predicate".
-"sistema-de-referencia-temporal-utilizado" is a "binary predicate".
+"has-trs" is a "binary predicate".
 "has-temporal-duration" is a "binary predicate".
 "has-time" is a "binary predicate".
 "has-xsd-duration" is a "binary predicate".
@@ -124,7 +121,7 @@
 "second" is a "binary predicate".
 "seconds-duration" is a "binary predicate".
 "in-time-zone" is a "binary predicate".
-"tipo-de-unidad-temporal" is a "binary predicate".
+"unit-type" is a "binary predicate".
 "week" is a "binary predicate".
 "weeks-duration" is a "binary predicate".
 "has-xsd-date-time" is a "binary predicate".
@@ -136,12 +133,10 @@
 "date-time-description" is a subtype of "restriction".
 "date-time-description" is a subtype of "type".
 "date-time-interval" is a subtype of "proper-interval".
-"day-of-week" is a subtype of "thing".
 "duration-description" is a subtype of "generalized-duration-description".
 "duration-description" is a subtype of "restriction".
 "duration-description" is a subtype of "type".
 "generalized-date-time-description" is a subtype of "restriction".
-"generalized-date-time-description" is a subtype of "temporal-position".
 "generalized-date-time-description" is a subtype of "type".
 "generalized-duration-description" is a subtype of "restriction".
 "generalized-duration-description" is a subtype of "temporal-duration".
@@ -149,29 +144,19 @@
 "january" is a subtype of "date-time-description".
 "january" is a subtype of "restriction".
 "january" is a subtype of "type".
-"month-of-year" is a subtype of "date-time-description".
-"month-of-year" is a subtype of "restriction".
-"month-of-year" is a subtype of "type".
 "proper-interval" is a subtype of "time-interval".
 "temporal-entity" is a subtype of "thing".
-"temporal-position" is a subtype of "restriction".
-"temporal-position" is a subtype of "type".
 "temporal-unit" is a subtype of "temporal-duration".
 "time-duration" is a subtype of "restriction".
 "time-duration" is a subtype of "temporal-duration".
 "time-duration" is a subtype of "type".
 "time-instant" is a subtype of "temporal-entity".
 "time-interval" is a subtype of "temporal-entity".
-"time-position" is a subtype of "class".
-"time-position" is a subtype of "temporal-position".
-"time-position" is a subtype of "type".
-"year" is a subtype of "duration-description".
-"year" is a subtype of "restriction".
-"year" is a subtype of "type".
 
 // Domain and range constraints
 the domain of "after" is "temporal-entity".
 the domain of "before" is "temporal-entity".
+the domain of "day" is "generalized-date-time-description".
 the domain of "day-of-week" is "generalized-date-time-description".
 the domain of "day-of-year" is "generalized-date-time-description".
 the domain of "days-duration" is "generalized-duration-description".
@@ -180,6 +165,8 @@ the domain of "has-date-time-description" is "date-time-interval".
 the domain of "has-end" is "temporal-entity".
 the domain of "has-temporal-duration" is "temporal-entity".
 the domain of "has-time-instant-inside" is "time-interval".
+the domain of "has-trs" is "class".
+the domain of "has-trs" is "type".
 the domain of "has-xsd-date-time" is "date-time-interval".
 the domain of "has-xsd-duration" is "temporal-entity".
 the domain of "hour" is "generalized-date-time-description".
@@ -208,25 +195,22 @@ the domain of "interval-started-by" is "proper-interval".
 the domain of "interval-starts" is "proper-interval".
 the domain of "minute" is "generalized-date-time-description".
 the domain of "minutes" is "generalized-duration-description".
+the domain of "month" is "generalized-date-time-description".
 the domain of "month-of-year" is "generalized-date-time-description".
 the domain of "months-duration" is "generalized-duration-description".
-the domain of "name-of-temporal-position" is "time-position".
 the domain of "numeric-value-of-temporal-duration" is "time-duration".
-the domain of "numeric-value-of-temporal-position" is "time-position".
 the domain of "second" is "generalized-date-time-description".
 the domain of "seconds-duration" is "generalized-duration-description".
-the domain of "sistema-de-referencia-temporal-utilizado" is "class".
-the domain of "sistema-de-referencia-temporal-utilizado" is "type".
 the domain of "temporal-position" is "time-instant".
 the domain of "time-position" is "time-instant".
-the domain of "tipo-de-unidad-temporal" is "class".
-the domain of "tipo-de-unidad-temporal" is "type".
+the domain of "unit-type" is "class".
+the domain of "unit-type" is "type".
 the domain of "week" is "generalized-date-time-description".
 the domain of "weeks-duration" is "generalized-duration-description".
+the domain of "year" is "generalized-date-time-description".
 the domain of "years-duration" is "generalized-duration-description".
 the range of "after" is "temporal-entity".
 the range of "before" is "temporal-entity".
-the range of "day-of-week" is "day-of-week".
 the range of "day-of-year" is "non-negative-integer".
 the range of "days-duration" is "decimal".
 the range of "has-beginning" is "time-instant".
@@ -237,6 +221,7 @@ the range of "has-end" is "time-instant".
 the range of "has-temporal-duration" is "temporal-duration".
 the range of "has-time" is "temporal-entity".
 the range of "has-time-instant-inside" is "time-instant".
+the range of "has-trs" is "temporal-reference-system".
 the range of "has-xsd-date-time" is "date-time".
 the range of "has-xsd-duration" is "duration".
 the range of "hour" is "non-negative-integer".
@@ -245,7 +230,7 @@ the range of "in-date-time-description" is "generalized-date-time-description".
 the range of "in-time-zone" is "time-zone".
 the range of "in-xsd-date" is "date".
 the range of "in-xsd-date-time" is "date-time".
-the range of "in-xsd-date-time-stamp" is "sello-de-tiempo".
+the range of "in-xsd-date-time-stamp" is "date-time-stamp".
 the range of "in-xsd-g-year" is "g-year".
 the range of "in-xsd-g-year-month" is "g-year-month".
 the range of "interval after" is "proper-interval".
@@ -265,17 +250,13 @@ the range of "interval-started-by" is "proper-interval".
 the range of "interval-starts" is "proper-interval".
 the range of "minute" is "non-negative-integer".
 the range of "minutes" is "decimal".
-the range of "month-of-year" is "month-of-year".
 the range of "months-duration" is "decimal".
 the range of "name-of-temporal-position" is "string".
 the range of "numeric-value-of-temporal-duration" is "decimal".
 the range of "numeric-value-of-temporal-position" is "decimal".
 the range of "second" is "decimal".
 the range of "seconds-duration" is "decimal".
-the range of "sistema-de-referencia-temporal-utilizado" is "trs".
-the range of "temporal-position" is "temporal-position".
-the range of "time-position" is "time-position".
-the range of "tipo-de-unidad-temporal" is "temporal-unit".
+the range of "unit-type" is "temporal-unit".
 the range of "week" is "non-negative-integer".
 the range of "weeks-duration" is "decimal".
 the range of "years-duration" is "decimal".

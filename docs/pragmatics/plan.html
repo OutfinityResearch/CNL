@@ -22,37 +22,63 @@
       <section class="hero">
         <span class="tag">Pragmatic Mode</span>
         <h1>Plan</h1>
-        <p>Generate ordered action sequences to achieve goals.</p>
+        <p>Generate a sequence of actions to achieve a goal condition.</p>
       </section>
 
       <section class="section">
         <h2>Concept</h2>
         <p>
-          The <strong>Plan</strong> pragmatic transforms CNL from a query language into an AI agent. Given a <strong>Goal State</strong> (defined as a condition), it searches for a sequence of <strong>Actions</strong> (defined in Action Blocks) that will transition the world from the current state to the goal state.
+          The <strong>Plan</strong> pragmatic finds a path from the current state to a goal state using defined <strong>Action Blocks</strong>. It uses a Breadth-First Search (BFS) to find the shortest sequence of actions.
         </p>
 
         <h2>Syntax</h2>
         <div class="code-block">
 <pre>
-Plan to achieve the system is active.
+Plan to achieve &lt;Goal Condition&gt;.
 </pre>
         </div>
 
-        <h2>Execution Logic</h2>
-        <p>
-          The engine treats the Goal ("system is active") as the destination in a state-space graph.
-        </p>
-        <ul class="list">
-          <li>It looks at available actions (e.g., <code>StartSystem</code>).</li>
-          <li>It checks preconditions: <code>StartSystem</code> requires <code>Power is On</code>.</li>
-          <li>It recurses: "Plan to achieve Power is On".</li>
-          <li>It finds <code>TurnOnPower</code> action.</li>
+        <h3>Example</h3>
+        <div class="code-block">
+<pre>
+Plan to achieve Package_A is delivered.
+</pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Action Blocks</h2>
+        <p>Actions are defined in the source text. In Plan v1, actions must be <strong>ground</strong> (no variables).</p>
+        <div class="code-block">
+<pre>
+Action: deliver package.
+Agent: a robot.
+Precondition: Robot_1 carries Package_A.
+Effect: Package_A is delivered.
+</pre>
+        </div>
+        <ul>
+            <li><strong>Action/Agent:</strong> Unique identifiers for the action.</li>
+            <li><strong>Precondition:</strong> Must be true in the current state for the action to apply.</li>
+            <li><strong>Effect:</strong> Adds facts to the state (Plan v1 supports additions only).</li>
         </ul>
-        <p>
-          The result is a linear plan: <code>[TurnOnPower(), StartSystem()]</code>. This uses <strong>ActionPlan</strong> IR and heuristic search (A* or BFS).
-        </p>
+      </section>
+
+      <section class="section">
+        <h2>Execution Model (v1)</h2>
+        <ul>
+            <li><strong>Strategy:</strong> Bounded Breadth-First Search (BFS).</li>
+            <li><strong>Limits:</strong> Depth limit of 6, Node limit of 200.</li>
+            <li><strong>Output:</strong> An ordered list of steps (e.g., "deliver package") and a <code>ProofTrace</code> demonstrating success.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Reference</h2>
+        <p>Defined in <a href="../specs/DS/DS19-planning.md">DS19 - Planning</a>.</p>
       </section>
     </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Pragmatics</div></footer>
   </div>
 </body>
 </html>

@@ -7,6 +7,42 @@ import { executeCommand } from "./app/command.mjs";
 import { bindTabs } from "./app/tabs.mjs";
 import { updateStats } from "./app/stats.mjs";
 
+const BASE_PREF_KEY = "cnl.explorer.base";
+
+function normalizeBasePref(value) {
+  const v = String(value || "").trim().toLowerCase();
+  return v === "formal" ? "formal" : "default";
+}
+
+function getBasePref() {
+  try {
+    return normalizeBasePref(localStorage.getItem(BASE_PREF_KEY));
+  } catch {
+    return "default";
+  }
+}
+
+function setBasePref(mode) {
+  const normalized = normalizeBasePref(mode);
+  try {
+    localStorage.setItem(BASE_PREF_KEY, normalized);
+  } catch {
+    // ignore
+  }
+  return normalized;
+}
+
+async function restartSession(base, reason) {
+  const mode = normalizeBasePref(base);
+  Session.setBase(mode);
+  await Session.startNew({ base: mode });
+  UI.setBase(mode);
+  if (reason) UI.log(reason, "system");
+  await updateStats();
+  await refreshTree();
+  await refreshGraph();
+}
+
 function bindGlobalEvents() {
   document.getElementById("sendBtn").onclick = async () => {
     const text = UI.input.value.trim();
@@ -20,25 +56,43 @@ function bindGlobalEvents() {
     await refreshGraph();
   };
 
+  const baseSelect = document.getElementById("baseSelect");
+  if (baseSelect) {
+    baseSelect.onchange = async () => {
+      const next = normalizeBasePref(baseSelect.value);
+      const prev = getBasePref();
+      if (next === prev) return;
+      if (!confirm(`Switch base to "${next}"? This will reset the session.`)) {
+        baseSelect.value = prev;
+        return;
+      }
+      setBasePref(next);
+      await restartSession(next, `Session restarted with base: ${next}.`);
+    };
+  }
+
   document.getElementById("resetBtn").onclick = async () => {
     if (confirm("Reset session?")) {
-      await API.reset();
-      UI.log("Session reset.", "system");
-      await updateStats();
-      await refreshTree();
+      const base = getBasePref();
+      await restartSession(base, "Session restarted.");
     }
   };
 
   bindTabs(refreshGraph);
 }
 
-import { API } from "./app/api.mjs";
-
 (async () => {
   await renderExamples();
-  await Session.startNew();
+  const base = getBasePref();
+  const baseSelect = document.getElementById("baseSelect");
+  if (baseSelect) baseSelect.value = base;
+
+  Session.setBase(base);
+  await Session.startNew({ base });
+  UI.setBase(base);
   await updateStats();
   await refreshTree();
-  UI.log("CNL Session ready.", "system");
+  await refreshGraph();
+  UI.log(`CNL Session ready (base: ${base}).`, "system");
   bindGlobalEvents();
 })();

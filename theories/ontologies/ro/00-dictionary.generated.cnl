@@ -1,0 +1,1294 @@
+// This file is generated. Do not edit.
+// Source: ontologies/ro/ro.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Ro
+
+// Resolved key collisions (type vs binary predicate):
+// - "anatomical-entity": chose property (dropped class)
+// - "kinase-activity": chose property (dropped class)
+// - "myristoyltransferase-activity": chose property (dropped class)
+// - "neuron": chose property (dropped class)
+"continuant" is a type.
+"continuant" is a "unary predicate".
+"occurrent" is a type.
+"occurrent" is a "unary predicate".
+"independent-continuant" is a type.
+"independent-continuant" is a "unary predicate".
+"spatial-region" is a type.
+"spatial-region" is a "unary predicate".
+"process" is a type.
+"process" is a "unary predicate".
+"disposition" is a type.
+"disposition" is a "unary predicate".
+"realizable-entity" is a type.
+"realizable-entity" is a "unary predicate".
+"quality" is a type.
+"quality" is a "unary predicate".
+"specifically-dependent-continuant" is a type.
+"specifically-dependent-continuant" is a "unary predicate".
+"role" is a type.
+"role" is a "unary predicate".
+"generically-dependent-continuant" is a type.
+"generically-dependent-continuant" is a "unary predicate".
+"function" is a type.
+"function" is a "unary predicate".
+"material-entity" is a type.
+"material-entity" is a "unary predicate".
+"immaterial-entity" is a type.
+"immaterial-entity" is a "unary predicate".
+"cell" is a type.
+"cell" is a "unary predicate".
+"sensory-neuron" is a type.
+"sensory-neuron" is a "unary predicate".
+"exposure-of-organism" is a type.
+"exposure-of-organism" is a "unary predicate".
+"environmental-system" is a type.
+"environmental-system" is a "unary predicate".
+"habitat" is a type.
+"habitat" is a "unary predicate".
+"gene-product-or-complex-activity" is a type.
+"gene-product-or-complex-activity" is a "unary predicate".
+"ubiquitin-protein-transferase-activity" is a type.
+"ubiquitin-protein-transferase-activity" is a "unary predicate".
+"nucleus" is a type.
+"nucleus" is a "unary predicate".
+"biological-process" is a type.
+"biological-process" is a "unary predicate".
+"curation-status-specification" is a type.
+"curation-status-specification" is a "unary predicate".
+"planned-process" is a type.
+"planned-process" is a "unary predicate".
+"processed-material" is a type.
+"processed-material" is a "unary predicate".
+"assay" is a type.
+"assay" is a "unary predicate".
+"container" is a type.
+"container" is a "unary predicate".
+"device" is a type.
+"device" is a "unary predicate".
+"organism" is a type.
+"organism" is a "unary predicate".
+"disease" is a type.
+"disease" is a "unary predicate".
+"branched" is a type.
+"branched" is a "unary predicate".
+"linear" is a type.
+"linear" is a "unary predicate".
+"ratio" is a type.
+"ratio" is a "unary predicate".
+"laminar" is a type.
+"laminar" is a "unary predicate".
+"obsolete-exposure-event-or-process" is a type.
+"obsolete-exposure-event-or-process" is a "unary predicate".
+"sequentially-ordered-entity" is a type.
+"sequentially-ordered-entity" is a "unary predicate".
+"sequence-atomic-unit" is a type.
+"sequence-atomic-unit" is a "unary predicate".
+"sequence-bearer" is a type.
+"sequence-bearer" is a "unary predicate".
+"system" is a type.
+"system" is a "unary predicate".
+"anatomical-structure" is a type.
+"anatomical-structure" is a "unary predicate".
+"neuron-projection-bundle" is a type.
+"neuron-projection-bundle" is a "unary predicate".
+"material-anatomical-entity" is a type.
+"material-anatomical-entity" is a "unary predicate".
+"immaterial-anatomical-entity" is a type.
+"immaterial-anatomical-entity" is a "unary predicate".
+"blood-vessel" is a type.
+"blood-vessel" is a "unary predicate".
+"capillary" is a type.
+"capillary" is a "unary predicate".
+"multicellular-anatomical-structure" is a type.
+"multicellular-anatomical-structure" is a "unary predicate".
+"phenotype" is a type.
+"phenotype" is a "unary predicate".
+"type" is a type.
+"type" is a "unary predicate".
+"datatype" is a type.
+"datatype" is a "unary predicate".
+"non-negative-integer" is a type.
+"non-negative-integer" is a "unary predicate".
+"class" is a type.
+"class" is a "unary predicate".
+"restriction" is a type.
+"restriction" is a "unary predicate".
+"image" is a type.
+"image" is a "unary predicate".
+
+// Binary predicates
+"related-to" is a "binary predicate".
+"part of" is a "binary predicate".
+"has-part" is a "binary predicate".
+"realized in" is a "binary predicate".
+"realizes" is a "binary predicate".
+"obsolete-preceded-by" is a "binary predicate".
+"preceded by" is a "binary predicate".
+"precedes" is a "binary predicate".
+"rel-occurs-in" is a "binary predicate".
+"rel-contains-process" is a "binary predicate".
+"derives-from-part-of" is a "binary predicate".
+"has-increased-levels-of" is a "binary predicate".
+"alternative-label" is a "binary predicate".
+"first-order-logic-expression" is a "binary predicate".
+"characteristic of" is a "binary predicate".
+"has-characteristic" is a "binary predicate".
+"participates in" is a "binary predicate".
+"has-participant" is a "binary predicate".
+"concretized-as" is a "binary predicate".
+"concretizes" is a "binary predicate".
+"function of" is a "binary predicate".
+"quality of" is a "binary predicate".
+"role of" is a "binary predicate".
+"has-function" is a "binary predicate".
+"has-quality" is a "binary predicate".
+"has-role" is a "binary predicate".
+"has-disposition" is a "binary predicate".
+"disposition of" is a "binary predicate".
+"obsolete-in-neural-circuit-with" is a "binary predicate".
+"obsolete-upstream-in-neural-circuit-with" is a "binary predicate".
+"obsolete-downstream-in-neural-circuit-with" is a "binary predicate".
+"derives from" is a "binary predicate".
+"derives into" is a "binary predicate".
+"location of" is a "binary predicate".
+"obsolete-contained-in" is a "binary predicate".
+"obsolete-contains" is a "binary predicate".
+"allergic-trigger-for" is a "binary predicate".
+"autoimmune-trigger-for" is a "binary predicate".
+"has-allergic-trigger" is a "binary predicate".
+"has-autoimmune-trigger" is a "binary predicate".
+"located in" is a "binary predicate".
+"temporal-interpretation" is a "binary predicate".
+"rel-2-d-boundary-of" is a "binary predicate".
+"aligned with" is a "binary predicate".
+"has-2-d-boundary" is a "binary predicate".
+"electrically-synapsed-to" is a "binary predicate".
+"tracheates" is a "binary predicate".
+"innervated by" is a "binary predicate".
+"has-synaptic-terminal-of" is a "binary predicate".
+"bounding-layer-of" is a "binary predicate".
+"coincident with" is a "binary predicate".
+"cell-expresses" is a "binary predicate".
+"regulates-in-another-organism" is a "binary predicate".
+"regulates-transport-of" is a "binary predicate".
+"occurrent-part-of" is a "binary predicate".
+"has-regulatory-component-activity" is a "binary predicate".
+"has-negative-regulatory-component-activity" is a "binary predicate".
+"has-positive-regulatory-component-activity" is a "binary predicate".
+"has-necessary-component-activity" is a "binary predicate".
+"has-component-activity" is a "binary predicate".
+"has-component-process" is a "binary predicate".
+"has-ligand" is a "binary predicate".
+"transports" is a "binary predicate".
+"rel-occurs-across" is a "binary predicate".
+"directly-regulated-by" is a "binary predicate".
+"directly-negatively-regulated-by" is a "binary predicate".
+"directly-positively-regulated-by" is a "binary predicate".
+"has-effector-activity" is a "binary predicate".
+"in-register-with" is a "binary predicate".
+"has-increased-age-specific-mortality-rate" is a "binary predicate".
+"before-or-simultaneous-with" is a "binary predicate".
+"simultaneous with" is a "binary predicate".
+"before" is a "binary predicate".
+"during-which-ends" is a "binary predicate".
+"encompasses" is a "binary predicate".
+"ends after" is a "binary predicate".
+"immediately-preceded-by" is a "binary predicate".
+"during-which-starts" is a "binary predicate".
+"starts before" is a "binary predicate".
+"immediately-precedes" is a "binary predicate".
+"starts during" is a "binary predicate".
+"happens during" is a "binary predicate".
+"ends during" is a "binary predicate".
+"has-soma-location" is a "binary predicate".
+"fasciculates with" is a "binary predicate".
+"axon-synapses-in" is a "binary predicate".
+"synapsed by" is a "binary predicate".
+"has-plasma-membrane-part" is a "binary predicate".
+"synapsed-via-type-ib-bouton-to" is a "binary predicate".
+"synapsed-via-type-is-bouton-to" is a "binary predicate".
+"synapsed-via-type-ii-bouton-to" is a "binary predicate".
+"synapsed-by-via-type-ii-bouton" is a "binary predicate".
+"synapsed-by-via-type-ib-bouton" is a "binary predicate".
+"has-postsynaptic-terminal-in" is a "binary predicate".
+"releases-neurotransmitter" is a "binary predicate".
+"synapsed-by-via-type-is-bouton" is a "binary predicate".
+"has-presynaptic-terminal-in" is a "binary predicate".
+"synapsed-via-type-iii-bouton-to" is a "binary predicate".
+"synapsed-by-via-type-iii-bouton" is a "binary predicate".
+"synapsed to" is a "binary predicate".
+"dendrite-synapsed-in" is a "binary predicate".
+"has-synaptic-terminal-in" is a "binary predicate".
+"overlaps" is a "binary predicate".
+"has-fasciculating-neuron-projection" is a "binary predicate".
+"innervates" is a "binary predicate".
+"continuous with" is a "binary predicate".
+"partially-overlaps" is a "binary predicate".
+"derived-by-descent-from" is a "binary predicate".
+"has-derived-by-descendant" is a "binary predicate".
+"shares-ancestor-with" is a "binary predicate".
+"serially-homologous-to" is a "binary predicate".
+"only-in-taxon" is a "binary predicate".
+"never-in-taxon" is a "binary predicate".
+"in-taxon" is a "binary predicate".
+"spatially-disjoint-from" is a "binary predicate".
+"connected to" is a "binary predicate".
+"mutually-spatially-disjoint-with" is a "binary predicate".
+"taxonomic-class-assertion" is a "binary predicate".
+"ambiguous-for-taxon" is a "binary predicate".
+"dubious-for-taxon" is a "binary predicate".
+"present-in-taxon" is a "binary predicate".
+"connects" is a "binary predicate".
+"attached-to-part-of" is a "binary predicate".
+"supplies" is a "binary predicate".
+"drains" is a "binary predicate".
+"has-component" is a "binary predicate".
+"has-phenotype" is a "binary predicate".
+"phenotype of" is a "binary predicate".
+"develops from" is a "binary predicate".
+"develops into" is a "binary predicate".
+"gene-product-of" is a "binary predicate".
+"has-gene-product" is a "binary predicate".
+"expressed in" is a "binary predicate".
+"directly-develops-from" is a "binary predicate".
+"parasitoid of" is a "binary predicate".
+"has-parasitoid" is a "binary predicate".
+"directly-develops-into" is a "binary predicate".
+"regulates" is a "binary predicate".
+"negatively-regulates" is a "binary predicate".
+"positively-regulates" is a "binary predicate".
+"has-prototype" is a "binary predicate".
+"capable of" is a "binary predicate".
+"capable-of-part-of" is a "binary predicate".
+"obsolete-actively-participates-in" is a "binary predicate".
+"obsolete-has-active-participant" is a "binary predicate".
+"surrounded by" is a "binary predicate".
+"adjacent to" is a "binary predicate".
+"surrounds" is a "binary predicate".
+"temporally-related-to" is a "binary predicate".
+"starts" is a "binary predicate".
+"starts with" is a "binary predicate".
+"develops-from-part-of" is a "binary predicate".
+"develops in" is a "binary predicate".
+"obligate-parasite-of" is a "binary predicate".
+"facultative-parasite-of" is a "binary predicate".
+"ends" is a "binary predicate".
+"ends with" is a "binary predicate".
+"has-start-location" is a "binary predicate".
+"has-end-location" is a "binary predicate".
+"has-input" is a "binary predicate".
+"has-output" is a "binary predicate".
+"stem-parasite-of" is a "binary predicate".
+"root-parasite-of" is a "binary predicate".
+"hemiparasite of" is a "binary predicate".
+"has-component-participant" is a "binary predicate".
+"has-exposure-receptor" is a "binary predicate".
+"has-exposure-stressor" is a "binary predicate".
+"has-exposure-route" is a "binary predicate".
+"has-exposure-transport-path" is a "binary predicate".
+"related-via-exposure-to" is a "binary predicate".
+"over-expressed-in" is a "binary predicate".
+"under-expressed-in" is a "binary predicate".
+"has-active-ingredient" is a "binary predicate".
+"active-ingredient-in" is a "binary predicate".
+"connecting-branch-of" is a "binary predicate".
+"has-connecting-branch" is a "binary predicate".
+"has-developmental-contribution-from" is a "binary predicate".
+"developmentally-contributes-to" is a "binary predicate".
+"developmentally-induced-by" is a "binary predicate".
+"developmentally-induces" is a "binary predicate".
+"developmentally-preceded-by" is a "binary predicate".
+"defined-by-inverse" is a "binary predicate".
+"has-biological-role" is a "binary predicate".
+"has-application-role" is a "binary predicate".
+"has-chemical-role" is a "binary predicate".
+"acts-upstream-of" is a "binary predicate".
+"acts-upstream-of-or-within" is a "binary predicate".
+"developmentally-replaces" is a "binary predicate".
+"developmentally-succeeded-by" is a "binary predicate".
+"part-of-developmental-precursor-of" is a "binary predicate".
+"ubiquitously-expressed-in" is a "binary predicate".
+"expresses" is a "binary predicate".
+"ubiquitously-expresses" is a "binary predicate".
+"results-in-developmental-progression-of" is a "binary predicate".
+"results-in-development-of" is a "binary predicate".
+"results-in-formation-of-anatomical-entity" is a "binary predicate".
+"results-in-morphogenesis-of" is a "binary predicate".
+"results-in-maturation-of" is a "binary predicate".
+"results-in-disappearance-of" is a "binary predicate".
+"results-in-developmental-regression-of" is a "binary predicate".
+"treated-by-substance" is a "binary predicate".
+"has-habitat" is a "binary predicate".
+"causally-upstream-of-positive-effect" is a "binary predicate".
+"causally-upstream-of-negative-effect" is a "binary predicate".
+"has-exposure-stimulus" is a "binary predicate".
+"evolutionary-variant-of" is a "binary predicate".
+"transports-or-maintains-localization-of" is a "binary predicate".
+"characteristic-of-part-of" is a "binary predicate".
+"results-in-acquisition-of-features-of" is a "binary predicate".
+"evolutionarily-related-to" is a "binary predicate".
+"ecologically-related-to" is a "binary predicate".
+"confers-advantage-in" is a "binary predicate".
+"mereotopologically-related-to" is a "binary predicate".
+"developmentally-related-to" is a "binary predicate".
+"colocalizes with" is a "binary predicate".
+"contributes to" is a "binary predicate".
+"enables" is a "binary predicate".
+"functionally-related-to" is a "binary predicate".
+"part-of-structure-that-is-capable-of" is a "binary predicate".
+"genomically-related-to" is a "binary predicate".
+"involved in" is a "binary predicate".
+"regulates-levels-of" is a "binary predicate".
+"enabled by" is a "binary predicate".
+"regulated by" is a "binary predicate".
+"negatively-regulated-by" is a "binary predicate".
+"positively-regulated-by" is a "binary predicate".
+"related-via-localization-to" is a "binary predicate".
+"has-target-start-location" is a "binary predicate".
+"has-target-end-location" is a "binary predicate".
+"imports" is a "binary predicate".
+"results-in-transport-along" is a "binary predicate".
+"results-in-transport-across" is a "binary predicate".
+"results-in-growth-of" is a "binary predicate".
+"results-in-transport-to-from-or-in" is a "binary predicate".
+"exports" is a "binary predicate".
+"results-in-commitment-to" is a "binary predicate".
+"results-in-determination-of" is a "binary predicate".
+"member of" is a "binary predicate".
+"has-member" is a "binary predicate".
+"input of" is a "binary predicate".
+"output of" is a "binary predicate".
+"formed-as-result-of" is a "binary predicate".
+"results-in-structural-organization-of" is a "binary predicate".
+"results-in-specification-of" is a "binary predicate".
+"results-in-developmental-induction-of" is a "binary predicate".
+"has-dendrite-location" is a "binary predicate".
+"attached to" is a "binary predicate".
+"has-muscle-origin" is a "binary predicate".
+"has-muscle-insertion" is a "binary predicate".
+"derived-from-ancestral-fusion-of" is a "binary predicate".
+"in-branching-relationship-with" is a "binary predicate".
+"tributary of" is a "binary predicate".
+"distributary of" is a "binary predicate".
+"anabranch of" is a "binary predicate".
+"spatially-coextensive-with" is a "binary predicate".
+"branching-part-of" is a "binary predicate".
+"main-stem-of" is a "binary predicate".
+"proper-distributary-of" is a "binary predicate".
+"proper-tributary-of" is a "binary predicate".
+"has-developmental-potential-involving" is a "binary predicate".
+"has-potential-to-developmentally-contribute-to" is a "binary predicate".
+"has-potential-to-developmentally-induce" is a "binary predicate".
+"has-potential-to-develop-into" is a "binary predicate".
+"has-potential-to-directly-develop-into" is a "binary predicate".
+"has-direct-input" is a "binary predicate".
+"obsolete-has-indirect-input" is a "binary predicate".
+"obsolete-has-direct-output" is a "binary predicate".
+"obsolete-has-indirect-output" is a "binary predicate".
+"causally-downstream-of" is a "binary predicate".
+"immediately-causally-downstream-of" is a "binary predicate".
+"obsolete-directly-activates" is a "binary predicate".
+"indirectly-positively-regulates" is a "binary predicate".
+"obsolete-directly-inhibits" is a "binary predicate".
+"indirectly-negatively-regulates" is a "binary predicate".
+"causally-related-to" is a "binary predicate".
+"causally-upstream-of" is a "binary predicate".
+"immediately-causally-upstream-of" is a "binary predicate".
+"provides-input-for" is a "binary predicate".
+"transitively-provides-input-for" is a "binary predicate".
+"logical-macro-assertion" is a "binary predicate".
+"causally-upstream-of-or-within" is a "binary predicate".
+"annotation-property-cardinality" is a "binary predicate".
+"logical-macro-assertion-on-a-class" is a "binary predicate".
+"logical-macro-assertion-on-a-property" is a "binary predicate".
+"logical-macro-assertion-on-an-object-property" is a "binary predicate".
+"logical-macro-assertion-on-an-annotation-property" is a "binary predicate".
+"differs in" is a "binary predicate".
+"differs-in-attribute-of" is a "binary predicate".
+"differs-in-attribute" is a "binary predicate".
+"causally-downstream-of-or-within" is a "binary predicate".
+"involved-in-regulation-of" is a "binary predicate".
+"involved-in-positive-regulation-of" is a "binary predicate".
+"involved-in-negative-regulation-of" is a "binary predicate".
+"involved-in-or-involved-in-regulation-of" is a "binary predicate".
+"active in" is a "binary predicate".
+"contributes-to-morphology-of" is a "binary predicate".
+"interacts with" is a "binary predicate".
+"genetically-interacts-with" is a "binary predicate".
+"molecularly-interacts-with" is a "binary predicate".
+"biotically-interacts-with" is a "binary predicate".
+"trophically-interacts-with" is a "binary predicate".
+"preys on" is a "binary predicate".
+"symbiotically-interacts-with" is a "binary predicate".
+"commensually-interacts-with" is a "binary predicate".
+"mutualistically-interacts-with" is a "binary predicate".
+"interacts-with-via-parasite-host-interaction" is a "binary predicate".
+"parasite of" is a "binary predicate".
+"parasitized by" is a "binary predicate".
+"participates-in-a-abiotic-biotic-interaction-with" is a "binary predicate".
+"phosphorylates" is a "binary predicate".
+"directly-regulates-activity-of" is a "binary predicate".
+"directly-negatively-regulates-activity-of" is a "binary predicate".
+"directly-positively-regulates-activity-of" is a "binary predicate".
+"transmitted by" is a "binary predicate".
+"has-symptom" is a "binary predicate".
+"host of" is a "binary predicate".
+"has-host" is a "binary predicate".
+"pollinates" is a "binary predicate".
+"pollinated by" is a "binary predicate".
+"acquires-nutrients-from" is a "binary predicate".
+"preyed-upon-by" is a "binary predicate".
+"vector for" is a "binary predicate".
+"has-vector" is a "binary predicate".
+"partner in" is a "binary predicate".
+"subject-participant-in" is a "binary predicate".
+"target-participant-in" is a "binary predicate".
+"helper-property-not-for-use-in-curation" is a "binary predicate".
+"symbiosis" is a "binary predicate".
+"commensalism" is a "binary predicate".
+"mutualism" is a "binary predicate".
+"parasitism" is a "binary predicate".
+"provides-nutrients-for" is a "binary predicate".
+"eats" is a "binary predicate".
+"eaten by" is a "binary predicate".
+"evidence for" is a "binary predicate".
+"composed-primarily-of" is a "binary predicate".
+"dispositional-interpretation" is a "binary predicate".
+"has-no-connections-with" is a "binary predicate".
+"child-nucleus-of" is a "binary predicate".
+"child-nucleus-of-in-hermaphrodite" is a "binary predicate".
+"child-nucleus-of-in-male" is a "binary predicate".
+"has-part-that-occurs-in" is a "binary predicate".
+"ubiquitinates" is a "binary predicate".
+"kinase-activity" is a "binary predicate".
+"ubiquitination" is a "binary predicate".
+"inherited-annotation-property" is a "binary predicate".
+"curator-guidance-link" is a "binary predicate".
+"receives-input-from" is a "binary predicate".
+"sends-output-to" is a "binary predicate".
+"relation-between-physical-entity-and-a-process-or-stage" is a "binary predicate".
+"existence-starts-during" is a "binary predicate".
+"existence-starts-with" is a "binary predicate".
+"existence-overlaps" is a "binary predicate".
+"existence-starts-and-ends-during" is a "binary predicate".
+"existence-ends-during" is a "binary predicate".
+"existence-ends-with" is a "binary predicate".
+"transformation of" is a "binary predicate".
+"immediate-transformation-of" is a "binary predicate".
+"existence-starts-during-or-after" is a "binary predicate".
+"existence-ends-during-or-before" is a "binary predicate".
+"causal-agent-in-process" is a "binary predicate".
+"causal-relation-between-processes" is a "binary predicate".
+"depends on" is a "binary predicate".
+"towards" is a "binary predicate".
+"always-present-in-taxon" is a "binary predicate".
+"has-intermediate" is a "binary predicate".
+"causal-relation-between-entities" is a "binary predicate".
+"determined by" is a "binary predicate".
+"determines" is a "binary predicate".
+"determined-by-part-of" is a "binary predicate".
+"transcribed from" is a "binary predicate".
+"transcribed to" is a "binary predicate".
+"ribosomal-translation-of" is a "binary predicate".
+"ribosomally-translates-to" is a "binary predicate".
+"sequentially-related-to" is a "binary predicate".
+"sequentially-adjacent-to" is a "binary predicate".
+"has-start-sequence" is a "binary predicate".
+"start-sequence-of" is a "binary predicate".
+"has-end-sequence" is a "binary predicate".
+"end-sequence-of" is a "binary predicate".
+"consecutive-sequence-of" is a "binary predicate".
+"sequentially-aligned-with" is a "binary predicate".
+"bounds-sequence-of" is a "binary predicate".
+"bound-by-sequence-of" is a "binary predicate".
+"has-subsequence" is a "binary predicate".
+"subsequence of" is a "binary predicate".
+"overlaps-sequence-of" is a "binary predicate".
+"rel-does-not-overlap-sequence-of" is a "binary predicate".
+"upstream-of-sequence-of" is a "binary predicate".
+"downstream-of-sequence-of" is a "binary predicate".
+"immediately-downstream-of-sequence-of" is a "binary predicate".
+"immediately-upstream-of-sequence-of" is a "binary predicate".
+"temporal-logical-macro-assertion-on-a-class" is a "binary predicate".
+"measurement-property-has-unit" is a "binary predicate".
+"has-start-time-value" is a "binary predicate".
+"has-end-time-value" is a "binary predicate".
+"start-days-post-fertilization" is a "binary predicate".
+"end-days-post-fertilization" is a "binary predicate".
+"start-years-post-birth" is a "binary predicate".
+"end-years-post-birth" is a "binary predicate".
+"start-months-post-birth" is a "binary predicate".
+"end-months-post-birth" is a "binary predicate".
+"month-of-gestation" is a "binary predicate".
+"has-developmental-stage-marker" is a "binary predicate".
+"start-days-post-coitum" is a "binary predicate".
+"end-days-post-coitum" is a "binary predicate".
+"start-weeks-post-birth" is a "binary predicate".
+"end-weeks-post-birth" is a "binary predicate".
+"has-skeleton" is a "binary predicate".
+"results-in-ending-of" is a "binary predicate".
+"hyperparasite of" is a "binary predicate".
+"hyperparasitized by" is a "binary predicate".
+"allelopath of" is a "binary predicate".
+"pathogen of" is a "binary predicate".
+"has-pathogen" is a "binary predicate".
+"has-evidence" is a "binary predicate".
+"causally-influenced-by" is a "binary predicate".
+"asymmetric-relational-form-of-process-class" is a "binary predicate".
+"symmetric-relational-form-of-process-class" is a "binary predicate".
+"relational-form-of-process-class" is a "binary predicate".
+"interaction-relation-helper-property" is a "binary predicate".
+"molecular-interaction-relation-helper-property" is a "binary predicate".
+"results-in-movement-of" is a "binary predicate".
+"causally-influences" is a "binary predicate".
+"biomechanically-related-to" is a "binary predicate".
+"has-muscle-antagonist" is a "binary predicate".
+"has-branching-part" is a "binary predicate".
+"conduit for" is a "binary predicate".
+"lumen of" is a "binary predicate".
+"luminal-space-of" is a "binary predicate".
+"has-modifier" is a "binary predicate".
+"participates-in-a-biotic-biotic-interaction-with" is a "binary predicate".
+"direct-form-of" is a "binary predicate".
+"skeleton of" is a "binary predicate".
+"directly-regulates" is a "binary predicate".
+"indirect-form-of" is a "binary predicate".
+"logical-macro-assertion-on-an-axiom" is a "binary predicate".
+"rel-a-defining-property-chain-axiom" is a "binary predicate".
+"rel-a-defining-property-chain-axiom-where-second-argument-is-reflexive" is a "binary predicate".
+"existence-starts-at-end-of" is a "binary predicate".
+"has-part-structure-that-is-capable-of" is a "binary predicate".
+"results-in-closure-of" is a "binary predicate".
+"results-in-breakdown-of" is a "binary predicate".
+"results-in-synthesis-of" is a "binary predicate".
+"results-in-assembly-of" is a "binary predicate".
+"results-in-catabolism-of" is a "binary predicate".
+"results-in-disassembly-of" is a "binary predicate".
+"results-in-remodeling-of" is a "binary predicate".
+"results-in-organization-of" is a "binary predicate".
+"existence-ends-at-start-of" is a "binary predicate".
+"relational-form-of-a-class" is a "binary predicate".
+"causal-relation-between-material-entity-and-a-process" is a "binary predicate".
+"capable-of-regulating" is a "binary predicate".
+"capable-of-negatively-regulating" is a "binary predicate".
+"capable-of-positively-regulating" is a "binary predicate".
+"capable-of-inhibiting-or-preventing-pathological-process" is a "binary predicate".
+"capable-of-upregulating-or-causing-pathological-process" is a "binary predicate".
+"logical-macro-assertion-involving-identity" is a "binary predicate".
+"in-approximate-one-to-one-relationship-with" is a "binary predicate".
+"approximately-equivalent-to" is a "binary predicate".
+"opposite of" is a "binary predicate".
+"indistinguishable from" is a "binary predicate".
+"substance-that-treats" is a "binary predicate".
+"marker for" is a "binary predicate".
+"process-has-causal-agent" is a "binary predicate".
+"obsolete-related-via-dependence-to" is a "binary predicate".
+"correlated with" is a "binary predicate".
+"evidential-logical-macro-assertion-on-an-axiom" is a "binary predicate".
+"axiom-has-evidence" is a "binary predicate".
+"axiom-contradicted-by-evidence" is a "binary predicate".
+"evidence-with-support-from" is a "binary predicate".
+"has-model" is a "binary predicate".
+"related-via-evidence-or-inference-to" is a "binary predicate".
+"representative-iri-for-equivalence-set" is a "binary predicate".
+"visits" is a "binary predicate".
+"visited by" is a "binary predicate".
+"visits-flowers-of" is a "binary predicate".
+"has-flowers-visited-by" is a "binary predicate".
+"lays-eggs-in" is a "binary predicate".
+"has-eggs-laid-in-by" is a "binary predicate".
+"kills" is a "binary predicate".
+"killed by" is a "binary predicate".
+"directly-positively-regulates" is a "binary predicate".
+"directly-negatively-regulates" is a "binary predicate".
+"ectoparasite of" is a "binary predicate".
+"has-ectoparasite" is a "binary predicate".
+"endoparasite of" is a "binary predicate".
+"has-endoparasite" is a "binary predicate".
+"mesoparasite of" is a "binary predicate".
+"has-mesoparasite" is a "binary predicate".
+"intercellular-endoparasite-of" is a "binary predicate".
+"has-intercellular-endoparasite" is a "binary predicate".
+"intracellular-endoparasite-of" is a "binary predicate".
+"has-intracellular-endoparasite" is a "binary predicate".
+"co-roosts-with" is a "binary predicate".
+"reservoir-host-of" is a "binary predicate".
+"has-reservoir-host" is a "binary predicate".
+"produces" is a "binary predicate".
+"produced by" is a "binary predicate".
+"represses-expression-of" is a "binary predicate".
+"increases-expression-of" is a "binary predicate".
+"has-role-in-modeling" is a "binary predicate".
+"causes-or-contributes-to-condition" is a "binary predicate".
+"causes-condition" is a "binary predicate".
+"contributes-to-condition" is a "binary predicate".
+"contributes-to-severity-of-condition" is a "binary predicate".
+"contributes-to-frequency-of-condition" is a "binary predicate".
+"ameliorates-condition" is a "binary predicate".
+"correlated-with-condition" is a "binary predicate".
+"exacerbates-condition" is a "binary predicate".
+"condition-ameliorated-by" is a "binary predicate".
+"condition-exacerbated-by" is a "binary predicate".
+"condition-has-genetic-basis-in" is a "binary predicate".
+"has-material-basis-in-gain-of-function-germline-mutation-in" is a "binary predicate".
+"has-material-basis-in-loss-of-function-germline-mutation-in" is a "binary predicate".
+"has-material-basis-in-germline-mutation-in" is a "binary predicate".
+"has-material-basis-in-somatic-mutation-in" is a "binary predicate".
+"has-major-susceptibility-factor" is a "binary predicate".
+"has-partial-material-basis-in-germline-mutation-in" is a "binary predicate".
+"has-primary-input-or-output" is a "binary predicate".
+"has-primary-output" is a "binary predicate".
+"has-primary-input" is a "binary predicate".
+"genetic-basis-for-condition" is a "binary predicate".
+"causal-gain-of-function-germline-mutation-of-in" is a "binary predicate".
+"causal-loss-of-function-germline-mutation-of-in" is a "binary predicate".
+"causal-germline-mutation-in" is a "binary predicate".
+"causal-somatic-mutation-in" is a "binary predicate".
+"causal-susceptibility-factor-for" is a "binary predicate".
+"causal-germline-mutation-partially-giving-rise-to" is a "binary predicate".
+"realizable-has-basis-in" is a "binary predicate".
+"basis-for-realizable" is a "binary predicate".
+"disease-has-basis-in" is a "binary predicate".
+"disease-has-basis-in-dysfunction-of" is a "binary predicate".
+"disease-has-basis-in-disruption-of" is a "binary predicate".
+"disease-has-basis-in-feature" is a "binary predicate".
+"causal-relationship-with-disease-as-subject" is a "binary predicate".
+"disease-causes-disruption-of" is a "binary predicate".
+"disease-causes-dysfunction-of" is a "binary predicate".
+"disease-has-location" is a "binary predicate".
+"disease-has-inflammation-site" is a "binary predicate".
+"realized-in-response-to-stimulus" is a "binary predicate".
+"disease-has-feature" is a "binary predicate".
+"disease-arises-from-alteration-in-structure" is a "binary predicate".
+"enables-subfunction" is a "binary predicate".
+"acts-upstream-of-or-within-positive-effect" is a "binary predicate".
+"acts-upstream-of-or-within-negative-effect" is a "binary predicate".
+"acts-upstream-of-positive-effect" is a "binary predicate".
+"acts-upstream-of-negative-effect" is a "binary predicate".
+"nominally-disjoint-with" is a "binary predicate".
+"causally-upstream-of-or-within-negative-effect" is a "binary predicate".
+"causally-upstream-of-or-within-positive-effect" is a "binary predicate".
+"directional-form-of" is a "binary predicate".
+"positive-form-of" is a "binary predicate".
+"negative-form-of" is a "binary predicate".
+"deprecated-inheres-in" is a "binary predicate".
+"deprecated-bearer-of" is a "binary predicate".
+"has-driver" is a "binary predicate".
+"has-disease-driver" is a "binary predicate".
+"epiphyte of" is a "binary predicate".
+"has-epiphyte" is a "binary predicate".
+"kleptoparasite of" is a "binary predicate".
+"kleptoparasitized by" is a "binary predicate".
+"creates-habitat-for" is a "binary predicate".
+"ecologically-co-occurs-with" is a "binary predicate".
+"lays-eggs-on" is a "binary predicate".
+"has-eggs-laid-on-by" is a "binary predicate".
+"has-roost" is a "binary predicate".
+"symbiotrophically-interacts-with" is a "binary predicate".
+"trophic-parasite-of" is a "binary predicate".
+"has-substance-added" is a "binary predicate".
+"has-substance-removed" is a "binary predicate".
+"immersed in" is a "binary predicate".
+"has-consumer" is a "binary predicate".
+"has-primary-substance-added" is a "binary predicate".
+"assay-measures-characteristic" is a "binary predicate".
+"characteristic-measured-by-assay" is a "binary predicate".
+"realized-in-response-to" is a "binary predicate".
+"generically-depends-on" is a "binary predicate".
+"carrier of" is a "binary predicate".
+"regulates-activity-of" is a "binary predicate".
+"regulates-quantity-of" is a "binary predicate".
+"indirectly-regulates-activity-of" is a "binary predicate".
+"decreases-by-repression-quantity-of" is a "binary predicate".
+"increases-by-expression-quantity-of" is a "binary predicate".
+"directly-positively-regulates-quantity-of" is a "binary predicate".
+"directly-negatively-regulates-quantity-of" is a "binary predicate".
+"indirectly-positively-regulates-activity-of" is a "binary predicate".
+"destabilizes-quantity-of" is a "binary predicate".
+"stabilizes-quantity-of" is a "binary predicate".
+"indirectly-negatively-regulates-activity-of" is a "binary predicate".
+"directly-regulates-quantity-of" is a "binary predicate".
+"indirectly-regulates-quantity-of" is a "binary predicate".
+"indirectly-negatively-regulates-quantity-of" is a "binary predicate".
+"indirectly-positively-regulates-quantity-of" is a "binary predicate".
+"has-small-molecule-regulator" is a "binary predicate".
+"has-small-molecule-activator" is a "binary predicate".
+"has-small-molecule-inhibitor" is a "binary predicate".
+"acts-on-population-of" is a "binary predicate".
+"small-molecule-regulator-of" is a "binary predicate".
+"small-molecule-activator-of" is a "binary predicate".
+"small-molecule-inhibitor-of" is a "binary predicate".
+"results-in-adhesion-of" is a "binary predicate".
+"results-in-fusion-of" is a "binary predicate".
+"constitutively-upstream-of" is a "binary predicate".
+"removes-input-for" is a "binary predicate".
+"indirectly-causally-upstream-of" is a "binary predicate".
+"indirectly-regulates" is a "binary predicate".
+"positively-regulates-in-another-organism" is a "binary predicate".
+"negatively-regulates-in-another-organism" is a "binary predicate".
+"has-synaptic-io-in-region" is a "binary predicate".
+"receives-synaptic-input-in-region" is a "binary predicate".
+"sends-synaptic-output-to-region" is a "binary predicate".
+"has-synaptic-io-throughout" is a "binary predicate".
+"receives-synaptic-input-throughout" is a "binary predicate".
+"sends-synaptic-output-throughout" is a "binary predicate".
+"has-sensory-dendrite-in" is a "binary predicate".
+"receives-synaptic-input-from-neuron" is a "binary predicate".
+"sends-synaptic-output-to-cell" is a "binary predicate".
+"synapses-restricted-to-region" is a "binary predicate".
+"disease-has-infectious-agent" is a "binary predicate".
+"has-exemplar-data" is a "binary predicate".
+"exemplar-data-of" is a "binary predicate".
+"subcluster of" is a "binary predicate".
+"has-characterizing-marker-set" is a "binary predicate".
+"different-in-magnitude-relative-to" is a "binary predicate".
+"increased-in-magnitude-relative-to" is a "binary predicate".
+"decreased-in-magnitude-relative-to" is a "binary predicate".
+"similar-in-magnitude-relative-to" is a "binary predicate".
+"has-relative-magnitude" is a "binary predicate".
+"has-cross-section" is a "binary predicate".
+"reciprocal of" is a "binary predicate".
+"has-high-plasma-membrane-amount" is a "binary predicate".
+"has-low-plasma-membrane-amount" is a "binary predicate".
+"has-phenotype-or-disease" is a "binary predicate".
+"has-disease" is a "binary predicate".
+"has-exposure-medium" is a "binary predicate".
+"device-utilizes-material" is a "binary predicate".
+"positively-correlated-with" is a "binary predicate".
+"negatively-correlated-with" is a "binary predicate".
+"rel-contains-measured-amount" is a "binary predicate".
+"has-maximum-capacity" is a "binary predicate".
+"owns" is a "binary predicate".
+"owned by" is a "binary predicate".
+"collected during" is a "binary predicate".
+"myristoyltransferase-activity" is a "binary predicate".
+"myristoylates" is a "binary predicate".
+"myristoylated by" is a "binary predicate".
+"agonist of" is a "binary predicate".
+"inverse-agonist-of" is a "binary predicate".
+"antagonist of" is a "binary predicate".
+"chemical-relationship" is a "binary predicate".
+"direct-conjugate-base-of" is a "binary predicate".
+"direct-conjugate-acid-of" is a "binary predicate".
+"deprotonated-form-of" is a "binary predicate".
+"protonated-form-of" is a "binary predicate".
+"matched-small-molecular-pair-with" is a "binary predicate".
+"tautomer of" is a "binary predicate".
+"substitutent-group-from" is a "binary predicate".
+"has-functional-parent" is a "binary predicate".
+"enantiomer of" is a "binary predicate".
+"has-parent-hydride" is a "binary predicate".
+"regulates-characteristic" is a "binary predicate".
+"positively-regulates-characteristic" is a "binary predicate".
+"negatively-regulates-characteristic" is a "binary predicate".
+"confers-susceptibility-to-condition" is a "binary predicate".
+"vessel-supplies-blood-to" is a "binary predicate".
+"vessel-drains-blood-from" is a "binary predicate".
+"directly-supplies-and-drains" is a "binary predicate".
+"neuron" is a "binary predicate".
+"anatomical-entity" is a "binary predicate".
+"has-numerator" is a "binary predicate".
+"has-denominator" is a "binary predicate".
+"has-allelopath" is a "binary predicate".
+"provides-clinical-information-for" is a "binary predicate".
+"diagnostic for" is a "binary predicate".
+"monitors-status-of" is a "binary predicate".
+"indicates-response-to" is a "binary predicate".
+"predicts-effect-of" is a "binary predicate".
+"prognostic for" is a "binary predicate".
+"assesses-toxicity-of" is a "binary predicate".
+"indicates-risk-of-developing" is a "binary predicate".
+"indicates-clinical-effect-of" is a "binary predicate".
+"monitors-effect-of" is a "binary predicate".
+"monitors-exposure-to" is a "binary predicate".
+"disease-relationship" is a "binary predicate".
+"results-in-changes-to-anatomical-or-cellular-structure" is a "binary predicate".
+"homeomorphic for" is a "binary predicate".
+"in-similarity-relationship-with" is a "binary predicate".
+"in-homology-relationship-with" is a "binary predicate".
+"in-homoplasy-relationship-with" is a "binary predicate".
+"in-homocracy-relationship-with" is a "binary predicate".
+"in-convergence-relationship-with" is a "binary predicate".
+"in-parallelism-relationship-with" is a "binary predicate".
+"in-structural-homology-relationship-with" is a "binary predicate".
+"in-historical-homology-relationship-with" is a "binary predicate".
+"in-biological-homology-relationship-with" is a "binary predicate".
+"in-reversal-relationship-with" is a "binary predicate".
+"in-syntenic-homology-relationship-with" is a "binary predicate".
+"in-paralogy-relationship-with" is a "binary predicate".
+"in-syntenic-paralogy-relationship-with" is a "binary predicate".
+"in-syntenic-orthology-relationship-with" is a "binary predicate".
+"in-partial-homology-relationship-with" is a "binary predicate".
+"in-protein-structural-homology-relationship-with" is a "binary predicate".
+"in-non-functional-homology-relationship-with" is a "binary predicate".
+"in-orthology-relationship-with" is a "binary predicate".
+"in-xenology-relationship-with" is a "binary predicate".
+"in-1-to-1-homology-relationship-with" is a "binary predicate".
+"in-1-to-1-orthology-relationship-with" is a "binary predicate".
+"in-ohnology-relationship-with" is a "binary predicate".
+"in-in-paralogy-relationship-with" is a "binary predicate".
+"in-out-paralogy-relationship-with" is a "binary predicate".
+"in-pro-orthology-relationship-with" is a "binary predicate".
+"in-semi-orthology-relationship-with" is a "binary predicate".
+"in-serial-homology-relationship-with" is a "binary predicate".
+"in-heterochronous-homology-relationship-with" is a "binary predicate".
+"in-paedomorphorsis-relationship-with" is a "binary predicate".
+"in-peramorphosis-relationship-with" is a "binary predicate".
+"in-progenesis-relationship-with" is a "binary predicate".
+"in-neoteny-relationship-with" is a "binary predicate".
+"in-mimicry-relationship-with" is a "binary predicate".
+"in-1-to-many-orthology-relationship-with" is a "binary predicate".
+"in-many-to-many-homology-relationship-with" is a "binary predicate".
+"in-1-to-many-homology-relationship-with" is a "binary predicate".
+"in-apomorphy-relationship-with" is a "binary predicate".
+"in-plesiomorphy-relationship-with" is a "binary predicate".
+"in-deep-homology-relationship-with" is a "binary predicate".
+"in-hemiplasy-relationship-with" is a "binary predicate".
+"in-gametology-relationship-with" is a "binary predicate".
+"in-chromosomal-homology-relationship-with" is a "binary predicate".
+"in-many-to-many-orthology-relationship-with" is a "binary predicate".
+"in-within-species-paralogy-relationship-with" is a "binary predicate".
+"in-between-species-paralogy-relationship-with" is a "binary predicate".
+"in-postdisplacement-relationship-with" is a "binary predicate".
+"in-hypermorphosis-relationship-with" is a "binary predicate".
+"in-synology-relationship-with" is a "binary predicate".
+"in-isoorthology-relationship-with" is a "binary predicate".
+"in-tandem-paralogy-relationship-with" is a "binary predicate".
+"in-latent-homology-relationship-with" is a "binary predicate".
+"in-syngeny-relationship-with" is a "binary predicate".
+"in-apparent-orthology-relationship-with" is a "binary predicate".
+"in-pseudoparalogy-relationship-with" is a "binary predicate".
+"in-equivalogy-relationship-with" is a "binary predicate".
+"in-interology-relationship-with" is a "binary predicate".
+"in-functional-equivalence-relationship-with" is a "binary predicate".
+"in-iterative-homology-relationship-with" is a "binary predicate".
+"in-paraxenology-relationship-with" is a "binary predicate".
+"in-plerology-relationship-with" is a "binary predicate".
+"in-homotopy-relationship-with" is a "binary predicate".
+"in-homeosis-relationship-with" is a "binary predicate".
+"in-homoeology-relationship-with" is a "binary predicate".
+"in-paramorphism-relationship-with" is a "binary predicate".
+"in-regulogy-relationship-with" is a "binary predicate".
+"eco-subset" is a "binary predicate".
+"common-anatomy" is a "binary predicate".
+"efo-slim" is a "binary predicate".
+"human-reference-atlas" is a "binary predicate".
+"human-subset" is a "binary predicate".
+"mouse-subset" is a "binary predicate".
+"pheno-slim" is a "binary predicate".
+"uberon-slim" is a "binary predicate".
+"upper-level" is a "binary predicate".
+"vertebrate-core" is a "binary predicate".
+"valid-for-go-annotation-extension" is a "binary predicate".
+"valid-for-go-gp2term" is a "binary predicate".
+"valid-for-go-ontology" is a "binary predicate".
+"valid-for-gocam" is a "binary predicate".
+"subset-property" is a "binary predicate".
+"has-broad-synonym" is a "binary predicate".
+"has-exact-synonym" is a "binary predicate".
+"has-narrow-synonym" is a "binary predicate".
+"has-related-synonym" is a "binary predicate".
+"inverse of" is a "binary predicate".
+"top-object-property" is a "binary predicate".
+
+// Type hierarchy
+// Dropped subtype edges:
+// - abstract-to-concrete: 2 (e.g. "type" -> "curation-status-specification", "class" -> "curation-status-specification")
+"anatomical-structure" is a subtype of "material-anatomical-entity".
+"assay" is a subtype of "planned-process".
+"biological-process" is a subtype of "process".
+"blood-vessel" is a subtype of "multicellular-anatomical-structure".
+"branched" is a subtype of "quality".
+"capillary" is a subtype of "blood-vessel".
+"cell" is a subtype of "anatomical-structure".
+"container" is a subtype of "device".
+"continuant" is a subtype of "restriction".
+"continuant" is a subtype of "type".
+"curation-status-specification" is a subtype of "class".
+"curation-status-specification" is a subtype of "type".
+"device" is a subtype of "processed-material".
+"disease" is a subtype of "disposition".
+"disposition" is a subtype of "realizable-entity".
+"environmental-system" is a subtype of "system".
+"exposure-of-organism" is a subtype of "process".
+"function" is a subtype of "disposition".
+"gene-product-or-complex-activity" is a subtype of "process".
+"generically-dependent-continuant" is a subtype of "continuant".
+"generically-dependent-continuant" is a subtype of "restriction".
+"generically-dependent-continuant" is a subtype of "type".
+"habitat" is a subtype of "environmental-system".
+"immaterial-anatomical-entity" is a subtype of "immaterial-entity".
+"immaterial-entity" is a subtype of "independent-continuant".
+"independent-continuant" is a subtype of "continuant".
+"independent-continuant" is a subtype of "restriction".
+"independent-continuant" is a subtype of "type".
+"laminar" is a subtype of "quality".
+"linear" is a subtype of "quality".
+"material-anatomical-entity" is a subtype of "material-entity".
+"material-entity" is a subtype of "independent-continuant".
+"multicellular-anatomical-structure" is a subtype of "anatomical-structure".
+"neuron-projection-bundle" is a subtype of "anatomical-structure".
+"occurrent" is a subtype of "restriction".
+"occurrent" is a subtype of "type".
+"organism" is a subtype of "material-entity".
+"phenotype" is a subtype of "quality".
+"planned-process" is a subtype of "process".
+"process" is a subtype of "occurrent".
+"process" is a subtype of "restriction".
+"process" is a subtype of "type".
+"processed-material" is a subtype of "material-entity".
+"quality" is a subtype of "restriction".
+"quality" is a subtype of "specifically-dependent-continuant".
+"quality" is a subtype of "type".
+"ratio" is a subtype of "quality".
+"realizable-entity" is a subtype of "restriction".
+"realizable-entity" is a subtype of "specifically-dependent-continuant".
+"realizable-entity" is a subtype of "type".
+"role" is a subtype of "realizable-entity".
+"sequence-atomic-unit" is a subtype of "sequentially-ordered-entity".
+"sequence-bearer" is a subtype of "sequentially-ordered-entity".
+"sequentially-ordered-entity" is a subtype of "restriction".
+"sequentially-ordered-entity" is a subtype of "type".
+"spatial-region" is a subtype of "immaterial-entity".
+"specifically-dependent-continuant" is a subtype of "continuant".
+"specifically-dependent-continuant" is a subtype of "restriction".
+"specifically-dependent-continuant" is a subtype of "type".
+"system" is a subtype of "material-entity".
+"ubiquitin-protein-transferase-activity" is a subtype of "gene-product-or-complex-activity".
+"ubiquitin-protein-transferase-activity" is a subtype of "restriction".
+"ubiquitin-protein-transferase-activity" is a subtype of "type".
+
+// Domain and range constraints
+the domain of "adjacent to" is "independent-continuant".
+the domain of "allergic-trigger-for" is "material-entity".
+the domain of "assay-measures-characteristic" is "assay".
+the domain of "attached-to-part-of" is "anatomical-structure".
+the domain of "autoimmune-trigger-for" is "material-entity".
+the domain of "biomechanically-related-to" is "anatomical-structure".
+the domain of "biotically-interacts-with" is "material-entity".
+the domain of "bounding-layer-of" is "class".
+the domain of "bounding-layer-of" is "type".
+the domain of "capable of" is "independent-continuant".
+the domain of "carrier of" is "independent-continuant".
+the domain of "causal-relation-between-entities" is "continuant".
+the domain of "causal-relation-between-material-entity-and-a-process" is "material-entity".
+the domain of "causal-relation-between-processes" is "occurrent".
+the domain of "causal-relationship-with-disease-as-subject" is "disease".
+the domain of "causally-influences" is "continuant".
+the domain of "cell-expresses" is "cell".
+the domain of "characteristic-measured-by-assay" is "specifically-dependent-continuant".
+the domain of "child-nucleus-of" is "nucleus".
+the domain of "coincident with" is "class".
+the domain of "coincident with" is "type".
+the domain of "collected during" is "material-entity".
+the domain of "colocalizes with" is "material-entity".
+the domain of "composed-primarily-of" is "material-entity".
+the domain of "concretized-as" is "generically-dependent-continuant".
+the domain of "concretizes" is "class".
+the domain of "concretizes" is "type".
+the domain of "condition-has-genetic-basis-in" is "realizable-entity".
+the domain of "conduit for" is "material-entity".
+the domain of "connected to" is "restriction".
+the domain of "connected to" is "type".
+the domain of "connects" is "independent-continuant".
+the domain of "continuous with" is "independent-continuant".
+the domain of "creates-habitat-for" is "organism".
+the domain of "decreased-in-magnitude-relative-to" is "quality".
+the domain of "decreases-by-repression-quantity-of" is "material-entity".
+the domain of "destabilizes-quantity-of" is "material-entity".
+the domain of "determined by" is "system".
+the domain of "determined-by-part-of" is "system".
+the domain of "developmentally-induced-by" is "material-anatomical-entity".
+the domain of "developmentally-preceded-by" is "continuant".
+the domain of "develops from" is "independent-continuant".
+the domain of "different-in-magnitude-relative-to" is "quality".
+the domain of "directly-develops-from" is "class".
+the domain of "directly-develops-from" is "type".
+the domain of "directly-negatively-regulates-activity-of" is "material-entity".
+the domain of "directly-negatively-regulates-quantity-of" is "material-entity".
+the domain of "directly-positively-regulates-activity-of" is "material-entity".
+the domain of "directly-positively-regulates-quantity-of" is "material-entity".
+the domain of "directly-regulates-activity-of" is "material-entity".
+the domain of "directly-supplies-and-drains" is "capillary".
+the domain of "disease-causes-disruption-of" is "disease".
+the domain of "disease-causes-dysfunction-of" is "disease".
+the domain of "disease-has-basis-in" is "disease".
+the domain of "disease-has-basis-in-feature" is "disease".
+the domain of "disease-has-feature" is "disease".
+the domain of "disease-has-inflammation-site" is "disease".
+the domain of "disease-has-location" is "disease".
+the domain of "ecologically-co-occurs-with" is "organism".
+the domain of "expressed in" is "class".
+the domain of "expressed in" is "continuant".
+the domain of "expressed in" is "type".
+the domain of "function of" is "function".
+the domain of "gene-product-of" is "class".
+the domain of "gene-product-of" is "independent-continuant".
+the domain of "gene-product-of" is "type".
+the domain of "generically-depends-on" is "generically-dependent-continuant".
+the domain of "genomically-related-to" is "continuant".
+the domain of "has-2-d-boundary" is "material-entity".
+the domain of "has-active-ingredient" is "material-entity".
+the domain of "has-characterizing-marker-set" is "cell".
+the domain of "has-component-process" is "process".
+the domain of "has-consumer" is "material-entity".
+the domain of "has-denominator" is "ratio".
+the domain of "has-disposition" is "independent-continuant".
+the domain of "has-end-location" is "process".
+the domain of "has-fasciculating-neuron-projection" is "neuron-projection-bundle".
+the domain of "has-function" is "independent-continuant".
+the domain of "has-gene-product" is "continuant".
+the domain of "has-habitat" is "organism".
+the domain of "has-high-plasma-membrane-amount" is "cell".
+the domain of "has-input" is "process".
+the domain of "has-low-plasma-membrane-amount" is "cell".
+the domain of "has-maximum-capacity" is "container".
+the domain of "has-modifier" is "specifically-dependent-continuant".
+the domain of "has-muscle-insertion" is "anatomical-structure".
+the domain of "has-muscle-origin" is "anatomical-structure".
+the domain of "has-numerator" is "ratio".
+the domain of "has-part-that-occurs-in" is "occurrent".
+the domain of "has-participant" is "occurrent".
+the domain of "has-phenotype" is "class".
+the domain of "has-phenotype" is "type".
+the domain of "has-plasma-membrane-part" is "material-anatomical-entity".
+the domain of "has-prototype" is "class".
+the domain of "has-prototype" is "type".
+the domain of "has-role" is "independent-continuant".
+the domain of "has-roost" is "organism".
+the domain of "has-sensory-dendrite-in" is "sensory-neuron".
+the domain of "has-skeleton" is "anatomical-structure".
+the domain of "has-start-location" is "process".
+the domain of "has-substance-added" is "material-entity".
+the domain of "has-substance-removed" is "material-entity".
+the domain of "has-symptom" is "disease".
+the domain of "immersed in" is "material-entity".
+the domain of "in-branching-relationship-with" is "material-entity".
+the domain of "in-register-with" is "image".
+the domain of "increased-in-magnitude-relative-to" is "quality".
+the domain of "increases-by-expression-quantity-of" is "material-entity".
+the domain of "increases-expression-of" is "material-entity".
+the domain of "indirectly-positively-regulates-activity-of" is "material-entity".
+the domain of "indirectly-regulates-activity-of" is "material-entity".
+the domain of "innervated by" is "anatomical-structure".
+the domain of "innervates" is "neuron-projection-bundle".
+the domain of "interacts with" is "material-entity".
+the domain of "located in" is "class".
+the domain of "located in" is "independent-continuant".
+the domain of "located in" is "type".
+the domain of "luminal-space-of" is "immaterial-entity".
+the domain of "occurrent-part-of" is "occurrent".
+the domain of "participates in" is "continuant".
+the domain of "participates-in-a-biotic-biotic-interaction-with" is "organism".
+the domain of "preceded by" is "occurrent".
+the domain of "precedes" is "occurrent".
+the domain of "produced by" is "material-entity".
+the domain of "produces" is "material-entity".
+the domain of "realized in" is "realizable-entity".
+the domain of "realized-in-response-to" is "realizable-entity".
+the domain of "realized-in-response-to-stimulus" is "realizable-entity".
+the domain of "realizes" is "process".
+the domain of "regulated by" is "process".
+the domain of "regulates" is "process".
+the domain of "regulates-activity-of" is "material-entity".
+the domain of "regulates-characteristic" is "process".
+the domain of "regulates-in-another-organism" is "process".
+the domain of "regulates-levels-of" is "process".
+the domain of "regulates-quantity-of" is "material-entity".
+the domain of "rel-contains-measured-amount" is "container".
+the domain of "rel-occurs-in" is "occurrent".
+the domain of "related-via-exposure-to" is "exposure-of-organism".
+the domain of "related-via-localization-to" is "process".
+the domain of "relation-between-physical-entity-and-a-process-or-stage" is "independent-continuant".
+the domain of "releases-neurotransmitter" is "anatomical-structure".
+the domain of "represses-expression-of" is "material-entity".
+the domain of "results-in-developmental-progression-of" is "biological-process".
+the domain of "ribosomal-translation-of" is "class".
+the domain of "ribosomal-translation-of" is "type".
+the domain of "ribosomally-translates-to" is "class".
+the domain of "ribosomally-translates-to" is "type".
+the domain of "sequentially-related-to" is "sequentially-ordered-entity".
+the domain of "skeleton of" is "anatomical-structure".
+the domain of "stabilizes-quantity-of" is "material-entity".
+the domain of "starts during" is "occurrent".
+the domain of "synapsed to" is "class".
+the domain of "synapsed to" is "type".
+the domain of "temporally-related-to" is "occurrent".
+the domain of "tracheates" is "anatomical-structure".
+the domain of "transcribed from" is "class".
+the domain of "transcribed from" is "type".
+the domain of "transitively-provides-input-for" is "process".
+the domain of "vessel-drains-blood-from" is "blood-vessel".
+the domain of "vessel-supplies-blood-to" is "blood-vessel".
+the range of "adjacent to" is "independent-continuant".
+the range of "annotation-property-cardinality" is "non-negative-integer".
+the range of "assay-measures-characteristic" is "specifically-dependent-continuant".
+the range of "attached-to-part-of" is "anatomical-structure".
+the range of "biomechanically-related-to" is "anatomical-structure".
+the range of "biotically-interacts-with" is "material-entity".
+the range of "bounding-layer-of" is "material-entity".
+the range of "branching-part-of" is "restriction".
+the range of "branching-part-of" is "type".
+the range of "capable of" is "process".
+the range of "carrier of" is "generically-dependent-continuant".
+the range of "causal-relation-between-entities" is "continuant".
+the range of "causal-relation-between-material-entity-and-a-process" is "process".
+the range of "causal-relation-between-processes" is "occurrent".
+the range of "causally-influences" is "continuant".
+the range of "characteristic-measured-by-assay" is "assay".
+the range of "child-nucleus-of" is "nucleus".
+the range of "coincident with" is "class".
+the range of "coincident with" is "type".
+the range of "collected during" is "occurrent".
+the range of "colocalizes with" is "material-entity".
+the range of "composed-primarily-of" is "material-entity".
+the range of "concretized-as" is "class".
+the range of "concretized-as" is "type".
+the range of "concretizes" is "generically-dependent-continuant".
+the range of "condition-has-genetic-basis-in" is "class".
+the range of "condition-has-genetic-basis-in" is "type".
+the range of "conduit for" is "material-entity".
+the range of "confers-advantage-in" is "environmental-system".
+the range of "connected to" is "restriction".
+the range of "connected to" is "type".
+the range of "connects" is "restriction".
+the range of "connects" is "type".
+the range of "continuous with" is "independent-continuant".
+the range of "creates-habitat-for" is "organism".
+the range of "decreased-in-magnitude-relative-to" is "quality".
+the range of "decreases-by-repression-quantity-of" is "material-entity".
+the range of "destabilizes-quantity-of" is "material-entity".
+the range of "determined by" is "material-entity".
+the range of "determined-by-part-of" is "material-entity".
+the range of "developmentally-induced-by" is "material-anatomical-entity".
+the range of "developmentally-preceded-by" is "continuant".
+the range of "develops from" is "independent-continuant".
+the range of "different-in-magnitude-relative-to" is "quality".
+the range of "differs-in-attribute" is "specifically-dependent-continuant".
+the range of "differs-in-attribute-of" is "class".
+the range of "differs-in-attribute-of" is "type".
+the range of "directly-develops-from" is "class".
+the range of "directly-develops-from" is "type".
+the range of "directly-negatively-regulates-activity-of" is "material-entity".
+the range of "directly-negatively-regulates-quantity-of" is "material-entity".
+the range of "directly-positively-regulates-activity-of" is "material-entity".
+the range of "directly-positively-regulates-quantity-of" is "material-entity".
+the range of "directly-regulates-activity-of" is "material-entity".
+the range of "directly-supplies-and-drains" is "anatomical-structure".
+the range of "disease-arises-from-alteration-in-structure" is "anatomical-structure".
+the range of "disease-causes-disruption-of" is "process".
+the range of "disease-causes-dysfunction-of" is "material-anatomical-entity".
+the range of "disease-has-basis-in-disruption-of" is "process".
+the range of "disease-has-basis-in-dysfunction-of" is "material-anatomical-entity".
+the range of "disease-has-basis-in-feature" is "class".
+the range of "disease-has-basis-in-feature" is "type".
+the range of "disease-has-feature" is "class".
+the range of "disease-has-feature" is "type".
+the range of "disease-has-inflammation-site" is "class".
+the range of "disease-has-inflammation-site" is "independent-continuant".
+the range of "disease-has-inflammation-site" is "type".
+the range of "disease-has-location" is "class".
+the range of "disease-has-location" is "independent-continuant".
+the range of "disease-has-location" is "type".
+the range of "ecologically-co-occurs-with" is "organism".
+the range of "expressed in" is "material-anatomical-entity".
+the range of "fasciculates with" is "neuron-projection-bundle".
+the range of "gene-product-of" is "class".
+the range of "gene-product-of" is "continuant".
+the range of "gene-product-of" is "type".
+the range of "generically-depends-on" is "independent-continuant".
+the range of "genetic-basis-for-condition" is "realizable-entity".
+the range of "genomically-related-to" is "continuant".
+the range of "has-2-d-boundary" is "immaterial-entity".
+the range of "has-active-ingredient" is "material-entity".
+the range of "has-allergic-trigger" is "material-entity".
+the range of "has-autoimmune-trigger" is "material-entity".
+the range of "has-characteristic" is "specifically-dependent-continuant".
+the range of "has-component-process" is "process".
+the range of "has-consumer" is "organism".
+the range of "has-denominator" is "quality".
+the range of "has-disposition" is "disposition".
+the range of "has-end-location" is "independent-continuant".
+the range of "has-fasciculating-neuron-projection" is "class".
+the range of "has-fasciculating-neuron-projection" is "type".
+the range of "has-function" is "function".
+the range of "has-gene-product" is "independent-continuant".
+the range of "has-habitat" is "environmental-system".
+the range of "has-increased-age-specific-mortality-rate" is "datatype".
+the range of "has-increased-age-specific-mortality-rate" is "type".
+the range of "has-modifier" is "specifically-dependent-continuant".
+the range of "has-numerator" is "quality".
+the range of "has-part-that-occurs-in" is "independent-continuant".
+the range of "has-participant" is "continuant".
+the range of "has-phenotype" is "phenotype".
+the range of "has-plasma-membrane-part" is "material-anatomical-entity".
+the range of "has-quality" is "quality".
+the range of "has-role" is "role".
+the range of "has-roost" is "habitat".
+the range of "has-skeleton" is "material-anatomical-entity".
+the range of "has-soma-location" is "material-anatomical-entity".
+the range of "has-start-location" is "independent-continuant".
+the range of "has-substance-added" is "material-entity".
+the range of "has-substance-removed" is "material-entity".
+the range of "immersed in" is "material-entity".
+the range of "in-branching-relationship-with" is "material-entity".
+the range of "in-register-with" is "image".
+the range of "in-taxon" is "organism".
+the range of "increased-in-magnitude-relative-to" is "quality".
+the range of "increases-by-expression-quantity-of" is "material-entity".
+the range of "increases-expression-of" is "material-entity".
+the range of "indirectly-positively-regulates-activity-of" is "material-entity".
+the range of "indirectly-regulates-activity-of" is "material-entity".
+the range of "innervated by" is "neuron-projection-bundle".
+the range of "interacts with" is "material-entity".
+the range of "located in" is "class".
+the range of "located in" is "independent-continuant".
+the range of "located in" is "type".
+the range of "lumen of" is "material-entity".
+the range of "occurrent-part-of" is "occurrent".
+the range of "participates in" is "occurrent".
+the range of "participates-in-a-biotic-biotic-interaction-with" is "organism".
+the range of "preceded by" is "occurrent".
+the range of "precedes" is "occurrent".
+the range of "produced by" is "material-entity".
+the range of "produces" is "material-entity".
+the range of "realized in" is "process".
+the range of "realized-in-response-to" is "process".
+the range of "realized-in-response-to-stimulus" is "material-entity".
+the range of "realizes" is "realizable-entity".
+the range of "regulated by" is "process".
+the range of "regulates" is "process".
+the range of "regulates-activity-of" is "material-entity".
+the range of "regulates-characteristic" is "quality".
+the range of "regulates-in-another-organism" is "process".
+the range of "regulates-levels-of" is "material-entity".
+the range of "regulates-quantity-of" is "material-entity".
+the range of "rel-occurs-in" is "independent-continuant".
+the range of "related-via-localization-to" is "continuant".
+the range of "relation-between-physical-entity-and-a-process-or-stage" is "occurrent".
+the range of "releases-neurotransmitter" is "material-entity".
+the range of "represses-expression-of" is "material-entity".
+the range of "results-in-acquisition-of-features-of" is "anatomical-structure".
+the range of "results-in-commitment-to" is "cell".
+the range of "results-in-determination-of" is "cell".
+the range of "results-in-specification-of" is "cell".
+the range of "ribosomal-translation-of" is "class".
+the range of "ribosomal-translation-of" is "type".
+the range of "ribosomally-translates-to" is "class".
+the range of "ribosomally-translates-to" is "type".
+the range of "sequentially-related-to" is "sequentially-ordered-entity".
+the range of "skeleton of" is "anatomical-structure".
+the range of "stabilizes-quantity-of" is "material-entity".
+the range of "starts during" is "occurrent".
+the range of "synapsed by" is "class".
+the range of "synapsed by" is "type".
+the range of "temporally-related-to" is "occurrent".
+the range of "tracheates" is "anatomical-structure".
+the range of "transcribed from" is "class".
+the range of "transcribed from" is "type".
+the range of "transitively-provides-input-for" is "process".
+the range of "vessel-drains-blood-from" is "anatomical-structure".
+the range of "vessel-supplies-blood-to" is "anatomical-structure".

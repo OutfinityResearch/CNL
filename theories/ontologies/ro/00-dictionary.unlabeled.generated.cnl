@@ -1,0 +1,15 @@
+// This file is generated. Do not edit.
+// Source: ontologies/ro/ro.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Dropped opaque terms (no label found) while importing: Ro
+// Note: this file is for audit only and is not loaded by base bundles.
+
+// Dropped types:
+// - "chebi-50906" (IRI: http://purl.obolibrary.org/obo/CHEBI_50906)
+//   "chebi-50906" is a type.
+//   "chebi-50906" is a "unary predicate".
+// - "cob-0000121" (IRI: http://purl.obolibrary.org/obo/COB_0000121)
+//   "cob-0000121" is a type.
+//   "cob-0000121" is a "unary predicate".

@@ -1,3 +1,6 @@
+import { API } from "./api.mjs";
+import { renderDetails } from "./details.mjs";
+
 export function activateTab(tabId) {
   const btn = document.getElementById(tabId);
   if (!btn) return;
@@ -8,6 +11,12 @@ export function activateTab(tabId) {
   btn.classList.add('tab--active');
   const panelId = btn.id.replace('tab', 'panel');
   document.getElementById(panelId).classList.add('tabs__panel--active');
+
+  if (tabId === 'tabTree') {
+    API.getOverview('knowledge').then(data => {
+      if (data && data.overview) renderDetails(data);
+    });
+  }
 }
 
 export function bindTabs(onGraph) {

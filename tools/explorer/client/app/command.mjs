@@ -3,6 +3,7 @@ import { activateTab } from "./tabs.mjs";
 import { refreshTree } from "./tree.mjs";
 import { API } from "./api.mjs";
 import { updateStats } from "./stats.mjs";
+import { formatProofTrace } from "./proof.mjs";
 
 function formatEntityKey(key, id) {
   if (!key) return `#${id}`;
@@ -43,41 +44,18 @@ function formatResult(result) {
   return JSON.stringify(result, null, 2);
 }
 
-function formatProof(proof) {
-  if (!proof || proof.kind !== "ProofTrace") return "";
-  const lines = [];
-  lines.push(`Proof (${proof.mode})`);
-  if (Array.isArray(proof.premises) && proof.premises.length) {
-    lines.push("");
-    lines.push("Premises:");
-    proof.premises.slice(0, 20).forEach((p) => lines.push(`- ${p}`));
-    if (proof.premises.length > 20) {
-      lines.push(`(and ${proof.premises.length - 20} more)`);
-    }
-  }
-  if (proof.counterexample?.entity) {
-    lines.push("");
-    lines.push(`Counterexample: ${proof.counterexample.entity}`);
-  }
-  if (Array.isArray(proof.steps) && proof.steps.length) {
-    lines.push("");
-    lines.push(...proof.steps);
-  }
-  return lines.join("\n");
-}
-
 export async function executeCommand(text) {
   activateTab("tabChat");
 
   try {
     const res = await API.sendCommand(text);
     if (res.ok) {
-      const message = res.message || res.output || (res.result ? formatResult(res.result) : "✓ Done.");
-      UI.log(message, "system");
-      const proofText = res.result?.proof ? formatProof(res.result.proof) : "";
+      let message = res.message || res.output || (res.result ? formatResult(res.result) : "✓ Done.");
+      const proofText = res.result?.proof ? formatProofTrace(res.result.proof) : "";
       if (proofText) {
-        UI.log(proofText, "system");
+        message = `${message}\n\n${proofText}`;
       }
+      UI.log(message, "system");
     } else {
       if (res.message) {
         UI.log(res.message, "error");
@@ -89,7 +67,9 @@ export async function executeCommand(text) {
     }
     await updateStats();
     await refreshTree();
+    return res;
   } catch (e) {
     UI.log(`Network Error: ${e.message}`, "error");
+    return { ok: false, error: e };
   }
 }

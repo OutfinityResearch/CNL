@@ -15,3 +15,6 @@
   expect: "Server1"
   proofMode: "Witness"
   proofPremisesInclude: ["Server1 handles payments."]
+- input: "User1 is a user.\nUser2 is a user.\nUser1 is blocked.\nSolve for ?X such that ?X is a user and it is not the case that ?X is blocked."
+  purpose: "Solve with a negated unary constraint."
+  expect: "User2"

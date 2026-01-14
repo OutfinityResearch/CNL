@@ -100,7 +100,7 @@ export function generateAllTheories(options = {}) {
     const outDir = path.join(defaultOutRoot, id);
     const inPaths = inputs.map((name) => path.relative(cwd, path.join(folder, name)));
 
-    const result = runImport({ in: inPaths, out: outDir, context });
+    const result = runImport({ in: inPaths, out: outDir, context, prefix: "", ontologyId: id });
     const entry = {
       id,
       context,

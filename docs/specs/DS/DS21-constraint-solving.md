@@ -6,7 +6,7 @@ Defines the `Solve ... such that ...` pragmatic for variable binding and constra
 Solve supports a restricted, deterministic CSP model over entity domains:
 - Conjunctive constraints only (AND).
 - No OR branches.
-- No negated constraints (constraints may reference predicates derived using negation elsewhere).
+- Negated unary constraints are supported (`it is not the case that ?X is blocked`), but negated binary/attribute constraints are rejected.
 - Variables range over entities (`?X`).
 
 Solve v2 adds a search layer (backtracking) on top of domain propagation to ensure returned bindings are supported by at least one consistent assignment.
@@ -23,13 +23,15 @@ Inside `such that ...`, the constraint expression must be a conjunction of atomi
 - Unary membership:
   - `?X is a safe-region`
   - `?X is active`
+- Negated unary membership:
+  - `it is not the case that ?X is blocked`
 - Binary relations:
   - `?X touches ?Y`
   - `Region_A touches ?X`
 
 ### Rejected Forms (v1/v2)
 - OR (`or`, `either ... or ...`)
-- Negated constraint (`it is not the case that ...`) inside the Solve constraint expression
+- Negated binary/attribute constraints (`it is not the case that ?X touches ?Y`, `it is not the case that ?X has a weight of 10`)
 - Variable complements (`?X is ?Y`)
 
 ## Domain Propagation (AC-3 Style)
@@ -78,4 +80,3 @@ The trace is not expected to be a complete formal proof calculus; it is a determ
 - DS11 for bitset primitives used by propagation.
 - DS18 for proof trace formats.
 - DS17 for KB Explorer presentation of CSP proofs.
-

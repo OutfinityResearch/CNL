@@ -36,6 +36,11 @@ export const API = {
   async getGraph() {
     return apiFetch("/api/graph");
   },
+  async getOverview(kind, id) {
+    const params = new URLSearchParams({ kind: String(kind || "") });
+    if (id) params.append("id", String(id));
+    return apiFetch(`/api/overview?${params.toString()}`);
+  },
   async getExamples() {
     const res = await fetch("/api/examples");
     return res.json();

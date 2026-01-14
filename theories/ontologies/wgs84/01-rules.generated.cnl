@@ -4,4 +4,4 @@
 --- CONTEXT: Wgs84 ---
 
 // Generated from ontology import: Wgs84
-// (no schema rules generated)
+Rule: If X is located in Y, then X based-near Y.

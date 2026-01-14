@@ -1,0 +1,12 @@
+// Manual additions for BaseDictionary (kept across regenerations).
+
+--- CONTEXT: BaseDictionary ---
+
+// Connect legal types to core ontology
+"legal-person" is a subtype of "agent".
+"organisation" is a subtype of "organization".
+"legal-document" is a subtype of "object".
+"legal-speech-act" is a subtype of "event".
+"norm" is a subtype of "claim".
+"right" is a subtype of "claim".
+"obligation" is a subtype of "claim".

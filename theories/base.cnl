@@ -111,7 +111,6 @@ Rule: If X overlaps with Y, then Y overlaps with X.
 --- CONTEXT: Space ---
 
 Rule: If X is inside of Y and Y is inside of Z, then X is inside of Z.
-Rule: If X is inside of Y, then X is located in Y.
 Rule: If X is adjacent to Y, then Y is adjacent to X.
 
 --- CONTEXT: Agency ---
@@ -131,12 +130,17 @@ Rule: If X believes Y, then X is an agent.
 Rule: If X asserts Y, then X is a claim.
 
 // Vendored, imported ontologies (generated from `ontologies/*/*.ttl`)
+Load: "theories/ontologies/foaf/00-dictionary.generated.cnl".
+Load: "theories/ontologies/foaf/00-dictionary.extra.cnl".
+Load: "theories/ontologies/foaf/01-rules.generated.cnl".
+Load: "theories/ontologies/foaf/01-rules.extra.cnl".
+
 Load: "theories/ontologies/w3c-owl-time/00-dictionary.generated.cnl".
 Load: "theories/ontologies/w3c-owl-time/00-dictionary.extra.cnl".
 Load: "theories/ontologies/w3c-owl-time/01-rules.generated.cnl".
 Load: "theories/ontologies/w3c-owl-time/01-rules.extra.cnl".
 
-Load: "theories/ontologies/w3c-prov-o/00-dictionary.generated.cnl".
-Load: "theories/ontologies/w3c-prov-o/00-dictionary.extra.cnl".
-Load: "theories/ontologies/w3c-prov-o/01-rules.generated.cnl".
-Load: "theories/ontologies/w3c-prov-o/01-rules.extra.cnl".
+Load: "theories/ontologies/wgs84/00-dictionary.generated.cnl".
+Load: "theories/ontologies/wgs84/00-dictionary.extra.cnl".
+Load: "theories/ontologies/wgs84/01-rules.generated.cnl".
+Load: "theories/ontologies/wgs84/01-rules.extra.cnl".

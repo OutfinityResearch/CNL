@@ -16,6 +16,13 @@ export function extractOntologySchema(triples) {
   const labels = new Map();
   const labelScores = new Map();
 
+  const labelPredicateWeights = new Map([
+    [IRI.rdfsLabel, 30],
+    [IRI.skosPrefLabel, 30],
+    [IRI.oboIAOEditorPreferredTerm, 25],
+    [IRI.oboInOwlHasExactSynonym, 20],
+  ]);
+
   const subClassOf = new Map(); // child -> Set(parent)
   const subPropertyOf = new Map(); // child -> Set(parent)
   const domain = new Map(); // prop -> Set(class)
@@ -33,10 +40,11 @@ export function extractOntologySchema(triples) {
     const oLit = literalText(t.object);
     const oLang = t.object && typeof t.object === "object" && "lang" in t.object ? t.object.lang : null;
 
-    if (p === IRI.rdfsLabel || p === IRI.skosPrefLabel) {
+    if (labelPredicateWeights.has(p)) {
       if (s && oLit) {
         const lang = typeof oLang === "string" ? oLang.toLowerCase() : null;
-        const score = lang && lang.startsWith("en") ? 3 : lang ? 1 : 2;
+        if (lang && !lang.startsWith("en")) continue;
+        const score = (labelPredicateWeights.get(p) ?? 0) + (lang ? 3 : 2);
         const prevScore = labelScores.get(s) ?? -1;
         if (score > prevScore) {
           labels.set(s, oLit);
@@ -132,10 +140,69 @@ export function extractOntologySchema(triples) {
     }
   }
 
+  // Resolve class/property collisions (same IRI appears as both).
+  // Strategy (DS24): if a term has property-like signals (domain/range/subPropertyOf/inverse/transitive/symmetric),
+  // treat it as a property; otherwise treat it as a class.
+  const conflicts = [];
+  for (const iri of [...classes]) {
+    if (!properties.has(iri)) continue;
+    const hasPropertySignals =
+      domain.has(iri) ||
+      range.has(iri) ||
+      subPropertyOf.has(iri) ||
+      inverseOf.has(iri) ||
+      transitive.has(iri) ||
+      symmetric.has(iri) ||
+      equivalentProperty.has(iri);
+
+    if (hasPropertySignals) {
+      classes.delete(iri);
+      conflicts.push({ iri, chosen: "property", reason: "domain/range/subPropertyOf/inverse/transitive/symmetric/equivalentProperty" });
+
+      // Drop class-only edges that reference the removed class to keep rendering deterministic.
+      subClassOf.delete(iri);
+      equivalentClass.delete(iri);
+      for (const [child, parents] of subClassOf.entries()) {
+        parents.delete(iri);
+        if (parents.size === 0) subClassOf.delete(child);
+      }
+      for (const [a, bs] of equivalentClass.entries()) {
+        bs.delete(iri);
+        if (bs.size === 0) equivalentClass.delete(a);
+      }
+    } else {
+      properties.delete(iri);
+      conflicts.push({ iri, chosen: "class", reason: "no property-like signals" });
+
+      // Drop property-only edges that reference the removed property.
+      subPropertyOf.delete(iri);
+      domain.delete(iri);
+      range.delete(iri);
+      inverseOf.delete(iri);
+      transitive.delete(iri);
+      symmetric.delete(iri);
+      equivalentProperty.delete(iri);
+      for (const [child, parents] of subPropertyOf.entries()) {
+        parents.delete(iri);
+        if (parents.size === 0) subPropertyOf.delete(child);
+      }
+      for (const [p, qs] of inverseOf.entries()) {
+        qs.delete(iri);
+        if (qs.size === 0) inverseOf.delete(p);
+      }
+      for (const [a, bs] of equivalentProperty.entries()) {
+        bs.delete(iri);
+        if (bs.size === 0) equivalentProperty.delete(a);
+      }
+    }
+  }
+
   return {
     classes,
     properties,
     labels,
+    labelScores,
+    conflicts,
     subClassOf,
     subPropertyOf,
     domain,

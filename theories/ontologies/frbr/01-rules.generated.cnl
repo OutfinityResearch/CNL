@@ -1,0 +1,96 @@
+// This file is generated. Do not edit.
+// Source: ontologies/frbr/frbr.ttl
+
+--- CONTEXT: Frbr ---
+
+// Generated from ontology import: Frbr
+Rule: If X abridgement Y, then X related-endeavour Y.
+Rule: If X abridgement Y, then Y abridgement of X.
+Rule: If X abridgement of Y, then X related-endeavour Y.
+Rule: If X abridgement of Y, then Y abridgement X.
+Rule: If X adaption Y, then X related-endeavour Y.
+Rule: If X adaption Y, then Y adaption X.
+Rule: If X adaption Y, then Y adaption of X.
+Rule: If X adaption Y, then Y complement X.
+Rule: If X adaption Y, then Y complement of X.
+Rule: If X adaption Y, then Y imitation X.
+Rule: If X adaption Y, then Y imitation of X.
+Rule: If X adaption Y, then Y successor X.
+Rule: If X adaption Y, then Y successor of X.
+Rule: If X adaption Y, then Y summarization X.
+Rule: If X adaption Y, then Y summarization of X.
+Rule: If X adaption Y, then Y supplement X.
+Rule: If X adaption Y, then Y supplement of X.
+Rule: If X adaption Y, then Y transformation X.
+Rule: If X adaption Y, then Y transformation of X.
+Rule: If X adaption of Y, then Y adaption X.
+Rule: If X alternate Y, then X related-endeavour Y.
+Rule: If X alternate Y, then Y alternate of X.
+Rule: If X alternate of Y, then X related-endeavour Y.
+Rule: If X alternate of Y, then Y alternate X.
+Rule: If X arrangement Y, then X related-endeavour Y.
+Rule: If X arrangement Y, then Y arrangement of X.
+Rule: If X arrangement of Y, then X related-endeavour Y.
+Rule: If X arrangement of Y, then Y arrangement X.
+Rule: If X complement Y, then Y adaption X.
+Rule: If X complement of Y, then Y adaption X.
+Rule: If X creator Y, then X responsible-entity Y.
+Rule: If X creator Y, then Y creator of X.
+Rule: If X creator of Y, then X responsible-entity-of Y.
+Rule: If X creator of Y, then Y creator X.
+Rule: If X embodiment Y, then X related-endeavour Y.
+Rule: If X embodiment Y, then Y embodiment of X.
+Rule: If X embodiment of Y, then X related-endeavour Y.
+Rule: If X embodiment of Y, then Y embodiment X.
+Rule: If X exemplar Y, then X related-endeavour Y.
+Rule: If X exemplar Y, then Y exemplar of X.
+Rule: If X exemplar of Y, then X related-endeavour Y.
+Rule: If X exemplar of Y, then Y exemplar X.
+Rule: If X imitation Y, then Y adaption X.
+Rule: If X imitation of Y, then Y adaption X.
+Rule: If X is part of Y, then X related-endeavour Y.
+Rule: If X is part of Y, then Y part X.
+Rule: If X owner Y, then X responsible-entity Y.
+Rule: If X owner Y, then Y owner of X.
+Rule: If X owner of Y, then X responsible-entity-of Y.
+Rule: If X owner of Y, then Y owner X.
+Rule: If X part Y, then X related-endeavour Y.
+Rule: If X part Y, then Y is part of X.
+Rule: If X producer Y, then X responsible-entity Y.
+Rule: If X producer Y, then Y producer of X.
+Rule: If X producer of Y, then X responsible-entity-of Y.
+Rule: If X producer of Y, then Y producer X.
+Rule: If X realization Y, then X related-endeavour Y.
+Rule: If X realization Y, then Y realization of X.
+Rule: If X realization of Y, then X related-endeavour Y.
+Rule: If X realization of Y, then Y realization X.
+Rule: If X realizer Y, then X responsible-entity Y.
+Rule: If X realizer Y, then Y realizer of X.
+Rule: If X realizer of Y, then X responsible-entity-of Y.
+Rule: If X realizer of Y, then Y realizer X.
+Rule: If X reconfiguration Y, then X related-endeavour Y.
+Rule: If X reconfiguration Y, then Y reconfiguration of X.
+Rule: If X reconfiguration of Y, then X related-endeavour Y.
+Rule: If X reconfiguration of Y, then Y reconfiguration X.
+Rule: If X reproduction Y, then X related-endeavour Y.
+Rule: If X reproduction Y, then Y reproduction X.
+Rule: If X reproduction Y, then Y reproduction of X.
+Rule: If X reproduction of Y, then Y reproduction X.
+Rule: If X responsible-entity Y, then Y responsible-entity-of X.
+Rule: If X responsible-entity-of Y, then Y responsible-entity X.
+Rule: If X revision Y, then X related-endeavour Y.
+Rule: If X revision Y, then Y revision of X.
+Rule: If X revision of Y, then X related-endeavour Y.
+Rule: If X revision of Y, then Y revision X.
+Rule: If X successor Y, then Y adaption X.
+Rule: If X successor of Y, then Y adaption X.
+Rule: If X summarization Y, then Y adaption X.
+Rule: If X summarization of Y, then Y adaption X.
+Rule: If X supplement Y, then Y adaption X.
+Rule: If X supplement of Y, then Y adaption X.
+Rule: If X transformation Y, then Y adaption X.
+Rule: If X transformation of Y, then Y adaption X.
+Rule: If X translation Y, then X related-endeavour Y.
+Rule: If X translation Y, then Y translation of X.
+Rule: If X translation of Y, then X related-endeavour Y.
+Rule: If X translation of Y, then Y translation X.

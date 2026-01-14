@@ -1,0 +1,32 @@
+// Literature Domain Theory Bundle
+//
+// This file provides vocabulary and axioms for literary analysis,
+// including works, expressions, bibliographic entities, and
+// the FRBR model for describing literary and artistic works.
+//
+// Use this as base when working with:
+// - Books, articles, poems, plays
+// - Literary analysis and criticism
+// - Bibliographic records
+// - Digital humanities
+//
+// Based on official ontologies:
+// - FRBR (Functional Requirements for Bibliographic Records)
+// - FaBiO (FRBR-aligned Bibliographic Ontology)
+
+Load: "theories/base.cnl".
+
+// Import FRBR ontology (Work-Expression-Manifestation-Item model)
+Load: "theories/ontologies/frbr/00-dictionary.generated.cnl".
+Load: "theories/ontologies/frbr/00-dictionary.extra.cnl".
+Load: "theories/ontologies/frbr/01-rules.generated.cnl".
+Load: "theories/ontologies/frbr/01-rules.extra.cnl".
+
+// Import FaBiO ontology (detailed bibliographic types)
+Load: "theories/ontologies/fabio/00-dictionary.generated.cnl".
+Load: "theories/ontologies/fabio/00-dictionary.extra.cnl".
+Load: "theories/ontologies/fabio/01-rules.generated.cnl".
+Load: "theories/ontologies/fabio/01-rules.extra.cnl".
+
+// Import Literary Analysis Extensions (characters, plots, themes)
+Load: "theories/literature-extensions.cnl".

@@ -29,6 +29,15 @@ body {
 .topbar__title { font-weight: 700; font-size: 1.1rem; }
 .topbar__meta { display: flex; gap: 15px; align-items: center; font-size: 0.9rem; }
 
+.select {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--ink);
+  font-weight: 600;
+}
+
 .layout {
   flex: 1;
   display: flex;
@@ -136,6 +145,58 @@ body {
   border: 1px solid var(--border);
   border-radius: 6px;
   font-family: monospace;
+}
+
+.cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 16px 0;
+}
+
+.cloud-item {
+  border: 1px solid var(--border);
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 5px 10px;
+  cursor: pointer;
+  line-height: 1.1;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.cloud-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.cloud-item--thing {
+  background: #f3f8ff;
+  border-color: #c7ddff;
+}
+
+.cloud-item--concept {
+  background: #f6fff5;
+  border-color: #c9efc6;
+}
+
+.cloud-item--predicate {
+  background: #fff7ef;
+  border-color: #ffd9b5;
+}
+
+.cloud-item--rule {
+  background: #f6f2ff;
+  border-color: #d9ccff;
+}
+
+.cloud-item--warning {
+  background: #fff8e1;
+  border-color: #ffe082;
+}
+
+.cloud-item--error {
+  background: #ffebee;
+  border-color: #ffcdd2;
 }
 
 .btn {
@@ -653,6 +714,14 @@ body {
 }
 .graph-edge:hover {
   stroke-width: 3;
+}
+
+.graph-node--selected rect {
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18));
+}
+
+.graph-edge--selected {
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
 }
 
 /* Node popup */

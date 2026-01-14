@@ -6,10 +6,12 @@ export function isIri(value) {
 
 export function localNameFromIri(iri) {
   if (!iri) return "";
-  const hashIdx = iri.lastIndexOf("#");
-  const slashIdx = iri.lastIndexOf("/");
+  const cleaned = String(iri).replace(/[\/#]+$/, "");
+  const hashIdx = cleaned.lastIndexOf("#");
+  const slashIdx = cleaned.lastIndexOf("/");
   const idx = Math.max(hashIdx, slashIdx);
-  return idx >= 0 ? iri.slice(idx + 1) : iri;
+  const name = idx >= 0 ? cleaned.slice(idx + 1) : cleaned;
+  return name || cleaned;
 }
 
 function splitWords(raw) {
@@ -61,6 +63,8 @@ export function normalizePredicatePhrase(iriOrLabel, options = {}) {
   const words = splitWords(iriOrLabel).map(normalizeWord).filter(Boolean);
   if (words[0] === "is") words.shift();
   if (words.length === 0) return { phrase: "related-to", style: "active", verbToken: "related-to", particles: [] };
+
+  const startsWithLetter = (token) => /^[a-z_]/.test(String(token || ""));
 
   // Many OWL properties are named like "hasBeginning"/"hasPart". We cannot emit
   // `X has beginning Y` because `has` is reserved for attributes in the CNL grammar.
@@ -116,9 +120,15 @@ export function normalizePredicatePhrase(iriOrLabel, options = {}) {
     const allowParticles =
       particles.length === 1 && prepositions.has(particles[0]);
     if (!allowParticles) {
-      const token = words.join("-") || "related-to";
+      const token = (startsWithLetter(words[0]) ? words.join("-") : `rel-${words.join("-")}`) || "related-to";
       return { phrase: token, style: "active", verbToken: token, particles: [] };
     }
+  }
+
+  // Verb tokens must start with a letter/underscore in the CNL lexer.
+  if (!startsWithLetter(verb)) {
+    const token = `rel-${words.join("-")}` || "related-to";
+    return { phrase: token, style: "active", verbToken: token, particles: [] };
   }
 
   return { phrase, style: "active", verbToken: verb, particles };

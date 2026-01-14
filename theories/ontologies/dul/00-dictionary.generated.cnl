@@ -1,0 +1,696 @@
+// This file is generated. Do not edit.
+// Source: ontologies/dul/dul.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Dul
+"abstract" is a type.
+"abstract" is a "unary predicate".
+"action" is a type.
+"action" is a "unary predicate".
+"agent" is a type.
+"agent" is a "unary predicate".
+"amount" is a type.
+"amount" is a "unary predicate".
+"biological-object" is a type.
+"biological-object" is a "unary predicate".
+"chemical-object" is a type.
+"chemical-object" is a "unary predicate".
+"classification" is a type.
+"classification" is a "unary predicate".
+"collection" is a type.
+"collection" is a "unary predicate".
+"collective" is a type.
+"collective" is a "unary predicate".
+"collective-agent" is a type.
+"collective-agent" is a "unary predicate".
+"community" is a type.
+"community" is a "unary predicate".
+"concept" is a type.
+"concept" is a "unary predicate".
+"configuration" is a type.
+"configuration" is a "unary predicate".
+"contract" is a type.
+"contract" is a "unary predicate".
+"description" is a type.
+"description" is a "unary predicate".
+"design" is a type.
+"design" is a "unary predicate".
+"designed-artifact" is a type.
+"designed-artifact" is a "unary predicate".
+"designed-substance" is a type.
+"designed-substance" is a "unary predicate".
+"diagnosis" is a type.
+"diagnosis" is a "unary predicate".
+"entity" is a type.
+"entity" is a "unary predicate".
+"event" is a type.
+"event" is a "unary predicate".
+"event-type" is a type.
+"event-type" is a "unary predicate".
+"formal-entity" is a type.
+"formal-entity" is a "unary predicate".
+"functional-substance" is a type.
+"functional-substance" is a "unary predicate".
+"goal" is a type.
+"goal" is a "unary predicate".
+"group" is a type.
+"group" is a "unary predicate".
+"information-entity" is a type.
+"information-entity" is a "unary predicate".
+"information-object" is a type.
+"information-object" is a "unary predicate".
+"information-realization" is a type.
+"information-realization" is a "unary predicate".
+"local-concept" is a type.
+"local-concept" is a "unary predicate".
+"method" is a type.
+"method" is a "unary predicate".
+"narrative" is a type.
+"narrative" is a "unary predicate".
+"natural-person" is a type.
+"natural-person" is a "unary predicate".
+"norm" is a type.
+"norm" is a "unary predicate".
+"object" is a type.
+"object" is a "unary predicate".
+"object-aggregate" is a type.
+"object-aggregate" is a "unary predicate".
+"organism" is a type.
+"organism" is a "unary predicate".
+"organization" is a type.
+"organization" is a "unary predicate".
+"parameter" is a type.
+"parameter" is a "unary predicate".
+"parthood" is a type.
+"parthood" is a "unary predicate".
+"pattern" is a type.
+"pattern" is a "unary predicate".
+"person" is a type.
+"person" is a "unary predicate".
+"personification" is a type.
+"personification" is a "unary predicate".
+"physical-agent" is a type.
+"physical-agent" is a "unary predicate".
+"physical-artifact" is a type.
+"physical-artifact" is a "unary predicate".
+"physical-attribute" is a type.
+"physical-attribute" is a "unary predicate".
+"physical-body" is a type.
+"physical-body" is a "unary predicate".
+"physical-object" is a type.
+"physical-object" is a "unary predicate".
+"physical-place" is a type.
+"physical-place" is a "unary predicate".
+"place" is a type.
+"place" is a "unary predicate".
+"plan" is a type.
+"plan" is a "unary predicate".
+"plan-execution" is a type.
+"plan-execution" is a "unary predicate".
+"process" is a type.
+"process" is a "unary predicate".
+"project" is a type.
+"project" is a "unary predicate".
+"quality" is a type.
+"quality" is a "unary predicate".
+"region" is a type.
+"region" is a "unary predicate".
+"relation" is a type.
+"relation" is a "unary predicate".
+"right" is a type.
+"right" is a "unary predicate".
+"role" is a type.
+"role" is a "unary predicate".
+"set" is a type.
+"set" is a "unary predicate".
+"situation" is a type.
+"situation" is a "unary predicate".
+"social-agent" is a type.
+"social-agent" is a "unary predicate".
+"social-object" is a type.
+"social-object" is a "unary predicate".
+"social-attribute" is a type.
+"social-attribute" is a "unary predicate".
+"social-person" is a type.
+"social-person" is a "unary predicate".
+"social-relation" is a type.
+"social-relation" is a "unary predicate".
+"space-region" is a type.
+"space-region" is a "unary predicate".
+"spatio-temporal-region" is a type.
+"spatio-temporal-region" is a "unary predicate".
+"substance" is a type.
+"substance" is a "unary predicate".
+"task" is a type.
+"task" is a "unary predicate".
+"theory" is a type.
+"theory" is a "unary predicate".
+"time-indexed-relation" is a type.
+"time-indexed-relation" is a "unary predicate".
+"time-interval" is a type.
+"time-interval" is a "unary predicate".
+"transition" is a type.
+"transition" is a "unary predicate".
+"type-collection" is a type.
+"type-collection" is a "unary predicate".
+"unit-of-measure" is a type.
+"unit-of-measure" is a "unary predicate".
+"workflow" is a type.
+"workflow" is a "unary predicate".
+"workflow-execution" is a type.
+"workflow-execution" is a "unary predicate".
+"type" is a type.
+"type" is a "unary predicate".
+"date-time" is a type.
+"date-time" is a "unary predicate".
+"class" is a type.
+"class" is a "unary predicate".
+"restriction" is a type.
+"restriction" is a "unary predicate".
+"thing" is a type.
+"thing" is a "unary predicate".
+"intersection-of" is a type.
+"intersection-of" is a "unary predicate".
+
+// Binary predicates
+"acts for" is a "binary predicate".
+"acts through" is a "binary predicate".
+"associated with" is a "binary predicate".
+"characterizes" is a "binary predicate".
+"classifies" is a "binary predicate".
+"conceptualizes" is a "binary predicate".
+"concretely-expresses" is a "binary predicate".
+"co-participates-with" is a "binary predicate".
+"covers" is a "binary predicate".
+"defines" is a "binary predicate".
+"defines-role" is a "binary predicate".
+"defines-task" is a "binary predicate".
+"describes" is a "binary predicate".
+"directly-follows" is a "binary predicate".
+"directly-precedes" is a "binary predicate".
+"executes-task" is a "binary predicate".
+"expands" is a "binary predicate".
+"expresses" is a "binary predicate".
+"expresses-concept" is a "binary predicate".
+"far from" is a "binary predicate".
+"follows" is a "binary predicate".
+"has-common-boundary" is a "binary predicate".
+"has-component" is a "binary predicate".
+"has-constituent" is a "binary predicate".
+"has-constraint" is a "binary predicate".
+"has-data-value" is a "binary predicate".
+"has-event-date" is a "binary predicate".
+"has-in-scope" is a "binary predicate".
+"has-interval-date" is a "binary predicate".
+"has-location" is a "binary predicate".
+"has-member" is a "binary predicate".
+"has-parameter" is a "binary predicate".
+"has-parameter-data-value" is a "binary predicate".
+"has-part" is a "binary predicate".
+"has-participant" is a "binary predicate".
+"has-postcondition" is a "binary predicate".
+"has-precondition" is a "binary predicate".
+"has-proper-part" is a "binary predicate".
+"has-quality" is a "binary predicate".
+"has-region" is a "binary predicate".
+"has-region-data-value" is a "binary predicate".
+"has-role" is a "binary predicate".
+"has-setting" is a "binary predicate".
+"has-task" is a "binary predicate".
+"has-time-interval" is a "binary predicate".
+"includes-action" is a "binary predicate".
+"includes-agent" is a "binary predicate".
+"includes-event" is a "binary predicate".
+"includes-object" is a "binary predicate".
+"includes-part" is a "binary predicate".
+"includes-time" is a "binary predicate".
+"includes-whole" is a "binary predicate".
+"introduces" is a "binary predicate".
+"involves-agent" is a "binary predicate".
+"about" is a "binary predicate".
+"action-included-in" is a "binary predicate".
+"agent-included-in" is a "binary predicate".
+"agent-involved-in" is a "binary predicate".
+"characterized by" is a "binary predicate".
+"classified by" is a "binary predicate".
+"component of" is a "binary predicate".
+"concept-expressed-by" is a "binary predicate".
+"concept-used-in" is a "binary predicate".
+"conceptualized by" is a "binary predicate".
+"concretely-expressed-by" is a "binary predicate".
+"constituent of" is a "binary predicate".
+"constraint for" is a "binary predicate".
+"covered by" is a "binary predicate".
+"defined in" is a "binary predicate".
+"described by" is a "binary predicate".
+"event-included-in" is a "binary predicate".
+"executed in" is a "binary predicate".
+"expanded in" is a "binary predicate".
+"expressed by" is a "binary predicate".
+"introduced by" is a "binary predicate".
+"location of" is a "binary predicate".
+"member of" is a "binary predicate".
+"object-included-in" is a "binary predicate".
+"observable at" is a "binary predicate".
+"parameter for" is a "binary predicate".
+"parametrized by" is a "binary predicate".
+"part of" is a "binary predicate".
+"participant in" is a "binary predicate".
+"postcondition of" is a "binary predicate".
+"precondition of" is a "binary predicate".
+"propert-part-of" is a "binary predicate".
+"quality of" is a "binary predicate".
+"realized by" is a "binary predicate".
+"reference of" is a "binary predicate".
+"reference-of-information-realized-by" is a "binary predicate".
+"region for" is a "binary predicate".
+"related-to-concept" is a "binary predicate".
+"related-to-description" is a "binary predicate".
+"role-defined-in" is a "binary predicate".
+"role of" is a "binary predicate".
+"satisfied by" is a "binary predicate".
+"setting for" is a "binary predicate".
+"specialized by" is a "binary predicate".
+"subordinated to" is a "binary predicate".
+"superordinated to" is a "binary predicate".
+"task-defined-in" is a "binary predicate".
+"task of" is a "binary predicate".
+"time-included-in" is a "binary predicate".
+"time-interval-of" is a "binary predicate".
+"time-of-observation-of" is a "binary predicate".
+"unified by" is a "binary predicate".
+"near to" is a "binary predicate".
+"overlaps" is a "binary predicate".
+"parametrizes" is a "binary predicate".
+"precedes" is a "binary predicate".
+"realizes" is a "binary predicate".
+"realizes-information-about" is a "binary predicate".
+"realizes-self-information" is a "binary predicate".
+"in-the-same-setting-as" is a "binary predicate".
+"satisfies" is a "binary predicate".
+"specializes" is a "binary predicate".
+"unifies" is a "binary predicate".
+"uses-concept" is a "binary predicate".
+
+// Type hierarchy
+// Dropped subtype edges:
+// - abstract-to-concrete: 8 (e.g. "type" -> "plan-execution", "type" -> "situation", "type" -> "time-indexed-relation", "type" -> "workflow-execution", "restriction" -> "plan-execution")
+// - cycle-break: 2 (e.g. "time-indexed-relation" -> "intersection-of", "time-indexed-relation" -> "situation")
+"abstract" is a subtype of "entity".
+"action" is a subtype of "event".
+"action" is a subtype of "restriction".
+"action" is a subtype of "type".
+"agent" is a subtype of "object".
+"amount" is a subtype of "region".
+"biological-object" is a subtype of "physical-body".
+"chemical-object" is a subtype of "physical-body".
+"classification" is a subtype of "restriction".
+"classification" is a subtype of "time-indexed-relation".
+"classification" is a subtype of "type".
+"collection" is a subtype of "restriction".
+"collection" is a subtype of "social-object".
+"collection" is a subtype of "type".
+"collective" is a subtype of "collection".
+"collective" is a subtype of "restriction".
+"collective" is a subtype of "type".
+"collective-agent" is a subtype of "restriction".
+"collective-agent" is a subtype of "social-agent".
+"collective-agent" is a subtype of "type".
+"community" is a subtype of "collective-agent".
+"concept" is a subtype of "restriction".
+"concept" is a subtype of "social-object".
+"concept" is a subtype of "type".
+"configuration" is a subtype of "collection".
+"contract" is a subtype of "description".
+"description" is a subtype of "social-object".
+"design" is a subtype of "description".
+"designed-artifact" is a subtype of "physical-artifact".
+"designed-artifact" is a subtype of "restriction".
+"designed-artifact" is a subtype of "type".
+"designed-substance" is a subtype of "designed-artifact".
+"designed-substance" is a subtype of "functional-substance".
+"diagnosis" is a subtype of "description".
+"event" is a subtype of "entity".
+"event" is a subtype of "restriction".
+"event" is a subtype of "type".
+"event-type" is a subtype of "concept".
+"event-type" is a subtype of "restriction".
+"event-type" is a subtype of "type".
+"formal-entity" is a subtype of "abstract".
+"functional-substance" is a subtype of "substance".
+"goal" is a subtype of "description".
+"group" is a subtype of "collective-agent".
+"group" is a subtype of "restriction".
+"group" is a subtype of "type".
+"information-entity" is a subtype of "entity".
+"information-object" is a subtype of "information-entity".
+"information-object" is a subtype of "social-object".
+"information-realization" is a subtype of "class".
+"information-realization" is a subtype of "information-entity".
+"information-realization" is a subtype of "type".
+"intersection-of" is a subtype of "time-indexed-relation".
+"local-concept" is a subtype of "concept".
+"method" is a subtype of "description".
+"narrative" is a subtype of "description".
+"natural-person" is a subtype of "person".
+"natural-person" is a subtype of "physical-agent".
+"norm" is a subtype of "description".
+"object" is a subtype of "entity".
+"object" is a subtype of "restriction".
+"object" is a subtype of "type".
+"object-aggregate" is a subtype of "intersection-of".
+"object-aggregate" is a subtype of "object".
+"object-aggregate" is a subtype of "restriction".
+"object-aggregate" is a subtype of "type".
+"organism" is a subtype of "biological-object".
+"organism" is a subtype of "physical-agent".
+"organization" is a subtype of "social-agent".
+"parameter" is a subtype of "concept".
+"parameter" is a subtype of "restriction".
+"parameter" is a subtype of "type".
+"parthood" is a subtype of "restriction".
+"parthood" is a subtype of "time-indexed-relation".
+"parthood" is a subtype of "type".
+"pattern" is a subtype of "relation".
+"person" is a subtype of "agent".
+"personification" is a subtype of "social-agent".
+"physical-agent" is a subtype of "agent".
+"physical-agent" is a subtype of "physical-object".
+"physical-artifact" is a subtype of "physical-object".
+"physical-artifact" is a subtype of "restriction".
+"physical-artifact" is a subtype of "type".
+"physical-attribute" is a subtype of "region".
+"physical-attribute" is a subtype of "restriction".
+"physical-attribute" is a subtype of "type".
+"physical-body" is a subtype of "physical-object".
+"physical-object" is a subtype of "object".
+"physical-object" is a subtype of "restriction".
+"physical-object" is a subtype of "type".
+"physical-place" is a subtype of "physical-object".
+"place" is a subtype of "restriction".
+"place" is a subtype of "social-object".
+"place" is a subtype of "type".
+"plan" is a subtype of "description".
+"plan" is a subtype of "restriction".
+"plan" is a subtype of "type".
+"plan-execution" is a subtype of "restriction".
+"plan-execution" is a subtype of "situation".
+"plan-execution" is a subtype of "type".
+"process" is a subtype of "event".
+"project" is a subtype of "plan".
+"project" is a subtype of "restriction".
+"project" is a subtype of "type".
+"quality" is a subtype of "entity".
+"quality" is a subtype of "restriction".
+"quality" is a subtype of "type".
+"region" is a subtype of "abstract".
+"region" is a subtype of "restriction".
+"region" is a subtype of "type".
+"relation" is a subtype of "description".
+"right" is a subtype of "description".
+"right" is a subtype of "restriction".
+"right" is a subtype of "type".
+"role" is a subtype of "concept".
+"role" is a subtype of "restriction".
+"role" is a subtype of "type".
+"set" is a subtype of "formal-entity".
+"situation" is a subtype of "entity".
+"situation" is a subtype of "restriction".
+"situation" is a subtype of "time-indexed-relation".
+"situation" is a subtype of "type".
+"social-agent" is a subtype of "agent".
+"social-agent" is a subtype of "restriction".
+"social-agent" is a subtype of "social-object".
+"social-agent" is a subtype of "type".
+"social-attribute" is a subtype of "region".
+"social-attribute" is a subtype of "restriction".
+"social-attribute" is a subtype of "type".
+"social-object" is a subtype of "object".
+"social-object" is a subtype of "restriction".
+"social-object" is a subtype of "type".
+"social-person" is a subtype of "person".
+"social-person" is a subtype of "restriction".
+"social-person" is a subtype of "social-agent".
+"social-person" is a subtype of "type".
+"social-relation" is a subtype of "relation".
+"space-region" is a subtype of "region".
+"spatio-temporal-region" is a subtype of "region".
+"spatio-temporal-region" is a subtype of "restriction".
+"spatio-temporal-region" is a subtype of "type".
+"substance" is a subtype of "physical-body".
+"task" is a subtype of "event-type".
+"task" is a subtype of "restriction".
+"task" is a subtype of "type".
+"theory" is a subtype of "description".
+"theory" is a subtype of "restriction".
+"theory" is a subtype of "type".
+"time-indexed-relation" is a subtype of "restriction".
+"time-indexed-relation" is a subtype of "type".
+"time-interval" is a subtype of "region".
+"transition" is a subtype of "restriction".
+"transition" is a subtype of "situation".
+"transition" is a subtype of "type".
+"type-collection" is a subtype of "collection".
+"unit-of-measure" is a subtype of "parameter".
+"unit-of-measure" is a subtype of "restriction".
+"unit-of-measure" is a subtype of "type".
+"workflow" is a subtype of "plan".
+"workflow" is a subtype of "restriction".
+"workflow" is a subtype of "type".
+"workflow-execution" is a subtype of "restriction".
+"workflow-execution" is a subtype of "situation".
+"workflow-execution" is a subtype of "type".
+
+// Domain and range constraints
+the domain of "about" is "information-object".
+the domain of "action-included-in" is "action".
+the domain of "acts for" is "agent".
+the domain of "acts through" is "social-agent".
+the domain of "agent-included-in" is "agent".
+the domain of "agent-involved-in" is "agent".
+the domain of "associated with" is "entity".
+the domain of "characterized by" is "collection".
+the domain of "characterizes" is "concept".
+the domain of "classified by" is "entity".
+the domain of "classifies" is "concept".
+the domain of "co-participates-with" is "object".
+the domain of "component of" is "entity".
+the domain of "concept-expressed-by" is "concept".
+the domain of "concept-used-in" is "concept".
+the domain of "conceptualized by" is "social-object".
+the domain of "conceptualizes" is "agent".
+the domain of "concretely-expressed-by" is "social-object".
+the domain of "concretely-expresses" is "information-realization".
+the domain of "constituent of" is "entity".
+the domain of "constraint for" is "parameter".
+the domain of "covered by" is "collection".
+the domain of "covers" is "concept".
+the domain of "defined in" is "concept".
+the domain of "defines" is "description".
+the domain of "defines-role" is "description".
+the domain of "defines-task" is "description".
+the domain of "described by" is "entity".
+the domain of "describes" is "description".
+the domain of "directly-follows" is "entity".
+the domain of "directly-precedes" is "entity".
+the domain of "event-included-in" is "event".
+the domain of "executed in" is "task".
+the domain of "executes-task" is "action".
+the domain of "expanded in" is "description".
+the domain of "expands" is "description".
+the domain of "expressed by" is "social-object".
+the domain of "expresses" is "information-object".
+the domain of "expresses-concept" is "information-object".
+the domain of "far from" is "entity".
+the domain of "follows" is "entity".
+the domain of "has-common-boundary" is "entity".
+the domain of "has-component" is "entity".
+the domain of "has-constituent" is "entity".
+the domain of "has-constraint" is "entity".
+the domain of "has-data-value" is "entity".
+the domain of "has-event-date" is "event".
+the domain of "has-in-scope" is "situation".
+the domain of "has-interval-date" is "time-interval".
+the domain of "has-location" is "entity".
+the domain of "has-member" is "collection".
+the domain of "has-parameter" is "concept".
+the domain of "has-parameter-data-value" is "parameter".
+the domain of "has-part" is "entity".
+the domain of "has-participant" is "event".
+the domain of "has-postcondition" is "class".
+the domain of "has-postcondition" is "type".
+the domain of "has-precondition" is "class".
+the domain of "has-precondition" is "type".
+the domain of "has-quality" is "entity".
+the domain of "has-region" is "entity".
+the domain of "has-region-data-value" is "region".
+the domain of "has-role" is "object".
+the domain of "has-setting" is "entity".
+the domain of "has-task" is "role".
+the domain of "has-time-interval" is "event".
+the domain of "in-the-same-setting-as" is "entity".
+the domain of "includes-action" is "situation".
+the domain of "includes-agent" is "situation".
+the domain of "includes-event" is "situation".
+the domain of "includes-object" is "situation".
+the domain of "includes-time" is "situation".
+the domain of "introduced by" is "social-agent".
+the domain of "introduces" is "description".
+the domain of "involves-agent" is "event".
+the domain of "location of" is "entity".
+the domain of "member of" is "entity".
+the domain of "near to" is "entity".
+the domain of "object-included-in" is "object".
+the domain of "observable at" is "entity".
+the domain of "overlaps" is "entity".
+the domain of "parameter for" is "parameter".
+the domain of "parametrized by" is "region".
+the domain of "parametrizes" is "parameter".
+the domain of "part of" is "entity".
+the domain of "participant in" is "object".
+the domain of "postcondition of" is "class".
+the domain of "postcondition of" is "type".
+the domain of "precedes" is "entity".
+the domain of "precondition of" is "class".
+the domain of "precondition of" is "type".
+the domain of "quality of" is "quality".
+the domain of "realized by" is "information-object".
+the domain of "realizes" is "information-realization".
+the domain of "realizes-information-about" is "information-realization".
+the domain of "reference of" is "entity".
+the domain of "reference-of-information-realized-by" is "entity".
+the domain of "region for" is "region".
+the domain of "related-to-concept" is "concept".
+the domain of "related-to-description" is "description".
+the domain of "role of" is "role".
+the domain of "role-defined-in" is "role".
+the domain of "satisfied by" is "description".
+the domain of "satisfies" is "situation".
+the domain of "setting for" is "situation".
+the domain of "specialized by" is "social-object".
+the domain of "specializes" is "social-object".
+the domain of "subordinated to" is "concept".
+the domain of "superordinated to" is "concept".
+the domain of "task of" is "task".
+the domain of "task-defined-in" is "task".
+the domain of "time-included-in" is "time-interval".
+the domain of "time-interval-of" is "time-interval".
+the domain of "time-of-observation-of" is "time-interval".
+the domain of "unified by" is "collection".
+the domain of "unifies" is "description".
+the domain of "uses-concept" is "description".
+the range of "about" is "entity".
+the range of "action-included-in" is "situation".
+the range of "acts for" is "social-agent".
+the range of "acts through" is "agent".
+the range of "agent-included-in" is "situation".
+the range of "agent-involved-in" is "event".
+the range of "associated with" is "entity".
+the range of "characterized by" is "concept".
+the range of "characterizes" is "collection".
+the range of "classified by" is "concept".
+the range of "classifies" is "entity".
+the range of "co-participates-with" is "object".
+the range of "component of" is "entity".
+the range of "concept-expressed-by" is "information-object".
+the range of "concept-used-in" is "description".
+the range of "conceptualized by" is "agent".
+the range of "conceptualizes" is "social-object".
+the range of "concretely-expressed-by" is "information-realization".
+the range of "concretely-expresses" is "social-object".
+the range of "constituent of" is "entity".
+the range of "constraint for" is "entity".
+the range of "covered by" is "concept".
+the range of "covers" is "collection".
+the range of "defined in" is "description".
+the range of "defines" is "concept".
+the range of "defines-role" is "role".
+the range of "defines-task" is "task".
+the range of "described by" is "description".
+the range of "describes" is "entity".
+the range of "directly-follows" is "entity".
+the range of "directly-precedes" is "entity".
+the range of "event-included-in" is "situation".
+the range of "executed in" is "action".
+the range of "executes-task" is "task".
+the range of "expanded in" is "description".
+the range of "expands" is "description".
+the range of "expressed by" is "information-object".
+the range of "expresses" is "social-object".
+the range of "expresses-concept" is "concept".
+the range of "far from" is "entity".
+the range of "follows" is "entity".
+the range of "has-common-boundary" is "entity".
+the range of "has-component" is "entity".
+the range of "has-constituent" is "entity".
+the range of "has-constraint" is "parameter".
+the range of "has-event-date" is "date-time".
+the range of "has-in-scope" is "situation".
+the range of "has-interval-date" is "date-time".
+the range of "has-location" is "entity".
+the range of "has-member" is "entity".
+the range of "has-parameter" is "parameter".
+the range of "has-part" is "entity".
+the range of "has-participant" is "object".
+the range of "has-postcondition" is "class".
+the range of "has-postcondition" is "type".
+the range of "has-precondition" is "class".
+the range of "has-precondition" is "type".
+the range of "has-quality" is "quality".
+the range of "has-region" is "region".
+the range of "has-role" is "role".
+the range of "has-setting" is "situation".
+the range of "has-task" is "task".
+the range of "has-time-interval" is "time-interval".
+the range of "in-the-same-setting-as" is "entity".
+the range of "includes-action" is "action".
+the range of "includes-agent" is "agent".
+the range of "includes-event" is "event".
+the range of "includes-object" is "object".
+the range of "includes-time" is "time-interval".
+the range of "introduced by" is "description".
+the range of "introduces" is "social-agent".
+the range of "involves-agent" is "agent".
+the range of "location of" is "entity".
+the range of "member of" is "collection".
+the range of "near to" is "entity".
+the range of "object-included-in" is "situation".
+the range of "observable at" is "time-interval".
+the range of "overlaps" is "entity".
+the range of "parameter for" is "concept".
+the range of "parametrized by" is "parameter".
+the range of "parametrizes" is "region".
+the range of "part of" is "entity".
+the range of "participant in" is "event".
+the range of "postcondition of" is "class".
+the range of "postcondition of" is "type".
+the range of "precedes" is "entity".
+the range of "precondition of" is "class".
+the range of "precondition of" is "type".
+the range of "quality of" is "entity".
+the range of "realized by" is "information-realization".
+the range of "realizes" is "information-object".
+the range of "realizes-information-about" is "entity".
+the range of "reference of" is "information-object".
+the range of "reference-of-information-realized-by" is "information-realization".
+the range of "region for" is "entity".
+the range of "related-to-concept" is "concept".
+the range of "related-to-description" is "description".
+the range of "role of" is "object".
+the range of "role-defined-in" is "description".
+the range of "satisfied by" is "situation".
+the range of "satisfies" is "description".
+the range of "setting for" is "entity".
+the range of "specialized by" is "social-object".
+the range of "specializes" is "social-object".
+the range of "subordinated to" is "concept".
+the range of "superordinated to" is "concept".
+the range of "task of" is "role".
+the range of "task-defined-in" is "description".
+the range of "time-included-in" is "situation".
+the range of "time-interval-of" is "event".
+the range of "time-of-observation-of" is "entity".
+the range of "unified by" is "description".
+the range of "unifies" is "collection".
+the range of "uses-concept" is "concept".

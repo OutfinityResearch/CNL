@@ -1,0 +1,466 @@
+// This file is generated. Do not edit.
+// Source: ontologies/lkif-core/lkif-core.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: LkifCore
+
+// Resolved key collisions (type vs binary predicate):
+// - "creation": chose class (dropped property)
+"act-of-law" is a type.
+"act-of-law" is a "unary predicate".
+"action" is a type.
+"action" is a "unary predicate".
+"action-power" is a type.
+"action-power" is a "unary predicate".
+"agent" is a type.
+"agent" is a "unary predicate".
+"allowed" is a type.
+"allowed" is a "unary predicate".
+"allowed-and-disallowed" is a type.
+"allowed-and-disallowed" is a "unary predicate".
+"artifact" is a type.
+"artifact" is a "unary predicate".
+"assignment" is a type.
+"assignment" is a "unary predicate".
+"association" is a type.
+"association" is a "unary predicate".
+"belief-in-violation" is a type.
+"belief-in-violation" is a "unary predicate".
+"co-operative" is a type.
+"co-operative" is a "unary predicate".
+"code" is a type.
+"code" is a "unary predicate".
+"code-of-conduct" is a type.
+"code-of-conduct" is a "unary predicate".
+"collaborative-plan" is a type.
+"collaborative-plan" is a "unary predicate".
+"company" is a type.
+"company" is a "unary predicate".
+"contract" is a type.
+"contract" is a "unary predicate".
+"corporation" is a type.
+"corporation" is a "unary predicate".
+"creation" is a type.
+"creation" is a "unary predicate".
+"custom" is a type.
+"custom" is a "unary predicate".
+"customary-law" is a type.
+"customary-law" is a "unary predicate".
+"decision" is a type.
+"decision" is a "unary predicate".
+"declarative-power" is a type.
+"declarative-power" is a "unary predicate".
+"decree" is a type.
+"decree" is a "unary predicate".
+"definitional-expression" is a type.
+"definitional-expression" is a "unary predicate".
+"delegation" is a type.
+"delegation" is a "unary predicate".
+"directive" is a type.
+"directive" is a "unary predicate".
+"disallowed" is a type.
+"disallowed" is a "unary predicate".
+"disallowed-intention" is a type.
+"disallowed-intention" is a "unary predicate".
+"enabling-power" is a type.
+"enabling-power" is a "unary predicate".
+"evaluative-expression" is a type.
+"evaluative-expression" is a "unary predicate".
+"exclusionary-right" is a type.
+"exclusionary-right" is a "unary predicate".
+"existential-expression" is a type.
+"existential-expression" is a "unary predicate".
+"foundation" is a type.
+"foundation" is a "unary predicate".
+"hohfeldian-power" is a type.
+"hohfeldian-power" is a "unary predicate".
+"immunity" is a type.
+"immunity" is a "unary predicate".
+"incorporated" is a type.
+"incorporated" is a "unary predicate".
+"international-agreement" is a type.
+"international-agreement" is a "unary predicate".
+"international-arbitration" is a type.
+"international-arbitration" is a "unary predicate".
+"legal-doctrine" is a type.
+"legal-doctrine" is a "unary predicate".
+"legal-document" is a type.
+"legal-document" is a "unary predicate".
+"legal-expression" is a type.
+"legal-expression" is a "unary predicate".
+"legal-person" is a type.
+"legal-person" is a "unary predicate".
+"legal-role" is a type.
+"legal-role" is a "unary predicate".
+"legal-source" is a type.
+"legal-source" is a "unary predicate".
+"legal-speech-act" is a type.
+"legal-speech-act" is a "unary predicate".
+"legislative-body" is a type.
+"legislative-body" is a "unary predicate".
+"liability-right" is a type.
+"liability-right" is a "unary predicate".
+"liberty-right" is a type.
+"liberty-right" is a "unary predicate".
+"limited-company" is a type.
+"limited-company" is a "unary predicate".
+"mandate" is a type.
+"mandate" is a "unary predicate".
+"mandatory-precedent" is a type.
+"mandatory-precedent" is a "unary predicate".
+"natural-object" is a type.
+"natural-object" is a "unary predicate".
+"natural-person" is a type.
+"natural-person" is a "unary predicate".
+"non-binding-international-agreement" is a type.
+"non-binding-international-agreement" is a "unary predicate".
+"norm" is a type.
+"norm" is a "unary predicate".
+"normatively-qualified" is a type.
+"normatively-qualified" is a "unary predicate".
+"obligation" is a type.
+"obligation" is a "unary predicate".
+"obligative-right" is a type.
+"obligative-right" is a "unary predicate".
+"obliged" is a type.
+"obliged" is a "unary predicate".
+"observation-of-violation" is a type.
+"observation-of-violation" is a "unary predicate".
+"organisation" is a type.
+"organisation" is a "unary predicate".
+"permission" is a type.
+"permission" is a "unary predicate".
+"permissive-right" is a type.
+"permissive-right" is a "unary predicate".
+"person" is a type.
+"person" is a "unary predicate".
+"personal-plan" is a type.
+"personal-plan" is a "unary predicate".
+"persuasive-precedent" is a type.
+"persuasive-precedent" is a "unary predicate".
+"plan" is a type.
+"plan" is a "unary predicate".
+"potestative-expression" is a type.
+"potestative-expression" is a "unary predicate".
+"potestative-right" is a type.
+"potestative-right" is a "unary predicate".
+"precedent" is a type.
+"precedent" is a "unary predicate".
+"legal-person-private-law" is a type.
+"legal-person-private-law" is a "unary predicate".
+"proclamation" is a type.
+"proclamation" is a "unary predicate".
+"professional-legal-role" is a type.
+"professional-legal-role" is a "unary predicate".
+"prohibition" is a type.
+"prohibition" is a "unary predicate".
+"public-act" is a type.
+"public-act" is a "unary predicate".
+"public-body" is a type.
+"public-body" is a "unary predicate".
+"plc" is a type.
+"plc" is a "unary predicate".
+"qualificatory-expression" is a type.
+"qualificatory-expression" is a "unary predicate".
+"reaction" is a type.
+"reaction" is a "unary predicate".
+"regulation" is a type.
+"regulation" is a "unary predicate".
+"resolution" is a type.
+"resolution" is a "unary predicate".
+"right" is a type.
+"right" is a "unary predicate".
+"social-legal-role" is a type.
+"social-legal-role" is a "unary predicate".
+"society" is a type.
+"society" is a "unary predicate".
+"soft-law" is a type.
+"soft-law" is a "unary predicate".
+"statute" is a type.
+"statute" is a "unary predicate".
+"strictly-allowed" is a type.
+"strictly-allowed" is a "unary predicate".
+"strictly-disallowed" is a type.
+"strictly-disallowed" is a "unary predicate".
+"trade" is a type.
+"trade" is a "unary predicate".
+"transaction" is a type.
+"transaction" is a "unary predicate".
+"treaty" is a type.
+"treaty" is a "unary predicate".
+"unincorporated" is a type.
+"unincorporated" is a "unary predicate".
+"belief" is a type.
+"belief" is a "unary predicate".
+"document" is a type.
+"document" is a "unary predicate".
+"evaluative-proposition" is a type.
+"evaluative-proposition" is a "unary predicate".
+"expression" is a type.
+"expression" is a "unary predicate".
+"intention" is a type.
+"intention" is a "unary predicate".
+"medium" is a type.
+"medium" is a "unary predicate".
+"problem" is a type.
+"problem" is a "unary predicate".
+"qualification" is a type.
+"qualification" is a "unary predicate".
+"qualified" is a type.
+"qualified" is a "unary predicate".
+"speech-act" is a type.
+"speech-act" is a "unary predicate".
+"mental-object" is a type.
+"mental-object" is a "unary predicate".
+"change" is a type.
+"change" is a "unary predicate".
+"physical-object" is a type.
+"physical-object" is a "unary predicate".
+"process" is a type.
+"process" is a "unary predicate".
+"organisation-role" is a type.
+"organisation-role" is a "unary predicate".
+"role" is a type.
+"role" is a "unary predicate".
+"social-role" is a type.
+"social-role" is a "unary predicate".
+"type" is a type.
+"type" is a "unary predicate".
+"class" is a type.
+"class" is a "unary predicate".
+"restriction" is a type.
+"restriction" is a "unary predicate".
+"thing" is a type.
+"thing" is a "unary predicate".
+
+// Binary predicates
+"actor" is a "binary predicate".
+"actor in" is a "binary predicate".
+"allowed by" is a "binary predicate".
+"allows" is a "binary predicate".
+"commanded by" is a "binary predicate".
+"commands" is a "binary predicate".
+"disallowed by" is a "binary predicate".
+"disallows" is a "binary predicate".
+"normatively-comparable" is a "binary predicate".
+"normatively-equivalent-or-better" is a "binary predicate".
+"normatively-equivalent-or-worse" is a "binary predicate".
+"normatively-not-equivalent" is a "binary predicate".
+"normatively-strictly-better" is a "binary predicate".
+"normatively-strictly-worse" is a "binary predicate".
+"strictly-equivalent" is a "binary predicate".
+"qualified by" is a "binary predicate".
+"qualifies" is a "binary predicate".
+"qualitatively-comparable" is a "binary predicate".
+"direct-part" is a "binary predicate".
+"member" is a "binary predicate".
+"part" is a "binary predicate".
+"participant" is a "binary predicate".
+"participant in" is a "binary predicate".
+"result of" is a "binary predicate".
+
+// Type hierarchy
+// Dropped subtype edges:
+// - abstract-to-concrete: 40 (e.g. "type" -> "allowed", "type" -> "allowed-and-disallowed", "type" -> "belief-in-violation", "type" -> "disallowed", "type" -> "disallowed-intention")
+// - cycle-break: 5 (e.g. "person" -> "natural-person", "plc" -> "incorporated", "prohibition" -> "obligation", "society" -> "association", "unincorporated" -> "limited-company")
+"act-of-law" is a subtype of "legal-speech-act".
+"act-of-law" is a subtype of "public-act".
+"act-of-law" is a subtype of "restriction".
+"act-of-law" is a subtype of "type".
+"action" is a subtype of "process".
+"action" is a subtype of "restriction".
+"action" is a subtype of "type".
+"action-power" is a subtype of "hohfeldian-power".
+"agent" is a subtype of "restriction".
+"agent" is a subtype of "thing".
+"agent" is a subtype of "type".
+"allowed" is a subtype of "normatively-qualified".
+"allowed" is a subtype of "restriction".
+"allowed" is a subtype of "type".
+"allowed-and-disallowed" is a subtype of "allowed".
+"allowed-and-disallowed" is a subtype of "class".
+"allowed-and-disallowed" is a subtype of "disallowed".
+"allowed-and-disallowed" is a subtype of "type".
+"artifact" is a subtype of "physical-object".
+"artifact" is a subtype of "restriction".
+"artifact" is a subtype of "type".
+"assignment" is a subtype of "legal-speech-act".
+"assignment" is a subtype of "public-act".
+"assignment" is a subtype of "restriction".
+"assignment" is a subtype of "type".
+"association" is a subtype of "legal-person-private-law".
+"association" is a subtype of "society".
+"belief-in-violation" is a subtype of "belief".
+"belief-in-violation" is a subtype of "class".
+"belief-in-violation" is a subtype of "type".
+"co-operative" is a subtype of "society".
+"code" is a subtype of "legal-document".
+"code" is a subtype of "restriction".
+"code" is a subtype of "type".
+"code-of-conduct" is a subtype of "legal-document".
+"code-of-conduct" is a subtype of "soft-law".
+"collaborative-plan" is a subtype of "plan".
+"company" is a subtype of "class".
+"company" is a subtype of "legal-person-private-law".
+"company" is a subtype of "type".
+"contract" is a subtype of "legal-document".
+"contract" is a subtype of "restriction".
+"contract" is a subtype of "type".
+"corporation" is a subtype of "class".
+"corporation" is a subtype of "legal-person-private-law".
+"corporation" is a subtype of "type".
+"creation" is a subtype of "action".
+"creation" is a subtype of "restriction".
+"creation" is a subtype of "type".
+"custom" is a subtype of "medium".
+"customary-law" is a subtype of "custom".
+"customary-law" is a subtype of "legal-source".
+"decision" is a subtype of "legal-speech-act".
+"decision" is a subtype of "restriction".
+"decision" is a subtype of "type".
+"declarative-power" is a subtype of "potestative-expression".
+"decree" is a subtype of "legal-document".
+"decree" is a subtype of "proclamation".
+"definitional-expression" is a subtype of "legal-expression".
+"delegation" is a subtype of "legal-speech-act".
+"delegation" is a subtype of "public-act".
+"delegation" is a subtype of "restriction".
+"delegation" is a subtype of "type".
+"directive" is a subtype of "legal-document".
+"directive" is a subtype of "proclamation".
+"disallowed" is a subtype of "normatively-qualified".
+"disallowed" is a subtype of "restriction".
+"disallowed" is a subtype of "type".
+"disallowed-intention" is a subtype of "class".
+"disallowed-intention" is a subtype of "intention".
+"disallowed-intention" is a subtype of "type".
+"enabling-power" is a subtype of "potestative-expression".
+"evaluative-expression" is a subtype of "evaluative-proposition".
+"evaluative-expression" is a subtype of "legal-expression".
+"exclusionary-right" is a subtype of "obligative-right".
+"existential-expression" is a subtype of "legal-expression".
+"foundation" is a subtype of "corporation".
+"hohfeldian-power" is a subtype of "potestative-expression".
+"immunity" is a subtype of "hohfeldian-power".
+"incorporated" is a subtype of "corporation".
+"incorporated" is a subtype of "plc".
+"international-agreement" is a subtype of "legal-source".
+"international-arbitration" is a subtype of "soft-law".
+"legal-doctrine" is a subtype of "legal-source".
+"legal-document" is a subtype of "document".
+"legal-document" is a subtype of "legal-source".
+"legal-expression" is a subtype of "expression".
+"legal-expression" is a subtype of "restriction".
+"legal-expression" is a subtype of "type".
+"legal-person" is a subtype of "organisation".
+"legal-person-private-law" is a subtype of "legal-person".
+"legal-role" is a subtype of "restriction".
+"legal-role" is a subtype of "role".
+"legal-role" is a subtype of "type".
+"legal-source" is a subtype of "medium".
+"legal-source" is a subtype of "restriction".
+"legal-source" is a subtype of "type".
+"legal-speech-act" is a subtype of "speech-act".
+"legislative-body" is a subtype of "public-body".
+"liability-right" is a subtype of "right".
+"liberty-right" is a subtype of "right".
+"limited-company" is a subtype of "company".
+"limited-company" is a subtype of "unincorporated".
+"mandate" is a subtype of "public-act".
+"mandate" is a subtype of "restriction".
+"mandate" is a subtype of "type".
+"mandatory-precedent" is a subtype of "precedent".
+"natural-object" is a subtype of "physical-object".
+"natural-person" is a subtype of "person".
+"non-binding-international-agreement" is a subtype of "international-agreement".
+"non-binding-international-agreement" is a subtype of "soft-law".
+"norm" is a subtype of "qualification".
+"norm" is a subtype of "restriction".
+"norm" is a subtype of "type".
+"normatively-qualified" is a subtype of "qualified".
+"normatively-qualified" is a subtype of "restriction".
+"normatively-qualified" is a subtype of "type".
+"obligation" is a subtype of "permission".
+"obligation" is a subtype of "prohibition".
+"obligative-right" is a subtype of "right".
+"obliged" is a subtype of "allowed".
+"obliged" is a subtype of "restriction".
+"obliged" is a subtype of "type".
+"observation-of-violation" is a subtype of "class".
+"observation-of-violation" is a subtype of "problem".
+"observation-of-violation" is a subtype of "type".
+"organisation" is a subtype of "agent".
+"organisation" is a subtype of "restriction".
+"organisation" is a subtype of "type".
+"permission" is a subtype of "class".
+"permission" is a subtype of "norm".
+"permission" is a subtype of "type".
+"permissive-right" is a subtype of "right".
+"person" is a subtype of "agent".
+"person" is a subtype of "natural-object".
+"personal-plan" is a subtype of "plan".
+"persuasive-precedent" is a subtype of "precedent".
+"plan" is a subtype of "mental-object".
+"plan" is a subtype of "restriction".
+"plan" is a subtype of "type".
+"plc" is a subtype of "company".
+"potestative-expression" is a subtype of "legal-expression".
+"potestative-right" is a subtype of "enabling-power".
+"precedent" is a subtype of "legal-source".
+"proclamation" is a subtype of "legal-source".
+"professional-legal-role" is a subtype of "organisation-role".
+"professional-legal-role" is a subtype of "restriction".
+"professional-legal-role" is a subtype of "social-legal-role".
+"professional-legal-role" is a subtype of "type".
+"prohibition" is a subtype of "class".
+"prohibition" is a subtype of "permission".
+"prohibition" is a subtype of "type".
+"public-act" is a subtype of "action".
+"public-body" is a subtype of "legal-person".
+"qualificatory-expression" is a subtype of "legal-expression".
+"reaction" is a subtype of "action".
+"regulation" is a subtype of "legal-document".
+"regulation" is a subtype of "restriction".
+"regulation" is a subtype of "type".
+"resolution" is a subtype of "international-agreement".
+"resolution" is a subtype of "soft-law".
+"right" is a subtype of "norm".
+"social-legal-role" is a subtype of "legal-role".
+"social-legal-role" is a subtype of "social-role".
+"society" is a subtype of "legal-person-private-law".
+"soft-law" is a subtype of "legal-source".
+"statute" is a subtype of "legal-document".
+"statute" is a subtype of "restriction".
+"statute" is a subtype of "type".
+"strictly-allowed" is a subtype of "allowed".
+"strictly-disallowed" is a subtype of "disallowed".
+"trade" is a subtype of "transaction".
+"transaction" is a subtype of "collaborative-plan".
+"transaction" is a subtype of "restriction".
+"transaction" is a subtype of "type".
+"treaty" is a subtype of "international-agreement".
+"treaty" is a subtype of "legal-document".
+"unincorporated" is a subtype of "corporation".
+
+// Domain and range constraints
+the domain of "actor in" is "agent".
+the domain of "actor" is "action".
+the domain of "allowed by" is "allowed".
+the domain of "commanded by" is "obliged".
+the domain of "disallowed by" is "disallowed".
+the domain of "normatively-comparable" is "normatively-qualified".
+the domain of "normatively-equivalent-or-worse" is "allowed".
+the domain of "normatively-strictly-better" is "disallowed".
+the domain of "normatively-strictly-worse" is "obliged".
+the domain of "strictly-equivalent" is "allowed".
+the range of "actor in" is "action".
+the range of "actor" is "agent".
+the range of "allows" is "allowed".
+the range of "commands" is "obliged".
+the range of "disallows" is "disallowed".
+the range of "normatively-comparable" is "normatively-qualified".
+the range of "normatively-equivalent-or-better" is "allowed".
+the range of "normatively-strictly-better" is "obliged".
+the range of "normatively-strictly-worse" is "disallowed".
+the range of "strictly-equivalent" is "allowed".

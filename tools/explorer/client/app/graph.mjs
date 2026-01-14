@@ -2,6 +2,7 @@ import { API } from "./api.mjs";
 
 let currentScale = 1;
 let currentTranslate = { x: 0, y: 0 };
+let selectedNodeId = null;
 
 const NODE_COLORS = {
   thing: "#3498db",
@@ -13,6 +14,57 @@ const NODE_WIDTH = 120;
 const NODE_HEIGHT = 28;
 const COL_GAP = 160;
 const ROW_GAP = 12;
+
+function idKey(id) {
+  return String(id);
+}
+
+export function computeConnectedSubgraph(startNodeId, edges) {
+  const start = idKey(startNodeId);
+  const outgoing = new Map(); // nodeId -> edgeIdx[]
+  const incoming = new Map(); // nodeId -> edgeIdx[]
+  for (let i = 0; i < (edges?.length ?? 0); i += 1) {
+    const e = edges[i];
+    if (!e) continue;
+    const s = idKey(e.source);
+    const t = idKey(e.target);
+    if (!outgoing.has(s)) outgoing.set(s, []);
+    if (!incoming.has(t)) incoming.set(t, []);
+    outgoing.get(s).push(i);
+    incoming.get(t).push(i);
+  }
+
+  function bfs(startId, adjacency, step) {
+    const nodes = new Set([startId]);
+    const edgeIds = new Set();
+    const queue = [startId];
+    while (queue.length) {
+      const curr = queue.shift();
+      const list = adjacency.get(curr) ?? [];
+      for (const edgeIdx of list) {
+        if (!Number.isInteger(edgeIdx)) continue;
+        const e = edges[edgeIdx];
+        if (!e) continue;
+        edgeIds.add(edgeIdx);
+        const nextNode = step(curr, e);
+        if (nextNode === null) continue;
+        const k = idKey(nextNode);
+        if (!nodes.has(k)) {
+          nodes.add(k);
+          queue.push(k);
+        }
+      }
+    }
+    return { nodes, edgeIds };
+  }
+
+  const down = bfs(start, outgoing, (_curr, e) => e.target);
+  const up = bfs(start, incoming, (_curr, e) => e.source);
+
+  const allNodes = new Set([...down.nodes, ...up.nodes]);
+  const allEdges = new Set([...down.edgeIds, ...up.edgeIds]);
+  return { start, nodes: allNodes, edges: allEdges, upstream: up, downstream: down };
+}
 
 export async function refreshGraph() {
   const container = document.getElementById("graphCanvas");
@@ -63,6 +115,10 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
   }]));
   
   const nodes = [...nodeMap.values()];
+  const nodeElById = new Map();
+  const nodeRectById = new Map();
+  const nodeBaseStyleById = new Map(); // nodeId -> { stroke, strokeWidth, fill }
+  let edgeRender = null; // built in redrawEdges()
   
   // Build dependency graph
   for (const e of edges) {
@@ -204,6 +260,76 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
   svg.setAttribute("width", container.clientWidth);
   svg.setAttribute("height", container.clientHeight);
 
+  function applySelection() {
+    if (!edgeRender) return;
+    if (!selectedNodeId) {
+      for (const [nodeId, el] of nodeElById) {
+        el.style.opacity = "1";
+        el.classList.remove("graph-node--selected");
+        const rect = nodeRectById.get(nodeId);
+        const base = nodeBaseStyleById.get(nodeId);
+        if (rect && base) {
+          rect.setAttribute("stroke", base.stroke);
+          rect.setAttribute("stroke-width", base.strokeWidth);
+          rect.setAttribute("fill", base.fill);
+        }
+      }
+      for (let i = 0; i < edgeRender.paths.length; i += 1) {
+        const path = edgeRender.paths[i];
+        const hit = edgeRender.hits[i];
+        const label = edgeRender.labels[i];
+        if (path) {
+          path.style.opacity = "";
+          path.setAttribute("stroke-width", "1.5");
+          path.classList.remove("graph-edge--selected");
+        }
+        if (hit) hit.style.opacity = "0";
+        if (label) label.style.display = "none";
+      }
+      return;
+    }
+
+    const selection = computeConnectedSubgraph(selectedNodeId, edges);
+    for (const [nodeId, el] of nodeElById) {
+      const on = selection.nodes.has(nodeId);
+      el.style.opacity = on ? "1" : "0.12";
+      const rect = nodeRectById.get(nodeId);
+      const base = nodeBaseStyleById.get(nodeId);
+      if (rect && base) {
+        if (nodeId === selection.start) {
+          rect.setAttribute("stroke", "#111");
+          rect.setAttribute("stroke-width", "3.5");
+          rect.setAttribute("fill", "#fff4d6");
+          el.classList.add("graph-node--selected");
+        } else if (on) {
+          rect.setAttribute("stroke", "#333");
+          rect.setAttribute("stroke-width", "2.5");
+          rect.setAttribute("fill", "white");
+          el.classList.remove("graph-node--selected");
+        } else {
+          rect.setAttribute("stroke", base.stroke);
+          rect.setAttribute("stroke-width", base.strokeWidth);
+          rect.setAttribute("fill", base.fill);
+          el.classList.remove("graph-node--selected");
+        }
+      }
+    }
+
+    for (let i = 0; i < edgeRender.paths.length; i += 1) {
+      const path = edgeRender.paths[i];
+      const hit = edgeRender.hits[i];
+      const label = edgeRender.labels[i];
+      const isSelectedEdge = selection.edges.has(i);
+      if (path) {
+        path.style.opacity = isSelectedEdge ? "1" : "0.06";
+        path.setAttribute("stroke-width", isSelectedEdge ? "3" : "1.5");
+        path.classList.toggle("graph-edge--selected", isSelectedEdge);
+      }
+      if (hit) hit.style.opacity = isSelectedEdge ? "0.15" : "0";
+      if (label) label.style.display = isSelectedEdge ? "block" : "none";
+    }
+  }
+
   function updateTransform() {
     viewport.setAttribute("transform", 
       `translate(${currentTranslate.x}, ${currentTranslate.y}) scale(${currentScale})`);
@@ -212,9 +338,16 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
   // Draw edges
   function redrawEdges() {
     edgesGroup.innerHTML = "";
+    edgeRender = { paths: [], hits: [], labels: [] };
     for (const e of edges) {
+      const edgeIdx = edgeRender.paths.length;
       const source = nodeMap.get(e.source), target = nodeMap.get(e.target);
-      if (!source || !target) continue;
+      if (!source || !target) {
+        edgeRender.paths.push(null);
+        edgeRender.hits.push(null);
+        edgeRender.labels.push(null);
+        continue;
+      }
 
       const isIsa = e.edgeType === "isa";
       const isRule = e.edgeType === "rule";
@@ -234,6 +367,7 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
       hitArea.setAttribute("stroke-width", "12");
       hitArea.setAttribute("fill", "none");
       hitArea.style.cursor = "pointer";
+      hitArea.dataset.edgeId = String(edgeIdx);
       hitArea.addEventListener("click", (ev) => {
         ev.stopPropagation();
         popup.innerHTML = `<b>${e.label}</b>`;
@@ -252,8 +386,30 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
       path.setAttribute("stroke-dasharray", isIsa ? "4,2" : isRule ? "6,3" : "none");
       path.setAttribute("marker-end", isIsa ? "url(#arrow-isa)" : isRule ? "url(#arrow-rule)" : "url(#arrow)");
       path.setAttribute("pointer-events", "none");
+      path.classList.add("graph-edge");
+      path.dataset.edgeId = String(edgeIdx);
       edgesGroup.appendChild(path);
+
+      const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      label.classList.add("edge-label");
+      label.dataset.edgeId = String(edgeIdx);
+      label.setAttribute("x", String(midX));
+      label.setAttribute("y", String((y1 + y2) / 2 - 6));
+      label.setAttribute("text-anchor", "middle");
+      label.setAttribute("font-size", "10");
+      label.setAttribute("fill", "#111");
+      label.setAttribute("stroke", "white");
+      label.setAttribute("stroke-width", "3");
+      label.setAttribute("paint-order", "stroke");
+      label.textContent = String(e.label || "");
+      label.style.display = "none";
+      edgesGroup.appendChild(label);
+
+      edgeRender.hits.push(hitArea);
+      edgeRender.paths.push(path);
+      edgeRender.labels.push(label);
     }
+    applySelection();
   }
 
   redrawEdges();
@@ -263,7 +419,7 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
     const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
     g.setAttribute("transform", `translate(${n.x}, ${n.y})`);
     g.classList.add("graph-node");
-    g.dataset.nodeId = n.id;
+    g.dataset.nodeId = idKey(n.id);
 
     const isConcept = n.nodeType === "concept";
     const icon = n.icon || (isConcept ? '🏷️' : '👤');
@@ -280,6 +436,9 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
     rect.setAttribute("stroke", n.color);
     rect.setAttribute("stroke-width", "1.5");
     g.appendChild(rect);
+    nodeElById.set(idKey(n.id), g);
+    nodeRectById.set(idKey(n.id), rect);
+    nodeBaseStyleById.set(idKey(n.id), { stroke: n.color, strokeWidth: "1.5", fill: "white" });
 
     // Label (left aligned)
     const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -349,12 +508,18 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
     nodesGroup.appendChild(g);
   }
 
-  // Hide popup on click elsewhere
-  svg.addEventListener("click", () => { popup.style.display = "none"; });
+  // Selection + hide popup on click elsewhere
+  svg.addEventListener("click", (ev) => {
+    if (ev.target.closest(".graph-node") || ev.target.closest(".info-icon")) return;
+    popup.style.display = "none";
+    selectedNodeId = null;
+    applySelection();
+  });
 
   // Drag nodes
   let dragNode = null;
   let dragStart = { x: 0, y: 0 };
+  let dragMoved = false;
 
   nodesGroup.addEventListener("mousedown", (e) => {
     if (e.target.closest(".info-icon")) return;
@@ -365,6 +530,7 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
     
     const nodeId = nodeEl.dataset.nodeId;
     dragNode = nodeMap.get(nodeId);
+    dragMoved = false;
     if (dragNode) {
       dragStart.x = e.clientX / currentScale - dragNode.x;
       dragStart.y = e.clientY / currentScale - dragNode.y;
@@ -374,6 +540,7 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
 
   document.addEventListener("mousemove", (e) => {
     if (!dragNode) return;
+    dragMoved = true;
     dragNode.x = e.clientX / currentScale - dragStart.x;
     dragNode.y = e.clientY / currentScale - dragStart.y;
 
@@ -387,6 +554,20 @@ function renderGraph(container, nodeList, edges, rulesText, actionsText) {
       dragNode = null;
       document.body.style.cursor = "";
     }
+  });
+
+  nodesGroup.addEventListener("click", (e) => {
+    if (e.target.closest(".info-icon")) return;
+    const nodeEl = e.target.closest(".graph-node");
+    if (!nodeEl) return;
+    e.stopPropagation();
+    if (dragMoved) {
+      dragMoved = false;
+      return;
+    }
+    const nodeId = nodeEl.dataset.nodeId;
+    selectedNodeId = selectedNodeId === nodeId ? null : nodeId;
+    applySelection();
   });
 
   // Zoom controls

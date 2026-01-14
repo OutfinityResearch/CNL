@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CNL-PL Syntax</title>
-  <meta name="description" content="Syntax overview and examples for the CNL-PL grammar." />
+  <meta name="description" content="Formal syntax, grammar rules, and command reference for CNL-PL." />
   <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
 </head>
 <body>
   <div class="page">
@@ -13,16 +14,11 @@
       <div class="header-inner">
         <div class="brand">
           <div class="brand-mark" aria-hidden="true"></div>
-          <div>
-            <div>CNL Programming Language</div>
-            <small>Controlled Natural Language for Executable Meaning</small>
-          </div>
+          <div>CNL Syntax</div>
         </div>
         <nav class="nav">
           <a href="../">Home</a>
-          <a href="../theory/">Theory</a>
           <a href="../arhitecture/">Architecture</a>
-          <a href="../wiki/">Wiki</a>
           <a class="active" href="./">Syntax</a>
           <a href="../specs/">Specs</a>
         </nav>
@@ -31,85 +27,107 @@
 
     <main>
       <section class="hero">
-        <div>
-          <span class="tag">Syntax</span>
-          <h1>Readable, fixed structures for deterministic parsing.</h1>
-          <p>
-            CNL-PL enforces explicit forms for noun phrases, boolean grouping, and triplet assertions.
-            Every valid input yields a single AST.
-          </p>
-        </div>
+        <span class="tag">Language Specification</span>
+        <h1>Deterministic Syntax</h1>
+        <p>
+          CNL-PL is a strict subset of English. It reads naturally but parses deterministically.
+          Every valid sentence maps to exactly one Abstract Syntax Tree (AST).
+        </p>
       </section>
 
       <section class="section">
-        <h2>Do's and Don'ts</h2>
-        <p>CNL is strict about ambiguity. Here is how to write valid CNL.</p>
-        
+        <h2>Core Rules (Determinism)</h2>
         <div class="grid">
           <div class="card">
-            <h3>Boolean Logic</h3>
-            <p><strong>Correct:</strong> <span class="good">If (A and B) or C.</span></p>
-            <p><strong>Correct:</strong> <span class="good">If either A or B.</span></p>
-            <p><strong>Incorrect:</strong> <span class="bad">If A and B or C.</span> <small>(Ambiguous precedence)</small></p>
+            <h3>Boolean Grouping</h3>
+            <p>Mixed <code>and</code>/<code>or</code> operators are <strong>forbidden</strong> without explicit grouping.</p>
+            <p class="good">✓ If (A and B) or C.</p>
+            <p class="good">✓ If either A or B.</p>
+            <p class="bad">✗ If A and B or C.</p>
           </div>
           <div class="card">
             <h3>Noun Phrases</h3>
-            <p><strong>Correct:</strong> <span class="good">The user checks the logs.</span></p>
-            <p><strong>Incorrect:</strong> <span class="bad">User checks logs.</span> <small>(Missing determiners)</small></p>
-            <p><strong>Correct:</strong> <span class="good">A critical-server is monitored.</span> <small>(Compound head via hyphen)</small></p>
-            <p><strong>Correct:</strong> <span class="good">A critical-server is monitored.</span> <small>(Hyphenated head)</small></p>
-            <p><strong>Incorrect:</strong> <span class="bad">A critical server is monitored.</span> <small>(Multi-word heads need hyphens)</small></p>
+            <p>Must start with a determiner or quantifier to avoid ambiguity.</p>
+            <p class="good">✓ <strong>The</strong> user logs in.</p>
+            <p class="good">✓ <strong>Every</strong> server is active.</p>
+            <p class="bad">✗ User logs in.</p>
           </div>
           <div class="card">
-            <h3>Relative Clauses</h3>
-            <p><strong>Correct:</strong> <span class="good">A user who is active and who is an admin.</span></p>
-            <p><strong>Incorrect:</strong> <span class="bad">A user who is active and an admin.</span> <small>(Must repeat pronoun)</small></p>
+            <h3>Typed Predicates</h3>
+            <p>Predicates follow fixed templates.</p>
+            <p><code>X is Y</code> (Copula)</p>
+            <p><code>X has a capacity of 100</code> (Attribute)</p>
+            <p><code>X depends on Y</code> (Relation)</p>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <h2>Example: structured relative clauses</h2>
-        <div class="code-block">
-<pre>A user who is active and who knows python and whose score is greater than 10.</pre>
-        </div>
+        <h2>Commands (Pragmatics)</h2>
+        <p>Standard imperative forms for interacting with the system.</p>
+        <table class="matrix-table">
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>Example</th>
+                    <th>Pragmatic Mode</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Return</strong></td>
+                    <td><code>Return every user.</code></td>
+                    <td>Query</td>
+                </tr>
+                <tr>
+                    <td><strong>Verify</strong></td>
+                    <td><code>Verify that John is active.</code></td>
+                    <td>Proof</td>
+                </tr>
+                <tr>
+                    <td><strong>Explain</strong></td>
+                    <td><code>Explain why John is active.</code></td>
+                    <td>Explain</td>
+                </tr>
+                <tr>
+                    <td><strong>Solve</strong></td>
+                    <td><code>Solve for ?X such that...</code></td>
+                    <td>Solve (CSP)</td>
+                </tr>
+                <tr>
+                    <td><strong>Maximize/Min</strong></td>
+                    <td><code>Maximize the price of ?item...</code></td>
+                    <td>Optimize</td>
+                </tr>
+                <tr>
+                    <td><strong>Plan</strong></td>
+                    <td><code>Plan to achieve Goal.</code></td>
+                    <td>Plan</td>
+                </tr>
+                <tr>
+                    <td><strong>Simulate</strong></td>
+                    <td><code>Simulate 10 steps.</code></td>
+                    <td>Simulate</td>
+                </tr>
+            </tbody>
+        </table>
       </section>
 
       <section class="section">
-        <h2>Example: explicit grouping</h2>
-        <div class="code-block">
-<pre>If (either the user is an admin or the user is a dev) and the system is prod.</pre>
-        </div>
+        <h2>Naming Conventions</h2>
+        <ul>
+            <li><strong>Things (Entities):</strong> Capitalized or with underscores (<code>Socrates</code>, <code>Server_1</code>).</li>
+            <li><strong>Concepts (Categories):</strong> Lowercase, hyphenated (<code>traffic-light</code>, <code>user</code>, <code>admin</code>).</li>
+            <li><strong>Variables:</strong> Start with <code>?</code> (<code>?X</code>, <code>?truck</code>). Only allowed in Solve/Optimize.</li>
+        </ul>
       </section>
 
       <section class="section">
-        <h2>Example: pragmatics command</h2>
-        <div class="code-block">
-<pre>Return the name of every user whose role is equal to admin and who has logged in today.</pre>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Deep dive</h2>
-        <p>
-          The full grammar, lexical specification, and AST schema are available in the formal
-          design spec for syntax.
-        </p>
-        <a class="button" href="../mdview.html?file=specs/DS/DS03-syntax-cnl.md">Read DS03: Syntax (View)</a>
-        <a class="button secondary" href="../specs/DS/DS03-syntax-cnl.md">Raw Markdown</a>
+        <h2>Reference</h2>
+        <p>Defined in <a href="../specs/DS/DS03-syntax-cnl.md">DS03 - Syntax</a> and <a href="../specs/DS/DS07-error-handling.md">DS07 - Error Handling</a>.</p>
       </section>
     </main>
-
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <div>Vision: CNL Programming Language - Deterministic by design</div>
-        <div class="footer-links">
-          <a href="../">Home</a>
-          <a href="../specs/">Specs</a>
-          <a href="../wiki/">Wiki</a>
-        </div>
-      </div>
-    </footer>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Syntax</div></footer>
   </div>
 </body>
 </html>

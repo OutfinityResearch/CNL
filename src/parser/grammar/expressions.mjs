@@ -411,16 +411,25 @@ export function parseRelativeClause(stream) {
 
   if (COPULAS.has(stream.peek().lower)) {
     const copula = stream.consume().lower;
+    
+    // Check for negation: "who is not", "that is not", etc.
+    let negated = false;
+    if (stream.peek().type === "word" && stream.peek().lower === "not") {
+      stream.consume();
+      negated = true;
+    }
+    
     const next = stream.peek();
-    if (next.type === "word" && PREPOSITIONS.has(stream.peek(1).lower)) {
+    const peek1 = stream.peek(1);
+    if (next.type === "word" && peek1 && PREPOSITIONS.has(peek1.lower)) {
       const verb = parseIdentifier(stream).raw;
       const preposition = stream.consume().lower;
       const object = parseObjectRef(stream);
-      return { kind: "RelativeClause", pronoun, body: { kind: "RelPassiveRelation", copula, verb, preposition, object } };
+      return { kind: "RelativeClause", pronoun, body: { kind: "RelPassiveRelation", copula, negated, verb, preposition, object } };
     }
 
     const complement = isStartOfNounPhrase(next, stream.peek(1)) ? parseNounPhrase(stream) : parseName(stream);
-    return { kind: "RelativeClause", pronoun, body: { kind: "RelCopulaPredicate", copula, complement } };
+    return { kind: "RelativeClause", pronoun, body: { kind: "RelCopulaPredicate", copula, negated, complement } };
   }
 
   const verbGroup = parseVerbGroup(stream);

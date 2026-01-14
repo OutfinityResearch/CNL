@@ -1,0 +1,120 @@
+// This file is generated. Do not edit.
+// Source: ontologies/bfo/bfo.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Bfo
+"entity" is a type.
+"entity" is a "unary predicate".
+"continuant" is a type.
+"continuant" is a "unary predicate".
+"occurrent" is a type.
+"occurrent" is a "unary predicate".
+"independent-continuant" is a type.
+"independent-continuant" is a "unary predicate".
+"spatial-region" is a type.
+"spatial-region" is a "unary predicate".
+"temporal-region" is a type.
+"temporal-region" is a "unary predicate".
+"two-dimensional-spatial-region" is a type.
+"two-dimensional-spatial-region" is a "unary predicate".
+"spatiotemporal-region" is a type.
+"spatiotemporal-region" is a "unary predicate".
+"process" is a type.
+"process" is a "unary predicate".
+"disposition" is a type.
+"disposition" is a "unary predicate".
+"realizable-entity" is a type.
+"realizable-entity" is a "unary predicate".
+"zero-dimensional-spatial-region" is a type.
+"zero-dimensional-spatial-region" is a "unary predicate".
+"quality" is a type.
+"quality" is a "unary predicate".
+"specifically-dependent-continuant" is a type.
+"specifically-dependent-continuant" is a "unary predicate".
+"role" is a type.
+"role" is a "unary predicate".
+"fiat-object-part" is a type.
+"fiat-object-part" is a "unary predicate".
+"one-dimensional-spatial-region" is a type.
+"one-dimensional-spatial-region" is a "unary predicate".
+"object-aggregate" is a type.
+"object-aggregate" is a "unary predicate".
+"three-dimensional-spatial-region" is a type.
+"three-dimensional-spatial-region" is a "unary predicate".
+"site" is a type.
+"site" is a "unary predicate".
+"object" is a type.
+"object" is a "unary predicate".
+"generically-dependent-continuant" is a type.
+"generically-dependent-continuant" is a "unary predicate".
+"function" is a type.
+"function" is a "unary predicate".
+"process-boundary" is a type.
+"process-boundary" is a "unary predicate".
+"one-dimensional-temporal-region" is a type.
+"one-dimensional-temporal-region" is a "unary predicate".
+"material-entity" is a type.
+"material-entity" is a "unary predicate".
+"continuant-fiat-boundary" is a type.
+"continuant-fiat-boundary" is a "unary predicate".
+"immaterial-entity" is a type.
+"immaterial-entity" is a "unary predicate".
+"one-dimensional-continuant-fiat-boundary" is a type.
+"one-dimensional-continuant-fiat-boundary" is a "unary predicate".
+"process-profile" is a type.
+"process-profile" is a "unary predicate".
+"relational-quality" is a type.
+"relational-quality" is a "unary predicate".
+"two-dimensional-continuant-fiat-boundary" is a type.
+"two-dimensional-continuant-fiat-boundary" is a "unary predicate".
+"zero-dimensional-continuant-fiat-boundary" is a type.
+"zero-dimensional-continuant-fiat-boundary" is a "unary predicate".
+"zero-dimensional-temporal-region" is a type.
+"zero-dimensional-temporal-region" is a "unary predicate".
+"history" is a type.
+"history" is a "unary predicate".
+"thing" is a type.
+"thing" is a "unary predicate".
+
+// Binary predicates
+"bfo-owl-specification-label" is a "binary predicate".
+"bfo-clif-specification-label" is a "binary predicate".
+"label" is a "binary predicate".
+
+// Type hierarchy
+"continuant" is a subtype of "entity".
+"continuant-fiat-boundary" is a subtype of "immaterial-entity".
+"disposition" is a subtype of "realizable-entity".
+"entity" is a subtype of "thing".
+"fiat-object-part" is a subtype of "material-entity".
+"function" is a subtype of "disposition".
+"generically-dependent-continuant" is a subtype of "continuant".
+"history" is a subtype of "process".
+"immaterial-entity" is a subtype of "independent-continuant".
+"independent-continuant" is a subtype of "continuant".
+"material-entity" is a subtype of "independent-continuant".
+"object" is a subtype of "material-entity".
+"object-aggregate" is a subtype of "material-entity".
+"occurrent" is a subtype of "entity".
+"one-dimensional-continuant-fiat-boundary" is a subtype of "continuant-fiat-boundary".
+"one-dimensional-spatial-region" is a subtype of "spatial-region".
+"one-dimensional-temporal-region" is a subtype of "temporal-region".
+"process" is a subtype of "occurrent".
+"process-boundary" is a subtype of "occurrent".
+"process-profile" is a subtype of "process".
+"quality" is a subtype of "specifically-dependent-continuant".
+"realizable-entity" is a subtype of "specifically-dependent-continuant".
+"relational-quality" is a subtype of "quality".
+"role" is a subtype of "realizable-entity".
+"site" is a subtype of "immaterial-entity".
+"spatial-region" is a subtype of "immaterial-entity".
+"spatiotemporal-region" is a subtype of "occurrent".
+"specifically-dependent-continuant" is a subtype of "continuant".
+"temporal-region" is a subtype of "occurrent".
+"three-dimensional-spatial-region" is a subtype of "spatial-region".
+"two-dimensional-continuant-fiat-boundary" is a subtype of "continuant-fiat-boundary".
+"two-dimensional-spatial-region" is a subtype of "spatial-region".
+"zero-dimensional-continuant-fiat-boundary" is a subtype of "continuant-fiat-boundary".
+"zero-dimensional-spatial-region" is a subtype of "spatial-region".
+"zero-dimensional-temporal-region" is a subtype of "temporal-region".

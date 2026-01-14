@@ -4,6 +4,7 @@ import { parseProgram, parseProgramIncremental } from "../parser/grammar.mjs";
 import { createCompilerState, compileProgram } from "../compiler/compile.mjs";
 import { executeCommandAst, materializeRules } from "../runtime/engine.mjs";
 import { loadDefaultBaseBundle } from "../theories/loader.mjs";
+import { analyzeCrossOntologyDuplicates, expandTheoryEntrypoint, mergeIssuesIntoDictionaryWarnings } from "../theories/diagnostics.mjs";
 
 const LOAD_DIRECTIVE_RE = /^\s*Load\s*:\s*"([^"]+)"\s*\.\s*$/i;
 
@@ -83,7 +84,9 @@ export class CNLSession {
     this.options = {
       projectEntityAttributes: false,
       validateDictionary: true,
+      reportBenignTheoryDuplicates: false,
       autoloadBase: true,
+      baseEntrypoint: null,
       rootDir: process.cwd(),
       ...options,
     };
@@ -91,20 +94,7 @@ export class CNLSession {
     this.sources = [];
 
     if (this.options.autoloadBase) {
-      const bundle = loadDefaultBaseBundle({ rootDir: this.options.rootDir });
-      const all = [...bundle.dictionary, ...bundle.theories];
-      for (const entry of all) {
-        const result = this.learnText(entry.text, {
-          transactional: false,
-          incremental: true,
-          source: entry.path,
-        });
-        if (result?.errors?.length) {
-          const first = result.errors[0];
-          const message = first?.message ?? "Failed to load base theory.";
-          throw new Error(`CNLSession autoloadBase failed: ${message}`);
-        }
-      }
+      this.#autoloadBase();
     }
   }
 
@@ -303,6 +293,36 @@ export class CNLSession {
   reset() {
     this.state = createCompilerState(this.options);
     this.sources = [];
+    if (this.options.autoloadBase) {
+      this.#autoloadBase();
+    }
+  }
+
+  #autoloadBase() {
+    const rootDir = this.options.rootDir ?? process.cwd();
+    const baseEntrypoint = this.options.baseEntrypoint ?? null;
+    const entryAbs = baseEntrypoint
+      ? path.resolve(rootDir, baseEntrypoint)
+      : loadDefaultBaseBundle({ rootDir }).dictionary[0].path;
+
+    const entryRel = path.relative(rootDir, entryAbs).replace(/\\/g, "/");
+    const expanded = expandTheoryEntrypoint(entryRel, { rootDir });
+
+    for (const segment of expanded.segments) {
+      const result = this.learnText(segment.text, {
+        transactional: false,
+        incremental: true,
+        source: segment.path,
+      });
+      if (result?.errors?.length) {
+        const first = result.errors[0];
+        const message = first?.message ?? "Failed to load base theory.";
+        throw new Error(`CNLSession autoloadBase failed: ${message}`);
+      }
+    }
+
+    const issues = analyzeCrossOntologyDuplicates(expanded.files, { includeBenign: this.options.reportBenignTheoryDuplicates });
+    mergeIssuesIntoDictionaryWarnings(this.state.dictionary, issues, { issueKeyPrefix: "theory" });
   }
 
   #compileSources(texts) {

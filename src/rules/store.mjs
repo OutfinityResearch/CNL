@@ -1,6 +1,112 @@
 import { executeSet, executeRelation } from "../plans/execute.mjs";
 import { RelationOp, SetOp } from "../plans/ir.mjs";
 
+function stableStringify(value) {
+  const seen = new WeakSet();
+  function sortKeys(obj) {
+    if (!obj || typeof obj !== "object") return obj;
+    if (seen.has(obj)) return "[Circular]";
+    seen.add(obj);
+    if (Array.isArray(obj)) return obj.map(sortKeys);
+    const out = {};
+    Object.keys(obj)
+      .sort()
+      .forEach((k) => {
+        if (k === "deps" || k === "span") return;
+        out[k] = sortKeys(obj[k]);
+      });
+    return out;
+  }
+  return JSON.stringify(sortKeys(value));
+}
+
+function signatureForSetPlan(plan) {
+  if (!plan || plan.kind !== "SetPlan") return "set:null";
+  switch (plan.op) {
+    case SetOp.AllEntities:
+      return "set:all";
+    case SetOp.EntitySet:
+      return `set:entity:${plan.entityId}`;
+    case SetOp.UnarySet:
+      return `set:unary:${plan.unaryId}`;
+    case SetOp.Preimage:
+      return `set:preimage:${plan.predId}:${signatureForSetPlan(plan.objectSet)}`;
+    case SetOp.Image:
+      return `set:image:${plan.predId}:${signatureForSetPlan(plan.subjectSet)}`;
+    case SetOp.Intersect: {
+      const parts = (plan.plans ?? []).map(signatureForSetPlan).sort();
+      return `set:and:${parts.join("&")}`;
+    }
+    case SetOp.Union: {
+      const parts = (plan.plans ?? []).map(signatureForSetPlan).sort();
+      return `set:or:${parts.join("|")}`;
+    }
+    case SetOp.Not:
+      return `set:not:${signatureForSetPlan(plan.plan)}:universe:${signatureForSetPlan(plan.universe)}`;
+    case SetOp.NumFilter:
+      return `set:num:${plan.attrId}:${plan.comparator}:${plan.value}`;
+    case SetOp.AttrEntityFilter:
+      return `set:attr:${plan.attrId}:${signatureForSetPlan(plan.valueSet)}`;
+    default:
+      return `set:${plan.op}:${stableStringify(plan)}`;
+  }
+}
+
+function signatureForRelationPlan(plan) {
+  if (!plan || plan.kind !== "RelationPlan") return "rel:null";
+  switch (plan.op) {
+    case RelationOp.BaseRelation:
+      return `rel:base:${plan.predId}`;
+    case RelationOp.InverseRelation:
+      return `rel:inv:${plan.predId}`;
+    case RelationOp.Compose:
+      return `rel:compose:${signatureForRelationPlan(plan.left)}:${signatureForRelationPlan(plan.right)}`;
+    case RelationOp.RestrictSubjects:
+      return `rel:subj:${signatureForRelationPlan(plan.relation)}:${signatureForSetPlan(plan.subjectSet)}`;
+    case RelationOp.RestrictObjects:
+      return `rel:obj:${signatureForRelationPlan(plan.relation)}:${signatureForSetPlan(plan.objectSet)}`;
+    default:
+      return `rel:${plan.op}:${stableStringify(plan)}`;
+  }
+}
+
+function signatureForRule(plan) {
+  if (!plan || typeof plan !== "object") return null;
+  if (plan.kind === "RulePlan") {
+    const body = signatureForSetPlan(plan.body);
+    const head = signatureForHead(plan.head);
+    return `rule:${body}->${head}`;
+  }
+  if (plan.kind === "RelationRulePlan") {
+    return `relrule:${signatureForRelationPlan(plan.relation)}->${plan.headPredId}`;
+  }
+  if (plan.kind === "TransitionRule") {
+    const event = stableStringify(plan.event);
+    const effect = stableStringify(plan.effect);
+    return `transition:${event}->${effect}`;
+  }
+  return null;
+}
+
+function signatureForHead(head) {
+  if (!head || typeof head !== "object") return "head:null";
+  if (head.kind === "UnaryEmit") {
+    const subj = head.subjectPlan ? signatureForSetPlan(head.subjectPlan) : "subj:null";
+    return `head:unary:${head.unaryId}:${subj}`;
+  }
+  if (head.kind === "BinaryEmit") {
+    const subj = head.subjectPlan ? signatureForSetPlan(head.subjectPlan) : "subj:null";
+    return `head:binary:${head.predId}:${signatureForSetPlan(head.objectSet)}:${subj}`;
+  }
+  if (head.kind === "AttrEmit") {
+    const subj = head.subjectPlan ? signatureForSetPlan(head.subjectPlan) : "subj:null";
+    if (head.valueType === "numeric") return `head:attr:${head.attrId}:num:${head.value}:${subj}`;
+    if (head.valueType === "entity") return `head:attr:${head.attrId}:ent:${signatureForSetPlan(head.valueSet)}:${subj}`;
+    return `head:attr:${head.attrId}:${head.valueType}:${subj}`;
+  }
+  return `head:${head.kind}:${stableStringify(head)}`;
+}
+
 function applyUnaryEmit(emit, subjectSet, kbApi, options) {
   let added = 0;
   subjectSet.iterateSetBits((subjectId) => {
@@ -393,18 +499,34 @@ function collectPremiseFactIds(plan, subjectId, kbApi, options) {
 
 export function createRuleStore() {
   const rules = [];
+  const signatureToId = new Map();
+  const duplicateCounts = new Map(); // signature -> { ruleId, count }
 
   function addRule(plan) {
+    const signature = signatureForRule(plan);
+    if (signature && signatureToId.has(signature)) {
+      const ruleId = signatureToId.get(signature);
+      const entry = duplicateCounts.get(signature) ?? { ruleId, count: 1 };
+      entry.count += 1;
+      duplicateCounts.set(signature, entry);
+      return ruleId;
+    }
+
     const id = rules.length;
     if (plan && (plan.kind === "RulePlan" || plan.kind === "RelationRulePlan")) {
       plan.deps = computeRuleDeps(plan);
     }
     rules.push(plan);
+    if (signature) signatureToId.set(signature, id);
     return id;
   }
 
   function getRules() {
     return rules.slice();
+  }
+
+  function getDuplicateRules() {
+    return [...duplicateCounts.values()].sort((a, b) => (b.count ?? 0) - (a.count ?? 0));
   }
 
   function applyRules(kbApi, options = {}) {
@@ -454,6 +576,7 @@ export function createRuleStore() {
   return {
     addRule,
     getRules,
+    getDuplicateRules,
     applyRules,
   };
 }

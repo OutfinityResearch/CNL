@@ -15,9 +15,15 @@ export async function initSession() {
   console.log("CNL Session store ready.");
 }
 
-export function createSession() {
+export function deleteSession(id) {
+  if (!id) return false;
+  return sessions.delete(id);
+}
+
+export function createSession(options = {}) {
   const id = randomUUID();
-  const session = new CNLSession({ rootDir: PROJECT_ROOT });
+  const baseEntrypoint = options.baseEntrypoint ?? null;
+  const session = new CNLSession({ rootDir: PROJECT_ROOT, baseEntrypoint });
   sessions.set(id, session);
   return { id, session };
 }

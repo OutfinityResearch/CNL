@@ -10,12 +10,18 @@
 "spatial-thing" is a "unary predicate".
 
 // Binary predicates
-"alt" is a "binary predicate".
+"altitude" is a "binary predicate".
 "latitude" is a "binary predicate".
 "lat-long" is a "binary predicate".
-"location" is a "binary predicate".
+"located in" is a "binary predicate".
 "longitude" is a "binary predicate".
+"based-near" is a "binary predicate".
+
+// Type hierarchy
+"point" is a subtype of "spatial-thing".
 
 // Domain and range constraints
+the domain of "altitude" is "spatial-thing".
 the domain of "latitude" is "spatial-thing".
 the domain of "longitude" is "spatial-thing".
+the range of "located in" is "spatial-thing".

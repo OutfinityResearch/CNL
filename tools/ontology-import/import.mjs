@@ -7,7 +7,7 @@ import { renderOntologyCnl } from "./lib/render.mjs";
 import { dedupeExtraFile, ensureExtraFile, writeGeneratedFile } from "./lib/extra.mjs";
 
 function parseArgs(argv) {
-  const args = { in: [], out: null, context: "ImportedOntology" };
+  const args = { in: [], out: null, context: "ImportedOntology", prefix: "" };
   for (let i = 2; i < argv.length; i += 1) {
     const raw = argv[i];
     if (raw === "--in") {
@@ -37,6 +37,15 @@ function parseArgs(argv) {
       args.context = raw.slice("--context=".length) || args.context;
       continue;
     }
+    if (raw === "--prefix") {
+      args.prefix = argv[i + 1] || args.prefix;
+      i += 1;
+      continue;
+    }
+    if (raw.startsWith("--prefix=")) {
+      args.prefix = raw.slice("--prefix=".length) || args.prefix;
+      continue;
+    }
     if (raw === "--help" || raw === "-h") {
       args.help = true;
       continue;
@@ -51,7 +60,7 @@ function usage() {
     "Ontology import tool (RDF/RDFS/OWL subset) -> CNL (.generated/.extra)",
     "",
     "Usage:",
-    "  node tools/ontology-import/import.mjs --in <file.ttl> [--in <file2.ttl> ...] --out <dir> [--context Name]",
+    "  node tools/ontology-import/import.mjs --in <file.ttl> [--in <file2.ttl> ...] --out <dir> [--context Name] [--prefix id]",
     "",
     "Outputs:",
     "  <dir>/00-dictionary.generated.cnl",
@@ -66,6 +75,8 @@ export function runImport(options) {
   const inputFiles = options?.in ?? [];
   const outDir = options?.out ?? null;
   const context = options?.context ?? "ImportedOntology";
+  const prefix = options?.prefix ?? "";
+  const ontologyId = options?.ontologyId ?? "";
 
   if (!outDir) throw new Error("Missing --out <dir>.");
   if (!Array.isArray(inputFiles) || inputFiles.length === 0) throw new Error("At least one --in <file> is required.");
@@ -74,9 +85,10 @@ export function runImport(options) {
   const texts = sources.map((p) => fs.readFileSync(p, "utf8"));
   const triples = texts.flatMap((text) => parseTurtleToTriples(text));
   const schema = extractOntologySchema(triples);
-  const rendered = renderOntologyCnl(schema, { context });
+  const rendered = renderOntologyCnl(schema, { context, prefix, ontologyId });
 
   const dictGeneratedPath = path.join(outDir, "00-dictionary.generated.cnl");
+  const dictUnlabeledGeneratedPath = path.join(outDir, "00-dictionary.unlabeled.generated.cnl");
   const dictExtraPath = path.join(outDir, "00-dictionary.extra.cnl");
   const rulesGeneratedPath = path.join(outDir, "01-rules.generated.cnl");
   const rulesExtraPath = path.join(outDir, "01-rules.extra.cnl");
@@ -88,6 +100,12 @@ export function runImport(options) {
 
   writeGeneratedFile(dictGeneratedPath, header.join("\n") + "\n\n" + rendered.dictionary);
   writeGeneratedFile(rulesGeneratedPath, header.join("\n") + "\n\n" + rendered.rules);
+
+  if (rendered.unlabeledDictionary && rendered.unlabeledDictionary.trim()) {
+    writeGeneratedFile(dictUnlabeledGeneratedPath, header.join("\n") + "\n\n" + rendered.unlabeledDictionary);
+  } else if (fs.existsSync(dictUnlabeledGeneratedPath)) {
+    fs.unlinkSync(dictUnlabeledGeneratedPath);
+  }
 
   ensureExtraFile(
     dictExtraPath,
@@ -109,6 +127,7 @@ export function runImport(options) {
     context,
     files: {
       dictGeneratedPath,
+      dictUnlabeledGeneratedPath,
       dictExtraPath,
       rulesGeneratedPath,
       rulesExtraPath,

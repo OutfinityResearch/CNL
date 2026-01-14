@@ -1,0 +1,95 @@
+// This file is generated. Do not edit.
+// Source: ontologies/iao/iao.ttl
+
+--- CONTEXT: Iao ---
+
+// Generated from ontology import: Iao
+Rule: If X antisymmetric-property Y, then X logical-characteristic-of-object-property Y.
+Rule: If X bfo-clif-specification-label Y, then X label Y.
+Rule: If X bfo-owl-specification-label Y, then X label Y.
+Rule: If X characteristic of Y, then Y has-characteristic X.
+Rule: If X concretized-as Y, then Y concretizes X.
+Rule: If X concretizes Y, then Y concretized-as X.
+Rule: If X denotes Y, then X about Y.
+Rule: If X denotes Y, then Y is denoted by X.
+Rule: If X derives from Y, then Y derives into X.
+Rule: If X derives into Y, then Y derives from X.
+Rule: If X disposition of Y, then X characteristic of Y.
+Rule: If X disposition of Y, then Y has-disposition X.
+Rule: If X duration of Y, then X about Y.
+Rule: If X function of Y, then X characteristic of Y.
+Rule: If X function of Y, then Y has-function X.
+Rule: If X has-2-d-boundary Y, then Y rel-2-d-boundary-of X.
+Rule: If X has-broad-synonym Y, then X alternative-label Y.
+Rule: If X has-characteristic Y, then Y characteristic of X.
+Rule: If X has-coordinate-unit-label Y, then X has-part Y.
+Rule: If X has-disposition Y, then X has-characteristic Y.
+Rule: If X has-disposition Y, then Y disposition of X.
+Rule: If X has-exact-synonym Y, then X alternative-label Y.
+Rule: If X has-function Y, then X has-characteristic Y.
+Rule: If X has-function Y, then Y function of X.
+Rule: If X has-measurement-datum Y, then X has-part Y.
+Rule: If X has-measurement-unit-label Y, then X has-part Y.
+Rule: If X has-member Y, then X has-part Y.
+Rule: If X has-member Y, then Y is member of X.
+Rule: If X has-narrow-synonym Y, then X alternative-label Y.
+Rule: If X has-part Y and Y has-part Z, then X has-part Z.
+Rule: If X has-part Y, then Y is part of X.
+Rule: If X has-participant Y, then Y participates in X.
+Rule: If X has-quality Y, then X has-characteristic Y.
+Rule: If X has-quality Y, then Y quality of X.
+Rule: If X has-related-synonym Y, then X alternative-label Y.
+Rule: If X has-role Y, then X has-characteristic Y.
+Rule: If X has-role Y, then Y role of X.
+Rule: If X has-specified-input Y, then X has-participant Y.
+Rule: If X has-specified-input Y, then X inverse of Y.
+Rule: If X has-specified-input Y, then X related-to Y.
+Rule: If X has-specified-input Y, then X specified-input-of Y.
+Rule: If X has-specified-output Y, then X has-participant Y.
+Rule: If X has-specified-output Y, then X inverse of Y.
+Rule: If X has-specified-output Y, then X related-to Y.
+Rule: If X has-specified-output Y, then X specified-output-of Y.
+Rule: If X has-time-stamp Y, then X has-part Y.
+Rule: If X inverse of Y, then X has-specified-input Y.
+Rule: If X inverse of Y, then X has-specified-output Y.
+Rule: If X inverse of Y, then X specified-output-of Y.
+Rule: If X is denoted by Y, then Y denotes X.
+Rule: If X is located in Y and Y is located in Z, then X is located in Z.
+Rule: If X is located in Y, then Y location of X.
+Rule: If X is member of Y, then X is part of Y.
+Rule: If X is member of Y, then Y has-member X.
+Rule: If X is mentioned by Y, then Y mentions X.
+Rule: If X is part of Y and Y is part of Z, then X is part of Z.
+Rule: If X is part of Y, then Y has-part X.
+Rule: If X is realized in Y, then Y realizes X.
+Rule: If X location of Y and Y location of Z, then X location of Z.
+Rule: If X location of Y, then Y is located in X.
+Rule: If X mentions Y, then X about Y.
+Rule: If X mentions Y, then Y is mentioned by X.
+Rule: If X obsolete-describes Y, then X obsolete-property Y.
+Rule: If X obsolete-materially-denotes Y, then X obsolete-property Y.
+Rule: If X obsolete-represents Y, then X obsolete-property Y.
+Rule: If X obsolete-specifically-denotes Y, then X obsolete-property Y.
+Rule: If X participates in Y, then Y has-participant X.
+Rule: If X quality of Y, then X characteristic of Y.
+Rule: If X quality of Y, then Y has-quality X.
+Rule: If X quality-is-specified-as Y, then Y quality-specification-of X.
+Rule: If X quality-measured-as Y, then Y quality-measurement-of X.
+Rule: If X quality-measurement-of Y, then X about Y.
+Rule: If X quality-measurement-of Y, then Y quality-measured-as X.
+Rule: If X quality-specification-of Y, then X about Y.
+Rule: If X quality-specification-of Y, then Y quality-is-specified-as X.
+Rule: If X realizes Y, then Y is realized in X.
+Rule: If X rel-2-d-boundary-of Y, then Y has-2-d-boundary X.
+Rule: If X rel-contains-process Y, then Y rel-occurs-in X.
+Rule: If X rel-occurs-in Y, then Y rel-contains-process X.
+Rule: If X related-to Y, then X has-specified-input Y.
+Rule: If X related-to Y, then X has-specified-output Y.
+Rule: If X related-to Y, then X specified-output-of Y.
+Rule: If X role of Y, then X characteristic of Y.
+Rule: If X role of Y, then Y has-role X.
+Rule: If X specified-input-of Y, then X has-specified-input Y.
+Rule: If X specified-output-of Y, then X has-specified-output Y.
+Rule: If X specified-output-of Y, then X inverse of Y.
+Rule: If X specified-output-of Y, then X participates in Y.
+Rule: If X specified-output-of Y, then X related-to Y.

@@ -5,6 +5,7 @@ import {
   describeHeadNL,
   describeSetPlan,
   describeSetPlanNL,
+  describeTransitionRuleNL,
   getName,
   json,
   safeHasBit,
@@ -16,6 +17,11 @@ export function handleEntity(req, res, url, context) {
   const type = url.searchParams.get("type");
   const denseIdParam = url.searchParams.get("id");
   const nameParam = url.searchParams.get("name");
+
+  function lookupRawKey(kind, denseId) {
+    const cid = idStore.getConceptualId(kind, denseId);
+    return cid === undefined ? null : idStore.lookupKey(cid);
+  }
 
   let denseId = null;
   if (nameParam) {
@@ -38,13 +44,18 @@ export function handleEntity(req, res, url, context) {
   }
 
   if (type === "entity") {
+    const rawKey = lookupRawKey(ConceptKind.Entity, denseId) || null;
+    const conceptualId = idStore.getConceptualId(ConceptKind.Entity, denseId);
     const name = NLG.formatEntityName(getName(idStore, ConceptKind.Entity, denseId));
+    const isSymbol = typeof rawKey === "string" && (rawKey.startsWith("L:") || rawKey.startsWith("E:lit:"));
 
     const categories = [];
     for (let u = 0; u < rawKb.unaryCount; u++) {
       if (safeHasBit(rawKb.unaryIndex[u], denseId)) {
         categories.push({
           name: NLG.formatCategory(getName(idStore, ConceptKind.UnaryPredicate, u)),
+          unaryId: u,
+          rawKey: lookupRawKey(ConceptKind.UnaryPredicate, u) || null,
           source: "stated",
         });
       }
@@ -60,6 +71,8 @@ export function handleEntity(req, res, url, context) {
           if (safeHasBit(targets, t)) {
             outgoing.push({
               verb,
+              predId: p,
+              rawKey: lookupRawKey(ConceptKind.Predicate, p) || null,
               object: NLG.formatEntityName(getName(idStore, ConceptKind.Entity, t)),
               objectId: t,
             });
@@ -78,6 +91,8 @@ export function handleEntity(req, res, url, context) {
           if (safeHasBit(sources, s)) {
             incoming.push({
               verb,
+              predId: p,
+              rawKey: lookupRawKey(ConceptKind.Predicate, p) || null,
               subject: NLG.formatEntityName(getName(idStore, ConceptKind.Entity, s)),
               subjectId: s,
             });
@@ -88,7 +103,18 @@ export function handleEntity(req, res, url, context) {
 
     const attributes = [];
 
-    const raw = categories.length > 0 || outgoing.length > 0 || incoming.length > 0 ? { denseId, conceptKey: `E:${name}` } : null;
+    const raw = {
+      kind: "entity",
+      denseId,
+      conceptualId,
+      rawKey,
+      name,
+      isSymbol,
+      categoryIds: categories.map((c) => c.unaryId),
+      outgoing: outgoing.map((o) => ({ predId: o.predId, objectId: o.objectId })),
+      incoming: incoming.map((i) => ({ predId: i.predId, subjectId: i.subjectId })),
+      kbStats: { entitiesCount: rawKb.entitiesCount, predicatesCount: rawKb.predicatesCount, unaryCount: rawKb.unaryCount },
+    };
 
     json(res, 200, {
       ok: true,
@@ -98,6 +124,8 @@ export function handleEntity(req, res, url, context) {
   }
 
   if (type === "unary") {
+    const rawKey = lookupRawKey(ConceptKind.UnaryPredicate, denseId) || null;
+    const conceptualId = idStore.getConceptualId(ConceptKind.UnaryPredicate, denseId);
     const name = NLG.formatCategory(getName(idStore, ConceptKind.UnaryPredicate, denseId));
     const bitset = denseId < rawKb.unaryIndex.length ? rawKb.unaryIndex[denseId] : null;
 
@@ -114,7 +142,14 @@ export function handleEntity(req, res, url, context) {
       }
     }
 
-    const raw = members.length > 0 ? { denseId, conceptKey: `U:${name}` } : null;
+    const raw = {
+      kind: "unary",
+      denseId,
+      conceptualId,
+      rawKey,
+      name,
+      bitset: bitset ? { size: bitset.size, bits: bitset.bits } : null,
+    };
 
     json(res, 200, {
       ok: true,
@@ -124,6 +159,8 @@ export function handleEntity(req, res, url, context) {
   }
 
   if (type === "predicate") {
+    const rawKey = lookupRawKey(ConceptKind.Predicate, denseId) || null;
+    const conceptualId = idStore.getConceptualId(ConceptKind.Predicate, denseId);
     const name = NLG.formatPredicate(getName(idStore, ConceptKind.Predicate, denseId));
     const matrix = denseId < rawKb.relations.length ? rawKb.relations[denseId] : null;
 
@@ -136,27 +173,32 @@ export function handleEntity(req, res, url, context) {
       for (let s = 0; s < subjectLimit; s++) {
         const row = matrix.rows[s];
         if (row) {
-          const objectLimit = Math.min(rawKb.entitiesCount, row.size);
-          for (let o = 0; o < objectLimit; o++) {
-            if (safeHasBit(row, o)) {
-              const subj = NLG.formatEntityName(getName(idStore, ConceptKind.Entity, s));
-              const obj = NLG.formatEntityName(getName(idStore, ConceptKind.Entity, o));
-              connections.push({
-                subject: subj,
-                subjectId: s,
-                object: obj,
-                objectId: o,
-                sentence: `${subj} ${name} ${obj}`,
-              });
-              subjects.add(subj);
-              objects.add(obj);
-            }
-          }
+          const subj = NLG.formatEntityName(getName(idStore, ConceptKind.Entity, s));
+          row.iterateSetBits((o) => {
+            if (o < 0 || o >= rawKb.entitiesCount) return;
+            const obj = NLG.formatEntityName(getName(idStore, ConceptKind.Entity, o));
+            connections.push({
+              subject: subj,
+              subjectId: s,
+              object: obj,
+              objectId: o,
+              sentence: `${subj} ${name} ${obj}`,
+            });
+            subjects.add(subj);
+            objects.add(obj);
+          });
         }
       }
     }
 
-    const raw = connections.length > 0 ? { denseId, conceptKey: `P:${name}` } : null;
+    const raw = {
+      kind: "predicate",
+      denseId,
+      conceptualId,
+      rawKey,
+      name,
+      matrix: matrix ? { rows: matrix.rows.length, entityCount: rawKb.entitiesCount } : null,
+    };
 
     json(res, 200, {
       ok: true,
@@ -181,11 +223,32 @@ export function handleEntity(req, res, url, context) {
     }
 
     const rule = rules[denseId];
+    const appliedTo = [];
+    if (rule?.kind === "TransitionRule" || rule?.kind === "TransitionRuleStatement") {
+      const rendered = describeTransitionRuleNL(rule);
+      json(res, 200, {
+        ok: true,
+        rule: {
+          id: denseId,
+          natural: rendered?.natural ?? "Transition rule.",
+          condition: {
+            text: rendered?.event ?? "(unrenderable event)",
+            technical: "TransitionRule.event",
+          },
+          effect: {
+            text: rendered?.effect ?? "(unrenderable effect)",
+            technical: "TransitionRule.effect",
+          },
+          appliedTo,
+          raw: rule,
+        },
+      });
+      return true;
+    }
+
     const conditionNL = describeSetPlanNL(rule.body, idStore);
     const effectNL = describeHeadNL(rule.head, idStore);
     const natural = `If ${conditionNL}, then ${effectNL}.`;
-
-    const appliedTo = [];
 
     json(res, 200, {
       ok: true,
@@ -215,16 +278,49 @@ export function handleEntity(req, res, url, context) {
     }
 
     const action = actions[denseId];
-    const name = action.name ? action.name.value : `Action #${denseId}`;
+    const name = action.action ? String(action.action).trim() : action.name ? action.name.value : `Action #${denseId}`;
+    const agent = action.agent ? String(action.agent).trim() : null;
+    const preconditions = Array.isArray(action.preconditions)
+      ? action.preconditions.map((s) => String(s).trim()).filter(Boolean)
+      : [];
+    const effects = Array.isArray(action.effects)
+      ? action.effects.map((s) => String(s).trim()).filter(Boolean)
+      : [];
+    const intents = Array.isArray(action.intents)
+      ? action.intents.map((s) => String(s).trim()).filter(Boolean)
+      : [];
+    const intent = action.intent ? String(action.intent).trim() : intents[0] ?? null;
+
+    const description = [];
+    description.push(`Action: ${name}`);
+    if (agent) description.push(`Agent constraint: ${agent}`);
+    if (intent) description.push(`Intent: ${intent}`);
+    if (preconditions.length > 0) {
+      description.push(`Preconditions (${preconditions.length}):`);
+      preconditions.slice(0, 20).forEach((p) => description.push(`- ${p}`));
+      if (preconditions.length > 20) description.push(`- (and ${preconditions.length - 20} more)`);
+    } else {
+      description.push("Preconditions: (none)");
+    }
+    if (effects.length > 0) {
+      description.push(`Effects (${effects.length}):`);
+      effects.slice(0, 20).forEach((e) => description.push(`- ${e}`));
+      if (effects.length > 20) description.push(`- (and ${effects.length - 20} more)`);
+    } else {
+      description.push("Effects: (none)");
+    }
 
     json(res, 200, {
       ok: true,
       action: {
         id: denseId,
         name,
-        agent: action.agent ? action.agent : null,
-        precondition: action.precondition ? "defined" : null,
-        effect: action.effect ? "defined" : null,
+        agent,
+        intent,
+        intents,
+        preconditions,
+        effects,
+        description: description.join("\n"),
         raw: action,
       },
     });

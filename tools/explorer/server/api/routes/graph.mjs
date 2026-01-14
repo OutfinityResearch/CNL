@@ -1,13 +1,25 @@
-import { ConceptKind, NLG, getName, json, safeHasBit, describeRuleNL } from "../helpers.mjs";
+import {
+  ConceptKind,
+  NLG,
+  describeHeadNL,
+  describeRuleNL,
+  describeSetPlanNL,
+  getName,
+  json,
+  safeHasBit,
+} from "../helpers.mjs";
 
 // Extract concept IDs from a rule body (SetPlan)
 function extractBodyConcepts(plan, concepts = new Set()) {
   if (!plan) return concepts;
   if (plan.op === "UnarySet") concepts.add(plan.unaryId);
   if (plan.op === "Intersect" || plan.op === "Union") {
-    plan.plans.forEach(p => extractBodyConcepts(p, concepts));
+    (plan.plans ?? []).forEach((p) => extractBodyConcepts(p, concepts));
   }
   if (plan.op === "Not") extractBodyConcepts(plan.plan, concepts);
+  if (plan.op === "Image") extractBodyConcepts(plan.subjectSet, concepts);
+  if (plan.op === "Preimage") extractBodyConcepts(plan.objectSet, concepts);
+  if (plan.op === "AttrEntityFilter") extractBodyConcepts(plan.valueSet, concepts);
   return concepts;
 }
 
@@ -27,8 +39,7 @@ function getConceptName(idStore, unaryId) {
   return NLG.formatCategory(key.replace(/^U:/, ""));
 }
 
-export function handleGraph(req, res, url, context) {
-  if (req.method !== "GET" || url.pathname !== "/api/graph") return false;
+export function buildGraph(context) {
   const { rawKb, idStore, ruleStore, actionStore } = context;
 
   const nodes = [];
@@ -83,11 +94,13 @@ export function handleGraph(req, res, url, context) {
   }
 
   // 2. Add concepts (categories) with rules/actions info
-  for (let u = 0; u < rawKb.unaryCount; u++) {
-    const bitset = rawKb.unaryIndex[u];
+  const unaryTotal = idStore.size(ConceptKind.UnaryPredicate);
+  for (let u = 0; u < unaryTotal; u++) {
+    const bitset = u < rawKb.unaryIndex.length ? rawKb.unaryIndex[u] : null;
     const count = bitset ? bitset.popcount() : 0;
     const rawName = getName(idStore, ConceptKind.UnaryPredicate, u);
-    if (!rawName || rawName.startsWith("[")) continue;
+    const isUserDefined = rawName && !rawName.startsWith("[");
+    if (!isUserDefined && count === 0) continue;
     
     const name = NLG.formatCategory(rawName);
     // Attach rules/actions text to concepts
@@ -112,8 +125,9 @@ export function handleGraph(req, res, url, context) {
   }
 
   // 3. Binary relation edges between things
-  for (let p = 0; p < rawKb.predicatesCount; p++) {
-    const matrix = rawKb.relations[p];
+  const predTotal = idStore.size(ConceptKind.Predicate);
+  for (let p = 0; p < predTotal; p++) {
+    const matrix = p < rawKb.relations.length ? rawKb.relations[p] : null;
     if (!matrix) continue;
     
     const rawName = getName(idStore, ConceptKind.Predicate, p);
@@ -173,6 +187,12 @@ export function handleGraph(req, res, url, context) {
     }
   }
 
-  json(res, 200, { ok: true, graph: { nodes, edges, rulesText, actionsText } });
+  return { nodes, edges, rulesText, actionsText };
+}
+
+export function handleGraph(req, res, url, context) {
+  if (req.method !== "GET" || url.pathname !== "/api/graph") return false;
+  const graph = buildGraph(context);
+  json(res, 200, { ok: true, graph });
   return true;
 }

@@ -1,0 +1,29 @@
+// Manual additions for ontology rules (kept across regenerations).
+
+--- CONTEXT: FrbrExtra ---
+
+// FRBR Group 1 entities (Work-Expression-Manifestation-Item)
+Rule: If X is a work, then X is an endeavour.
+Rule: If X is an expression, then X is an endeavour.
+Rule: If X is a manifestation, then X is an endeavour.
+Rule: If X is an item, then X is an endeavour.
+
+// Realization chain
+Rule: If X realization of Y, then X is an expression.
+Rule: If X realization of Y, then Y is a work.
+Rule: If X embodiment of Y, then X is a manifestation.
+Rule: If X embodiment of Y, then Y is an expression.
+Rule: If X exemplar of Y, then X is an item.
+Rule: If X exemplar of Y, then Y is a manifestation.
+
+// Responsibility
+Rule: If X creator of Y, then Y is a work.
+Rule: If X realizer of Y, then Y is an expression.
+Rule: If X producer of Y, then Y is a manifestation.
+Rule: If X owner of Y, then Y is an item.
+
+// Translations and revisions
+Rule: If X translation of Y, then X is an expression.
+Rule: If X translation of Y, then Y is an expression.
+Rule: If X revision of Y, then X is an expression.
+Rule: If X revision of Y, then Y is an expression.

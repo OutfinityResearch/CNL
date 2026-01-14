@@ -150,12 +150,24 @@ When Light_1 is yellow occurs, then Light_1 is red.
 	Package_A is a package.
 	Home is a location.
 	Warehouse is a location.
+	Station is a location.
 	Robot_1 is located at Home.
 	Package_A is located at Warehouse.
+	Road_HW is blocked.
 	Action: move home to warehouse.
 	Agent: a robot.
 	Precondition: Robot_1 is located at Home.
 	Precondition: it is not the case that Road_HW is blocked.
+	Effect: Robot_1 is located at Warehouse.
+
+	Action: move home to station.
+	Agent: a robot.
+	Precondition: Robot_1 is located at Home.
+	Effect: Robot_1 is located at Station.
+
+	Action: move station to warehouse.
+	Agent: a robot.
+	Precondition: Robot_1 is located at Station.
 	Effect: Robot_1 is located at Warehouse.
 
 	Action: pick up package.
@@ -164,9 +176,9 @@ When Light_1 is yellow occurs, then Light_1 is red.
 	Precondition: Package_A is located at Warehouse.
 	Effect: Robot_1 carries Package_A.
 
-	Action: return to home.
+	Action: move warehouse to home.
 	Agent: a robot.
-	Precondition: Robot_1 carries Package_A.
+	Precondition: Robot_1 is located at Warehouse.
 	Effect: Robot_1 is located at Home.
 
 	Action: deliver package.
@@ -174,14 +186,10 @@ When Light_1 is yellow occurs, then Light_1 is red.
 	Precondition: Robot_1 is located at Home.
 	Precondition: Robot_1 carries Package_A.
 	Effect: Package_A is delivered.
-
-	Action: inspect package.
-	Agent: a robot.
-	Precondition: Robot_1 is located at Warehouse.
-	Effect: Package_A is inspected.
 	    `,
     steps: [
       { command: "Verify that it is not the case that Package_A is delivered.", expected: "true" },
+      { command: "Verify that Road_HW is blocked.", expected: "true" },
       { command: "Plan to achieve Package_A is delivered.", expected: "satisfied" }
     ]
   },
@@ -194,31 +202,62 @@ When Light_1 is yellow occurs, then Light_1 is red.
 	Region_B is a region.
 	Region_C is a region.
 	Region_D is a region.
-	Region_E is a region.
-	Region_F is a region.
-	Region_G is a region.
-	Region_H is a region.
+
+	red is a color.
+	green is a color.
+	blue is a color.
+	yellow is a color.
+
+	red is a basic-color.
+	green is a basic-color.
+	blue is a basic-color.
+
+	red is a forbidden-color.
+
+	Rule: If X touches Y, then Y touches X.
+	Rule: If X differs-from Y, then Y differs-from X.
 
 	Region_A touches Region_B.
 	Region_A touches Region_C.
+	Region_A touches Region_D.
+	Region_B touches Region_C.
 	Region_B touches Region_D.
 	Region_C touches Region_D.
-	Region_C touches Region_E.
-	Region_D touches Region_F.
-	Region_E touches Region_F.
-	Region_D touches Region_G.
-	Region_F touches Region_H.
-	Region_G touches Region_H.
 
-	Region_G is blocked.
-	A region is a safe-region if it is not the case that the region is blocked.
+	Region_A has-color red.
+	Region_A has-color green.
+	Region_A has-color blue.
+	Region_B has-color red.
+	Region_B has-color green.
+	Region_B has-color blue.
+	Region_C has-color red.
+	Region_C has-color green.
+	Region_C has-color blue.
+	Region_D has-color red.
+	Region_D has-color green.
+	Region_D has-color blue.
+	Region_A has-color yellow.
+	Region_B has-color yellow.
+	Region_C has-color yellow.
+	Region_D has-color yellow.
+
+	red differs-from green.
+	red differs-from blue.
+	green differs-from blue.
+	red differs-from yellow.
+	green differs-from yellow.
+	blue differs-from yellow.
 	    `,
     steps: [
-      { command: "Verify that it is not the case that Region_G is a safe-region.", expected: "true" },
       {
         command:
-          "Solve for ?R2 such that Region_A touches ?R1 and ?R1 touches ?R2 and ?R2 touches ?R3 and ?R3 touches Region_H and ?R1 is a safe-region and ?R2 is a safe-region and ?R3 is a safe-region.",
-        expected: '["Region_D","Region_E"]'
+          "Solve for ?CA such that Region_A has-color ?CA and Region_B has-color ?CB and Region_C has-color ?CC and Region_D has-color ?CD and ?CA is a basic-color and ?CB is a basic-color and ?CC is a basic-color and ?CD is a basic-color and it is not the case that ?CA is a forbidden-color and ?CA differs-from ?CB and ?CA differs-from ?CC and ?CA differs-from ?CD and ?CB differs-from ?CC and ?CB differs-from ?CD and ?CC differs-from ?CD.",
+        expected: "[]"
+      },
+      {
+        command:
+          "Solve for ?CA such that Region_A has-color ?CA and Region_B has-color ?CB and Region_C has-color ?CC and Region_D has-color ?CD and ?CA is a color and ?CB is a color and ?CC is a color and ?CD is a color and it is not the case that ?CA is a forbidden-color and ?CA differs-from ?CB and ?CA differs-from ?CC and ?CA differs-from ?CD and ?CB differs-from ?CC and ?CB differs-from ?CD and ?CC differs-from ?CD.",
+        expected: '["green","blue","yellow"]'
       }
     ]
   }

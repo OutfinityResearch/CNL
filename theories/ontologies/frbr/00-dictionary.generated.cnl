@@ -1,0 +1,221 @@
+// This file is generated. Do not edit.
+// Source: ontologies/frbr/frbr.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Frbr
+
+// Resolved key collisions (type vs binary predicate):
+// - "responsible-entity": chose property (dropped class)
+// - "subject": chose property (dropped class)
+"text" is a type.
+"text" is a "unary predicate".
+"imt" is a type.
+"imt" is a "unary predicate".
+"concept" is a type.
+"concept" is a "unary predicate".
+"corporate-body" is a type.
+"corporate-body" is a "unary predicate".
+"endeavour" is a type.
+"endeavour" is a "unary predicate".
+"event" is a type.
+"event" is a "unary predicate".
+"expression" is a type.
+"expression" is a "unary predicate".
+"item" is a type.
+"item" is a "unary predicate".
+"manifestation" is a type.
+"manifestation" is a "unary predicate".
+"object" is a type.
+"object" is a "unary predicate".
+"person" is a type.
+"person" is a "unary predicate".
+"place" is a type.
+"place" is a "unary predicate".
+"work" is a type.
+"work" is a "unary predicate".
+"license" is a type.
+"license" is a "unary predicate".
+"permission" is a type.
+"permission" is a "unary predicate".
+"requirement" is a type.
+"requirement" is a "unary predicate".
+"type" is a type.
+"type" is a "unary predicate".
+"class" is a type.
+"class" is a "unary predicate".
+"spatial-thing" is a type.
+"spatial-thing" is a "unary predicate".
+"group" is a type.
+"group" is a "unary predicate".
+"organization" is a type.
+"organization" is a "unary predicate".
+"work-2" is a type.
+"work-2" is a "unary predicate".
+
+// Binary predicates
+"contributor" is a "binary predicate".
+"date" is a "binary predicate".
+"format" is a "binary predicate".
+"identifier" is a "binary predicate".
+"rights" is a "binary predicate".
+"title" is a "binary predicate".
+"has-format" is a "binary predicate".
+"abridgement" is a "binary predicate".
+"abridgement of" is a "binary predicate".
+"adaption" is a "binary predicate".
+"adaption of" is a "binary predicate".
+"alternate" is a "binary predicate".
+"alternate of" is a "binary predicate".
+"arrangement" is a "binary predicate".
+"arrangement of" is a "binary predicate".
+"complement" is a "binary predicate".
+"complement of" is a "binary predicate".
+"creator" is a "binary predicate".
+"creator of" is a "binary predicate".
+"embodiment" is a "binary predicate".
+"embodiment of" is a "binary predicate".
+"exemplar" is a "binary predicate".
+"exemplar of" is a "binary predicate".
+"imitation" is a "binary predicate".
+"imitation of" is a "binary predicate".
+"owner" is a "binary predicate".
+"owner of" is a "binary predicate".
+"part" is a "binary predicate".
+"part of" is a "binary predicate".
+"producer" is a "binary predicate".
+"producer of" is a "binary predicate".
+"realization" is a "binary predicate".
+"realization of" is a "binary predicate".
+"realizer" is a "binary predicate".
+"realizer of" is a "binary predicate".
+"reconfiguration" is a "binary predicate".
+"reconfiguration of" is a "binary predicate".
+"related-endeavour" is a "binary predicate".
+"reproduction" is a "binary predicate".
+"reproduction of" is a "binary predicate".
+"responsible-entity" is a "binary predicate".
+"responsible-entity-of" is a "binary predicate".
+"revision" is a "binary predicate".
+"revision of" is a "binary predicate".
+"subject" is a "binary predicate".
+"successor" is a "binary predicate".
+"successor of" is a "binary predicate".
+"summarization" is a "binary predicate".
+"summarization of" is a "binary predicate".
+"supplement" is a "binary predicate".
+"supplement of" is a "binary predicate".
+"transformation" is a "binary predicate".
+"transformation of" is a "binary predicate".
+"translation" is a "binary predicate".
+"translation of" is a "binary predicate".
+"permits" is a "binary predicate".
+"requires" is a "binary predicate".
+"value" is a "binary predicate".
+
+// Type hierarchy
+// Dropped subtype edges:
+// - reflexive: 4 (e.g. "concept" -> "concept", "event" -> "event", "person" -> "person", "person" -> "person")
+// - abstract-to-concrete: 4 (e.g. "type" -> "corporate-body", "type" -> "endeavour", "class" -> "corporate-body", "class" -> "endeavour")
+"corporate-body" is a subtype of "class".
+"corporate-body" is a subtype of "type".
+"endeavour" is a subtype of "class".
+"endeavour" is a subtype of "type".
+"expression" is a subtype of "endeavour".
+"group" is a subtype of "corporate-body".
+"item" is a subtype of "endeavour".
+"manifestation" is a subtype of "endeavour".
+"object" is a subtype of "spatial-thing".
+"organization" is a subtype of "corporate-body".
+"place" is a subtype of "spatial-thing".
+"work" is a subtype of "endeavour".
+"work" is a subtype of "work-2".
+
+// Domain and range constraints
+the domain of "abridgement of" is "expression".
+the domain of "abridgement" is "expression".
+the domain of "adaption of" is "class".
+the domain of "adaption of" is "type".
+the domain of "adaption" is "class".
+the domain of "adaption" is "type".
+the domain of "alternate of" is "manifestation".
+the domain of "alternate" is "manifestation".
+the domain of "arrangement of" is "expression".
+the domain of "arrangement" is "expression".
+the domain of "complement of" is "class".
+the domain of "complement of" is "type".
+the domain of "complement" is "class".
+the domain of "complement" is "type".
+the domain of "creator" is "work".
+the domain of "embodiment of" is "manifestation".
+the domain of "embodiment" is "expression".
+the domain of "exemplar of" is "item".
+the domain of "exemplar" is "manifestation".
+the domain of "imitation of" is "class".
+the domain of "imitation of" is "type".
+the domain of "imitation" is "class".
+the domain of "imitation" is "type".
+the domain of "owner" is "item".
+the domain of "producer" is "manifestation".
+the domain of "realization of" is "expression".
+the domain of "realization" is "work".
+the domain of "realizer" is "expression".
+the domain of "reconfiguration of" is "item".
+the domain of "reconfiguration" is "item".
+the domain of "related-endeavour" is "endeavour".
+the domain of "reproduction of" is "class".
+the domain of "reproduction of" is "type".
+the domain of "reproduction" is "class".
+the domain of "reproduction" is "type".
+the domain of "responsible-entity" is "endeavour".
+the domain of "revision of" is "expression".
+the domain of "revision" is "expression".
+the domain of "subject" is "work".
+the domain of "successor of" is "class".
+the domain of "successor of" is "type".
+the domain of "successor" is "class".
+the domain of "successor" is "type".
+the domain of "summarization of" is "class".
+the domain of "summarization of" is "type".
+the domain of "summarization" is "class".
+the domain of "summarization" is "type".
+the domain of "supplement of" is "class".
+the domain of "supplement of" is "type".
+the domain of "supplement" is "class".
+the domain of "supplement" is "type".
+the domain of "transformation of" is "class".
+the domain of "transformation of" is "type".
+the domain of "transformation" is "class".
+the domain of "transformation" is "type".
+the domain of "translation of" is "expression".
+the domain of "translation" is "expression".
+the range of "abridgement of" is "expression".
+the range of "abridgement" is "expression".
+the range of "adaption" is "class".
+the range of "adaption" is "type".
+the range of "alternate of" is "manifestation".
+the range of "alternate" is "manifestation".
+the range of "arrangement of" is "expression".
+the range of "arrangement" is "expression".
+the range of "creator of" is "work".
+the range of "embodiment of" is "expression".
+the range of "embodiment" is "manifestation".
+the range of "exemplar of" is "manifestation".
+the range of "exemplar" is "item".
+the range of "owner of" is "item".
+the range of "producer of" is "manifestation".
+the range of "realization of" is "work".
+the range of "realization" is "expression".
+the range of "realizer of" is "expression".
+the range of "reconfiguration of" is "item".
+the range of "reconfiguration" is "item".
+the range of "related-endeavour" is "endeavour".
+the range of "reproduction" is "class".
+the range of "reproduction" is "type".
+the range of "responsible-entity-of" is "endeavour".
+the range of "revision of" is "expression".
+the range of "revision" is "expression".
+the range of "subject" is "class".
+the range of "subject" is "type".
+the range of "translation of" is "expression".
+the range of "translation" is "expression".

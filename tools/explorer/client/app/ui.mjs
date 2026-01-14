@@ -4,6 +4,7 @@ export const UI = {
   tree: document.getElementById("kbTree"),
   stats: document.getElementById("kbStats"),
   sessionLabel: document.getElementById("sessionLabel"),
+  baseLabel: document.getElementById("baseLabel"),
 
   log(text, type = "system") {
     const msg = document.createElement("div");
@@ -32,5 +33,11 @@ export const UI = {
     if (!sessionId) return;
     const shortId = sessionId.split("-")[0];
     this.sessionLabel.textContent = `Session: ${shortId}`;
+  },
+
+  setBase(mode) {
+    if (!this.baseLabel) return;
+    const m = String(mode || "default");
+    this.baseLabel.textContent = `Base: ${m}`;
   },
 };

@@ -1,0 +1,1091 @@
+// This file is generated. Do not edit.
+// Source: ontologies/iao/iao.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Iao
+"software-development" is a type.
+"software-development" is a "unary predicate".
+"count" is a type.
+"count" is a "unary predicate".
+"counting" is a type.
+"counting" is a "unary predicate".
+"source-code-repository" is a type.
+"source-code-repository" is a "unary predicate".
+"compiling-software" is a type.
+"compiling-software" is a "unary predicate".
+"dataset-creating" is a type.
+"dataset-creating" is a "unary predicate".
+"entity" is a type.
+"entity" is a "unary predicate".
+"continuant" is a type.
+"continuant" is a "unary predicate".
+"occurrent" is a type.
+"occurrent" is a "unary predicate".
+"independent-continuant" is a type.
+"independent-continuant" is a "unary predicate".
+"spatial-region" is a type.
+"spatial-region" is a "unary predicate".
+"temporal-region" is a type.
+"temporal-region" is a "unary predicate".
+"two-dimensional-spatial-region" is a type.
+"two-dimensional-spatial-region" is a "unary predicate".
+"spatiotemporal-region" is a type.
+"spatiotemporal-region" is a "unary predicate".
+"process" is a type.
+"process" is a "unary predicate".
+"disposition" is a type.
+"disposition" is a "unary predicate".
+"realizable-entity" is a type.
+"realizable-entity" is a "unary predicate".
+"zero-dimensional-spatial-region" is a type.
+"zero-dimensional-spatial-region" is a "unary predicate".
+"quality" is a type.
+"quality" is a "unary predicate".
+"specifically-dependent-continuant" is a type.
+"specifically-dependent-continuant" is a "unary predicate".
+"role" is a type.
+"role" is a "unary predicate".
+"fiat-object-part" is a type.
+"fiat-object-part" is a "unary predicate".
+"one-dimensional-spatial-region" is a type.
+"one-dimensional-spatial-region" is a "unary predicate".
+"object-aggregate" is a type.
+"object-aggregate" is a "unary predicate".
+"three-dimensional-spatial-region" is a type.
+"three-dimensional-spatial-region" is a "unary predicate".
+"site" is a type.
+"site" is a "unary predicate".
+"object" is a type.
+"object" is a "unary predicate".
+"generically-dependent-continuant" is a type.
+"generically-dependent-continuant" is a "unary predicate".
+"function" is a type.
+"function" is a "unary predicate".
+"process-boundary" is a type.
+"process-boundary" is a "unary predicate".
+"one-dimensional-temporal-region" is a type.
+"one-dimensional-temporal-region" is a "unary predicate".
+"material-entity" is a type.
+"material-entity" is a "unary predicate".
+"continuant-fiat-boundary" is a type.
+"continuant-fiat-boundary" is a "unary predicate".
+"immaterial-entity" is a type.
+"immaterial-entity" is a "unary predicate".
+"one-dimensional-continuant-fiat-boundary" is a type.
+"one-dimensional-continuant-fiat-boundary" is a "unary predicate".
+"process-profile" is a type.
+"process-profile" is a "unary predicate".
+"relational-quality" is a type.
+"relational-quality" is a "unary predicate".
+"two-dimensional-continuant-fiat-boundary" is a type.
+"two-dimensional-continuant-fiat-boundary" is a "unary predicate".
+"zero-dimensional-continuant-fiat-boundary" is a type.
+"zero-dimensional-continuant-fiat-boundary" is a "unary predicate".
+"zero-dimensional-temporal-region" is a type.
+"zero-dimensional-temporal-region" is a "unary predicate".
+"history" is a type.
+"history" is a "unary predicate".
+"conditional-specification" is a type.
+"conditional-specification" is a "unary predicate".
+"measurement-unit-label" is a type.
+"measurement-unit-label" is a "unary predicate".
+"objective-specification" is a type.
+"objective-specification" is a "unary predicate".
+"narrative-object" is a type.
+"narrative-object" is a "unary predicate".
+"action-specification" is a type.
+"action-specification" is a "unary predicate".
+"obsolete-artifact" is a type.
+"obsolete-artifact" is a "unary predicate".
+"datum-label" is a type.
+"datum-label" is a "unary predicate".
+"software" is a type.
+"software" is a "unary predicate".
+"obsolete2-digital-entity" is a type.
+"obsolete2-digital-entity" is a "unary predicate".
+"journal-article" is a type.
+"journal-article" is a "unary predicate".
+"information-carrier" is a type.
+"information-carrier" is a "unary predicate".
+"model-number" is a type.
+"model-number" is a "unary predicate".
+"obsolete-material-entity" is a type.
+"obsolete-material-entity" is a "unary predicate".
+"obsolete2-binary-digital-entity" is a type.
+"obsolete2-binary-digital-entity" is a "unary predicate".
+"obsolete-unit-of-measure" is a type.
+"obsolete-unit-of-measure" is a "unary predicate".
+"programming-language" is a type.
+"programming-language" is a "unary predicate".
+"data-item" is a type.
+"data-item" is a "unary predicate".
+"symbol" is a type.
+"symbol" is a "unary predicate".
+"numeral" is a type.
+"numeral" is a "unary predicate".
+"information-content-entity" is a type.
+"information-content-entity" is a "unary predicate".
+"integer-numeral" is a type.
+"integer-numeral" is a "unary predicate".
+"scalar-measurement-datum" is a type.
+"scalar-measurement-datum" is a "unary predicate".
+"directive-information-entity" is a type.
+"directive-information-entity" is a "unary predicate".
+"time-trigger" is a type.
+"time-trigger" is a "unary predicate".
+"obsolete-study-interpretation" is a type.
+"obsolete-study-interpretation" is a "unary predicate".
+"dot-plot" is a type.
+"dot-plot" is a "unary predicate".
+"graph" is a type.
+"graph" is a "unary predicate".
+"obsolete2-text-based-digital-entity" is a type.
+"obsolete2-text-based-digital-entity" is a "unary predicate".
+"rule" is a type.
+"rule" is a "unary predicate".
+"contour-plot" is a type.
+"contour-plot" is a "unary predicate".
+"obsolete2-report-figure" is a type.
+"obsolete2-report-figure" is a "unary predicate".
+"algorithm" is a type.
+"algorithm" is a "unary predicate".
+"software-interpreter" is a type.
+"software-interpreter" is a "unary predicate".
+"curation-status-specification" is a type.
+"curation-status-specification" is a "unary predicate".
+"density-plot" is a type.
+"density-plot" is a "unary predicate".
+"report" is a type.
+"report" is a "unary predicate".
+"obsolete-report-element" is a type.
+"obsolete-report-element" is a "unary predicate".
+"obsolete2-binary-executable" is a type.
+"obsolete2-binary-executable" is a "unary predicate".
+"source-code-module" is a type.
+"source-code-module" is a "unary predicate".
+"obsolete-report-table" is a type.
+"obsolete-report-table" is a "unary predicate".
+"data-format-specification" is a type.
+"data-format-specification" is a "unary predicate".
+"data-set" is a type.
+"data-set" is a "unary predicate".
+"image" is a type.
+"image" is a "unary predicate".
+"data-about-an-ontology-part" is a type.
+"data-about-an-ontology-part" is a "unary predicate".
+"plan-specification" is a type.
+"plan-specification" is a "unary predicate".
+"obsolete2-digital-document" is a type.
+"obsolete2-digital-document" is a "unary predicate".
+"measurement-datum" is a type.
+"measurement-datum" is a "unary predicate".
+"obsolete-identifier" is a type.
+"obsolete-identifier" is a "unary predicate".
+"version-number" is a type.
+"version-number" is a "unary predicate".
+"serial-number" is a type.
+"serial-number" is a "unary predicate".
+"lot-number" is a type.
+"lot-number" is a "unary predicate".
+"setting-datum" is a type.
+"setting-datum" is a "unary predicate".
+"obsolete-digital-quality" is a type.
+"obsolete-digital-quality" is a "unary predicate".
+"conclusion-textual-entity" is a type.
+"conclusion-textual-entity" is a "unary predicate".
+"material-information-bearer" is a type.
+"material-information-bearer" is a "unary predicate".
+"histogram" is a type.
+"histogram" is a "unary predicate".
+"heatmap" is a type.
+"heatmap" is a "unary predicate".
+"venn-diagram" is a type.
+"venn-diagram" is a "unary predicate".
+"obsolete-survival-curve" is a type.
+"obsolete-survival-curve" is a "unary predicate".
+"dendrogram" is a type.
+"dendrogram" is a "unary predicate".
+"scatter-plot" is a type.
+"scatter-plot" is a "unary predicate".
+"photograph" is a type.
+"photograph" is a "unary predicate".
+"photographic-print" is a type.
+"photographic-print" is a "unary predicate".
+"obsolescence-reason-specification" is a type.
+"obsolescence-reason-specification" is a "unary predicate".
+"textual-entity" is a type.
+"textual-entity" is a "unary predicate".
+"citation" is a type.
+"citation" is a "unary predicate".
+"author-identification" is a type.
+"author-identification" is a "unary predicate".
+"institutional-identification" is a type.
+"institutional-identification" is a "unary predicate".
+"caption" is a type.
+"caption" is a "unary predicate".
+"document-title" is a type.
+"document-title" is a "unary predicate".
+"table" is a type.
+"table" is a "unary predicate".
+"table-of-abbreviations" is a type.
+"table-of-abbreviations" is a "unary predicate".
+"figure" is a type.
+"figure" is a "unary predicate".
+"diagram" is a type.
+"diagram" is a "unary predicate".
+"document" is a type.
+"document" is a "unary predicate".
+"publication" is a type.
+"publication" is a "unary predicate".
+"publication-about-an-investigation" is a type.
+"publication-about-an-investigation" is a "unary predicate".
+"patent" is a type.
+"patent" is a "unary predicate".
+"document-part" is a type.
+"document-part" is a "unary predicate".
+"abstract" is a type.
+"abstract" is a "unary predicate".
+"introduction-to-a-publication-about-an-investigation" is a type.
+"introduction-to-a-publication-about-an-investigation" is a "unary predicate".
+"methods-section" is a type.
+"methods-section" is a "unary predicate".
+"results-section" is a type.
+"results-section" is a "unary predicate".
+"discussion-section-of-a-publication-about-an-investigation" is a type.
+"discussion-section-of-a-publication-about-an-investigation" is a "unary predicate".
+"references-section" is a type.
+"references-section" is a "unary predicate".
+"author-list" is a type.
+"author-list" is a "unary predicate".
+"institution-list" is a type.
+"institution-list" is a "unary predicate".
+"author-contributions-section" is a type.
+"author-contributions-section" is a "unary predicate".
+"acknowledgements-section" is a type.
+"acknowledgements-section" is a "unary predicate".
+"footnote" is a type.
+"footnote" is a "unary predicate".
+"supplementary-material-to-a-document" is a type.
+"supplementary-material-to-a-document" is a "unary predicate".
+"table-of-contents" is a type.
+"table-of-contents" is a "unary predicate".
+"table-of-figures" is a type.
+"table-of-figures" is a "unary predicate".
+"running-title" is a type.
+"running-title" is a "unary predicate".
+"copyright-section" is a type.
+"copyright-section" is a "unary predicate".
+"cartesian-spatial-coordinate-datum" is a type.
+"cartesian-spatial-coordinate-datum" is a "unary predicate".
+"one-dimensional-cartesian-spatial-coordinate-datum" is a type.
+"one-dimensional-cartesian-spatial-coordinate-datum" is a "unary predicate".
+"two-dimensional-cartesian-spatial-coordinate-datum" is a type.
+"two-dimensional-cartesian-spatial-coordinate-datum" is a "unary predicate".
+"three-dimensional-cartesian-spatial-coordinate-datum" is a type.
+"three-dimensional-cartesian-spatial-coordinate-datum" is a "unary predicate".
+"length-measurement-datum" is a type.
+"length-measurement-datum" is a "unary predicate".
+"denotator-type" is a type.
+"denotator-type" is a "unary predicate".
+"mass-measurement-datum" is a type.
+"mass-measurement-datum" is a "unary predicate".
+"hypothesis-textual-entity" is a type.
+"hypothesis-textual-entity" is a "unary predicate".
+"time-measurement-datum" is a type.
+"time-measurement-datum" is a "unary predicate".
+"postal-address" is a type.
+"postal-address" is a "unary predicate".
+"email-address" is a type.
+"email-address" is a "unary predicate".
+"author-role" is a type.
+"author-role" is a "unary predicate".
+"data-item-extraction-from-journal-article" is a type.
+"data-item-extraction-from-journal-article" is a "unary predicate".
+"publishing-process" is a type.
+"publishing-process" is a "unary predicate".
+"document-in-preparation-for-publication" is a type.
+"document-in-preparation-for-publication" is a "unary predicate".
+"documenting" is a type.
+"documenting" is a "unary predicate".
+"line-graph" is a type.
+"line-graph" is a "unary predicate".
+"assigning-a-centrally-registered-identifier" is a type.
+"assigning-a-centrally-registered-identifier" is a "unary predicate".
+"associating-information-with-a-centrally-registered-identifier-in-its-registry" is a type.
+"associating-information-with-a-centrally-registered-identifier-in-its-registry" is a "unary predicate".
+"obsolete-establishing-a-crid-registry" is a type.
+"obsolete-establishing-a-crid-registry" is a "unary predicate".
+"centrally-registered-identifier-symbol" is a type.
+"centrally-registered-identifier-symbol" is a "unary predicate".
+"centrally-registered-identifier" is a type.
+"centrally-registered-identifier" is a "unary predicate".
+"centrally-registered-identifier-registry" is a type.
+"centrally-registered-identifier-registry" is a "unary predicate".
+"looking-up-a-centrally-registered-identifier" is a type.
+"looking-up-a-centrally-registered-identifier" is a "unary predicate".
+"time-stamped-measurement-datum" is a type.
+"time-stamped-measurement-datum" is a "unary predicate".
+"time-sampled-measurement-data-set" is a type.
+"time-sampled-measurement-data-set" is a "unary predicate".
+"written-name" is a type.
+"written-name" is a "unary predicate".
+"software-method" is a type.
+"software-method" is a "unary predicate".
+"software-module" is a type.
+"software-module" is a "unary predicate".
+"software-library" is a type.
+"software-library" is a "unary predicate".
+"software-application" is a type.
+"software-application" is a "unary predicate".
+"software-script" is a type.
+"software-script" is a "unary predicate".
+"abbreviation-textual-entity" is a type.
+"abbreviation-textual-entity" is a "unary predicate".
+"abbreviations-section" is a type.
+"abbreviations-section" is a "unary predicate".
+"author-information-section" is a type.
+"author-information-section" is a "unary predicate".
+"author-information-textual-entity" is a type.
+"author-information-textual-entity" is a "unary predicate".
+"author-summary-section" is a type.
+"author-summary-section" is a "unary predicate".
+"author-summary-textual-entity" is a type.
+"author-summary-textual-entity" is a "unary predicate".
+"availability-section" is a type.
+"availability-section" is a "unary predicate".
+"availability-textual-entity" is a type.
+"availability-textual-entity" is a "unary predicate".
+"case-report-section" is a type.
+"case-report-section" is a "unary predicate".
+"case-report-textual-entity" is a type.
+"case-report-textual-entity" is a "unary predicate".
+"conclusion-section" is a type.
+"conclusion-section" is a "unary predicate".
+"conflict-of-interest-section" is a type.
+"conflict-of-interest-section" is a "unary predicate".
+"conflict-of-interest-textual-entity" is a type.
+"conflict-of-interest-textual-entity" is a "unary predicate".
+"consent-section" is a type.
+"consent-section" is a "unary predicate".
+"consent-textual-entity" is a type.
+"consent-textual-entity" is a "unary predicate".
+"ethical-approval-section" is a type.
+"ethical-approval-section" is a "unary predicate".
+"ethical-approval-textual-entity" is a type.
+"ethical-approval-textual-entity" is a "unary predicate".
+"figures-section" is a type.
+"figures-section" is a "unary predicate".
+"funding-source-declaration-section" is a type.
+"funding-source-declaration-section" is a "unary predicate".
+"funding-source-declaration-textual-entity" is a type.
+"funding-source-declaration-textual-entity" is a "unary predicate".
+"future-directions-section" is a type.
+"future-directions-section" is a "unary predicate".
+"future-directions-textual-entity" is a type.
+"future-directions-textual-entity" is a "unary predicate".
+"genome-announcement-section" is a type.
+"genome-announcement-section" is a "unary predicate".
+"genome-announcement-textual-entity" is a type.
+"genome-announcement-textual-entity" is a "unary predicate".
+"keyword-textual-entity" is a type.
+"keyword-textual-entity" is a "unary predicate".
+"keywords-section" is a type.
+"keywords-section" is a "unary predicate".
+"study-limitations-section" is a type.
+"study-limitations-section" is a "unary predicate".
+"study-limitations-textual-entity" is a type.
+"study-limitations-textual-entity" is a "unary predicate".
+"materials-section" is a type.
+"materials-section" is a "unary predicate".
+"notes-section" is a type.
+"notes-section" is a "unary predicate".
+"patients-section" is a type.
+"patients-section" is a "unary predicate".
+"patients-textual-entity" is a type.
+"patients-textual-entity" is a "unary predicate".
+"pre-publication-history-section" is a type.
+"pre-publication-history-section" is a "unary predicate".
+"pre-publication-history-textual-entity" is a type.
+"pre-publication-history-textual-entity" is a "unary predicate".
+"related-work-section" is a type.
+"related-work-section" is a "unary predicate".
+"related-work-textual-entity" is a type.
+"related-work-textual-entity" is a "unary predicate".
+"requirements-section" is a type.
+"requirements-section" is a "unary predicate".
+"requirements-textual-entity" is a type.
+"requirements-textual-entity" is a "unary predicate".
+"statistical-analysis-textual-entity" is a type.
+"statistical-analysis-textual-entity" is a "unary predicate".
+"statistical-analysis-section" is a type.
+"statistical-analysis-section" is a "unary predicate".
+"tables-section" is a type.
+"tables-section" is a "unary predicate".
+"postal-code" is a type.
+"postal-code" is a "unary predicate".
+"postal-delivery-route" is a type.
+"postal-delivery-route" is a "unary predicate".
+"zone-improvement-plan-code" is a type.
+"zone-improvement-plan-code" is a "unary predicate".
+"database-extract-transform-and-load-process" is a type.
+"database-extract-transform-and-load-process" is a "unary predicate".
+"descriptive-data-section" is a type.
+"descriptive-data-section" is a "unary predicate".
+"additional-results-section" is a type.
+"additional-results-section" is a "unary predicate".
+"research-participants-section" is a type.
+"research-participants-section" is a "unary predicate".
+"measurement-methods-section" is a type.
+"measurement-methods-section" is a "unary predicate".
+"research-settings-section" is a type.
+"research-settings-section" is a "unary predicate".
+"study-bias-section" is a type.
+"study-bias-section" is a "unary predicate".
+"graphical-abstract" is a type.
+"graphical-abstract" is a "unary predicate".
+"orcid-identifier" is a type.
+"orcid-identifier" is a "unary predicate".
+"identifier" is a type.
+"identifier" is a "unary predicate".
+"grapheme" is a type.
+"grapheme" is a "unary predicate".
+"identifier-creating-process" is a type.
+"identifier-creating-process" is a "unary predicate".
+"personal-name" is a type.
+"personal-name" is a "unary predicate".
+"given-name" is a type.
+"given-name" is a "unary predicate".
+"family-name" is a type.
+"family-name" is a "unary predicate".
+"code-set" is a type.
+"code-set" is a "unary predicate".
+"ontology-module" is a type.
+"ontology-module" is a "unary predicate".
+"base-ontology-module" is a type.
+"base-ontology-module" is a "unary predicate".
+"editors-ontology-module" is a type.
+"editors-ontology-module" is a "unary predicate".
+"main-release-ontology-module" is a type.
+"main-release-ontology-module" is a "unary predicate".
+"bridge-ontology-module" is a type.
+"bridge-ontology-module" is a "unary predicate".
+"import-ontology-module" is a type.
+"import-ontology-module" is a "unary predicate".
+"subset-ontology-module" is a type.
+"subset-ontology-module" is a "unary predicate".
+"curation-subset-ontology-module" is a type.
+"curation-subset-ontology-module" is a "unary predicate".
+"analysis-subset-ontology-module" is a type.
+"analysis-subset-ontology-module" is a "unary predicate".
+"single-layer-subset-ontology-module" is a type.
+"single-layer-subset-ontology-module" is a "unary predicate".
+"exclusion-subset-ontology-module" is a type.
+"exclusion-subset-ontology-module" is a "unary predicate".
+"external-import-ontology-module" is a type.
+"external-import-ontology-module" is a "unary predicate".
+"species-subset-ontology-module" is a type.
+"species-subset-ontology-module" is a "unary predicate".
+"reasoned-ontology-module" is a type.
+"reasoned-ontology-module" is a "unary predicate".
+"generated-ontology-module" is a type.
+"generated-ontology-module" is a "unary predicate".
+"template-generated-ontology-module" is a type.
+"template-generated-ontology-module" is a "unary predicate".
+"taxonomic-bridge-ontology-module" is a type.
+"taxonomic-bridge-ontology-module" is a "unary predicate".
+"ontology-module-subsetted-by-expressivity" is a type.
+"ontology-module-subsetted-by-expressivity" is a "unary predicate".
+"obo-basic-subset-ontology-module" is a type.
+"obo-basic-subset-ontology-module" is a "unary predicate".
+"ontology-module-subsetted-by-owl-profile" is a type.
+"ontology-module-subsetted-by-owl-profile" is a "unary predicate".
+"el-ontology-module" is a type.
+"el-ontology-module" is a "unary predicate".
+"planned-process" is a type.
+"planned-process" is a "unary predicate".
+"investigation" is a type.
+"investigation" is a "unary predicate".
+"study-design-execution" is a type.
+"study-design-execution" is a "unary predicate".
+"data-transformation" is a type.
+"data-transformation" is a "unary predicate".
+"study-design" is a type.
+"study-design" is a "unary predicate".
+"morphology" is a type.
+"morphology" is a "unary predicate".
+"length" is a type.
+"length" is a "unary predicate".
+"mass" is a type.
+"mass" is a "unary predicate".
+"physical-quality" is a type.
+"physical-quality" is a "unary predicate".
+"physical-object-quality" is a type.
+"physical-object-quality" is a "unary predicate".
+"length-unit" is a type.
+"length-unit" is a "unary predicate".
+"mass-unit" is a type.
+"mass-unit" is a "unary predicate".
+"time-unit" is a type.
+"time-unit" is a "unary predicate".
+"obsolete-class" is a type.
+"obsolete-class" is a "unary predicate".
+"type" is a type.
+"type" is a "unary predicate".
+"date-time" is a type.
+"date-time" is a "unary predicate".
+"double" is a type.
+"double" is a "unary predicate".
+"float" is a type.
+"float" is a "unary predicate".
+"class" is a type.
+"class" is a "unary predicate".
+"restriction" is a type.
+"restriction" is a "unary predicate".
+"thing" is a type.
+"thing" is a "unary predicate".
+
+// Binary predicates
+"related-to" is a "binary predicate".
+"part of" is a "binary predicate".
+"has-part" is a "binary predicate".
+"realized in" is a "binary predicate".
+"realizes" is a "binary predicate".
+"rel-occurs-in" is a "binary predicate".
+"rel-contains-process" is a "binary predicate".
+"bfo-owl-specification-label" is a "binary predicate".
+"bfo-clif-specification-label" is a "binary predicate".
+"has-measurement-value" is a "binary predicate".
+"has-measurement-unit-label" is a "binary predicate".
+"alternative-label" is a "binary predicate".
+"obsolete-specifically-denotes" is a "binary predicate".
+"about" is a "binary predicate".
+"mentions" is a "binary predicate".
+"mentioned by" is a "binary predicate".
+"denotes" is a "binary predicate".
+"obsolete-materially-denotes" is a "binary predicate".
+"quality-measurement-of" is a "binary predicate".
+"obsolete-describes" is a "binary predicate".
+"obsolete-represents" is a "binary predicate".
+"denoted by" is a "binary predicate".
+"has-x-coordinate-value" is a "binary predicate".
+"has-z-coordinate-value" is a "binary predicate".
+"has-y-coordinate-value" is a "binary predicate".
+"has-coordinate-unit-label" is a "binary predicate".
+"duration of" is a "binary predicate".
+"quality-measured-as" is a "binary predicate".
+"quality-specification-of" is a "binary predicate".
+"quality-is-specified-as" is a "binary predicate".
+"antisymmetric-property" is a "binary predicate".
+"has-time-stamp" is a "binary predicate".
+"has-measurement-datum" is a "binary predicate".
+"scheduled-for-obsoletion-on-or-after" is a "binary predicate".
+"has-specified-input" is a "binary predicate".
+"specified-input-of" is a "binary predicate".
+"has-specified-output" is a "binary predicate".
+"specified-output-of" is a "binary predicate".
+"logical-characteristic-of-object-property" is a "binary predicate".
+"characteristic of" is a "binary predicate".
+"has-characteristic" is a "binary predicate".
+"participates in" is a "binary predicate".
+"has-participant" is a "binary predicate".
+"concretized-as" is a "binary predicate".
+"concretizes" is a "binary predicate".
+"function of" is a "binary predicate".
+"quality of" is a "binary predicate".
+"role of" is a "binary predicate".
+"has-function" is a "binary predicate".
+"has-quality" is a "binary predicate".
+"has-role" is a "binary predicate".
+"has-disposition" is a "binary predicate".
+"disposition of" is a "binary predicate".
+"derives from" is a "binary predicate".
+"derives into" is a "binary predicate".
+"location of" is a "binary predicate".
+"located in" is a "binary predicate".
+"rel-2-d-boundary-of" is a "binary predicate".
+"has-2-d-boundary" is a "binary predicate".
+"member of" is a "binary predicate".
+"has-member" is a "binary predicate".
+"deprecated-inheres-in" is a "binary predicate".
+"deprecated-bearer-of" is a "binary predicate".
+"obsolete-property" is a "binary predicate".
+"has-broad-synonym" is a "binary predicate".
+"has-exact-synonym" is a "binary predicate".
+"has-narrow-synonym" is a "binary predicate".
+"has-related-synonym" is a "binary predicate".
+"label" is a "binary predicate".
+"inverse of" is a "binary predicate".
+
+// Type hierarchy
+// Dropped subtype edges:
+// - abstract-to-concrete: 26 (e.g. "type" -> "software-development", "type" -> "count", "type" -> "counting", "type" -> "dataset-creating", "type" -> "information-carrier")
+"abbreviation-textual-entity" is a subtype of "textual-entity".
+"abbreviations-section" is a subtype of "document-part".
+"abbreviations-section" is a subtype of "restriction".
+"abbreviations-section" is a subtype of "type".
+"abstract" is a subtype of "document-part".
+"abstract" is a subtype of "restriction".
+"abstract" is a subtype of "type".
+"acknowledgements-section" is a subtype of "document-part".
+"action-specification" is a subtype of "directive-information-entity".
+"additional-results-section" is a subtype of "results-section".
+"algorithm" is a subtype of "plan-specification".
+"analysis-subset-ontology-module" is a subtype of "subset-ontology-module".
+"assigning-a-centrally-registered-identifier" is a subtype of "planned-process".
+"assigning-a-centrally-registered-identifier" is a subtype of "restriction".
+"assigning-a-centrally-registered-identifier" is a subtype of "type".
+"associating-information-with-a-centrally-registered-identifier-in-its-registry" is a subtype of "planned-process".
+"associating-information-with-a-centrally-registered-identifier-in-its-registry" is a subtype of "restriction".
+"associating-information-with-a-centrally-registered-identifier-in-its-registry" is a subtype of "type".
+"author-contributions-section" is a subtype of "document-part".
+"author-identification" is a subtype of "written-name".
+"author-information-section" is a subtype of "document-part".
+"author-information-section" is a subtype of "restriction".
+"author-information-section" is a subtype of "type".
+"author-information-textual-entity" is a subtype of "textual-entity".
+"author-list" is a subtype of "document-part".
+"author-list" is a subtype of "restriction".
+"author-list" is a subtype of "type".
+"author-role" is a subtype of "role".
+"author-summary-section" is a subtype of "document-part".
+"author-summary-section" is a subtype of "restriction".
+"author-summary-section" is a subtype of "type".
+"author-summary-textual-entity" is a subtype of "textual-entity".
+"availability-section" is a subtype of "document-part".
+"availability-section" is a subtype of "restriction".
+"availability-section" is a subtype of "type".
+"availability-textual-entity" is a subtype of "textual-entity".
+"base-ontology-module" is a subtype of "ontology-module".
+"bridge-ontology-module" is a subtype of "ontology-module".
+"caption" is a subtype of "restriction".
+"caption" is a subtype of "textual-entity".
+"caption" is a subtype of "type".
+"cartesian-spatial-coordinate-datum" is a subtype of "data-item".
+"cartesian-spatial-coordinate-datum" is a subtype of "restriction".
+"cartesian-spatial-coordinate-datum" is a subtype of "type".
+"case-report-section" is a subtype of "document-part".
+"case-report-section" is a subtype of "restriction".
+"case-report-section" is a subtype of "type".
+"case-report-textual-entity" is a subtype of "textual-entity".
+"centrally-registered-identifier" is a subtype of "identifier".
+"centrally-registered-identifier" is a subtype of "restriction".
+"centrally-registered-identifier" is a subtype of "type".
+"centrally-registered-identifier-registry" is a subtype of "code-set".
+"centrally-registered-identifier-symbol" is a subtype of "restriction".
+"centrally-registered-identifier-symbol" is a subtype of "symbol".
+"centrally-registered-identifier-symbol" is a subtype of "type".
+"citation" is a subtype of "restriction".
+"citation" is a subtype of "textual-entity".
+"citation" is a subtype of "type".
+"code-set" is a subtype of "information-content-entity".
+"code-set" is a subtype of "restriction".
+"code-set" is a subtype of "type".
+"compiling-software" is a subtype of "class".
+"compiling-software" is a subtype of "software-development".
+"compiling-software" is a subtype of "type".
+"conclusion-section" is a subtype of "document-part".
+"conclusion-section" is a subtype of "restriction".
+"conclusion-section" is a subtype of "type".
+"conclusion-textual-entity" is a subtype of "textual-entity".
+"conditional-specification" is a subtype of "directive-information-entity".
+"conflict-of-interest-section" is a subtype of "document-part".
+"conflict-of-interest-section" is a subtype of "restriction".
+"conflict-of-interest-section" is a subtype of "type".
+"conflict-of-interest-textual-entity" is a subtype of "textual-entity".
+"consent-section" is a subtype of "document-part".
+"consent-section" is a subtype of "restriction".
+"consent-section" is a subtype of "type".
+"consent-textual-entity" is a subtype of "textual-entity".
+"continuant" is a subtype of "entity".
+"continuant-fiat-boundary" is a subtype of "immaterial-entity".
+"contour-plot" is a subtype of "graph".
+"copyright-section" is a subtype of "document-part".
+"count" is a subtype of "class".
+"count" is a subtype of "measurement-datum".
+"count" is a subtype of "type".
+"counting" is a subtype of "class".
+"counting" is a subtype of "planned-process".
+"counting" is a subtype of "type".
+"curation-status-specification" is a subtype of "class".
+"curation-status-specification" is a subtype of "data-about-an-ontology-part".
+"curation-status-specification" is a subtype of "type".
+"curation-subset-ontology-module" is a subtype of "subset-ontology-module".
+"data-about-an-ontology-part" is a subtype of "data-item".
+"data-format-specification" is a subtype of "directive-information-entity".
+"data-item" is a subtype of "information-content-entity".
+"data-item-extraction-from-journal-article" is a subtype of "planned-process".
+"data-item-extraction-from-journal-article" is a subtype of "restriction".
+"data-item-extraction-from-journal-article" is a subtype of "type".
+"data-set" is a subtype of "data-item".
+"data-transformation" is a subtype of "planned-process".
+"database-extract-transform-and-load-process" is a subtype of "planned-process".
+"database-extract-transform-and-load-process" is a subtype of "restriction".
+"database-extract-transform-and-load-process" is a subtype of "type".
+"dataset-creating" is a subtype of "class".
+"dataset-creating" is a subtype of "planned-process".
+"dataset-creating" is a subtype of "type".
+"datum-label" is a subtype of "information-content-entity".
+"dendrogram" is a subtype of "graph".
+"denotator-type" is a subtype of "class".
+"denotator-type" is a subtype of "data-about-an-ontology-part".
+"denotator-type" is a subtype of "type".
+"density-plot" is a subtype of "graph".
+"descriptive-data-section" is a subtype of "document-part".
+"diagram" is a subtype of "figure".
+"directive-information-entity" is a subtype of "information-content-entity".
+"directive-information-entity" is a subtype of "restriction".
+"directive-information-entity" is a subtype of "type".
+"discussion-section-of-a-publication-about-an-investigation" is a subtype of "document-part".
+"disposition" is a subtype of "realizable-entity".
+"document" is a subtype of "information-content-entity".
+"document-in-preparation-for-publication" is a subtype of "document".
+"document-part" is a subtype of "information-content-entity".
+"document-part" is a subtype of "restriction".
+"document-part" is a subtype of "type".
+"document-title" is a subtype of "textual-entity".
+"documenting" is a subtype of "planned-process".
+"documenting" is a subtype of "restriction".
+"documenting" is a subtype of "type".
+"dot-plot" is a subtype of "graph".
+"editors-ontology-module" is a subtype of "ontology-module".
+"el-ontology-module" is a subtype of "ontology-module-subsetted-by-owl-profile".
+"email-address" is a subtype of "information-content-entity".
+"entity" is a subtype of "thing".
+"ethical-approval-section" is a subtype of "document-part".
+"ethical-approval-section" is a subtype of "restriction".
+"ethical-approval-section" is a subtype of "type".
+"ethical-approval-textual-entity" is a subtype of "restriction".
+"ethical-approval-textual-entity" is a subtype of "textual-entity".
+"ethical-approval-textual-entity" is a subtype of "type".
+"exclusion-subset-ontology-module" is a subtype of "subset-ontology-module".
+"external-import-ontology-module" is a subtype of "import-ontology-module".
+"family-name" is a subtype of "identifier".
+"fiat-object-part" is a subtype of "material-entity".
+"figure" is a subtype of "information-content-entity".
+"figures-section" is a subtype of "document-part".
+"figures-section" is a subtype of "restriction".
+"figures-section" is a subtype of "type".
+"footnote" is a subtype of "document-part".
+"footnote" is a subtype of "restriction".
+"footnote" is a subtype of "type".
+"function" is a subtype of "disposition".
+"funding-source-declaration-section" is a subtype of "document-part".
+"funding-source-declaration-section" is a subtype of "restriction".
+"funding-source-declaration-section" is a subtype of "type".
+"funding-source-declaration-textual-entity" is a subtype of "textual-entity".
+"future-directions-section" is a subtype of "document-part".
+"future-directions-section" is a subtype of "restriction".
+"future-directions-section" is a subtype of "type".
+"future-directions-textual-entity" is a subtype of "textual-entity".
+"generated-ontology-module" is a subtype of "ontology-module".
+"generically-dependent-continuant" is a subtype of "continuant".
+"genome-announcement-section" is a subtype of "document-part".
+"genome-announcement-section" is a subtype of "restriction".
+"genome-announcement-section" is a subtype of "type".
+"genome-announcement-textual-entity" is a subtype of "textual-entity".
+"given-name" is a subtype of "personal-name".
+"graph" is a subtype of "diagram".
+"grapheme" is a subtype of "information-content-entity".
+"graphical-abstract" is a subtype of "abstract".
+"heatmap" is a subtype of "graph".
+"histogram" is a subtype of "graph".
+"history" is a subtype of "process".
+"hypothesis-textual-entity" is a subtype of "textual-entity".
+"identifier" is a subtype of "class".
+"identifier" is a subtype of "information-content-entity".
+"identifier" is a subtype of "type".
+"identifier-creating-process" is a subtype of "class".
+"identifier-creating-process" is a subtype of "planned-process".
+"identifier-creating-process" is a subtype of "type".
+"image" is a subtype of "figure".
+"immaterial-entity" is a subtype of "independent-continuant".
+"import-ontology-module" is a subtype of "subset-ontology-module".
+"independent-continuant" is a subtype of "continuant".
+"information-carrier" is a subtype of "class".
+"information-carrier" is a subtype of "quality".
+"information-carrier" is a subtype of "type".
+"information-content-entity" is a subtype of "generically-dependent-continuant".
+"information-content-entity" is a subtype of "restriction".
+"information-content-entity" is a subtype of "type".
+"institution-list" is a subtype of "document-part".
+"institution-list" is a subtype of "restriction".
+"institution-list" is a subtype of "type".
+"institutional-identification" is a subtype of "textual-entity".
+"integer-numeral" is a subtype of "numeral".
+"introduction-to-a-publication-about-an-investigation" is a subtype of "document-part".
+"introduction-to-a-publication-about-an-investigation" is a subtype of "restriction".
+"introduction-to-a-publication-about-an-investigation" is a subtype of "type".
+"investigation" is a subtype of "planned-process".
+"journal-article" is a subtype of "publication".
+"journal-article" is a subtype of "report".
+"journal-article" is a subtype of "restriction".
+"journal-article" is a subtype of "type".
+"keyword-textual-entity" is a subtype of "textual-entity".
+"keywords-section" is a subtype of "document-part".
+"keywords-section" is a subtype of "restriction".
+"keywords-section" is a subtype of "type".
+"length" is a subtype of "morphology".
+"length-measurement-datum" is a subtype of "restriction".
+"length-measurement-datum" is a subtype of "scalar-measurement-datum".
+"length-measurement-datum" is a subtype of "type".
+"length-unit" is a subtype of "measurement-unit-label".
+"line-graph" is a subtype of "graph".
+"looking-up-a-centrally-registered-identifier" is a subtype of "planned-process".
+"looking-up-a-centrally-registered-identifier" is a subtype of "restriction".
+"looking-up-a-centrally-registered-identifier" is a subtype of "type".
+"lot-number" is a subtype of "symbol".
+"main-release-ontology-module" is a subtype of "ontology-module".
+"mass" is a subtype of "physical-quality".
+"mass-measurement-datum" is a subtype of "class".
+"mass-measurement-datum" is a subtype of "scalar-measurement-datum".
+"mass-measurement-datum" is a subtype of "type".
+"mass-unit" is a subtype of "measurement-unit-label".
+"material-entity" is a subtype of "independent-continuant".
+"material-information-bearer" is a subtype of "class".
+"material-information-bearer" is a subtype of "material-entity".
+"material-information-bearer" is a subtype of "type".
+"materials-section" is a subtype of "document-part".
+"measurement-datum" is a subtype of "data-item".
+"measurement-methods-section" is a subtype of "methods-section".
+"measurement-unit-label" is a subtype of "datum-label".
+"methods-section" is a subtype of "document-part".
+"methods-section" is a subtype of "restriction".
+"methods-section" is a subtype of "type".
+"model-number" is a subtype of "symbol".
+"morphology" is a subtype of "physical-object-quality".
+"narrative-object" is a subtype of "information-content-entity".
+"notes-section" is a subtype of "document-part".
+"numeral" is a subtype of "symbol".
+"object" is a subtype of "material-entity".
+"object-aggregate" is a subtype of "material-entity".
+"objective-specification" is a subtype of "directive-information-entity".
+"obo-basic-subset-ontology-module" is a subtype of "ontology-module-subsetted-by-expressivity".
+"obsolescence-reason-specification" is a subtype of "class".
+"obsolescence-reason-specification" is a subtype of "data-about-an-ontology-part".
+"obsolescence-reason-specification" is a subtype of "type".
+"obsolete-artifact" is a subtype of "obsolete-class".
+"obsolete-digital-quality" is a subtype of "obsolete-class".
+"obsolete-establishing-a-crid-registry" is a subtype of "obsolete-class".
+"obsolete-identifier" is a subtype of "obsolete-class".
+"obsolete-material-entity" is a subtype of "obsolete-class".
+"obsolete-report-element" is a subtype of "obsolete-class".
+"obsolete-report-table" is a subtype of "obsolete-class".
+"obsolete-study-interpretation" is a subtype of "obsolete-class".
+"obsolete-survival-curve" is a subtype of "obsolete-class".
+"obsolete-unit-of-measure" is a subtype of "obsolete-class".
+"obsolete2-binary-digital-entity" is a subtype of "obsolete-class".
+"obsolete2-binary-executable" is a subtype of "obsolete-class".
+"obsolete2-digital-document" is a subtype of "obsolete-class".
+"obsolete2-digital-entity" is a subtype of "obsolete-class".
+"obsolete2-report-figure" is a subtype of "obsolete-class".
+"obsolete2-text-based-digital-entity" is a subtype of "obsolete-class".
+"occurrent" is a subtype of "entity".
+"one-dimensional-cartesian-spatial-coordinate-datum" is a subtype of "cartesian-spatial-coordinate-datum".
+"one-dimensional-cartesian-spatial-coordinate-datum" is a subtype of "restriction".
+"one-dimensional-cartesian-spatial-coordinate-datum" is a subtype of "type".
+"one-dimensional-continuant-fiat-boundary" is a subtype of "continuant-fiat-boundary".
+"one-dimensional-spatial-region" is a subtype of "spatial-region".
+"one-dimensional-temporal-region" is a subtype of "temporal-region".
+"ontology-module" is a subtype of "data-about-an-ontology-part".
+"ontology-module-subsetted-by-expressivity" is a subtype of "subset-ontology-module".
+"ontology-module-subsetted-by-owl-profile" is a subtype of "ontology-module-subsetted-by-expressivity".
+"orcid-identifier" is a subtype of "centrally-registered-identifier".
+"patent" is a subtype of "document".
+"patients-section" is a subtype of "document-part".
+"patients-section" is a subtype of "restriction".
+"patients-section" is a subtype of "type".
+"patients-textual-entity" is a subtype of "textual-entity".
+"personal-name" is a subtype of "identifier".
+"photograph" is a subtype of "image".
+"photographic-print" is a subtype of "class".
+"photographic-print" is a subtype of "material-information-bearer".
+"photographic-print" is a subtype of "type".
+"physical-object-quality" is a subtype of "quality".
+"physical-quality" is a subtype of "physical-object-quality".
+"plan-specification" is a subtype of "directive-information-entity".
+"plan-specification" is a subtype of "restriction".
+"plan-specification" is a subtype of "type".
+"planned-process" is a subtype of "process".
+"postal-address" is a subtype of "textual-entity".
+"postal-code" is a subtype of "identifier".
+"postal-delivery-route" is a subtype of "plan-specification".
+"pre-publication-history-section" is a subtype of "document-part".
+"pre-publication-history-section" is a subtype of "restriction".
+"pre-publication-history-section" is a subtype of "type".
+"pre-publication-history-textual-entity" is a subtype of "textual-entity".
+"process" is a subtype of "occurrent".
+"process-boundary" is a subtype of "occurrent".
+"process-profile" is a subtype of "process".
+"programming-language" is a subtype of "plan-specification".
+"publication" is a subtype of "class".
+"publication" is a subtype of "document".
+"publication" is a subtype of "type".
+"publication-about-an-investigation" is a subtype of "publication".
+"publication-about-an-investigation" is a subtype of "restriction".
+"publication-about-an-investigation" is a subtype of "type".
+"publishing-process" is a subtype of "planned-process".
+"quality" is a subtype of "specifically-dependent-continuant".
+"realizable-entity" is a subtype of "specifically-dependent-continuant".
+"reasoned-ontology-module" is a subtype of "ontology-module".
+"references-section" is a subtype of "document-part".
+"references-section" is a subtype of "restriction".
+"references-section" is a subtype of "type".
+"related-work-section" is a subtype of "document-part".
+"related-work-section" is a subtype of "restriction".
+"related-work-section" is a subtype of "type".
+"related-work-textual-entity" is a subtype of "textual-entity".
+"relational-quality" is a subtype of "quality".
+"report" is a subtype of "document".
+"requirements-section" is a subtype of "document-part".
+"requirements-section" is a subtype of "restriction".
+"requirements-section" is a subtype of "type".
+"requirements-textual-entity" is a subtype of "textual-entity".
+"research-participants-section" is a subtype of "document-part".
+"research-settings-section" is a subtype of "document-part".
+"results-section" is a subtype of "document-part".
+"results-section" is a subtype of "restriction".
+"results-section" is a subtype of "type".
+"role" is a subtype of "realizable-entity".
+"rule" is a subtype of "conditional-specification".
+"running-title" is a subtype of "document-title".
+"scalar-measurement-datum" is a subtype of "measurement-datum".
+"scalar-measurement-datum" is a subtype of "restriction".
+"scalar-measurement-datum" is a subtype of "type".
+"scatter-plot" is a subtype of "graph".
+"serial-number" is a subtype of "symbol".
+"setting-datum" is a subtype of "data-item".
+"single-layer-subset-ontology-module" is a subtype of "subset-ontology-module".
+"site" is a subtype of "immaterial-entity".
+"software" is a subtype of "plan-specification".
+"software-application" is a subtype of "software".
+"software-development" is a subtype of "class".
+"software-development" is a subtype of "planned-process".
+"software-development" is a subtype of "type".
+"software-interpreter" is a subtype of "algorithm".
+"software-library" is a subtype of "software".
+"software-method" is a subtype of "software".
+"software-module" is a subtype of "software".
+"software-script" is a subtype of "software".
+"source-code-module" is a subtype of "directive-information-entity".
+"source-code-repository" is a subtype of "document".
+"source-code-repository" is a subtype of "restriction".
+"source-code-repository" is a subtype of "type".
+"spatial-region" is a subtype of "immaterial-entity".
+"spatiotemporal-region" is a subtype of "occurrent".
+"species-subset-ontology-module" is a subtype of "subset-ontology-module".
+"specifically-dependent-continuant" is a subtype of "continuant".
+"statistical-analysis-section" is a subtype of "document-part".
+"statistical-analysis-section" is a subtype of "restriction".
+"statistical-analysis-section" is a subtype of "type".
+"statistical-analysis-textual-entity" is a subtype of "textual-entity".
+"study-bias-section" is a subtype of "study-limitations-section".
+"study-design" is a subtype of "plan-specification".
+"study-design-execution" is a subtype of "planned-process".
+"study-limitations-section" is a subtype of "document-part".
+"study-limitations-section" is a subtype of "restriction".
+"study-limitations-section" is a subtype of "type".
+"study-limitations-textual-entity" is a subtype of "textual-entity".
+"subset-ontology-module" is a subtype of "ontology-module".
+"supplementary-material-to-a-document" is a subtype of "document-part".
+"symbol" is a subtype of "information-content-entity".
+"table" is a subtype of "textual-entity".
+"table-of-abbreviations" is a subtype of "table".
+"table-of-contents" is a subtype of "table".
+"table-of-figures" is a subtype of "table".
+"tables-section" is a subtype of "document-part".
+"tables-section" is a subtype of "restriction".
+"tables-section" is a subtype of "type".
+"taxonomic-bridge-ontology-module" is a subtype of "bridge-ontology-module".
+"template-generated-ontology-module" is a subtype of "generated-ontology-module".
+"temporal-region" is a subtype of "occurrent".
+"textual-entity" is a subtype of "information-content-entity".
+"three-dimensional-cartesian-spatial-coordinate-datum" is a subtype of "cartesian-spatial-coordinate-datum".
+"three-dimensional-cartesian-spatial-coordinate-datum" is a subtype of "restriction".
+"three-dimensional-cartesian-spatial-coordinate-datum" is a subtype of "type".
+"three-dimensional-spatial-region" is a subtype of "spatial-region".
+"time-measurement-datum" is a subtype of "class".
+"time-measurement-datum" is a subtype of "scalar-measurement-datum".
+"time-measurement-datum" is a subtype of "type".
+"time-sampled-measurement-data-set" is a subtype of "data-set".
+"time-sampled-measurement-data-set" is a subtype of "restriction".
+"time-sampled-measurement-data-set" is a subtype of "type".
+"time-stamped-measurement-datum" is a subtype of "class".
+"time-stamped-measurement-datum" is a subtype of "measurement-datum".
+"time-stamped-measurement-datum" is a subtype of "type".
+"time-trigger" is a subtype of "conditional-specification".
+"time-unit" is a subtype of "measurement-unit-label".
+"two-dimensional-cartesian-spatial-coordinate-datum" is a subtype of "cartesian-spatial-coordinate-datum".
+"two-dimensional-cartesian-spatial-coordinate-datum" is a subtype of "restriction".
+"two-dimensional-cartesian-spatial-coordinate-datum" is a subtype of "type".
+"two-dimensional-continuant-fiat-boundary" is a subtype of "continuant-fiat-boundary".
+"two-dimensional-spatial-region" is a subtype of "spatial-region".
+"venn-diagram" is a subtype of "graph".
+"version-number" is a subtype of "symbol".
+"written-name" is a subtype of "textual-entity".
+"zero-dimensional-continuant-fiat-boundary" is a subtype of "continuant-fiat-boundary".
+"zero-dimensional-spatial-region" is a subtype of "spatial-region".
+"zero-dimensional-temporal-region" is a subtype of "temporal-region".
+"zone-improvement-plan-code" is a subtype of "postal-code".
+
+// Domain and range constraints
+the domain of "about" is "information-content-entity".
+the domain of "concretized-as" is "generically-dependent-continuant".
+the domain of "concretizes" is "specifically-dependent-continuant".
+the domain of "denoted by" is "entity".
+the domain of "denotes" is "information-content-entity".
+the domain of "duration of" is "time-measurement-datum".
+the domain of "function of" is "function".
+the domain of "has-2-d-boundary" is "material-entity".
+the domain of "has-coordinate-unit-label" is "cartesian-spatial-coordinate-datum".
+the domain of "has-disposition" is "independent-continuant".
+the domain of "has-function" is "independent-continuant".
+the domain of "has-measurement-datum" is "time-stamped-measurement-datum".
+the domain of "has-measurement-value" is "scalar-measurement-datum".
+the domain of "has-participant" is "occurrent".
+the domain of "has-role" is "independent-continuant".
+the domain of "has-specified-input" is "planned-process".
+the domain of "has-specified-output" is "planned-process".
+the domain of "has-time-stamp" is "time-stamped-measurement-datum".
+the domain of "has-x-coordinate-value" is "cartesian-spatial-coordinate-datum".
+the domain of "has-y-coordinate-value" is "cartesian-spatial-coordinate-datum".
+the domain of "has-z-coordinate-value" is "cartesian-spatial-coordinate-datum".
+the domain of "located in" is "class".
+the domain of "located in" is "independent-continuant".
+the domain of "located in" is "type".
+the domain of "participates in" is "continuant".
+the domain of "quality-measurement-of" is "measurement-datum".
+the domain of "realized in" is "realizable-entity".
+the domain of "realizes" is "process".
+the domain of "rel-occurs-in" is "occurrent".
+the range of "concretized-as" is "specifically-dependent-continuant".
+the range of "concretizes" is "generically-dependent-continuant".
+the range of "denoted by" is "information-content-entity".
+the range of "denotes" is "entity".
+the range of "duration of" is "process".
+the range of "has-2-d-boundary" is "immaterial-entity".
+the range of "has-characteristic" is "specifically-dependent-continuant".
+the range of "has-coordinate-unit-label" is "length-unit".
+the range of "has-disposition" is "disposition".
+the range of "has-function" is "function".
+the range of "has-measurement-datum" is "class".
+the range of "has-measurement-datum" is "type".
+the range of "has-measurement-unit-label" is "measurement-unit-label".
+the range of "has-measurement-value" is "double".
+the range of "has-participant" is "continuant".
+the range of "has-quality" is "quality".
+the range of "has-role" is "role".
+the range of "has-time-stamp" is "time-measurement-datum".
+the range of "has-x-coordinate-value" is "float".
+the range of "has-y-coordinate-value" is "float".
+the range of "has-z-coordinate-value" is "float".
+the range of "located in" is "class".
+the range of "located in" is "independent-continuant".
+the range of "located in" is "type".
+the range of "participates in" is "occurrent".
+the range of "quality-measurement-of" is "quality".
+the range of "realized in" is "process".
+the range of "realizes" is "realizable-entity".
+the range of "rel-occurs-in" is "independent-continuant".
+the range of "scheduled-for-obsoletion-on-or-after" is "date-time".
+the range of "specified-output-of" is "planned-process".

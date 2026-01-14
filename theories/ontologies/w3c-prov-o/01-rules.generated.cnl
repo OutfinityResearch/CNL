@@ -6,24 +6,25 @@
 // Generated from ontology import: W3cProvO
 Rule: If X acted-on-behalf-of Y, then X was-influenced-by Y.
 Rule: If X activity Y, then X influencer Y.
-Rule: If X agent Y, then X influencer Y.
 Rule: If X aq Y, then X see-also Y.
 Rule: If X constraints Y, then X see-also Y.
 Rule: If X dm Y, then X see-also Y.
 Rule: If X editors-definition Y, then X definition Y.
-Rule: If X entity Y, then X influencer Y.
 Rule: If X generated Y, then X influenced Y.
 Rule: If X generated Y, then Y was-generated-by X.
 Rule: If X influenced Y, then Y was-influenced-by X.
 Rule: If X invalidated Y, then X influenced Y.
 Rule: If X invalidated Y, then Y was-invalidated-by X.
 Rule: If X n Y, then X see-also Y.
+Rule: If X prov-agent Y, then X influencer Y.
+Rule: If X prov-entity Y, then X influencer Y.
 Rule: If X qualified-association Y, then X qualified-influence Y.
 Rule: If X qualified-attribution Y, then X qualified-influence Y.
 Rule: If X qualified-communication Y, then X qualified-influence Y.
 Rule: If X qualified-delegation Y, then X qualified-influence Y.
 Rule: If X qualified-derivation Y, then X qualified-influence Y.
 Rule: If X qualified-end Y, then X qualified-influence Y.
+Rule: If X qualified-form Y, then X see-also Y.
 Rule: If X qualified-generation Y, then X qualified-influence Y.
 Rule: If X qualified-invalidation Y, then X qualified-influence Y.
 Rule: If X qualified-primary-source Y, then X qualified-influence Y.

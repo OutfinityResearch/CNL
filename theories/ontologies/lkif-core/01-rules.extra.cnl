@@ -1,0 +1,43 @@
+// Manual additions for ontology rules (kept across regenerations).
+
+--- CONTEXT: LkifCoreExtra ---
+
+// Type inheritance for legal entities
+Rule: If X is a legal-person, then X is an agent.
+Rule: If X is a natural-person, then X is a person.
+Rule: If X is a norm, then X is a claim.
+Rule: If X is a right, then X is a claim.
+Rule: If X is an obligation, then X is a claim.
+
+// Compliance and violation
+Rule: If X is allowed by Y, then Y is a permission.
+Rule: If X is disallowed by Y, then Y is a prohibition.
+Rule: If X is commanded by Y, then Y is an obligation.
+
+// Permissions and prohibitions are norms
+Rule: If X is a permission, then X is a norm.
+Rule: If X is a prohibition, then X is a norm.
+Rule: If X is an obligation, then X is a norm.
+
+// Rights derive from norms
+Rule: If X is a right, then X is a norm.
+Rule: If X is a liability-right, then X is a right.
+Rule: If X is a liberty-right, then X is a right.
+Rule: If X is a permissive-right, then X is a right.
+
+// Legal documents
+Rule: If X is a statute, then X is a legal-document.
+Rule: If X is a contract, then X is a legal-document.
+Rule: If X is a regulation, then X is a legal-document.
+Rule: If X is a code, then X is a legal-document.
+Rule: If X is a treaty, then X is a legal-document.
+
+// Legal roles
+Rule: If X is a professional-legal-role, then X is a legal-role.
+Rule: If X is a social-legal-role, then X is a legal-role.
+
+// Organizations
+Rule: If X is a corporation, then X is a legal-person.
+Rule: If X is a company, then X is a legal-person.
+Rule: If X is a public-body, then X is a legal-person.
+Rule: If X is a legislative-body, then X is a public-body.

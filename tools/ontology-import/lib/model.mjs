@@ -3,6 +3,8 @@ export const NS = Object.freeze({
   rdfs: "http://www.w3.org/2000/01/rdf-schema#",
   owl: "http://www.w3.org/2002/07/owl#",
   skos: "http://www.w3.org/2004/02/skos/core#",
+  oboInOwl: "http://www.geneontology.org/formats/oboInOwl#",
+  obo: "http://purl.obolibrary.org/obo/",
 });
 
 export const IRI = Object.freeze({
@@ -18,6 +20,8 @@ export const IRI = Object.freeze({
   rdfsRange: `${NS.rdfs}range`,
   rdfsLabel: `${NS.rdfs}label`,
   skosPrefLabel: `${NS.skos}prefLabel`,
+  oboInOwlHasExactSynonym: `${NS.oboInOwl}hasExactSynonym`,
+  oboIAOEditorPreferredTerm: `${NS.obo}IAO_0000111`,
   owlInverseOf: `${NS.owl}inverseOf`,
   owlTransitiveProperty: `${NS.owl}TransitiveProperty`,
   owlSymmetricProperty: `${NS.owl}SymmetricProperty`,
@@ -30,4 +34,3 @@ export function literalText(node) {
   if (!("literal" in node)) return null;
   return String(node.literal);
 }
-

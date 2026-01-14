@@ -1,0 +1,44 @@
+// This file is generated. Do not edit.
+// Source: ontologies/lkif-core/lkif-core.ttl
+
+--- CONTEXT: LkifCore ---
+
+// Generated from ontology import: LkifCore
+Rule: If X actor Y, then X participant Y.
+Rule: If X actor Y, then Y actor in X.
+Rule: If X actor in Y, then X participant in Y.
+Rule: If X actor in Y, then Y actor X.
+Rule: If X allows Y, then X qualifies Y.
+Rule: If X allows Y, then Y is allowed by X.
+Rule: If X commands Y, then X allows Y.
+Rule: If X commands Y, then Y is commanded by X.
+Rule: If X disallows Y, then X qualifies Y.
+Rule: If X disallows Y, then Y is disallowed by X.
+Rule: If X is allowed by Y, then X is qualified by Y.
+Rule: If X is allowed by Y, then Y allows X.
+Rule: If X is commanded by Y, then X is allowed by Y.
+Rule: If X is commanded by Y, then Y commands X.
+Rule: If X is disallowed by Y, then X is qualified by Y.
+Rule: If X is disallowed by Y, then Y disallows X.
+Rule: If X normatively-comparable Y, then X qualitatively-comparable Y.
+Rule: If X normatively-equivalent-or-better Y and Y normatively-equivalent-or-better Z, then X normatively-equivalent-or-better Z.
+Rule: If X normatively-equivalent-or-better Y, then X normatively-comparable Y.
+Rule: If X normatively-equivalent-or-better Y, then Y normatively-equivalent-or-worse X.
+Rule: If X normatively-equivalent-or-worse Y, then X normatively-comparable Y.
+Rule: If X normatively-equivalent-or-worse Y, then Y normatively-equivalent-or-better X.
+Rule: If X normatively-not-equivalent Y, then X normatively-comparable Y.
+Rule: If X normatively-not-equivalent Y, then Y normatively-not-equivalent X.
+Rule: If X normatively-not-equivalent Y, then Y normatively-not-equivalent X.
+Rule: If X normatively-strictly-better Y and Y normatively-strictly-better Z, then X normatively-strictly-better Z.
+Rule: If X normatively-strictly-better Y, then X normatively-equivalent-or-better Y.
+Rule: If X normatively-strictly-better Y, then X normatively-not-equivalent Y.
+Rule: If X normatively-strictly-better Y, then Y normatively-strictly-worse X.
+Rule: If X normatively-strictly-worse Y and Y normatively-strictly-worse Z, then X normatively-strictly-worse Z.
+Rule: If X normatively-strictly-worse Y, then X normatively-equivalent-or-worse Y.
+Rule: If X normatively-strictly-worse Y, then X normatively-not-equivalent Y.
+Rule: If X normatively-strictly-worse Y, then Y normatively-strictly-better X.
+Rule: If X strictly-equivalent Y and Y strictly-equivalent Z, then X strictly-equivalent Z.
+Rule: If X strictly-equivalent Y, then X normatively-equivalent-or-better Y.
+Rule: If X strictly-equivalent Y, then X normatively-equivalent-or-worse Y.
+Rule: If X strictly-equivalent Y, then Y strictly-equivalent X.
+Rule: If X strictly-equivalent Y, then Y strictly-equivalent X.

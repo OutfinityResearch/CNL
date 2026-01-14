@@ -128,7 +128,11 @@ function buildSolveConstraints(condition, state, allVariables) {
         return;
       case "CaseScope":
         if (node.mode === "negative") {
-          errors.push(runtimeError("SES021", "Solve does not support negated constraints.", "not"));
+          if (node.operand?.kind === "AtomicCondition") {
+            atomic.push({ ...node.operand, negated: true });
+            return;
+          }
+          errors.push(runtimeError("SES021", "Solve negation is only supported for atomic constraints.", "not"));
           return;
         }
         walk(node.operand);
@@ -157,6 +161,7 @@ function buildSolveConstraints(condition, state, allVariables) {
     }
     vars.forEach((name) => allVariables.add(name));
     const assertion = atom.assertion;
+    const isNegated = Boolean(atom.negated);
     if (!assertion) {
       errors.push(runtimeError("SES021", "Solve constraint missing assertion.", "EOF"));
       continue;
@@ -173,17 +178,24 @@ function buildSolveConstraints(condition, state, allVariables) {
         continue;
       }
       const unaryId = resolveUnaryId(assertion.complement, state);
-      const unarySet = unaryId === null ? emptySet(state.kb.kb) : state.kb.kb.unaryIndex[unaryId];
+      const kbState = state.kb.kb;
+      const unarySet = unaryId === null ? emptySet(kbState) : kbState.unaryIndex[unaryId];
+      const filterSet = isNegated ? fullSet(kbState).andNot(unarySet ?? emptySet(kbState)) : unarySet ?? emptySet(kbState);
       constraints.push({
         kind: "unary",
         variable: subjectVar,
         unaryId,
-        set: unarySet ?? emptySet(state.kb.kb),
+        negated: isNegated,
+        set: filterSet,
       });
       continue;
     }
 
     if (assertion.kind === "ActiveRelationAssertion" || assertion.kind === "PassiveRelationAssertion") {
+      if (isNegated) {
+        errors.push(runtimeError("SES021", "Solve does not support negated binary constraints.", "not"));
+        continue;
+      }
       const predId = resolvePredId(assertion, state);
       if (predId === null) {
         errors.push(runtimeError("SES022", "Unknown predicate in solve constraint.", "predicate"));
@@ -217,6 +229,10 @@ function buildSolveConstraints(condition, state, allVariables) {
     }
 
     if (assertion.kind === "AttributeAssertion") {
+      if (isNegated) {
+        errors.push(runtimeError("SES021", "Solve does not support negated attribute constraints.", "not"));
+        continue;
+      }
       const subjectVar = assertion.subject?.kind === "Variable" ? assertion.subject.name : null;
       if (!subjectVar) {
         errors.push(runtimeError("SES022", "Attribute constraint requires variable subject.", "subject"));
@@ -248,6 +264,10 @@ function buildSolveConstraints(condition, state, allVariables) {
     }
 
     if (assertion.kind === "ComparisonAssertion") {
+      if (isNegated) {
+        errors.push(runtimeError("SES021", "Solve does not support negated comparison constraints.", "not"));
+        continue;
+      }
       errors.push(runtimeError("SES022", "Comparison constraints with variables are not supported.", "comparison"));
       continue;
     }
@@ -366,6 +386,7 @@ function collectSolvePremises(solutions, constraints, state) {
   for (const sol of solutions) {
     for (const constraint of constraints) {
       if (constraint.kind === "unary") {
+        if (constraint.negated) continue;
         if (!constraint.unaryId) continue;
         const subjectId = sol[constraint.variable];
         if (!Number.isInteger(subjectId)) continue;

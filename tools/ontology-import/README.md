@@ -35,9 +35,8 @@ Notes:
 
 ## Naming and parseability
 - Types and keys are generated as lowercase hyphenated identifiers.
-- Predicate phrases are generated conservatively to remain parseable by the CNL grammar:
-  - Allowed multi-word patterns include passive `related to` and active `believes in`.
-  - Otherwise the predicate collapses to a single hyphenated token (example: `in-date-time-description`).
+- Predicates are emitted conservatively to remain parseable by the CNL grammar (examples: `believes in`, `is prior to`).
+- `--prefix` is optional and can be used to force namespace-like keys when experimenting with multiple overlapping ontologies.
 
 ## Output layout
 Given `--out theories/semantic-web/mini`, the tool writes:
