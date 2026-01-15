@@ -132,6 +132,32 @@ export function parseAssertionFromTokens(tokens) {
     };
   }
 
+  // Active relation negation: "X does not <verb> Y."
+  if (next.type === "word" && next.lower === "does" && stream.peek(1).type === "word" && stream.peek(1).lower === "not") {
+    stream.consume(); // does
+    stream.consume(); // not
+    const verb = parseIdentifier(stream).raw;
+    const particles = [];
+    while (stream.peek().type === "word" && PREPOSITIONS.has(stream.peek().lower)) {
+      particles.push(stream.consume().lower);
+    }
+    const verbGroup = { kind: "VerbGroup", auxiliary: null, verb, particles, span: { start: next.start, end: stream.last?.end ?? next.end } };
+    const object = parseObjectRef(stream);
+    if (!stream.done()) {
+      throw createError("SYN001", stream.peek().raw);
+    }
+    const startToken = tokens[0];
+    const endToken = tokens[tokens.length - 1];
+    return {
+      kind: "ActiveRelationAssertion",
+      subject,
+      negated: true,
+      verbGroup,
+      object,
+      span: { start: startToken.start, end: endToken.end },
+    };
+  }
+
   const verbGroup = parseVerbGroup(stream);
   const object = parseObjectRef(stream);
   if (!stream.done()) {
@@ -142,6 +168,7 @@ export function parseAssertionFromTokens(tokens) {
   return {
     kind: "ActiveRelationAssertion",
     subject,
+    negated: false,
     verbGroup,
     object,
     span: { start: startToken.start, end: endToken.end },

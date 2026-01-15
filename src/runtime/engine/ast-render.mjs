@@ -41,6 +41,9 @@ export function renderAssertionText(assertion) {
     case "CopulaPredicateAssertion":
       return `${renderNodeText(assertion.subject)} ${assertion.copula} ${renderNodeText(assertion.complement)}`.trim();
     case "ActiveRelationAssertion":
+      if (assertion.negated) {
+        return `${renderNodeText(assertion.subject)} does not ${renderNodeText(assertion.verbGroup)} ${renderNodeText(assertion.object)}`.trim();
+      }
       return `${renderNodeText(assertion.subject)} ${renderNodeText(assertion.verbGroup)} ${renderNodeText(assertion.object)}`.trim();
     case "PassiveRelationAssertion":
       return `${renderNodeText(assertion.subject)} ${assertion.copula} ${assertion.verb} ${assertion.preposition} ${renderNodeText(assertion.object)}`.trim();
@@ -90,4 +93,3 @@ export function renderSentenceText(sentence) {
   }
   return sentence.kind || "";
 }
-

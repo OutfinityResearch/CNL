@@ -47,12 +47,16 @@ function normalizeEntityPhrase(phrase) {
   return parts.map((p) => titleCaseWord(p)).join("_");
 }
 
-function pastParticiple(verb) {
-  const v = String(verb || "").trim().toLowerCase();
-  if (!v) return v;
-  if (v.endsWith("e")) return `${v}d`;
-  if (v.endsWith("y") && v.length >= 2 && !/[aeiou]y$/i.test(v)) return `${v.slice(0, -1)}ied`;
-  return `${v}ed`;
+function normalizeVerb(rawVerb) {
+  const verb = String(rawVerb || "").trim().toLowerCase();
+  if (!verb) return verb;
+  if (verb.endsWith("ies") && verb.length > 3) return `${verb.slice(0, -3)}y`;
+  if (verb.endsWith("ches") || verb.endsWith("shes") || verb.endsWith("xes") || verb.endsWith("ses") || verb.endsWith("zes")) {
+    return verb.slice(0, -2); // drop "es"
+  }
+  if (verb.endsWith("oes") && verb.length > 3) return verb.slice(0, -2); // "goes" -> "go"
+  if (verb.endsWith("s") && !verb.endsWith("ss") && verb.length > 1) return verb.slice(0, -1);
+  return verb;
 }
 
 function stripTrailingDot(text) {
@@ -82,55 +86,126 @@ function normalizeUnaryTailForCopula(tail) {
   return normalizePredicateTail(t);
 }
 
-function translateSimpleClauseToAtom(clause) {
+function createRuleContext() {
+  return { varName: "X", bound: false, lastUnarySubject: null };
+}
+
+function subjectRefFromPhrase(phrase, context, options = {}) {
+  const allowVariables = options.allowVariables ?? true;
+  const raw = String(phrase || "").trim();
+  if (!raw) return null;
+  const stripped = raw.replace(/^(the|a|an)\s+/i, "").trim();
+  const lower = stripped.toLowerCase();
+
+  if (allowVariables && (lower === "something" || lower === "someone")) {
+    context.bound = true;
+    return `?${context.varName}`;
+  }
+  if (allowVariables && (lower === "it" || lower === "they")) {
+    if (!context.bound) return null;
+    return `?${context.varName}`;
+  }
+
+  if (!allowVariables && (lower === "something" || lower === "someone" || lower === "it" || lower === "they")) {
+    return null;
+  }
+
+  const entity = normalizeEntityPhrase(raw);
+  return entity || null;
+}
+
+function unaryAtomsFromTail(subject, tail, options = {}) {
+  const clauseNegated = Boolean(options.negated);
+  const parts = splitConjunctionPredicates(tail);
+  const atoms = [];
+
+  for (const partRaw of parts) {
+    let part = String(partRaw || "").trim();
+    if (!part) return null;
+    let partNegated = false;
+    if (part.toLowerCase().startsWith("not ")) {
+      partNegated = true;
+      part = part.slice(4).trim();
+    }
+    const normalized = normalizeUnaryTailForCopula(part);
+    if (!normalized) return null;
+    const negated = clauseNegated || partNegated;
+    atoms.push(`${subject} is ${negated ? "not " : ""}${normalized}`.trim());
+  }
+
+  return atoms;
+}
+
+function translateClauseToAtoms(clause, context, options = {}) {
   const text = stripTrailingDot(String(clause || "").trim());
   if (!text) return null;
 
   // Unary: "<subj> is (not) <tail>"
-  const unary = text.match(/^(?:the\s+)?(.+?)\s+is\s+(not\s+)?(.+?)$/i);
+  const unary = text.match(/^(.+?)\s+is\s+(not\s+)?(.+?)$/i);
   if (unary) {
-    const subject = normalizeEntityPhrase(unary[1]);
+    const subject = subjectRefFromPhrase(unary[1], context, options);
     const neg = Boolean(unary[2]);
-    const tail = normalizeUnaryTailForCopula(unary[3]);
+    const tail = String(unary[3] || "").trim();
     if (!subject || !tail) return null;
-    return `${subject} is ${neg ? "not " : ""}${tail}`;
+    const atoms = unaryAtomsFromTail(subject, tail, { negated: neg });
+    if (!atoms) return null;
+    context.lastUnarySubject = subject;
+    return { atoms, kind: "unary", subject };
   }
 
-  // Binary: "<subj> (does not) <verb> (the) <obj>"
-  const binary = text.match(/^(?:the\s+)?(.+?)\s+(does\s+not\s+)?([a-z][a-z0-9_-]*)\s+(?:the\s+)?(.+?)$/i);
+  // Binary: "<subj> (does not) <verb> <obj>"
+  const binary = text.match(/^(.+?)\s+(does\s+not\s+)?([a-z][a-z0-9_-]*)\s+(.+?)$/i);
   if (binary) {
-    const subject = normalizeEntityPhrase(binary[1]);
+    const subject = subjectRefFromPhrase(binary[1], context, options);
     const neg = Boolean(binary[2]);
-    const verb = String(binary[3] || "").trim().toLowerCase();
-    const object = normalizeEntityPhrase(binary[4]);
+    const verb = normalizeVerb(binary[3]);
+    const object = subjectRefFromPhrase(binary[4], context, { ...options, allowVariables: false });
     if (!subject || !verb || !object) return null;
-    if (!neg) return `${subject} ${verb} ${object}`;
-    const pp = pastParticiple(verb);
-    return `${object} is not ${pp} by ${subject}`;
+    const atom = `${subject} ${neg ? "does not " : ""}${verb} ${object}`.trim();
+    return { atoms: [atom], kind: "binary", subject };
   }
 
   return null;
+}
+
+function translateUnaryTailFragmentToAtoms(fragment, subject) {
+  let text = stripTrailingDot(String(fragment || "").trim());
+  if (!text) return null;
+  const m = text.match(/^(?:is|are)\s+(.+?)$/i);
+  if (m) text = String(m[1] || "").trim();
+  if (!text) return null;
+  return unaryAtomsFromTail(subject, text, { negated: false });
 }
 
 function rewriteIfThenRule(line) {
   const parsed = parseIfThenRuleLine(line);
   if (!parsed) return null;
 
-  // Only rewrite if needed (to avoid "does ..." comparator ambiguity and multi-word noun phrases).
-  const needsRewrite =
-    /\bdoes\s+not\b/i.test(line) ||
-    /^if\s+the\s+/i.test(line) ||
-    /\bthen\s+the\s+/i.test(line);
-  if (!needsRewrite) return null;
+  const context = createRuleContext();
+  const condPieces = splitOnAndChain(parsed.ifPart);
+  const condAtoms = [];
 
-  const condClauses = splitOnAndChain(parsed.ifPart);
-  const condAtoms = condClauses.map(translateSimpleClauseToAtom);
-  if (condAtoms.some((a) => !a)) return null;
+  for (const piece of condPieces) {
+    const translated = translateClauseToAtoms(piece, context, { allowVariables: true });
+    if (translated) {
+      condAtoms.push(...translated.atoms);
+      continue;
+    }
+    if (context.lastUnarySubject) {
+      const extra = translateUnaryTailFragmentToAtoms(piece, context.lastUnarySubject);
+      if (extra) {
+        condAtoms.push(...extra);
+        continue;
+      }
+    }
+    return null;
+  }
 
-  const thenAtom = translateSimpleClauseToAtom(parsed.thenPart);
-  if (!thenAtom) return null;
+  const thenTranslated = translateClauseToAtoms(parsed.thenPart, context, { allowVariables: true });
+  if (!thenTranslated) return null;
+  if (thenTranslated.atoms.length !== 1) return null;
 
-  return `Rule: If ${condAtoms.join(" and ")} then ${thenAtom}.`;
+  return `Rule: If ${condAtoms.join(" and ")} then ${thenTranslated.atoms[0]}.`;
 }
 
 function rewriteDeterminerUnaryFact(line) {
@@ -151,14 +226,10 @@ function rewriteDeterminerBinaryFact(line) {
   if (!m) return null;
   const subject = normalizeEntityPhrase(m[2]);
   const object = normalizeEntityPhrase(m[6]);
-  const verb = String(m[4] || "").trim().toLowerCase();
+  const verb = normalizeVerb(m[4]);
   if (!subject || !object || !verb) return null;
   const neg = Boolean(m[3]);
-  if (!neg) {
-    return `${subject} ${verb} ${object}.`;
-  }
-  const pp = pastParticiple(verb);
-  return `${object} is not ${pp} by ${subject}.`;
+  return `${subject} ${neg ? "does not " : ""}${verb} ${object}.`;
 }
 
 function rewriteIfThingThenBinaryRule(line) {
@@ -307,23 +378,8 @@ function normalizeFactOrRule(sentence) {
 
   if (lowered.startsWith("if ")) {
     const rewrittenIfThen = rewriteIfThenRule(normalized);
-    if (rewrittenIfThen) return { ok: true, line: rewrittenIfThen };
-
-    const rewrittenBinary = rewriteIfThingThenBinaryRule(normalized);
-    if (rewrittenBinary) return { ok: true, line: rewrittenBinary };
-
-    const rewritten = rewriteSomeoneRule(normalized);
-    if (rewritten) return { ok: true, line: rewritten };
-
-    // Reject "If someone/something ..." rules we can't translate (they typically
-    // rely on variables or relation negation forms we don't support yet).
-    if (/^if\s+(someone|something)\b/i.test(normalized)) {
-      return { ok: false, reason: "unsupported conditional rule with variables" };
-    }
-
-    // Many ProofWriter rules are already in a CNL-compatible conditional form:
-    // "If Bob is young and Bob is big then Bob is rough."
-    return { ok: true, line: normalized };
+    if (!rewrittenIfThen) return { ok: false, reason: "unsupported if/then rule form" };
+    return { ok: true, line: rewrittenIfThen };
   }
 
   if (lowered.startsWith("every ")) {
@@ -341,10 +397,6 @@ function normalizeFactOrRule(sentence) {
   const rewrittenBare = rewriteAdjectiveNounRule(normalized);
   if (rewrittenBare) {
     return { ok: true, line: rewrittenBare };
-  }
-
-  if (/\bdoes\s+not\b/i.test(normalized)) {
-    return { ok: false, reason: "active relation negation ('does not') is unsupported without rewrite" };
   }
 
   if (/^(the|a|an)\b/i.test(normalized)) {

@@ -46,7 +46,7 @@ function displayPredPhrase(key) {
   const phrase = verb.split("|").join(" ");
   if (passive && negated) return `is not ${phrase}`;
   if (passive) return `is ${phrase}`;
-  return negated ? `not ${phrase}` : phrase;
+  return negated ? `does not ${phrase}` : phrase;
 }
 
 function displayAttrKey(key) {

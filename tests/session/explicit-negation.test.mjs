@@ -44,3 +44,16 @@ test("explicit passive relation negation is learnable and provable", () => {
   assert.equal(pos.value, false);
 });
 
+test("explicit active relation negation is learnable and provable", () => {
+  const session = new CNLSession({ validateDictionary: false });
+  const learn = session.learnText("Alice does not manage Server_A.");
+  assert.equal(learn.errors.length, 0);
+
+  const neg = session.proof("Verify that Alice does not manage Server_A.");
+  assert.equal(neg.kind, "ProofResult");
+  assert.equal(neg.value, true);
+
+  const pos = session.proof("Verify that Alice manages Server_A.");
+  assert.equal(pos.kind, "ProofResult");
+  assert.equal(pos.value, false);
+});

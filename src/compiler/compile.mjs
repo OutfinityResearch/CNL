@@ -45,6 +45,13 @@ function canonicalVerbKey(verbGroup) {
   return `P:${parts.join("|")}`;
 }
 
+function canonicalVerbKeyWithNegation(verbGroup, { negated } = {}) {
+  const base = canonicalVerbKey(verbGroup);
+  if (!base) return null;
+  if (!negated) return base;
+  return base.replace(/^P:/, "P:not|");
+}
+
 function canonicalPassiveKey(verb, preposition) {
   return `P:passive:${verb}|${preposition}`;
 }
@@ -300,10 +307,10 @@ function handleAssertion(assertion, state, options) {
         state.errors.push(createError("CMP007", "Non-ground relation assertion.", "assertion"));
         return;
       }
-      const predKey = canonicalVerbKey(assertion.verbGroup);
+      const predKey = canonicalVerbKeyWithNegation(assertion.verbGroup, { negated: assertion.negated });
       const predId = resolvePredId(predKey, state);
       if (state.validateDictionary) {
-        const dictKey = dictionaryPredicateKeyFromVerb(predKey);
+        const dictKey = dictionaryPredicateKeyFromVerb(canonicalVerbKey(assertion.verbGroup));
         const predDef = lookupPredicateDef(state.dictionary, dictKey);
         if (predDef && predDef.arity && predDef.arity !== "binary") {
           state.errors.push(createError("CMP015", "Predicate arity mismatch.", dictKey));

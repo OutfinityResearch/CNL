@@ -107,13 +107,15 @@ function checkAttributeEntity(attrKey, context) {
   }
 }
 
-function verbGroupKey(verbGroup) {
+function verbGroupKey(verbGroup, { negated } = {}) {
   if (!verbGroup) return null;
   const parts = [];
   if (verbGroup.auxiliary) parts.push(`aux:${verbGroup.auxiliary}`);
   parts.push(verbGroup.verb);
   verbGroup.particles.forEach((particle) => parts.push(particle));
-  return `P:${parts.join("|")}`;
+  const base = `P:${parts.join("|")}`;
+  if (!negated) return base;
+  return base.replace(/^P:/, "P:not|");
 }
 
 function passiveKey(verb, preposition, { negated } = {}) {
@@ -235,7 +237,7 @@ function compileAssertionToSetPlan(assertion, context) {
 
   switch (assertion.kind) {
     case "ActiveRelationAssertion": {
-      const predId = resolvePredicateId(verbGroupKey(assertion.verbGroup), context);
+      const predId = resolvePredicateId(verbGroupKey(assertion.verbGroup, { negated: assertion.negated }), context);
       if (predId === null) return subjectPlan;
       const objectPlan = objectToSetPlan(assertion.object, context);
       return Plans.intersect([subjectPlan, Plans.preimage(predId, objectPlan)]);
@@ -346,7 +348,7 @@ function compileEmitFromAssertion(assertion, context) {
       return { kind: "UnaryEmit", unaryId, subjectPlan };
     }
     case "ActiveRelationAssertion": {
-      const predId = resolvePredicateId(verbGroupKey(assertion.verbGroup), context);
+      const predId = resolvePredicateId(verbGroupKey(assertion.verbGroup, { negated: assertion.negated }), context);
       if (predId === null) return null;
       return {
         kind: "BinaryEmit",

@@ -3,7 +3,7 @@ import { COPULAS } from "./constants.mjs";
 
 export function isComparatorStart(token, nextToken) {
   if (!token || token.type !== "word") return false;
-  if (token.lower === "contains" || token.lower === "does") return true;
+  if (token.lower === "contains") return true;
   if (COPULAS.has(token.lower)) return true;
   if (token.lower === "greater" || token.lower === "less" || token.lower === "equal") return true;
   if (nextToken && nextToken.lower === "than") return true;
@@ -24,7 +24,9 @@ export function parseComparatorOrNull(stream, { allowCopula = true, allowBareCon
       stream.pos += 3;
       return { kind: "Comparator", op: "NotContains" };
     }
-    throw createError("SYN005", token.raw);
+    // "does" is also used for active relation negation ("X does not visit Y"),
+    // so it is only a comparator start in the canonical "does not contain" form.
+    return null;
   }
 
   if (!allowCopula && !COPULAS.has(token.lower)) {

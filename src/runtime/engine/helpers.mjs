@@ -33,13 +33,15 @@ export function resolveUnaryId(complement, state, options = {}) {
   return null;
 }
 
-export function verbGroupKey(verbGroup) {
+export function verbGroupKey(verbGroup, options = {}) {
   if (!verbGroup) return null;
   const parts = [];
   if (verbGroup.auxiliary) parts.push(`aux:${verbGroup.auxiliary}`);
   parts.push(verbGroup.verb);
   verbGroup.particles.forEach((particle) => parts.push(particle));
-  return `P:${parts.join("|")}`;
+  const base = `P:${parts.join("|")}`;
+  if (!options?.negated) return base;
+  return base.replace(/^P:/, "P:not|");
 }
 
 export function passiveKey(verb, preposition, options = {}) {
@@ -51,7 +53,7 @@ export function passiveKey(verb, preposition, options = {}) {
 export function resolvePredId(assertion, state) {
   let key = null;
   if (assertion.kind === "ActiveRelationAssertion") {
-    key = verbGroupKey(assertion.verbGroup);
+    key = verbGroupKey(assertion.verbGroup, { negated: assertion.negated });
   } else if (assertion.kind === "PassiveRelationAssertion") {
     key = passiveKey(assertion.verb, assertion.preposition, { negated: assertion.negated });
   }
