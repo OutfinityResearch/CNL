@@ -108,6 +108,16 @@ for (const testCase of cases) {
   try {
     ast = parseProgram(testCase.input);
   } catch (error) {
+    if (testCase.expectError) {
+      passed += 1;
+      rows.push({
+        status: "PASS",
+        purpose: testCase.purpose,
+        case: preview,
+        note: "parse error (expected)",
+      });
+      continue;
+    }
     failed += 1;
     const message = error?.message ?? "parse error";
     rows.push({
@@ -120,6 +130,39 @@ for (const testCase of cases) {
   }
 
   const state = compileProgram(ast);
+  if (testCase.expectError) {
+    if (state.errors.length === 0) {
+      failed += 1;
+      rows.push({
+        status: "FAIL",
+        purpose: testCase.purpose,
+        case: preview,
+        note: "expected compiler error, got none",
+      });
+      continue;
+    }
+    const wantCode = testCase.expectError.code ? String(testCase.expectError.code) : null;
+    const first = state.errors[0];
+    if (wantCode && String(first?.code || "") !== wantCode) {
+      failed += 1;
+      rows.push({
+        status: "FAIL",
+        purpose: testCase.purpose,
+        case: preview,
+        note: `expected error code ${wantCode}, got ${first?.code || "unknown"}`,
+      });
+      continue;
+    }
+    passed += 1;
+    rows.push({
+      status: "PASS",
+      purpose: testCase.purpose,
+      case: preview,
+      note: `compiler error (${wantCode || "any"})`,
+    });
+    continue;
+  }
+
   if (state.errors.length > 0) {
     failed += 1;
     rows.push({

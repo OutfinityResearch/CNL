@@ -75,5 +75,21 @@
       "numericFacts": 1,
       "entityAttrFacts": 0
     }
+  },
+  {
+    "id": "comp-008",
+    "purpose": "Reject explicit unary contradictions (X is P and X is not P).",
+    "input": "Alice is active.\nAlice is not active.",
+    "expectError": {
+      "code": "CMP020"
+    }
+  },
+  {
+    "id": "comp-009",
+    "purpose": "Reject explicit binary contradictions (X V Y and X does not V Y).",
+    "input": "Alice manages Server_A.\nAlice does not manage Server_A.",
+    "expectError": {
+      "code": "CMP020"
+    }
   }
 ]

@@ -146,3 +146,4 @@ evals/results/*_deepcheck.md
 evals/deep/cache/**
 /evals/results/
 /evals/deep/cache/
+/.npm-cache/

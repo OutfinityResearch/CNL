@@ -6,6 +6,7 @@ import { executeCommandAst, materializeRules } from "../runtime/engine.mjs";
 import { loadDefaultBaseBundle } from "../theories/loader.mjs";
 import {
   analyzeCrossOntologyDuplicates,
+  analyzeContradictoryAssertions,
   expandTheoryEntrypoint,
   expandTheoryText,
   extractLoadTimeRenames,
@@ -340,6 +341,22 @@ export class CNLSession {
         projectEntityAttributes: this.options.projectEntityAttributes,
       });
       if (state.errors.length > 0) {
+        break;
+      }
+
+      // Enforce explicit contradiction rejection (N1 in todo_next.md / DS24).
+      const contradictions = analyzeContradictoryAssertions(state);
+      if (contradictions.length > 0) {
+        contradictions.forEach((c) => state.dictionary.errors.push(c));
+        const first = contradictions[0];
+        state.errors.push({
+          code: "CMP020",
+          name: "CompilerError",
+          message: first.message,
+          severity: "error",
+          primaryToken: first.key ?? "EOF",
+          hint: first.hint ?? "Remove contradictory explicit assertions.",
+        });
         break;
       }
     }

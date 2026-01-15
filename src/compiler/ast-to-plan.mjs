@@ -169,7 +169,7 @@ function compileRelativeClause(node, context) {
 
   switch (body.kind) {
     case "RelActiveRelation": {
-      const predId = resolvePredicateId(verbGroupKey(body.verbGroup), context);
+      const predId = resolvePredicateId(verbGroupKey(body.verbGroup, { negated: body.negated }), context);
       if (predId === null) return Plans.allEntities();
       return Plans.preimage(predId, objectToSetPlan(body.object, context));
     }

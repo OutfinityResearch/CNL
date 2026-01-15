@@ -165,6 +165,8 @@ Comparator phrases include:
 - `greater than or equal to`, `less than or equal to`
 - `contains`, `does not contain`
 
+**Note:** `does not contain` is a comparator phrase. Other uses of `does not` are reserved for *active relation negation* (see below) and must not be parsed as comparators.
+
 ### Attribute Predicate (Possessive)
 ```
 X has a capacity of 1000.
@@ -189,6 +191,14 @@ X overlaps with Y.
 X logs in today.
 ```
 Verb groups may include prepositional particles (from the controlled preposition list).
+
+### Active Relation Negation (`does not`)
+Active relations support an explicit negation form:
+```
+X does not manage Y.
+every user that does not manage Server_A is active.
+```
+This is distinct from negation-as-failure (`it is not the case that ...`).
 
 ## Atomic Sentence and Triplet Mapping
 Every atomic sentence maps deterministically to a structured SVO triplet:

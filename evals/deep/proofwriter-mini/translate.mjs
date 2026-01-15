@@ -51,10 +51,9 @@ function normalizeVerb(rawVerb) {
   const verb = String(rawVerb || "").trim().toLowerCase();
   if (!verb) return verb;
   if (verb.endsWith("ies") && verb.length > 3) return `${verb.slice(0, -3)}y`;
-  if (verb.endsWith("ches") || verb.endsWith("shes") || verb.endsWith("xes") || verb.endsWith("ses") || verb.endsWith("zes")) {
-    return verb.slice(0, -2); // drop "es"
-  }
   if (verb.endsWith("oes") && verb.length > 3) return verb.slice(0, -2); // "goes" -> "go"
+  if (verb.endsWith("ches") || verb.endsWith("shes") || verb.endsWith("xes")) return verb.slice(0, -2); // drop "es"
+  if (verb.endsWith("sses") || verb.endsWith("zzes")) return verb.slice(0, -2); // "kisses" -> "kiss"
   if (verb.endsWith("s") && !verb.endsWith("ss") && verb.length > 1) return verb.slice(0, -1);
   return verb;
 }
@@ -78,6 +77,12 @@ function splitOnAndChain(text) {
     .filter(Boolean);
 }
 
+const VAR_SUBJECTS = new Set(["someone", "something", "it", "they"]);
+
+function stripDeterminer(phrase) {
+  return String(phrase || "").trim().replace(/^(the|a|an)\s+/i, "").trim();
+}
+
 function normalizeUnaryTailForCopula(tail) {
   // Keep "a/an" typing if present; otherwise normalize as a predicate name.
   const t = String(tail || "").trim();
@@ -86,126 +91,240 @@ function normalizeUnaryTailForCopula(tail) {
   return normalizePredicateTail(t);
 }
 
-function createRuleContext() {
-  return { varName: "X", bound: false, lastUnarySubject: null };
-}
-
-function subjectRefFromPhrase(phrase, context, options = {}) {
-  const allowVariables = options.allowVariables ?? true;
-  const raw = String(phrase || "").trim();
-  if (!raw) return null;
-  const stripped = raw.replace(/^(the|a|an)\s+/i, "").trim();
+function classifyEntityOrVar(raw) {
+  const stripped = stripDeterminer(raw);
+  if (!stripped) return null;
   const lower = stripped.toLowerCase();
-
-  if (allowVariables && (lower === "something" || lower === "someone")) {
-    context.bound = true;
-    return `?${context.varName}`;
-  }
-  if (allowVariables && (lower === "it" || lower === "they")) {
-    if (!context.bound) return null;
-    return `?${context.varName}`;
-  }
-
-  if (!allowVariables && (lower === "something" || lower === "someone" || lower === "it" || lower === "they")) {
-    return null;
-  }
-
-  const entity = normalizeEntityPhrase(raw);
-  return entity || null;
+  if (VAR_SUBJECTS.has(lower)) return { kind: "var", token: lower };
+  const name = normalizeEntityPhrase(stripped);
+  if (!name) return null;
+  return { kind: "const", name };
 }
 
-function unaryAtomsFromTail(subject, tail, options = {}) {
-  const clauseNegated = Boolean(options.negated);
-  const parts = splitConjunctionPredicates(tail);
-  const atoms = [];
-
-  for (const partRaw of parts) {
-    let part = String(partRaw || "").trim();
-    if (!part) return null;
-    let partNegated = false;
-    if (part.toLowerCase().startsWith("not ")) {
-      partNegated = true;
-      part = part.slice(4).trim();
-    }
-    const normalized = normalizeUnaryTailForCopula(part);
-    if (!normalized) return null;
-    const negated = clauseNegated || partNegated;
-    atoms.push(`${subject} is ${negated ? "not " : ""}${normalized}`.trim());
-  }
-
-  return atoms;
-}
-
-function translateClauseToAtoms(clause, context, options = {}) {
-  const text = stripTrailingDot(String(clause || "").trim());
+function parseEnglishClause(clauseText) {
+  const text = stripTrailingDot(String(clauseText || "").trim());
   if (!text) return null;
 
-  // Unary: "<subj> is (not) <tail>"
-  const unary = text.match(/^(.+?)\s+is\s+(not\s+)?(.+?)$/i);
+  const unary = text.match(/^(.+?)\s+(?:is|are)\s+(not\s+)?(.+?)$/i);
   if (unary) {
-    const subject = subjectRefFromPhrase(unary[1], context, options);
-    const neg = Boolean(unary[2]);
+    const subject = classifyEntityOrVar(unary[1]);
+    const negated = Boolean(unary[2]);
     const tail = String(unary[3] || "").trim();
     if (!subject || !tail) return null;
-    const atoms = unaryAtomsFromTail(subject, tail, { negated: neg });
-    if (!atoms) return null;
-    context.lastUnarySubject = subject;
-    return { atoms, kind: "unary", subject };
+    return { kind: "unary", subject, negated, tail };
   }
 
-  // Binary: "<subj> (does not) <verb> <obj>"
-  const binary = text.match(/^(.+?)\s+(does\s+not\s+)?([a-z][a-z0-9_-]*)\s+(.+?)$/i);
-  if (binary) {
-    const subject = subjectRefFromPhrase(binary[1], context, options);
-    const neg = Boolean(binary[2]);
-    const verb = normalizeVerb(binary[3]);
-    const object = subjectRefFromPhrase(binary[4], context, { ...options, allowVariables: false });
+  // Prefer determiner-bounded parsing to avoid mis-splitting multi-word subjects:
+  // "the bald eagle chases the cat" (verb must precede object determiner).
+  const negDet = text.match(/^(.+?)\s+(?:does|do)\s+not\s+([a-z][a-z0-9_-]*)\s+(?:the|a|an)\s+(.+?)$/i);
+  if (negDet) {
+    const subject = classifyEntityOrVar(negDet[1]);
+    const verb = normalizeVerb(negDet[2]);
+    const object = classifyEntityOrVar(negDet[3]);
     if (!subject || !verb || !object) return null;
-    const atom = `${subject} ${neg ? "does not " : ""}${verb} ${object}`.trim();
-    return { atoms: [atom], kind: "binary", subject };
+    return { kind: "binary", subject, negated: true, verb, object };
+  }
+
+  const posDet = text.match(/^(.+?)\s+([a-z][a-z0-9_-]*)\s+(?:the|a|an)\s+(.+?)$/i);
+  if (posDet) {
+    const subject = classifyEntityOrVar(posDet[1]);
+    const verb = normalizeVerb(posDet[2]);
+    const object = classifyEntityOrVar(posDet[3]);
+    if (!subject || !verb || !object) return null;
+    return { kind: "binary", subject, negated: false, verb, object };
+  }
+
+  // Fallback for already-normalized CNL-ish lines (single-token subject).
+  const negBare = text.match(/^([A-Za-z0-9_-]+)\s+(?:does|do)\s+not\s+([a-z][a-z0-9_-]*)\s+(.+?)$/i);
+  if (negBare) {
+    const subject = classifyEntityOrVar(negBare[1]);
+    const verb = normalizeVerb(negBare[2]);
+    const object = classifyEntityOrVar(negBare[3]);
+    if (!subject || !verb || !object) return null;
+    return { kind: "binary", subject, negated: true, verb, object };
+  }
+
+  const posBare = text.match(/^([A-Za-z0-9_-]+)\s+([a-z][a-z0-9_-]*)\s+(.+?)$/i);
+  if (posBare) {
+    const subject = classifyEntityOrVar(posBare[1]);
+    const verb = normalizeVerb(posBare[2]);
+    const object = classifyEntityOrVar(posBare[3]);
+    if (!subject || !verb || !object) return null;
+    return { kind: "binary", subject, negated: false, verb, object };
   }
 
   return null;
 }
 
-function translateUnaryTailFragmentToAtoms(fragment, subject) {
-  let text = stripTrailingDot(String(fragment || "").trim());
-  if (!text) return null;
-  const m = text.match(/^(?:is|are)\s+(.+?)$/i);
-  if (m) text = String(m[1] || "").trim();
-  if (!text) return null;
-  return unaryAtomsFromTail(subject, text, { negated: false });
+function unaryTailsToPredicates(tailText, { negated: clauseNegated } = {}) {
+  const tails = splitConjunctionPredicates(tailText);
+  const items = [];
+  for (const raw of tails) {
+    let text = String(raw || "").trim();
+    if (!text) return null;
+    let negated = Boolean(clauseNegated);
+    if (text.toLowerCase().startsWith("not ")) {
+      negated = true;
+      text = text.slice(4).trim();
+    }
+    const normalized = normalizeUnaryTailForCopula(text);
+    if (!normalized) return null;
+    items.push({ negated, tail: normalized });
+  }
+  return items;
+}
+
+function isVarIntro(token) {
+  return token === "someone" || token === "something";
 }
 
 function rewriteIfThenRule(line) {
   const parsed = parseIfThenRuleLine(line);
   if (!parsed) return null;
 
-  const context = createRuleContext();
   const condPieces = splitOnAndChain(parsed.ifPart);
-  const condAtoms = [];
+  const thenClause = parseEnglishClause(parsed.thenPart);
+  if (!thenClause) return null;
 
-  for (const piece of condPieces) {
-    const translated = translateClauseToAtoms(piece, context, { allowVariables: true });
-    if (translated) {
-      condAtoms.push(...translated.atoms);
-      continue;
-    }
-    if (context.lastUnarySubject) {
-      const extra = translateUnaryTailFragmentToAtoms(piece, context.lastUnarySubject);
-      if (extra) {
-        condAtoms.push(...extra);
+  const mentionsVar =
+    (thenClause.subject.kind === "var") ||
+    condPieces.some((p) => {
+      const c = parseEnglishClause(p);
+      return c?.subject?.kind === "var";
+    });
+
+  // A) Universal monadic rules: "If something ... then it ..."
+  if (mentionsVar) {
+    const constraints = [];
+    let domain = null;
+    let allowUnaryTailFragment = false;
+
+    for (const piece of condPieces) {
+      const clause = parseEnglishClause(piece);
+      if (clause) {
+        if (clause.subject.kind !== "var") return null; // multi-subject rule unsupported
+        if (isVarIntro(clause.subject.token)) {
+          domain = clause.subject.token === "someone" ? "person" : "thing";
+        }
+        if (clause.kind === "unary") {
+          const preds = unaryTailsToPredicates(clause.tail, { negated: clause.negated });
+          if (!preds) return null;
+          for (const p of preds) constraints.push({ kind: "unary", ...p });
+          allowUnaryTailFragment = true;
+          continue;
+        }
+        if (clause.kind === "binary") {
+          if (clause.object.kind !== "const") return null;
+          constraints.push({ kind: "binary", negated: clause.negated, verb: clause.verb, object: clause.object.name });
+          allowUnaryTailFragment = false;
+          continue;
+        }
+        return null;
+      }
+
+      if (allowUnaryTailFragment) {
+        const preds = unaryTailsToPredicates(piece, { negated: false });
+        if (!preds) return null;
+        for (const p of preds) constraints.push({ kind: "unary", ...p });
         continue;
       }
+
+      return null;
     }
+
+    if (!domain) return null; // require an explicit "someone/something" introduction
+
+    if (thenClause.subject.kind !== "var") return null;
+    if (thenClause.object && thenClause.object.kind === "var") return null;
+
+    const relParts = [];
+    for (const c of constraints) {
+      if (c.kind === "unary") {
+        relParts.push(`that is ${c.negated ? "not " : ""}${c.tail}`.trim());
+      } else if (c.kind === "binary") {
+        relParts.push(`that ${c.negated ? "does not " : ""}${c.verb} ${c.object}`.trim());
+      } else {
+        return null;
+      }
+    }
+
+    const subject = relParts.length ? `Every ${domain} ${relParts.join(" and ")}` : `Every ${domain}`;
+
+    if (thenClause.kind === "unary") {
+      const preds = unaryTailsToPredicates(thenClause.tail, { negated: thenClause.negated });
+      if (!preds || preds.length !== 1) return null; // head must be a single assertion
+      const head = `is ${preds[0].negated ? "not " : ""}${preds[0].tail}`.trim();
+      return `Rule: ${subject} ${head}.`;
+    }
+
+    if (thenClause.kind === "binary") {
+      if (thenClause.object.kind !== "const") return null;
+      const head = `${thenClause.negated ? "does not " : ""}${thenClause.verb} ${thenClause.object.name}`.trim();
+      return `Rule: ${subject} ${head}.`;
+    }
+
     return null;
   }
 
-  const thenTranslated = translateClauseToAtoms(parsed.thenPart, context, { allowVariables: true });
-  if (!thenTranslated) return null;
-  if (thenTranslated.atoms.length !== 1) return null;
+  // B) Ground rules: "If Bob ... then Bob ..."
+  const condAtoms = [];
+  let anchor = null;
+  let allowUnaryTailFragment = false;
 
-  return `Rule: If ${condAtoms.join(" and ")} then ${thenTranslated.atoms[0]}.`;
+  for (const piece of condPieces) {
+    const clause = parseEnglishClause(piece);
+    if (clause) {
+      if (clause.subject.kind !== "const") return null;
+      if (clause.object && clause.object.kind !== "const") return null;
+      if (anchor && clause.subject.name !== anchor) return null;
+      anchor = anchor ?? clause.subject.name;
+
+      if (clause.kind === "unary") {
+        const preds = unaryTailsToPredicates(clause.tail, { negated: clause.negated });
+        if (!preds) return null;
+        for (const p of preds) condAtoms.push(`${anchor} is ${p.negated ? "not " : ""}${p.tail}`.trim());
+        allowUnaryTailFragment = true;
+        continue;
+      }
+
+      if (clause.kind === "binary") {
+        if (clause.object.kind !== "const") return null;
+        condAtoms.push(`${anchor} ${clause.negated ? "does not " : ""}${clause.verb} ${clause.object.name}`.trim());
+        allowUnaryTailFragment = false;
+        continue;
+      }
+      return null;
+    }
+
+    if (allowUnaryTailFragment && anchor) {
+      const preds = unaryTailsToPredicates(piece, { negated: false });
+      if (!preds) return null;
+      for (const p of preds) condAtoms.push(`${anchor} is ${p.negated ? "not " : ""}${p.tail}`.trim());
+      continue;
+    }
+
+    return null;
+  }
+
+  if (!anchor) return null;
+  if (thenClause.subject.kind !== "const") return null;
+  if (thenClause.subject.name !== anchor) return null;
+  if (thenClause.object && thenClause.object.kind !== "const") return null;
+
+  if (thenClause.kind === "unary") {
+    const preds = unaryTailsToPredicates(thenClause.tail, { negated: thenClause.negated });
+    if (!preds || preds.length !== 1) return null;
+    const headAtom = `${anchor} is ${preds[0].negated ? "not " : ""}${preds[0].tail}`.trim();
+    return `Rule: If ${condAtoms.join(" and ")} then ${headAtom}.`;
+  }
+
+  if (thenClause.kind === "binary") {
+    if (thenClause.object.kind !== "const") return null;
+    const headAtom = `${anchor} ${thenClause.negated ? "does not " : ""}${thenClause.verb} ${thenClause.object.name}`.trim();
+    return `Rule: If ${condAtoms.join(" and ")} then ${headAtom}.`;
+  }
+
+  return null;
 }
 
 function rewriteDeterminerUnaryFact(line) {
@@ -214,9 +333,9 @@ function rewriteDeterminerUnaryFact(line) {
   const subject = normalizeEntityPhrase(m[2]);
   if (!subject) return null;
   const neg = Boolean(m[3]);
-  const tail = String(m[4] || "").trim();
+  const tail = normalizeUnaryTailForCopula(m[4]);
   if (!tail) return null;
-  return `${subject} is ${neg ? "not " : ""}${tail}.`;
+  return `${subject} is ${neg ? "not " : ""}${tail}.`.trim();
 }
 
 function rewriteDeterminerBinaryFact(line) {
@@ -230,24 +349,6 @@ function rewriteDeterminerBinaryFact(line) {
   if (!subject || !object || !verb) return null;
   const neg = Boolean(m[3]);
   return `${subject} ${neg ? "does not " : ""}${verb} ${object}.`;
-}
-
-function rewriteIfThingThenBinaryRule(line) {
-  // Example: "If something is blue and kind then it chases the dog."
-  const m = line.match(
-    /^if\s+(someone|something)\s+is\s+(.+?)\s+then\s+(they|it)\s+([a-z][a-z0-9_-]*)\s+(?:the\s+)?(.+?)\.\s*$/i,
-  );
-  if (!m) return null;
-  const domain = m[1].toLowerCase() === "someone" ? "person" : "thing";
-  const condTail = m[2];
-  const verb = String(m[4] || "").trim().toLowerCase();
-  const object = normalizeEntityPhrase(m[5]);
-  if (!verb || !object) return null;
-
-  const predicates = splitConjunctionPredicates(condTail);
-  const relative = renderRelativeAnd(predicates);
-  if (!relative) return null;
-  return `Rule: Every ${domain} ${relative} ${verb} ${object}.`;
 }
 
 function lowerFirst(text) {
@@ -287,26 +388,6 @@ function renderRelativeAnd(predicates) {
     clauses.push(clause);
   }
   return clauses.join(" and ");
-}
-
-function rewriteSomeoneRule(line) {
-  // Example: "If someone is big and quiet then they are round."
-  // Example: "If something is furry and not round then it is not green."
-  const m = line.match(
-    /^if\s+(someone|something)\s+is\s+(.+?)\s+then\s+(they|it)\s+(?:are|is)\s+(.+?)\.\s*$/i,
-  );
-  if (!m) return null;
-
-  const domain = m[1].toLowerCase() === "someone" ? "person" : "thing";
-  const condTail = m[2];
-  const thenTail = m[4];
-
-  const predicates = splitConjunctionPredicates(condTail);
-  const relative = renderRelativeAnd(predicates);
-  const head = renderCopulaPredicate(thenTail);
-  if (!relative || !head) return null;
-
-  return `Rule: Every ${domain} ${relative} ${head}.`;
 }
 
 function rewriteEveryRule(line) {

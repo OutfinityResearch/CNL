@@ -4,6 +4,7 @@ import { COPULAS } from "./constants.mjs";
 export function isComparatorStart(token, nextToken) {
   if (!token || token.type !== "word") return false;
   if (token.lower === "contains") return true;
+  if (token.lower === "does" && nextToken && nextToken.lower === "not") return true;
   if (COPULAS.has(token.lower)) return true;
   if (token.lower === "greater" || token.lower === "less" || token.lower === "equal") return true;
   if (nextToken && nextToken.lower === "than") return true;

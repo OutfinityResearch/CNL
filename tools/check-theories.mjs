@@ -27,6 +27,7 @@ import { parseProgram } from "../src/parser/grammar.mjs";
 import { createCompilerState, compileProgram } from "../src/compiler/compile.mjs";
 import {
   analyzeCrossOntologyDuplicates,
+  analyzeContradictoryAssertions,
   expandTheoryEntrypoint,
   extractLoadTimeRenames,
   stripPreprocessorDirectives,
@@ -148,6 +149,7 @@ function legendRows() {
     ["COMPILE_ERROR", "error", "Compilation failed for at least one statement.", "Fix dictionary declarations, grounding, or invalid statements."],
     ["LoadTimeRenameConflict", "error", "Non-deterministic renames: same key maps to multiple targets.", "Make RenameType/RenamePredicate directives consistent (DS25)."],
     ["TypeBinaryPredicateConflict", "error", "Key is both a type and a binary predicate; meaning is ambiguous.", "Rename one side (prefer RenamePredicate) or resolve at generation-time (DS22/DS25)."],
+    ["ContradictoryAssertion", "error", "Explicit positive and explicit negative fact both present.", "Remove or reconcile contradictory assertions (DS24)."],
     ["AmbiguousPredicateArity", "warning", "Predicate is declared unary and binary; may break validation.", "Fix dictionary declarations to a single arity."],
     ["AmbiguousTypeParent", "warning", "Type has multiple parents; hierarchy is unclear.", "Pick one parent or accept multi-parent modeling explicitly."],
     ["DuplicateTypeDeclaration", "warning", "Same type key declared across multiple loaded files.", "Review overlaps; optionally disambiguate by renaming conflicting sources."],
@@ -336,6 +338,18 @@ class TheoryChecker {
         severity: "warning",
         message: issue.message,
         key: issue.key,
+      });
+    }
+
+    // Contradictions between explicit positive vs explicit negation.
+    const contradictions = analyzeContradictoryAssertions(this.compiledState);
+    for (const c of contradictions) {
+      this.errors.push({
+        kind: c.kind,
+        severity: "error",
+        message: c.message,
+        key: c.key,
+        details: c.details,
       });
     }
   }

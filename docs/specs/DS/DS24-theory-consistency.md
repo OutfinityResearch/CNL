@@ -61,6 +61,11 @@ This list is intentionally small and can grow over time, but existing `kind` str
 ### Rule/KB-level
 - `DuplicateRule` (warning)
   - Rule store reports redundant duplicates.
+- `ContradictoryAssertion` (error)
+  - An explicit positive assertion and its explicit negation are both present:
+    - unary: `X is P.` and `X is not P.`
+    - binary: `X V Y.` and `X does not V Y.`
+  - Bundles/sessions that choose “reject contradictions” must fail transactional load when this is detected.
 
 ### Static Theory Checker (`tools/check-theories.mjs`)
 The checker reports file-level issues such as:

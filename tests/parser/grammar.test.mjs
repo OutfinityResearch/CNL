@@ -26,3 +26,10 @@ test("parser handles simple name subjects", () => {
     assert.strictEqual(subject.kind, "Name");
     assert.strictEqual(subject.value, "Truck_A");
 });
+
+test("parser treats 'does not contain' as a comparator phrase", () => {
+  const ast = parseProgram("The permissions does not contain guest.");
+  const assertion = ast.items[0].sentence.assertion;
+  assert.strictEqual(assertion.kind, "ComparisonAssertion");
+  assert.strictEqual(assertion.comparator.op, "NotContains");
+});

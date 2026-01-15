@@ -432,9 +432,25 @@ export function parseRelativeClause(stream) {
     return { kind: "RelativeClause", pronoun, body: { kind: "RelCopulaPredicate", copula, negated, complement } };
   }
 
+  // Active relation negation in relative restrictions: "that does not <verb> Y"
+  if (stream.peek().type === "word" && stream.peek().lower === "does" && stream.peek(1).type === "word" && stream.peek(1).lower === "not") {
+    const startToken = stream.peek();
+    stream.consume(); // does
+    stream.consume(); // not
+    const verb = parseIdentifier(stream).raw;
+    const particles = [];
+    while (stream.peek().type === "word" && PREPOSITIONS.has(stream.peek().lower)) {
+      particles.push(stream.consume().lower);
+    }
+    const object = parseObjectRef(stream);
+    const endToken = stream.last ?? startToken;
+    const verbGroup = { kind: "VerbGroup", auxiliary: null, verb, particles, span: { start: startToken.start, end: endToken.end } };
+    return { kind: "RelativeClause", pronoun, body: { kind: "RelActiveRelation", negated: true, verbGroup, object } };
+  }
+
   const verbGroup = parseVerbGroup(stream);
   const object = parseObjectRef(stream);
-  return { kind: "RelativeClause", pronoun, body: { kind: "RelActiveRelation", verbGroup, object } };
+  return { kind: "RelativeClause", pronoun, body: { kind: "RelActiveRelation", negated: false, verbGroup, object } };
 }
 
 export function parseVerbGroup(stream) {

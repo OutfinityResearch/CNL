@@ -88,10 +88,10 @@ Translation strategy:
   - `no` → expected `ProofResult false`
   - `unknown` → SKIP until tri-valued semantics are defined in DS04/DS11
   - conditional rules that depend on true variables/existentials not representable in the current rule IR → SKIP with a clear reason
-  - explicit negation is supported via `is not` (DS04)
+  - explicit negation is supported via `is not` and `does not` (DS04)
 
 ## Reporting
-`runDeep.mjs` produces a report in `evals/results/` containing:
+`evals/runDeep.mjs` produces a report in `evals/results/` containing:
 - suite-by-suite summary (% passed, % failed, % skipped)
 - for each failed case:
   - suite + case id
@@ -101,9 +101,10 @@ Translation strategy:
   - any session/compiler errors
 
 ## CLI
-`runDeep.mjs` supports:
+`evals/runDeep.mjs` supports:
 - `--suite <id>` (repeatable): run only selected deep suites.
 - `--maxCases <n>`: limit translated test cases per suite (debugging).
+ - `--maxFailures <n>`: limit the number of failures printed to stdout per suite (debugging).
 
 ## Operational Notes (Network)
 Deep evals are designed to run offline once datasets are cached.

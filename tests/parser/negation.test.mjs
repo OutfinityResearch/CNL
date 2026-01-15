@@ -164,6 +164,20 @@ test("parser handles negation in relative clauses with passive relations", () =>
   }
 });
 
+test("parser handles negation in relative clauses with active relations", () => {
+  const input = "every user that does not manage Server_A is active.";
+  const ast = parseProgram(input);
+  const subject = ast.items[0].sentence.assertion.subject;
+
+  assert.strictEqual(subject.kind, "NounPhrase");
+  assert.ok(subject.relative);
+
+  const body = subject.relative.body;
+  assert.strictEqual(body.kind, "RelActiveRelation");
+  assert.strictEqual(body.negated, true);
+  assert.strictEqual(body.verbGroup.verb, "manage");
+});
+
 test("parser handles complex negation scenarios", () => {
   const tests = [
     "Rule: If X is a law and X repeals Y, then Y is not in-effect.",

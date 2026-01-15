@@ -1,9 +1,169 @@
 import fs from "node:fs";
 import path from "node:path";
+import { ConceptKind } from "../ids/interners.mjs";
 
 const LOAD_DIRECTIVE_RE = /^\s*Load\s*:\s*"([^"]+)"\s*\.\s*$/i;
 const RENAME_TYPE_DIRECTIVE_RE = /^\s*RenameType\s*:\s*"([^"]+)"\s*->\s*"([^"]+)"\s*\.\s*$/i;
 const RENAME_PREDICATE_DIRECTIVE_RE = /^\s*RenamePredicate\s*:\s*"([^"]+)"\s*->\s*"([^"]+)"\s*\.\s*$/i;
+
+function issue(kind, severity, message, extra = {}) {
+  return {
+    kind,
+    severity,
+    message,
+    ...(extra.key ? { key: extra.key } : {}),
+    ...(extra.details ? { details: extra.details } : {}),
+    ...(extra.file ? { file: extra.file } : {}),
+    ...(Number.isInteger(extra.line) ? { line: extra.line } : {}),
+    ...(extra.hint ? { hint: extra.hint } : {}),
+  };
+}
+
+function displayEntityKey(key) {
+  if (!key) return "";
+  if (key.startsWith("E:lit:num:")) return key.slice("E:lit:num:".length);
+  if (key.startsWith("E:lit:str:")) return key.slice("E:lit:str:".length);
+  if (key.startsWith("E:lit:bool:")) return key.slice("E:lit:bool:".length);
+  if (key.startsWith("E:")) return key.slice(2);
+  if (key.startsWith("L:")) return key.slice(2);
+  return key;
+}
+
+function lookupKey(idStore, kind, denseId) {
+  if (!idStore || !Number.isInteger(denseId)) return null;
+  const conceptId = idStore.getConceptualId(kind, denseId);
+  return conceptId ? idStore.lookupKey(conceptId) : null;
+}
+
+function unaryPairsByBase(idStore) {
+  const pairs = new Map(); // base -> { posId, negId }
+  const n = idStore?.size?.(ConceptKind.UnaryPredicate) ?? 0;
+  for (let id = 0; id < n; id += 1) {
+    const key = lookupKey(idStore, ConceptKind.UnaryPredicate, id);
+    if (!key || !key.startsWith("U:")) continue;
+    if (key.startsWith("U:not|")) {
+      const base = key.slice("U:not|".length);
+      if (!pairs.has(base)) pairs.set(base, { posId: null, negId: null });
+      pairs.get(base).negId = id;
+      continue;
+    }
+    const base = key.slice("U:".length);
+    if (!pairs.has(base)) pairs.set(base, { posId: null, negId: null });
+    pairs.get(base).posId = id;
+  }
+  return pairs;
+}
+
+function predPairsByBase(idStore) {
+  const pairs = new Map(); // baseRest -> { posId, negId }
+  const n = idStore?.size?.(ConceptKind.Predicate) ?? 0;
+  for (let id = 0; id < n; id += 1) {
+    const key = lookupKey(idStore, ConceptKind.Predicate, id);
+    if (!key || !key.startsWith("P:")) continue;
+    if (key.startsWith("P:not|")) {
+      const baseRest = key.slice("P:not|".length);
+      if (!pairs.has(baseRest)) pairs.set(baseRest, { posId: null, negId: null });
+      pairs.get(baseRest).negId = id;
+      continue;
+    }
+    const baseRest = key.slice("P:".length);
+    if (!pairs.has(baseRest)) pairs.set(baseRest, { posId: null, negId: null });
+    pairs.get(baseRest).posId = id;
+  }
+  return pairs;
+}
+
+export function analyzeContradictoryAssertions(state, options = {}) {
+  const out = [];
+  const idStore = state?.idStore;
+  const rawKb = state?.kb?.kb;
+  if (!idStore || !rawKb) return out;
+
+  // Unary contradictions: E is U:base and U:not|base.
+  const unaryPairs = unaryPairsByBase(idStore);
+  for (const [base, ids] of unaryPairs.entries()) {
+    const posId = ids.posId;
+    const negId = ids.negId;
+    if (!Number.isInteger(posId) || !Number.isInteger(negId)) continue;
+    const pos = rawKb.unaryIndex?.[posId];
+    const neg = rawKb.unaryIndex?.[negId];
+    if (!pos || !neg) continue;
+    const both = pos.and(neg);
+    if (both.isEmpty()) continue;
+
+    both.iterateSetBits((entityId) => {
+      const entKey = lookupKey(idStore, ConceptKind.Entity, entityId);
+      const ent = displayEntityKey(entKey) || `Entity_${entityId}`;
+      const key = `${ent}|${base}`;
+      out.push(
+        issue(
+          "ContradictoryAssertion",
+          "error",
+          `Contradiction: '${ent}' is both '${base}' and 'not ${base}'.`,
+          {
+            key,
+            details: {
+              entity: ent,
+              entityKey: entKey,
+              positiveUnaryKey: `U:${base}`,
+              negativeUnaryKey: `U:not|${base}`,
+            },
+            hint: "Remove one of the explicit assertions or adjust the theory to avoid explicit contradictions.",
+          },
+        ),
+      );
+    });
+  }
+
+  // Binary contradictions: (S, P:base, O) and (S, P:not|base, O).
+  const predPairs = predPairsByBase(idStore);
+  for (const [baseRest, ids] of predPairs.entries()) {
+    const posId = ids.posId;
+    const negId = ids.negId;
+    if (!Number.isInteger(posId) || !Number.isInteger(negId)) continue;
+    const pos = rawKb.relations?.[posId];
+    const neg = rawKb.relations?.[negId];
+    if (!pos || !neg) continue;
+
+    const rows = Math.min(pos.rows?.length ?? 0, neg.rows?.length ?? 0);
+    for (let s = 0; s < rows; s += 1) {
+      const posRow = pos.rows[s];
+      const negRow = neg.rows[s];
+      if (!posRow || !negRow) continue;
+      const both = posRow.and(negRow);
+      if (both.isEmpty()) continue;
+
+      const subjKey = lookupKey(idStore, ConceptKind.Entity, s);
+      const subj = displayEntityKey(subjKey) || `Entity_${s}`;
+      both.iterateSetBits((o) => {
+        const objKey = lookupKey(idStore, ConceptKind.Entity, o);
+        const obj = displayEntityKey(objKey) || `Entity_${o}`;
+        const key = `${subj}|${baseRest}|${obj}`;
+        out.push(
+          issue(
+            "ContradictoryAssertion",
+            "error",
+            `Contradiction: '${subj}' both '${baseRest.split("|").join(" ")}' and 'does not ${baseRest.split("|").join(" ")}' '${obj}'.`,
+            {
+              key,
+              details: {
+                subject: subj,
+                subjectKey: subjKey,
+                object: obj,
+                objectKey: objKey,
+                positivePredicateKey: `P:${baseRest}`,
+                negativePredicateKey: `P:not|${baseRest}`,
+              },
+              hint: "Remove one of the explicit assertions or adjust the theory to avoid explicit contradictions.",
+            },
+          ),
+        );
+      });
+    }
+  }
+
+  return out;
+}
 
 function isWithinRoot(rootDir, absPath) {
   const rel = path.relative(rootDir, absPath);

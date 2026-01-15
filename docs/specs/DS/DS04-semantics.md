@@ -38,6 +38,10 @@ The same encoding is used for passive relations:
 - `X is signed by Y.` uses predicate key `passive:signed|by`.
 - `X is not signed by Y.` uses predicate key `not|passive:signed|by`.
 
+The same encoding is used for active relations:
+- `X visits Y.` uses predicate key `<verb-group>` (internally prefixed as `P:<verb-group>`).
+- `X does not visit Y.` uses predicate key `not|<verb-group>` (internally prefixed as `P:not|<verb-group>`).
+
 This allows representing theories that use explicit negated facts/rules without collapsing them into “not provable”.
 
 ### 2) Negation-as-Failure (`it is not the case that ...`)
