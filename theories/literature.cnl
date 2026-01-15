@@ -14,7 +14,7 @@
 // - FRBR (Functional Requirements for Bibliographic Records)
 // - FaBiO (FRBR-aligned Bibliographic Ontology)
 
-Load: "theories/base.cnl".
+Load: "theories/base.formal.cnl".
 
 // Import FRBR ontology (Work-Expression-Manifestation-Item model)
 Load: "theories/ontologies/frbr/00-dictionary.generated.cnl".
@@ -28,5 +28,22 @@ Load: "theories/ontologies/fabio/00-dictionary.extra.cnl".
 Load: "theories/ontologies/fabio/01-rules.generated.cnl".
 Load: "theories/ontologies/fabio/01-rules.extra.cnl".
 
-// Import Literary Analysis Extensions (characters, plots, themes)
-Load: "theories/literature-extensions.cnl".
+
+
+// Document Components (DoCO)
+Load: "theories/ontologies/doco/00-dictionary.generated.cnl".
+Load: "theories/ontologies/doco/00-dictionary.extra.cnl".
+Load: "theories/ontologies/doco/01-rules.generated.cnl".
+Load: "theories/ontologies/doco/01-rules.extra.cnl".
+
+// Emotions (MFOEM)
+Load: "theories/ontologies/mfoem/00-dictionary.generated.cnl".
+Load: "theories/ontologies/mfoem/00-dictionary.extra.cnl".
+Load: "theories/ontologies/mfoem/01-rules.generated.cnl".
+Load: "theories/ontologies/mfoem/01-rules.extra.cnl".
+
+// Argumentation (AIF)
+Load: "theories/ontologies/aif/00-dictionary.generated.cnl".
+Load: "theories/ontologies/aif/00-dictionary.extra.cnl".
+Load: "theories/ontologies/aif/01-rules.generated.cnl".
+Load: "theories/ontologies/aif/01-rules.extra.cnl".

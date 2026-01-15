@@ -1,0 +1,46 @@
+@prefix : <http://www.arg.tech/aif#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.arg.tech/aif> rdf:type owl:Ontology ;
+    rdfs:label "Argument Interchange Format (Mini)" .
+
+:Node rdf:type owl:Class .
+
+:InformationNode rdf:type owl:Class ;
+    rdfs:subClassOf :Node .
+
+:SchemeNode rdf:type owl:Class ;
+    rdfs:subClassOf :Node .
+
+:RuleSchemeNode rdf:type owl:Class ;
+    rdfs:subClassOf :SchemeNode .
+
+:ConflictSchemeNode rdf:type owl:Class ;
+    rdfs:subClassOf :SchemeNode .
+
+:PreferenceSchemeNode rdf:type owl:Class ;
+    rdfs:subClassOf :SchemeNode .
+
+:Premise rdf:type owl:Class ;
+    rdfs:subClassOf :InformationNode .
+
+:Conclusion rdf:type owl:Class ;
+    rdfs:subClassOf :InformationNode .
+
+:Argument rdf:type owl:Class ;
+    rdfs:subClassOf :SchemeNode .
+
+:supportedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain :InformationNode ;
+    rdfs:range :SchemeNode .
+
+:supports rdf:type owl:ObjectProperty ;
+    rdfs:domain :SchemeNode ;
+    rdfs:range :InformationNode .
+
+:conflictsWith rdf:type owl:ObjectProperty ;
+    rdfs:domain :InformationNode ;
+    rdfs:range :InformationNode .

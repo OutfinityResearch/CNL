@@ -212,6 +212,10 @@ Response: "I don't understand this. Try: 'John is a user.'
    - The tree uses the label `⚠️ issues` and includes both errors and warnings.
    - Grouped by `severity` → `kind` → `key` (concept/term).
    - Leaf: specific issue text + kind + severity + raw JSON.
+   - Source of truth: issues come from the active session state (DS12/DS24):
+     - `session.state.dictionary.warnings` (compiler + theory diagnostics)
+     - rule store duplicate reporting (`DuplicateRule`)
+   - If a loaded bundle applies directive-based load-time renames (DS25), the session must surface an issue indicating a rewrite occurred (`LoadTimeRenameApplied`).
 3. **Things (Entities):** Show name + top 2 categories; leaf shows full inbound/outbound relations + raw JSON.
 4. **Categories:** Show name + member count; leaf shows full member list + raw JSON.
 5. **Relationships (Binary predicates):**

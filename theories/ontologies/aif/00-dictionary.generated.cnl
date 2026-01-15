@@ -1,0 +1,47 @@
+// This file is generated. Do not edit.
+// Source: ontologies/aif/aif.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Aif
+"argument" is a type.
+"argument" is a "unary predicate".
+"conclusion" is a type.
+"conclusion" is a "unary predicate".
+"conflict-scheme-node" is a type.
+"conflict-scheme-node" is a "unary predicate".
+"information-node" is a type.
+"information-node" is a "unary predicate".
+"node" is a type.
+"node" is a "unary predicate".
+"preference-scheme-node" is a type.
+"preference-scheme-node" is a "unary predicate".
+"premise" is a type.
+"premise" is a "unary predicate".
+"rule-scheme-node" is a type.
+"rule-scheme-node" is a "unary predicate".
+"scheme-node" is a type.
+"scheme-node" is a "unary predicate".
+
+// Binary predicates
+"conflicts with" is a "binary predicate".
+"supported by" is a "binary predicate".
+"supports" is a "binary predicate".
+
+// Type hierarchy
+"argument" is a subtype of "scheme-node".
+"conclusion" is a subtype of "information-node".
+"conflict-scheme-node" is a subtype of "scheme-node".
+"information-node" is a subtype of "node".
+"preference-scheme-node" is a subtype of "scheme-node".
+"premise" is a subtype of "information-node".
+"rule-scheme-node" is a subtype of "scheme-node".
+"scheme-node" is a subtype of "node".
+
+// Domain and range constraints
+the domain of "conflicts with" is "information-node".
+the domain of "supported by" is "information-node".
+the domain of "supports" is "scheme-node".
+the range of "conflicts with" is "information-node".
+the range of "supported by" is "scheme-node".
+the range of "supports" is "information-node".

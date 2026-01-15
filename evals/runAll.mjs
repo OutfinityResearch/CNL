@@ -1,16 +1,19 @@
 import { spawn } from "node:child_process";
 
+// Configuration for available suites
+// Commands are updated to point to evals/bin/
 const suites = [
-  { name: "Parsing", command: "node evals/runParsingEval.mjs", group: "Core" },
-  { name: "Compiler", command: "node evals/runCompilerEval.mjs", group: "Core" },
-  { name: "Reasoning", command: "node evals/runReasoning.mjs", group: "Reasoning" },
-  { name: "KBDemo", command: "node evals/runKBDemo.mjs", group: "Reasoning" },
-  { name: "Query", command: "node evals/runQuery.mjs", group: "Pragmatics" },
-  { name: "Proof", command: "node evals/runProof.mjs", group: "Pragmatics" },
-  { name: "Plan", command: "node evals/runPlan.mjs", group: "Pragmatics" },
-  { name: "Solve", command: "node evals/runSolve.mjs", group: "Pragmatics" },
-  { name: "Simulate", command: "node evals/runSimulate.mjs", group: "Pragmatics" },
-  { name: "Explain", command: "node evals/runExplain.mjs", group: "Pragmatics" },
+  { name: "Parsing", command: "node evals/bin/runParsingEval.mjs", group: "Core" },
+  { name: "Negation", command: "node evals/bin/runNegationEval.mjs", group: "Core" },
+  { name: "Compiler", command: "node evals/bin/runCompilerEval.mjs", group: "Core" },
+  { name: "Reasoning", command: "node evals/bin/runReasoning.mjs", group: "Reasoning" },
+  { name: "KBDemo", command: "node evals/bin/runKBDemo.mjs", group: "Reasoning" },
+  { name: "Query", command: "node evals/bin/runQuery.mjs", group: "Pragmatics" },
+  { name: "Proof", command: "node evals/bin/runProof.mjs", group: "Pragmatics" },
+  { name: "Plan", command: "node evals/bin/runPlan.mjs", group: "Pragmatics" },
+  { name: "Solve", command: "node evals/bin/runSolve.mjs", group: "Pragmatics" },
+  { name: "Simulate", command: "node evals/bin/runSimulate.mjs", group: "Pragmatics" },
+  { name: "Explain", command: "node evals/bin/runExplain.mjs", group: "Pragmatics" },
 ];
 
 const colors = {
@@ -50,11 +53,80 @@ function runSuite(suite) {
   });
 }
 
+function printHelp() {
+  console.log(`
+${colors.cyan}CNL Evaluation Runner${colors.reset}
+
+Usage:
+  node evals/runAll.mjs [options]
+
+Options:
+  --help, -h       Show this help message.
+  --suite <name>   Run only the specified suite (case-insensitive).
+                   Can be used multiple times.
+
+Available Suites:`);
+  
+  const groups = {};
+  suites.forEach(s => {
+    groups[s.group] = groups[s.group] || [];
+    groups[s.group].push(s.name);
+  });
+
+  for (const [group, names] of Object.entries(groups)) {
+    console.log(`  ${colors.dim}${group}:${colors.reset}`);
+    names.forEach(n => console.log(`    - ${n}`));
+  }
+  console.log("");
+}
+
+function parseArgs() {
+  const args = process.argv.slice(2);
+  const options = {
+    suites: [],
+    help: false
+  };
+
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (arg === "--help" || arg === "-h") {
+      options.help = true;
+    } else if (arg === "--suite") {
+      const val = args[i + 1];
+      if (val) {
+        options.suites.push(val.toLowerCase());
+        i++;
+      }
+    } else if (!arg.startsWith("-")) {
+      // Allow passing suite names directly
+      options.suites.push(arg.toLowerCase());
+    }
+  }
+  return options;
+}
+
 async function main() {
-  console.log(`${colors.cyan}Starting evaluation suite...${colors.reset}`);
+  const options = parseArgs();
+
+  if (options.help) {
+    printHelp();
+    process.exit(0);
+  }
+
+  let selectedSuites = suites;
+  if (options.suites.length > 0) {
+    selectedSuites = suites.filter(s => options.suites.includes(s.name.toLowerCase()));
+    if (selectedSuites.length === 0) {
+      console.error(`${colors.red}No suites matched the provided names: ${options.suites.join(", ")}${colors.reset}`);
+      console.error(`Run with --help to see available suites.`);
+      process.exit(1);
+    }
+  }
+
+  console.log(`${colors.cyan}Starting evaluation suite (${selectedSuites.length} selected)...${colors.reset}`);
   
   const results = [];
-  for (const suite of suites) {
+  for (const suite of selectedSuites) {
     const result = await runSuite(suite);
     results.push(result);
   }

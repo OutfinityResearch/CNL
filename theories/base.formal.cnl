@@ -5,6 +5,40 @@
 
 Load: "theories/base.cnl".
 
+// Formal-only disambiguation: rename imported *binary* predicates that collide with type keys
+// (keeps common type names stable for user-authored CNL).
+RenamePredicate: "abstract" -> "schema-abstract".
+RenamePredicate: "algorithm" -> "schema-algorithm".
+RenamePredicate: "amount" -> "schema-amount".
+RenamePredicate: "caption" -> "schema-caption".
+RenamePredicate: "citation" -> "schema-citation".
+RenamePredicate: "code" -> "schema-code".
+RenamePredicate: "collection" -> "schema-collection".
+RenamePredicate: "description" -> "schema-description".
+RenamePredicate: "device" -> "schema-device".
+RenamePredicate: "diagnosis" -> "schema-diagnosis".
+RenamePredicate: "diagram" -> "schema-diagram".
+RenamePredicate: "encoding" -> "schema-encoding".
+RenamePredicate: "enumeration" -> "schema-enumeration".
+RenamePredicate: "family-name" -> "schema-family-name".
+RenamePredicate: "figure" -> "schema-figure".
+RenamePredicate: "given-name" -> "schema-given-name".
+RenamePredicate: "identifier" -> "schema-identifier".
+RenamePredicate: "image" -> "schema-image".
+RenamePredicate: "length" -> "schema-length".
+RenamePredicate: "literal" -> "schema-literal".
+RenamePredicate: "location" -> "schema-location".
+RenamePredicate: "order" -> "schema-order".
+RenamePredicate: "pattern" -> "schema-pattern".
+RenamePredicate: "postal-code" -> "schema-postal-code".
+RenamePredicate: "procedure" -> "schema-procedure".
+RenamePredicate: "programming-language" -> "schema-programming-language".
+RenamePredicate: "publication" -> "schema-publication".
+RenamePredicate: "serial-number" -> "schema-serial-number".
+RenamePredicate: "study-design" -> "schema-study-design".
+RenamePredicate: "symbol" -> "schema-symbol".
+RenamePredicate: "url" -> "schema-url".
+
 // Provenance and spatial semantics (formal, science-friendly)
 Load: "theories/ontologies/w3c-prov-o/00-dictionary.generated.cnl".
 Load: "theories/ontologies/w3c-prov-o/00-dictionary.extra.cnl".
@@ -38,3 +72,14 @@ Load: "theories/ontologies/iao/00-dictionary.generated.cnl".
 Load: "theories/ontologies/iao/00-dictionary.extra.cnl".
 Load: "theories/ontologies/iao/01-rules.generated.cnl".
 Load: "theories/ontologies/iao/01-rules.extra.cnl".
+
+// Measurement and Sensors
+Load: "theories/ontologies/qudt/00-dictionary.generated.cnl".
+Load: "theories/ontologies/qudt/00-dictionary.extra.cnl".
+Load: "theories/ontologies/qudt/01-rules.generated.cnl".
+Load: "theories/ontologies/qudt/01-rules.extra.cnl".
+
+Load: "theories/ontologies/ssn/00-dictionary.generated.cnl".
+Load: "theories/ontologies/ssn/00-dictionary.extra.cnl".
+Load: "theories/ontologies/ssn/01-rules.generated.cnl".
+Load: "theories/ontologies/ssn/01-rules.extra.cnl".

@@ -3,10 +3,16 @@
 // This file aggregates the Legal Knowledge Interchange Format (LKIF) ontology
 // and provides a standard entrypoint for legal reasoning tasks.
 
-Load: "theories/base.cnl".
+Load: "theories/base.formal.cnl".
 
 // Import LKIF-Core legal ontology
 Load: "theories/ontologies/lkif-core/00-dictionary.generated.cnl".
 Load: "theories/ontologies/lkif-core/00-dictionary.extra.cnl".
 Load: "theories/ontologies/lkif-core/01-rules.generated.cnl".
 Load: "theories/ontologies/lkif-core/01-rules.extra.cnl".
+
+// Financial (FIBO)
+Load: "theories/ontologies/fibo/00-dictionary.generated.cnl".
+Load: "theories/ontologies/fibo/00-dictionary.extra.cnl".
+Load: "theories/ontologies/fibo/01-rules.generated.cnl".
+Load: "theories/ontologies/fibo/01-rules.extra.cnl".

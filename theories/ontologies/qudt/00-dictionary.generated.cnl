@@ -1,0 +1,627 @@
+// This file is generated. Do not edit.
+// Source: ontologies/qudt/qudt.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Qudt
+
+// Resolved key collisions (type vs binary predicate):
+// - "citation": chose property (dropped class)
+// - "data-encoding": chose property (dropped class)
+// - "datatype": chose class (dropped property)
+// - "derived-unit": chose property (dropped class)
+// - "encoding": chose class (dropped property)
+// - "enumerated-value": chose property (dropped class)
+// - "enumeration": chose property (dropped class)
+// - "figure": chose property (dropped class)
+// - "ordered-type": chose class (dropped property)
+// - "prefix": chose property (dropped class)
+// - "quantity": chose class (dropped property)
+// - "quantity-value": chose property (dropped class)
+// - "scale-type": chose class (dropped property)
+// - "symbol": chose property (dropped class)
+// - "unit": chose property (dropped class)
+"quantity-kind-abstract" is a type.
+"quantity-kind-abstract" is a "unary predicate".
+"angle-unit" is a type.
+"angle-unit" is a "unary predicate".
+"qudt-aspect" is a type.
+"qudt-aspect" is a "unary predicate".
+"aspect-class" is a type.
+"aspect-class" is a "unary predicate".
+"base-dimension-magnitude" is a type.
+"base-dimension-magnitude" is a "unary predicate".
+"binary-prefix" is a type.
+"binary-prefix" is a "unary predicate".
+"bit-encoding" is a type.
+"bit-encoding" is a "unary predicate".
+"boolean-encoding-type" is a type.
+"boolean-encoding-type" is a "unary predicate".
+"byte-encoding" is a type.
+"byte-encoding" is a "unary predicate".
+"cardinality-type" is a type.
+"cardinality-type" is a "unary predicate".
+"char-encoding-type" is a type.
+"char-encoding-type" is a "unary predicate".
+"comment" is a type.
+"comment" is a "unary predicate".
+"qudt-concept" is a type.
+"qudt-concept" is a "unary predicate".
+"constant-value" is a type.
+"constant-value" is a "unary predicate".
+"counting-unit" is a type.
+"counting-unit" is a "unary predicate".
+"currency-unit" is a type.
+"currency-unit" is a "unary predicate".
+"qudt-datatype" is a type.
+"qudt-datatype" is a "unary predicate".
+"date-time-string-encoding-type" is a type.
+"date-time-string-encoding-type" is a "unary predicate".
+"decimal-prefix" is a type.
+"decimal-prefix" is a "unary predicate".
+"dimensionless-unit" is a type.
+"dimensionless-unit" is a "unary predicate".
+"discipline" is a type.
+"discipline" is a "unary predicate".
+"encoding" is a type.
+"encoding" is a "unary predicate".
+"endian-type" is a type.
+"endian-type" is a "unary predicate".
+"enumerated-quantity" is a type.
+"enumerated-quantity" is a "unary predicate".
+"enumeration-scale" is a type.
+"enumeration-scale" is a "unary predicate".
+"floating-point-encoding" is a type.
+"floating-point-encoding" is a "unary predicate".
+"integer-encoding" is a type.
+"integer-encoding" is a "unary predicate".
+"interval-scale" is a type.
+"interval-scale" is a "unary predicate".
+"latex-string" is a type.
+"latex-string" is a "unary predicate".
+"logarithmic-unit" is a type.
+"logarithmic-unit" is a "unary predicate".
+"maths-function-type" is a type.
+"maths-function-type" is a "unary predicate".
+"nist-sp-811-comment" is a type.
+"nist-sp-811-comment" is a "unary predicate".
+"nominal-scale" is a type.
+"nominal-scale" is a "unary predicate".
+"numeric-union" is a type.
+"numeric-union" is a "unary predicate".
+"ordered-type" is a type.
+"ordered-type" is a "unary predicate".
+"ordinal-scale" is a type.
+"ordinal-scale" is a "unary predicate".
+"organization" is a type.
+"organization" is a "unary predicate".
+"physical-constant" is a type.
+"physical-constant" is a "unary predicate".
+"plane-angle-unit" is a type.
+"plane-angle-unit" is a "unary predicate".
+"quantifiable" is a type.
+"quantifiable" is a "unary predicate".
+"quantity" is a type.
+"quantity" is a "unary predicate".
+"quantity-kind" is a type.
+"quantity-kind" is a "unary predicate".
+"quantity-kind-dimension-vector" is a type.
+"quantity-kind-dimension-vector" is a "unary predicate".
+"cgs-dimension-vector" is a type.
+"cgs-dimension-vector" is a "unary predicate".
+"cgs-emu-dimension-vector" is a type.
+"cgs-emu-dimension-vector" is a "unary predicate".
+"cgs-esu-dimension-vector" is a type.
+"cgs-esu-dimension-vector" is a "unary predicate".
+"cgs-gauss-dimension-vector" is a type.
+"cgs-gauss-dimension-vector" is a "unary predicate".
+"cgs-lh-dimension-vector" is a type.
+"cgs-lh-dimension-vector" is a "unary predicate".
+"iso-dimension-vector" is a type.
+"iso-dimension-vector" is a "unary predicate".
+"imperial-dimension-vector" is a type.
+"imperial-dimension-vector" is a "unary predicate".
+"quantity-kind-dimension-vector-si" is a type.
+"quantity-kind-dimension-vector-si" is a "unary predicate".
+"quantity-type" is a type.
+"quantity-type" is a "unary predicate".
+"ratio-scale" is a type.
+"ratio-scale" is a "unary predicate".
+"rule" is a type.
+"rule" is a "unary predicate".
+"rule-type" is a type.
+"rule-type" is a "unary predicate".
+"scalar-datatype" is a type.
+"scalar-datatype" is a "unary predicate".
+"scale" is a type.
+"scale" is a "unary predicate".
+"scale-type" is a type.
+"scale-type" is a "unary predicate".
+"solid-angle-unit" is a type.
+"solid-angle-unit" is a "unary predicate".
+"statement" is a type.
+"statement" is a "unary predicate".
+"string-encoding-type" is a type.
+"string-encoding-type" is a "unary predicate".
+"system-of-quantity-kinds" is a type.
+"system-of-quantity-kinds" is a "unary predicate".
+"system-of-units" is a type.
+"system-of-units" is a "unary predicate".
+"transform-type" is a type.
+"transform-type" is a "unary predicate".
+"case-insensitive-ucum-code" is a type.
+"case-insensitive-ucum-code" is a "unary predicate".
+"case-insensitive-ucum-term" is a type.
+"case-insensitive-ucum-term" is a "unary predicate".
+"case-sensitive-ucum-code" is a type.
+"case-sensitive-ucum-code" is a "unary predicate".
+"case-sensitive-ucum-terminal" is a type.
+"case-sensitive-ucum-terminal" is a "unary predicate".
+"user-quantity-kind" is a type.
+"user-quantity-kind" is a "unary predicate".
+"verifiable" is a type.
+"verifiable" is a "unary predicate".
+"float-percentage" is a type.
+"float-percentage" is a "unary predicate".
+"integer-percentage" is a type.
+"integer-percentage" is a "unary predicate".
+"value-union" is a type.
+"value-union" is a "unary predicate".
+"html" is a type.
+"html" is a "unary predicate".
+"type" is a type.
+"type" is a "unary predicate".
+"class" is a type.
+"class" is a "unary predicate".
+"datatype" is a type.
+"datatype" is a "unary predicate".
+"resource" is a type.
+"resource" is a "unary predicate".
+"any-simple-type" is a type.
+"any-simple-type" is a "unary predicate".
+"any-uri" is a type.
+"any-uri" is a "unary predicate".
+"boolean" is a type.
+"boolean" is a "unary predicate".
+"date" is a type.
+"date" is a "unary predicate".
+"decimal" is a type.
+"decimal" is a "unary predicate".
+"double" is a type.
+"double" is a "unary predicate".
+"float" is a type.
+"float" is a "unary predicate".
+"integer" is a type.
+"integer" is a "unary predicate".
+"non-negative-integer" is a type.
+"non-negative-integer" is a "unary predicate".
+"string" is a type.
+"string" is a "unary predicate".
+"ontology" is a type.
+"ontology" is a "unary predicate".
+"restriction" is a type.
+"restriction" is a "unary predicate".
+"thing" is a type.
+"thing" is a "unary predicate".
+
+// Binary predicates
+"abstract" is a "binary predicate".
+"contributor" is a "binary predicate".
+"created" is a "binary predicate".
+"description" is a "binary predicate".
+"replaced by" is a "binary predicate".
+"modified" is a "binary predicate".
+"rights" is a "binary predicate".
+"source" is a "binary predicate".
+"subject" is a "binary predicate".
+"title" is a "binary predicate".
+"abbreviation" is a "binary predicate".
+"acronym" is a "binary predicate".
+"allowed-pattern" is a "binary predicate".
+"allowed-unit-of-system" is a "binary predicate".
+"alt-symbol" is a "binary predicate".
+"ansi-sql-name" is a "binary predicate".
+"applicable-cgs-unit" is a "binary predicate".
+"applicable-iso-unit" is a "binary predicate".
+"applicable-imperial-unit" is a "binary predicate".
+"applicable-physical-constant" is a "binary predicate".
+"applicable-planck-unit" is a "binary predicate".
+"applicable-si-unit" is a "binary predicate".
+"applicable-system" is a "binary predicate".
+"applicable-us-customary-unit" is a "binary predicate".
+"applicable-unit" is a "binary predicate".
+"base-dimension-enumeration" is a "binary predicate".
+"base-unit-of-system" is a "binary predicate".
+"basis" is a "binary predicate".
+"belongs-to-system-of-quantities" is a "binary predicate".
+"bit-order" is a "binary predicate".
+"bits" is a "binary predicate".
+"bounded" is a "binary predicate".
+"byte-order" is a "binary predicate".
+"bytes" is a "binary predicate".
+"c-language-name" is a "binary predicate".
+"cardinality" is a "binary predicate".
+"categorized-as" is a "binary predicate".
+"code" is a "binary predicate".
+"coherent-unit-of-system" is a "binary predicate".
+"coherent-unit-system" is a "binary predicate".
+"conversion-multiplier" is a "binary predicate".
+"conversion-multiplier-scientific" is a "binary predicate".
+"conversion-offset" is a "binary predicate".
+"conversion-offset-scientific" is a "binary predicate".
+"currency-code" is a "binary predicate".
+"currency-exponent" is a "binary predicate".
+"currency-number" is a "binary predicate".
+"data-encoding" is a "binary predicate".
+"data-structure" is a "binary predicate".
+"dbpedia-match" is a "binary predicate".
+"default" is a "binary predicate".
+"defined-unit-of-system" is a "binary predicate".
+"denominator-dimension-vector" is a "binary predicate".
+"deprecated" is a "binary predicate".
+"coherent-derived-unit-of-system" is a "binary predicate".
+"non-coherent-derived-unit-of-system" is a "binary predicate".
+"derived-quantity-kind-of-system" is a "binary predicate".
+"derived-unit-of-system" is a "binary predicate".
+"dimension-exponent" is a "binary predicate".
+"dimension-exponent-for-amount-of-substance" is a "binary predicate".
+"dimension-exponent-for-electric-current" is a "binary predicate".
+"dimension-exponent-for-length" is a "binary predicate".
+"dimension-exponent-for-luminous-intensity" is a "binary predicate".
+"dimension-exponent-for-mass" is a "binary predicate".
+"dimension-exponent-for-thermodynamic-temperature" is a "binary predicate".
+"dimension-exponent-for-time" is a "binary predicate".
+"dimension-inverse" is a "binary predicate".
+"dimension-vector-for-si" is a "binary predicate".
+"dimensionless-exponent" is a "binary predicate".
+"element" is a "binary predicate".
+"element-kind" is a "binary predicate".
+"enumerated-value" is a "binary predicate".
+"enumeration" is a "binary predicate".
+"exact-constant" is a "binary predicate".
+"exact-match" is a "binary predicate".
+"field-code" is a "binary predicate".
+"figure" is a "binary predicate".
+"figure-caption" is a "binary predicate".
+"figure-label" is a "binary predicate".
+"generalization" is a "binary predicate".
+"guidance" is a "binary predicate".
+"allowed-unit" is a "binary predicate".
+"has-base-quantity-kind" is a "binary predicate".
+"base-unit" is a "binary predicate".
+"citation" is a "binary predicate".
+"coherent-unit" is a "binary predicate".
+"defined-unit" is a "binary predicate".
+"has-quantity-kind-dimension-vector-denominator-part" is a "binary predicate".
+"derived-coherent-unit" is a "binary predicate".
+"has-coherent-derived-unit" is a "binary predicate".
+"derived-unit" is a "binary predicate".
+"has-dimension" is a "binary predicate".
+"dimension-expression" is a "binary predicate".
+"has-dimension-vector" is a "binary predicate".
+"has-non-coherent-unit" is a "binary predicate".
+"has-quantity-kind-dimension-vector-numerator-part" is a "binary predicate".
+"prefix-unit" is a "binary predicate".
+"has-quantity" is a "binary predicate".
+"has-quantity-kind" is a "binary predicate".
+"has-reference-quantity-kind" is a "binary predicate".
+"has-rule" is a "binary predicate".
+"has-unit" is a "binary predicate".
+"has-unit-system" is a "binary predicate".
+"has-vocabulary" is a "binary predicate".
+"height" is a "binary predicate".
+"qudt-id" is a "binary predicate".
+"iec-61360-code" is a "binary predicate".
+"image" is a "binary predicate".
+"image-location" is a "binary predicate".
+"informative-reference" is a "binary predicate".
+"base-quantity-kind-of-system" is a "binary predicate".
+"delta-quantity" is a "binary predicate".
+"dimension-in-system" is a "binary predicate".
+"metric-unit" is a "binary predicate".
+"quantity-kind-of" is a "binary predicate".
+"unit-of-system" is a "binary predicate".
+"normative-reference-iso" is a "binary predicate".
+"java-name" is a "binary predicate".
+"javascript-name" is a "binary predicate".
+"landscape" is a "binary predicate".
+"latex-definition" is a "binary predicate".
+"latex-symbol" is a "binary predicate".
+"length" is a "binary predicate".
+"lower-bound" is a "binary predicate".
+"math-definition" is a "binary predicate".
+"math-ml-definition" is a "binary predicate".
+"matlab-name" is a "binary predicate".
+"max-exclusive" is a "binary predicate".
+"max-inclusive" is a "binary predicate".
+"microsoft-sql-server-name" is a "binary predicate".
+"min-exclusive" is a "binary predicate".
+"min-inclusive" is a "binary predicate".
+"my-sql-name" is a "binary predicate".
+"negative-delta-limit" is a "binary predicate".
+"normative-reference" is a "binary predicate".
+"numerator-dimension-vector" is a "binary predicate".
+"numeric-value" is a "binary predicate".
+"odbc-name" is a "binary predicate".
+"ole-db-name" is a "binary predicate".
+"om-unit" is a "binary predicate".
+"online-reference" is a "binary predicate".
+"oracle-sql-name" is a "binary predicate".
+"order" is a "binary predicate".
+"out-of-scope" is a "binary predicate".
+"permissible-maths" is a "binary predicate".
+"permissible-transformation" is a "binary predicate".
+"description-plain-text" is a "binary predicate".
+"positive-delta-limit" is a "binary predicate".
+"prefix" is a "binary predicate".
+"prefix-multiplier" is a "binary predicate".
+"protocol-buffers-name" is a "binary predicate".
+"python-name" is a "binary predicate".
+"quantity-value" is a "binary predicate".
+"rationale" is a "binary predicate".
+"rdfs-datatype" is a "binary predicate".
+"reference" is a "binary predicate".
+"reference-unit" is a "binary predicate".
+"relative-standard-uncertainty" is a "binary predicate".
+"relevant-quantity-kind" is a "binary predicate".
+"relevant-unit" is a "binary predicate".
+"rel-rule-type" is a "binary predicate".
+"individual-from-si-reference-point" is a "binary predicate".
+"si-units-expression" is a "binary predicate".
+"specialization" is a "binary predicate".
+"standard-uncertainty" is a "binary predicate".
+"standard-uncertainty-scientific" is a "binary predicate".
+"symbol" is a "binary predicate".
+"system-definition" is a "binary predicate".
+"system-derived-quantity-kind" is a "binary predicate".
+"system-dimension" is a "binary predicate".
+"ucum-case-insensitive-code" is a "binary predicate".
+"ucum-case-sensitive-code" is a "binary predicate".
+"ucum-code" is a "binary predicate".
+"udunits-code" is a "binary predicate".
+"unece-common-code" is a "binary predicate".
+"unit" is a "binary predicate".
+"unit for" is a "binary predicate".
+"upper-bound" is a "binary predicate".
+"url" is a "binary predicate".
+"value" is a "binary predicate".
+"value-for-quantity" is a "binary predicate".
+"value-scientific" is a "binary predicate".
+"vusal-basic-name" is a "binary predicate".
+"vector-magnitude" is a "binary predicate".
+"width" is a "binary predicate".
+"superseded by" is a "binary predicate".
+"literal" is a "binary predicate".
+"notation" is a "binary predicate".
+"was-derived-from" is a "binary predicate".
+
+// Type hierarchy
+// Dropped subtype edges:
+// - reflexive: 2 (e.g. "numeric-union" -> "numeric-union", "statement" -> "statement")
+// - abstract-to-concrete: 4 (e.g. "type" -> "float-percentage", "type" -> "integer-percentage", "type" -> "value-union", "class" -> "value-union")
+// - cycle-break: 2 (e.g. "float-percentage" -> "datatype", "integer-percentage" -> "datatype")
+"angle-unit" is a subtype of "dimensionless-unit".
+"aspect-class" is a subtype of "class".
+"base-dimension-magnitude" is a subtype of "qudt-concept".
+"base-dimension-magnitude" is a subtype of "restriction".
+"base-dimension-magnitude" is a subtype of "type".
+"bit-encoding" is a subtype of "encoding".
+"boolean-encoding-type" is a subtype of "encoding".
+"byte-encoding" is a subtype of "encoding".
+"cardinality-type" is a subtype of "restriction".
+"cardinality-type" is a subtype of "type".
+"case-insensitive-ucum-code" is a subtype of "resource".
+"case-insensitive-ucum-term" is a subtype of "resource".
+"case-sensitive-ucum-code" is a subtype of "resource".
+"case-sensitive-ucum-terminal" is a subtype of "resource".
+"cgs-dimension-vector" is a subtype of "quantity-kind-dimension-vector".
+"cgs-emu-dimension-vector" is a subtype of "cgs-dimension-vector".
+"cgs-esu-dimension-vector" is a subtype of "cgs-dimension-vector".
+"cgs-gauss-dimension-vector" is a subtype of "cgs-dimension-vector".
+"cgs-lh-dimension-vector" is a subtype of "cgs-dimension-vector".
+"char-encoding-type" is a subtype of "encoding".
+"comment" is a subtype of "restriction".
+"comment" is a subtype of "thing".
+"comment" is a subtype of "type".
+"comment" is a subtype of "verifiable".
+"constant-value" is a subtype of "restriction".
+"constant-value" is a subtype of "type".
+"counting-unit" is a subtype of "dimensionless-unit".
+"currency-unit" is a subtype of "dimensionless-unit".
+"currency-unit" is a subtype of "restriction".
+"currency-unit" is a subtype of "type".
+"datatype" is a subtype of "float-percentage".
+"datatype" is a subtype of "integer-percentage".
+"date-time-string-encoding-type" is a subtype of "restriction".
+"date-time-string-encoding-type" is a subtype of "string-encoding-type".
+"date-time-string-encoding-type" is a subtype of "type".
+"discipline" is a subtype of "qudt-concept".
+"encoding" is a subtype of "qudt-concept".
+"encoding" is a subtype of "restriction".
+"encoding" is a subtype of "type".
+"enumerated-quantity" is a subtype of "qudt-concept".
+"enumerated-quantity" is a subtype of "restriction".
+"enumerated-quantity" is a subtype of "type".
+"enumeration-scale" is a subtype of "scale".
+"float-percentage" is a subtype of "type".
+"floating-point-encoding" is a subtype of "encoding".
+"imperial-dimension-vector" is a subtype of "quantity-kind-dimension-vector".
+"integer-encoding" is a subtype of "encoding".
+"integer-percentage" is a subtype of "type".
+"interval-scale" is a subtype of "scale".
+"iso-dimension-vector" is a subtype of "quantity-kind-dimension-vector".
+"latex-string" is a subtype of "string".
+"logarithmic-unit" is a subtype of "dimensionless-unit".
+"maths-function-type" is a subtype of "qudt-concept".
+"nist-sp-811-comment" is a subtype of "comment".
+"nominal-scale" is a subtype of "scale".
+"numeric-union" is a subtype of "qudt-concept".
+"ordered-type" is a subtype of "restriction".
+"ordered-type" is a subtype of "type".
+"ordinal-scale" is a subtype of "restriction".
+"ordinal-scale" is a subtype of "scale".
+"ordinal-scale" is a subtype of "type".
+"organization" is a subtype of "qudt-concept".
+"organization" is a subtype of "restriction".
+"organization" is a subtype of "type".
+"physical-constant" is a subtype of "quantity".
+"physical-constant" is a subtype of "restriction".
+"physical-constant" is a subtype of "type".
+"plane-angle-unit" is a subtype of "angle-unit".
+"quantifiable" is a subtype of "qudt-aspect".
+"quantifiable" is a subtype of "restriction".
+"quantifiable" is a subtype of "type".
+"quantity" is a subtype of "quantifiable".
+"quantity" is a subtype of "qudt-concept".
+"quantity" is a subtype of "restriction".
+"quantity" is a subtype of "type".
+"quantity-kind" is a subtype of "quantity-kind-abstract".
+"quantity-kind" is a subtype of "restriction".
+"quantity-kind" is a subtype of "type".
+"quantity-kind" is a subtype of "verifiable".
+"quantity-kind-abstract" is a subtype of "qudt-concept".
+"quantity-kind-abstract" is a subtype of "restriction".
+"quantity-kind-abstract" is a subtype of "type".
+"quantity-kind-dimension-vector" is a subtype of "qudt-concept".
+"quantity-kind-dimension-vector" is a subtype of "restriction".
+"quantity-kind-dimension-vector" is a subtype of "type".
+"quantity-kind-dimension-vector-si" is a subtype of "quantity-kind-dimension-vector".
+"quantity-type" is a subtype of "restriction".
+"quantity-type" is a subtype of "type".
+"qudt-aspect" is a subtype of "thing".
+"qudt-concept" is a subtype of "restriction".
+"qudt-concept" is a subtype of "thing".
+"qudt-concept" is a subtype of "type".
+"qudt-datatype" is a subtype of "qudt-concept".
+"qudt-datatype" is a subtype of "restriction".
+"qudt-datatype" is a subtype of "type".
+"ratio-scale" is a subtype of "scale".
+"rule" is a subtype of "qudt-concept".
+"rule" is a subtype of "restriction".
+"rule" is a subtype of "type".
+"rule" is a subtype of "verifiable".
+"scalar-datatype" is a subtype of "qudt-datatype".
+"scalar-datatype" is a subtype of "restriction".
+"scalar-datatype" is a subtype of "type".
+"scale" is a subtype of "qudt-concept".
+"scale" is a subtype of "restriction".
+"scale" is a subtype of "type".
+"scale-type" is a subtype of "restriction".
+"scale-type" is a subtype of "type".
+"solid-angle-unit" is a subtype of "angle-unit".
+"system-of-quantity-kinds" is a subtype of "qudt-concept".
+"system-of-quantity-kinds" is a subtype of "restriction".
+"system-of-quantity-kinds" is a subtype of "type".
+"system-of-units" is a subtype of "qudt-concept".
+"system-of-units" is a subtype of "restriction".
+"system-of-units" is a subtype of "type".
+"system-of-units" is a subtype of "verifiable".
+"user-quantity-kind" is a subtype of "quantity-kind-abstract".
+"user-quantity-kind" is a subtype of "restriction".
+"user-quantity-kind" is a subtype of "type".
+"value-union" is a subtype of "class".
+"value-union" is a subtype of "resource".
+"value-union" is a subtype of "type".
+"verifiable" is a subtype of "qudt-aspect".
+"verifiable" is a subtype of "restriction".
+"verifiable" is a subtype of "type".
+
+// Domain and range constraints
+the domain of "belongs-to-system-of-quantities" is "quantity-kind".
+the domain of "code" is "qudt-concept".
+the domain of "guidance" is "qudt-concept".
+the domain of "qudt-id" is "qudt-concept".
+the range of "abbreviation" is "string".
+the range of "abstract" is "string".
+the range of "acronym" is "string".
+the range of "ansi-sql-name" is "string".
+the range of "belongs-to-system-of-quantities" is "system-of-quantity-kinds".
+the range of "bit-order" is "endian-type".
+the range of "bits" is "integer".
+the range of "byte-order" is "endian-type".
+the range of "bytes" is "integer".
+the range of "c-language-name" is "string".
+the range of "citation" is "string".
+the range of "coherent-unit-of-system" is "system-of-units".
+the range of "conversion-multiplier" is "decimal".
+the range of "conversion-multiplier-scientific" is "decimal".
+the range of "conversion-offset" is "decimal".
+the range of "conversion-offset-scientific" is "double".
+the range of "created" is "date".
+the range of "currency-code" is "string".
+the range of "currency-exponent" is "integer".
+the range of "currency-number" is "string".
+the range of "data-structure" is "string".
+the range of "dbpedia-match" is "any-uri".
+the range of "delta-quantity" is "boolean".
+the range of "denominator-dimension-vector" is "quantity-kind-dimension-vector".
+the range of "deprecated" is "boolean".
+the range of "description-plain-text" is "string".
+the range of "dimension-vector-for-si" is "quantity-kind-dimension-vector-si".
+the range of "exact-constant" is "boolean".
+the range of "field-code" is "string".
+the range of "figure-caption" is "string".
+the range of "figure-label" is "string".
+the range of "guidance" is "html".
+the range of "has-dimension-vector" is "quantity-kind-dimension-vector".
+the range of "has-quantity" is "quantity".
+the range of "has-quantity-kind" is "quantity-kind".
+the range of "has-vocabulary" is "ontology".
+the range of "height" is "string".
+the range of "iec-61360-code" is "string".
+the range of "image" is "any-uri".
+the range of "image-location" is "any-uri".
+the range of "informative-reference" is "any-uri".
+the range of "java-name" is "string".
+the range of "javascript-name" is "string".
+the range of "landscape" is "boolean".
+the range of "latex-definition" is "latex-string".
+the range of "latex-symbol" is "latex-string".
+the range of "length" is "integer".
+the range of "literal" is "string".
+the range of "math-definition" is "string".
+the range of "math-ml-definition" is "string".
+the range of "matlab-name" is "string".
+the range of "max-exclusive" is "string".
+the range of "metric-unit" is "boolean".
+the range of "microsoft-sql-server-name" is "string".
+the range of "modified" is "date".
+the range of "my-sql-name" is "string".
+the range of "negative-delta-limit" is "string".
+the range of "non-coherent-derived-unit-of-system" is "system-of-units".
+the range of "normative-reference" is "any-uri".
+the range of "normative-reference-iso" is "any-uri".
+the range of "numerator-dimension-vector" is "quantity-kind-dimension-vector".
+the range of "numeric-value" is "numeric-union".
+the range of "odbc-name" is "string".
+the range of "ole-db-name" is "string".
+the range of "online-reference" is "any-uri".
+the range of "oracle-sql-name" is "string".
+the range of "order" is "non-negative-integer".
+the range of "out-of-scope" is "boolean".
+the range of "positive-delta-limit" is "string".
+the range of "prefix-multiplier" is "double".
+the range of "protocol-buffers-name" is "string".
+the range of "python-name" is "string".
+the range of "qudt-id" is "string".
+the range of "rationale" is "html".
+the range of "relative-standard-uncertainty" is "double".
+the range of "relevant-quantity-kind" is "quantity-kind".
+the range of "rights" is "string".
+the range of "si-units-expression" is "string".
+the range of "source" is "any-uri".
+the range of "standard-uncertainty" is "decimal".
+the range of "standard-uncertainty-scientific" is "double".
+the range of "subject" is "string".
+the range of "title" is "string".
+the range of "ucum-code" is "class".
+the range of "ucum-code" is "type".
+the range of "udunits-code" is "string".
+the range of "unece-common-code" is "string".
+the range of "unit-of-system" is "system-of-units".
+the range of "upper-bound" is "any-simple-type".
+the range of "url" is "any-uri".
+the range of "vector-magnitude" is "float".
+the range of "vusal-basic-name" is "string".
+the range of "was-derived-from" is "qudt-concept".
+the range of "width" is "string".

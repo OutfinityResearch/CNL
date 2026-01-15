@@ -1,0 +1,411 @@
+// This file is generated. Do not edit.
+// Source: ontologies/schema/schema.ttl
+
+--- CONTEXT: Schema ---
+
+// Generated from ontology import: Schema
+Rule: If X accepted-answer Y, then X suggested-answer Y.
+Rule: If X accommodation-category Y, then X category Y.
+Rule: If X account-id Y, then X identifier Y.
+Rule: If X acquire-license-page Y, then X usage-info Y.
+Rule: If X action-option Y, then X object Y.
+Rule: If X actionable-feedback-policy Y, then X publishing-principles Y.
+Rule: If X additional-name Y, then X alternate-name Y.
+Rule: If X additional-type Y, then X type Y.
+Rule: If X address-locality Y, then X address-locality Y.
+Rule: If X address-locality Y, then X has-municipality Y.
+Rule: If X address-region Y, then X has-country-subdivision Y.
+Rule: If X affiliation Y, then X is member of Y.
+Rule: If X amends Y, then X legislation-amends Y.
+Rule: If X announcement-location Y, then X spatial-coverage Y.
+Rule: If X appearance Y, then X work-example Y.
+Rule: If X applicable-certificate Y, then X has-certification Y.
+Rule: If X area-served Y, then X has-service-area Y.
+Rule: If X art-medium Y, then X material Y.
+Rule: If X asin Y, then X identifier Y.
+Rule: If X associated-claim-review Y, then X associated-review Y.
+Rule: If X associated-media-review Y, then X associated-review Y.
+Rule: If X audit-date Y, then X inspection-date-time Y.
+Rule: If X available-at-or-from Y, then X area-served Y.
+Rule: If X available-language Y, then X available-language Y.
+Rule: If X away-team Y, then X competitor Y.
+Rule: If X bcc-recipient Y, then X recipient Y.
+Rule: If X billing-address Y, then X billing-address Y.
+Rule: If X billing-period Y, then X billing-period Y.
+Rule: If X borrower Y, then X participant Y.
+Rule: If X brand Y, then X brand-name Y.
+Rule: If X brand Y, then X has-designation Y.
+Rule: If X brand-name Y, then X brand Y.
+Rule: If X buyer Y, then X participant Y.
+Rule: If X call-sign Y, then X identifier Y.
+Rule: If X candidate Y, then X object Y.
+Rule: If X cc-recipient Y, then X recipient Y.
+Rule: If X certificate-identifier Y, then X certification-identification Y.
+Rule: If X certification-identification Y, then X certificate-identifier Y.
+Rule: If X certification-identification Y, then X has-registration-identifier Y.
+Rule: If X changes Y, then X legislation-changes Y.
+Rule: If X clip-number Y, then X position Y.
+Rule: If X code-value Y, then X term-code Y.
+Rule: If X collection Y, then X object Y.
+Rule: If X color Y, then X colour-description Y.
+Rule: If X colour-description Y, then X color Y.
+Rule: If X commences Y, then X legislation-commences Y.
+Rule: If X confirmation-number Y, then X identifier Y.
+Rule: If X consolidates Y, then X legislation-consolidates Y.
+Rule: If X contact-points Y, then X has-contact-point Y.
+Rule: If X contact-type Y, then X contact-type Y.
+Rule: If X cook-time Y, then X perform-time Y.
+Rule: If X corrections-policy Y, then X publishing-principles Y.
+Rule: If X corrects Y, then X legislation-corrects Y.
+Rule: If X country-of-assembly Y, then X final-assembly-country Y.
+Rule: If X country-of-last-processing Y, then X processing-country Y.
+Rule: If X country-of-origin Y, then X origin-country Y.
+Rule: If X course Y, then X location Y.
+Rule: If X currency Y, then X has-currency Y.
+Rule: If X d-uns-id Y, then X duns Y.
+Rule: If X date-applicability Y, then X legislation-date-of-applicability Y.
+Rule: If X date-document Y, then X legislation-date Y.
+Rule: If X delivery-address Y, then X ship-to-address Y.
+Rule: If X delivery-method Y, then X instrument Y.
+Rule: If X description Y, then X description Y.
+Rule: If X despatch-location Y, then X shipping-origin Y.
+Rule: If X diet Y, then X instrument Y.
+Rule: If X disambiguating-description Y, then X description Y.
+Rule: If X dissolution-date Y, then X organization-termination-date Y.
+Rule: If X diversity-staffing-report Y, then X publishing-principles Y.
+Rule: If X duns Y, then X d-uns-id Y.
+Rule: If X duns Y, then X identifier Y.
+Rule: If X edit-eidr Y, then X identifier Y.
+Rule: If X effective-end-date-time Y, then X price-valid-until Y.
+Rule: If X eligible-region Y, then X area-served Y.
+Rule: If X email Y, then X email Y.
+Rule: If X embedded-text-caption Y, then X caption Y.
+Rule: If X end-date Y, then X has-end-date Y.
+Rule: If X endorsee Y, then X participant Y.
+Rule: If X ensures-implementation-of Y, then X legislation-ensures-implementation-of Y.
+Rule: If X entertainment-business Y, then X location Y.
+Rule: If X episode Y, then X has-part Y.
+Rule: If X episode-number Y, then X position Y.
+Rule: If X exercise-course Y, then X location Y.
+Rule: If X exercise-plan Y, then X instrument Y.
+Rule: If X exercise-related-diet Y, then X instrument Y.
+Rule: If X fax-number Y, then X fax-number Y.
+Rule: If X final-assembly-country Y, then X country-of-assembly Y.
+Rule: If X first-appearance Y, then X work-example Y.
+Rule: If X flight-number Y, then X identifier Y.
+Rule: If X followee Y, then X object Y.
+Rule: If X food-establishment Y, then X location Y.
+Rule: If X food-event Y, then X location Y.
+Rule: If X founding-date Y, then X organization-formation-date Y.
+Rule: If X from-location Y, then X location Y.
+Rule: If X funder Y, then X sponsor Y.
+Rule: If X g-ln-id Y, then X global-location-number Y.
+Rule: If X g-tin-id Y, then X gtin Y.
+Rule: If X global-location-number Y, then X g-ln-id Y.
+Rule: If X global-location-number Y, then X global-location-number Y.
+Rule: If X global-location-number Y, then X identifier Y.
+Rule: If X gtin Y, then X g-tin-id Y.
+Rule: If X gtin Y, then X gtin Y.
+Rule: If X gtin Y, then X identifier Y.
+Rule: If X gtin12 Y, then X gtin Y.
+Rule: If X gtin12 Y, then X identifier Y.
+Rule: If X gtin13 Y, then X gtin Y.
+Rule: If X gtin13 Y, then X identifier Y.
+Rule: If X gtin14 Y, then X gtin Y.
+Rule: If X gtin14 Y, then X identifier Y.
+Rule: If X gtin8 Y, then X gtin Y.
+Rule: If X gtin8 Y, then X identifier Y.
+Rule: If X has-bio-polymer-sequence Y, then X has-representation Y.
+Rule: If X has-category-code Y, then X has-defined-term Y.
+Rule: If X has-certification Y, then X applicable-certificate Y.
+Rule: If X has-certification Y, then X is classified by Y.
+Rule: If X has-certification Y, then X is referenced in Y.
+Rule: If X has-contact-point Y, then X contact-points Y.
+Rule: If X has-country-subdivision Y, then X address-region Y.
+Rule: If X has-currency Y, then X currency Y.
+Rule: If X has-end-date Y, then X end-date Y.
+Rule: If X has-end-date Y, then X valid through Y.
+Rule: If X has-gs1-digital-link Y, then X identifier Y.
+Rule: If X has-legal-entity-identifier Y, then X lei-code Y.
+Rule: If X has-legal-name Y, then X legal-name Y.
+Rule: If X has-lei Y, then X lei-code Y.
+Rule: If X has-member Y, then X member Y.
+Rule: If X has-municipality Y, then X address-locality Y.
+Rule: If X has-name Y, then X name Y.
+Rule: If X has-postal-code Y, then X postal-code Y.
+Rule: If X has-registered-address Y, then X legal-address Y.
+Rule: If X has-service-area Y, then X area-served Y.
+Rule: If X has-start-date Y, then X start-date Y.
+Rule: If X has-start-date Y, then X valid from Y.
+Rule: If X has-subsidiary Y, then X sub-organization Y.
+Rule: If X has-tax-identifier Y, then X tax-id Y.
+Rule: If X home-location Y, then X location Y.
+Rule: If X home-team Y, then X competitor Y.
+Rule: If X identifier Y, then X identifier Y.
+Rule: If X identifier Y, then X is identified by Y.
+Rule: If X implements Y, then X legislation-applies Y.
+Rule: If X in-ch-i Y, then X has-representation Y.
+Rule: If X in-ch-i-key Y, then X has-representation Y.
+Rule: If X in-code-set Y, then X in-defined-term-set Y.
+Rule: If X in-defined-term-set Y, then X is part of Y.
+Rule: If X in-force Y, then X legislation-legal-force Y.
+Rule: If X in-product-group-with-id Y, then X variant-id Y.
+Rule: If X included-consignment-item Y, then X item-shipped Y.
+Rule: If X ingredients Y, then X supply Y.
+Rule: If X inspection-date-time Y, then X audit-date Y.
+Rule: If X interpreted-as-claim Y, then X description Y.
+Rule: If X is countersigned by Y, then X legislation-countersigned-by Y.
+Rule: If X is identified by Y, then X identifier Y.
+Rule: If X is located in Y, then X location Y.
+Rule: If X is offered by Y, then X is offered by Y.
+Rule: If X is passed by Y, then X legislation-passed-by Y.
+Rule: If X is related to Y, then X related-product Y.
+Rule: If X isbn Y, then X identifier Y.
+Rule: If X isbn Y, then X isbn Y.
+Rule: If X issn Y, then X identifier Y.
+Rule: If X issn Y, then X issn Y.
+Rule: If X issue Y, then X issue-number Y.
+Rule: If X issue-number Y, then X issue Y.
+Rule: If X issue-number Y, then X position Y.
+Rule: If X item-location Y, then X location Y.
+Rule: If X item-shipped Y, then X has-product Y.
+Rule: If X item-shipped Y, then X included-consignment-item Y.
+Rule: If X jurisdiction Y, then X legislation-jurisdiction Y.
+Rule: If X label Y, then X record-label Y.
+Rule: If X landlord Y, then X participant Y.
+Rule: If X language Y, then X instrument Y.
+Rule: If X latitude Y, then X has-latitude Y.
+Rule: If X legal-address Y, then X has-address Y.
+Rule: If X legal-address Y, then X has-registered-address Y.
+Rule: If X legal-name Y, then X has-legal-name Y.
+Rule: If X legal-name Y, then X has-name Y.
+Rule: If X legal-name Y, then X organization-legal-name Y.
+Rule: If X legal-value Y, then X legislation-legal-value Y.
+Rule: If X legislation-amends Y, then X amends Y.
+Rule: If X legislation-amends Y, then X legislation-changes Y.
+Rule: If X legislation-applies Y, then X implements Y.
+Rule: If X legislation-changes Y, then X changes Y.
+Rule: If X legislation-commences Y, then X commences Y.
+Rule: If X legislation-commences Y, then X legislation-changes Y.
+Rule: If X legislation-consolidates Y, then X consolidates Y.
+Rule: If X legislation-corrects Y, then X corrects Y.
+Rule: If X legislation-countersigned-by Y, then X is countersigned by Y.
+Rule: If X legislation-date Y, then X date-created Y.
+Rule: If X legislation-date Y, then X date-document Y.
+Rule: If X legislation-date-of-applicability Y, then X date-applicability Y.
+Rule: If X legislation-date-version Y, then X version-date Y.
+Rule: If X legislation-ensures-implementation-of Y, then X ensures-implementation-of Y.
+Rule: If X legislation-ensures-implementation-of Y, then X legislation-applies Y.
+Rule: If X legislation-identifier Y, then X identifier Y.
+Rule: If X legislation-jurisdiction Y, then X jurisdiction Y.
+Rule: If X legislation-jurisdiction Y, then X spatial-coverage Y.
+Rule: If X legislation-legal-force Y, then X in-force Y.
+Rule: If X legislation-legal-value Y, then X legal-value Y.
+Rule: If X legislation-passed-by Y, then X creator Y.
+Rule: If X legislation-passed-by Y, then X is passed by Y.
+Rule: If X legislation-repeals Y, then X legislation-changes Y.
+Rule: If X legislation-repeals Y, then X repeals Y.
+Rule: If X legislation-responsible Y, then X responsibility of Y.
+Rule: If X legislation-transposes Y, then X legislation-applies Y.
+Rule: If X legislation-transposes Y, then X transposes Y.
+Rule: If X legislation-type Y, then X genre Y.
+Rule: If X legislation-type Y, then X type-document Y.
+Rule: If X lei-code Y, then X has-legal-entity-identifier Y.
+Rule: If X lei-code Y, then X has-lei Y.
+Rule: If X lei-code Y, then X identifier Y.
+Rule: If X lender Y, then X participant Y.
+Rule: If X line-item-identifier Y, then X order-item-number Y.
+Rule: If X location Y, then X is located in Y.
+Rule: If X logo Y, then X logo-referenced-document Y.
+Rule: If X logo-referenced-document Y, then X logo Y.
+Rule: If X longitude Y, then X has-longitude Y.
+Rule: If X loser Y, then X participant Y.
+Rule: If X low-price Y, then X has-lower-bound Y.
+Rule: If X low-price Y, then X has-monetary-amount Y.
+Rule: If X main-entity Y, then X about Y.
+Rule: If X makes-offer Y, then X offers Y.
+Rule: If X manufacturer Y, then X is provisioned by Y.
+Rule: If X manufacturer Y, then X manufacturer Y.
+Rule: If X manufacturer Y, then X manufacturer-party Y.
+Rule: If X manufacturer-assigned-id Y, then X mpn Y.
+Rule: If X manufacturer-party Y, then X manufacturer Y.
+Rule: If X masthead Y, then X publishing-principles Y.
+Rule: If X max-price Y, then X has-monetary-amount Y.
+Rule: If X max-price Y, then X has-upper-bound Y.
+Rule: If X max-value Y, then X has-upper-bound Y.
+Rule: If X maximum-attendee-capacity Y, then X has-upper-bound Y.
+Rule: If X measurement-method Y, then X measurement-technique Y.
+Rule: If X member Y, then X has-member Y.
+Rule: If X min-price Y, then X has-lower-bound Y.
+Rule: If X min-price Y, then X has-monetary-amount Y.
+Rule: If X min-value Y, then X has-lower-bound Y.
+Rule: If X minimum-payment-due Y, then X has-lower-bound Y.
+Rule: If X minimum-payment-due Y, then X has-monetary-amount Y.
+Rule: If X mission-coverage-priorities-policy Y, then X publishing-principles Y.
+Rule: If X model Y, then X is classified by Y.
+Rule: If X model Y, then X model-name Y.
+Rule: If X model-name Y, then X model Y.
+Rule: If X mpn Y, then X manufacturer-assigned-id Y.
+Rule: If X n-sn-id Y, then X nsn Y.
+Rule: If X naics Y, then X is classified by Y.
+Rule: If X name Y, then X has-name Y.
+Rule: If X name Y, then X label Y.
+Rule: If X name Y, then X title Y.
+Rule: If X nsn Y, then X identifier Y.
+Rule: If X nsn Y, then X is identified by Y.
+Rule: If X nsn Y, then X n-sn-id Y.
+Rule: If X offers Y, then X makes-offer Y.
+Rule: If X offers Y, then X product of Y.
+Rule: If X opponent Y, then X participant Y.
+Rule: If X option Y, then X object Y.
+Rule: If X order-date Y, then X has-date Y.
+Rule: If X order-date Y, then X order-date Y.
+Rule: If X order-identifier Y, then X order-number Y.
+Rule: If X order-item-number Y, then X line-item-identifier Y.
+Rule: If X order-number Y, then X identifier Y.
+Rule: If X order-number Y, then X order-identifier Y.
+Rule: If X order-quantity Y, then X has-quantity Y.
+Rule: If X order-quantity Y, then X order-quantity Y.
+Rule: If X ordered-item Y, then X has-product Y.
+Rule: If X organization-formation-date Y, then X founding-date Y.
+Rule: If X organization-legal-name Y, then X legal-name Y.
+Rule: If X organization-termination-date Y, then X dissolution-date Y.
+Rule: If X origin-country Y, then X country-of-origin Y.
+Rule: If X original-media-context-description Y, then X description Y.
+Rule: If X ownership-funding-info Y, then X publishing-principles Y.
+Rule: If X owns Y, then X owns Y.
+Rule: If X page-end Y, then X page-end Y.
+Rule: If X page-start Y, then X page-start Y.
+Rule: If X pages Y, then X pagination Y.
+Rule: If X pagination Y, then X pages Y.
+Rule: If X parent-organization Y, then X parent-organization Y.
+Rule: If X part-of-episode Y, then X is part of Y.
+Rule: If X part-of-invoice Y, then X is part of Y.
+Rule: If X part-of-invoice Y, then X is referenced in Y.
+Rule: If X part-of-order Y, then X referenced-order Y.
+Rule: If X part-of-order Y, then X refers to Y.
+Rule: If X part-of-season Y, then X is part of Y.
+Rule: If X part-of-series Y, then X is part of Y.
+Rule: If X part-of-tv-series Y, then X is part of Y.
+Rule: If X pattern Y, then X print-design-description Y.
+Rule: If X payment-due Y, then X has-payment-due-date Y.
+Rule: If X payment-due Y, then X payment-due-date Y.
+Rule: If X payment-due-date Y, then X payment-due Y.
+Rule: If X payment-due-date Y, then X payment-due-date Y.
+Rule: If X payment-means-id Y, then X payment-method-id Y.
+Rule: If X payment-method Y, then X has-payment-mechanism Y.
+Rule: If X payment-method-id Y, then X payment-means-id Y.
+Rule: If X payment-url Y, then X has-address Y.
+Rule: If X post-office-box Y, then X post-office-box-number Y.
+Rule: If X post-office-box-number Y, then X post-office-box Y.
+Rule: If X postal-code Y, then X has-postal-code Y.
+Rule: If X postal-code Y, then X postcode-code Y.
+Rule: If X postal-code-begin Y, then X has-lower-bound Y.
+Rule: If X postal-code-end Y, then X has-upper-bound Y.
+Rule: If X postcode-code Y, then X postal-code Y.
+Rule: If X price Y, then X has-amount Y.
+Rule: If X price Y, then X has-numeric-value Y.
+Rule: If X price-currency Y, then X has-currency Y.
+Rule: If X price-type Y, then X is classified by Y.
+Rule: If X price-type Y, then X price-type-code Y.
+Rule: If X price-type-code Y, then X price-type Y.
+Rule: If X price-valid-until Y, then X effective-end-date-time Y.
+Rule: If X price-valid-until Y, then X end-date Y.
+Rule: If X print-design-description Y, then X pattern Y.
+Rule: If X processing-country Y, then X country-of-last-processing Y.
+Rule: If X product of Y, then X offers Y.
+Rule: If X product-availability-date Y, then X release-date Y.
+Rule: If X product-id Y, then X identifier Y.
+Rule: If X production-date Y, then X production-date Y.
+Rule: If X promotional-message Y, then X slogan Y.
+Rule: If X provider Y, then X service-provider Y.
+Rule: If X query Y, then X instrument Y.
+Rule: If X question Y, then X object Y.
+Rule: If X read by Y, then X actor Y.
+Rule: If X real-estate-agent Y, then X participant Y.
+Rule: If X recipe Y, then X instrument Y.
+Rule: If X recipe-ingredient Y, then X supply Y.
+Rule: If X recipe-instructions Y, then X step Y.
+Rule: If X recipe-yield Y, then X yield Y.
+Rule: If X recipient Y, then X participant Y.
+Rule: If X record-label Y, then X label Y.
+Rule: If X referenced-order Y, then X part-of-order Y.
+Rule: If X rel-contains-season Y, then X has-part Y.
+Rule: If X rel-no-bylines-policy Y, then X publishing-principles Y.
+Rule: If X related-product Y, then X is related to Y.
+Rule: If X release-date Y, then X product-availability-date Y.
+Rule: If X repeals Y, then X legislation-repeals Y.
+Rule: If X repeat-frequency Y, then X frequency Y.
+Rule: If X replacee Y, then X object Y.
+Rule: If X replacer Y, then X object Y.
+Rule: If X responsibility of Y, then X legislation-responsible Y.
+Rule: If X season Y, then X has-part Y.
+Rule: If X season-number Y, then X position Y.
+Rule: If X seller Y, then X has-supplier Y.
+Rule: If X seller Y, then X participant Y.
+Rule: If X seller Y, then X seller Y.
+Rule: If X seller-assigned-id Y, then X sku Y.
+Rule: If X sender Y, then X participant Y.
+Rule: If X serial-id Y, then X serial-number Y.
+Rule: If X serial-number Y, then X identifier Y.
+Rule: If X serial-number Y, then X serial-id Y.
+Rule: If X service-phone Y, then X has-address Y.
+Rule: If X service-postal-address Y, then X has-address Y.
+Rule: If X service-provider Y, then X provider Y.
+Rule: If X service-sms-number Y, then X has-address Y.
+Rule: If X sha256 Y, then X description Y.
+Rule: If X ship-to-address Y, then X delivery-address Y.
+Rule: If X shipping-origin Y, then X despatch-location Y.
+Rule: If X shipping-origin Y, then X has-location Y.
+Rule: If X similar to Y, then X substitute-product Y.
+Rule: If X size Y, then X size-description Y.
+Rule: If X size-description Y, then X size Y.
+Rule: If X sku Y, then X identifier Y.
+Rule: If X sku Y, then X seller-assigned-id Y.
+Rule: If X slogan Y, then X promotional-message Y.
+Rule: If X smiles Y, then X has-representation Y.
+Rule: If X spatial Y, then X spatial Y.
+Rule: If X spatial Y, then X spatial-coverage Y.
+Rule: If X spatial-coverage Y, then X content-location Y.
+Rule: If X spatial-coverage Y, then X spatial Y.
+Rule: If X sports-activity-location Y, then X location Y.
+Rule: If X sports-event Y, then X location Y.
+Rule: If X sports-team Y, then X participant Y.
+Rule: If X start-date Y, then X has-start-date Y.
+Rule: If X sub-organization Y, then X has-subsidiary Y.
+Rule: If X sub-organization Y, then X sub-organization Y.
+Rule: If X substitute-product Y, then X similar to Y.
+Rule: If X supply Y, then X instrument Y.
+Rule: If X surface Y, then X material Y.
+Rule: If X target-collection Y, then X object Y.
+Rule: If X tax-id Y, then X has-tax-identifier Y.
+Rule: If X tax-id Y, then X identifier Y.
+Rule: If X telephone Y, then X telephone Y.
+Rule: If X temporal Y, then X temporal-coverage Y.
+Rule: If X temporal-coverage Y, then X temporal Y.
+Rule: If X title Y, then X name Y.
+Rule: If X title-eidr Y, then X identifier Y.
+Rule: If X to-location Y, then X location Y.
+Rule: If X to-recipient Y, then X recipient Y.
+Rule: If X toc-entry Y, then X has-part Y.
+Rule: If X tool Y, then X instrument Y.
+Rule: If X transposes Y, then X legislation-transposes Y.
+Rule: If X type-document Y, then X legislation-type Y.
+Rule: If X unnamed-sources-policy Y, then X publishing-principles Y.
+Rule: If X us-npi Y, then X identifier Y.
+Rule: If X valid from Y, then X has-start-date Y.
+Rule: If X valid through Y, then X has-end-date Y.
+Rule: If X variant of Y, then X broader Y.
+Rule: If X variant of Y, then X exemplifies Y.
+Rule: If X variant-id Y, then X in-product-group-with-id Y.
+Rule: If X vehicle-identification-number Y, then X serial-number Y.
+Rule: If X vendor Y, then X participant Y.
+Rule: If X verification-fact-checking-policy Y, then X publishing-principles Y.
+Rule: If X version-date Y, then X legislation-date-version Y.
+Rule: If X volume Y, then X volume-number Y.
+Rule: If X volume-number Y, then X position Y.
+Rule: If X volume-number Y, then X volume Y.
+Rule: If X winner Y, then X participant Y.
+Rule: If X work-location Y, then X location Y.
+Rule: If X work-performed Y, then X work-featured Y.
+Rule: If X work-presented Y, then X work-featured Y.

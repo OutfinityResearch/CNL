@@ -11,7 +11,10 @@ const BASE_PREF_KEY = "cnl.explorer.base";
 
 function normalizeBasePref(value) {
   const v = String(value || "").trim().toLowerCase();
-  return v === "formal" ? "formal" : "default";
+  if (v === "formal") return "formal";
+  if (v === "literature") return "literature";
+  if (v === "legal") return "legal";
+  return "default";
 }
 
 function getBasePref() {

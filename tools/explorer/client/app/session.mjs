@@ -8,7 +8,10 @@ class SessionManager {
 
   setBase(mode) {
     const v = String(mode || "").trim().toLowerCase();
-    this.base = v === "formal" ? "formal" : "default";
+    if (v === "formal") this.base = "formal";
+    else if (v === "literature") this.base = "literature";
+    else if (v === "legal") this.base = "legal";
+    else this.base = "default";
     return this.base;
   }
 

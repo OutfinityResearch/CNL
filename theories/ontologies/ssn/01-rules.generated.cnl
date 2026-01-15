@@ -1,0 +1,15 @@
+// This file is generated. Do not edit.
+// Source: ontologies/ssn/ssn.ttl
+
+--- CONTEXT: Ssn ---
+
+// Generated from ontology import: Ssn
+Rule: If X deployed-on-platform Y, then Y in-deployment X.
+Rule: If X deployed-system Y, then Y has-deployment X.
+Rule: If X has-deployment Y, then Y deployed-system X.
+Rule: If X has-property Y, then Y property of X.
+Rule: If X implements Y, then Y is implemented by X.
+Rule: If X in-deployment Y, then Y deployed-on-platform X.
+Rule: If X is implemented by Y, then Y implements X.
+Rule: If X observes Y, then X for-property Y.
+Rule: If X property of Y, then Y has-property X.

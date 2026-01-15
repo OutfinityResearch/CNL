@@ -1,8 +1,16 @@
 // Base entrypoint for a fresh session.
 //
-// Supports a simple preprocessor directive handled by `CNLSession`:
+// Supports preprocessor directives expanded before parsing/compilation:
 //   Load: "<relative-path>".
-// The loaded files are inlined (recursively) before parsing/compilation.
+//   RenameType: "<from>" -> "<to>".
+//   RenamePredicate: "<from>" -> "<to>".
+// The loaded files are expanded (recursively) before parsing/compilation.
+//
+// Base-level disambiguation: keep core type keys stable, but rename colliding imported *binary* predicates.
+RenamePredicate: "agent" -> "schema-agent".
+RenamePredicate: "object" -> "schema-object".
+RenamePredicate: "type" -> "schema-type".
+RenamePredicate: "day-of-week" -> "schema-day-of-week".
 
 --- CONTEXT: BaseDictionary ---
 
@@ -27,6 +35,11 @@
 "event" is a "unary predicate".
 "time-point" is a "unary predicate".
 "claim" is a "unary predicate".
+
+// Compatibility unary predicates (common nouns that appear as binary predicates in imported bundles)
+"device" is a "unary predicate".
+"location" is a "unary predicate".
+"color" is a "unary predicate".
 
 // Core binary relations
 "part of" is a "binary predicate".
@@ -144,3 +157,9 @@ Load: "theories/ontologies/wgs84/00-dictionary.generated.cnl".
 Load: "theories/ontologies/wgs84/00-dictionary.extra.cnl".
 Load: "theories/ontologies/wgs84/01-rules.generated.cnl".
 Load: "theories/ontologies/wgs84/01-rules.extra.cnl".
+
+// Schema.org (Subset)
+Load: "theories/ontologies/schema/00-dictionary.generated.cnl".
+Load: "theories/ontologies/schema/00-dictionary.extra.cnl".
+Load: "theories/ontologies/schema/01-rules.generated.cnl".
+Load: "theories/ontologies/schema/01-rules.extra.cnl".

@@ -24,7 +24,7 @@ The base bundle is kept deliberately simple and explicit:
 `theories/base.cnl` contains:
 - BaseDictionary vocabulary under `--- CONTEXT: BaseDictionary ---`
 - Minimal “common sense” axioms in normal contexts (`CoreTypes`, `Time`, etc.)
-- Optional `Load: "<path>".` directives to include selected vendored ontology imports (DS22)
+- Optional preprocessor directives (`Load: ...`, `RenameType: ...`, `RenamePredicate: ...`) to include and disambiguate selected vendored ontology imports (DS22/DS25)
 
 ## Dictionary vs Theory Files
 - Dictionary declarations use `--- CONTEXT: BaseDictionary ---` (DS13).

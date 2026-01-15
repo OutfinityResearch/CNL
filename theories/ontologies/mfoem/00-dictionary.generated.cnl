@@ -1,0 +1,38 @@
+// This file is generated. Do not edit.
+// Source: ontologies/mfoem/mfoem.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Mfoem
+"affective-process" is a type.
+"affective-process" is a "unary predicate".
+"anger" is a type.
+"anger" is a "unary predicate".
+"disgust" is a type.
+"disgust" is a "unary predicate".
+"emotion" is a type.
+"emotion" is a "unary predicate".
+"fear" is a type.
+"fear" is a "unary predicate".
+"joy" is a type.
+"joy" is a "unary predicate".
+"mood" is a type.
+"mood" is a "unary predicate".
+"sadness" is a type.
+"sadness" is a "unary predicate".
+"surprise" is a type.
+"surprise" is a "unary predicate".
+
+// Binary predicates
+"has-experiencer" is a "binary predicate".
+
+// Type hierarchy
+"anger" is a subtype of "emotion".
+"disgust" is a subtype of "emotion".
+"fear" is a subtype of "emotion".
+"joy" is a subtype of "emotion".
+"sadness" is a subtype of "emotion".
+"surprise" is a subtype of "emotion".
+
+// Domain and range constraints
+the domain of "has-experiencer" is "affective-process".

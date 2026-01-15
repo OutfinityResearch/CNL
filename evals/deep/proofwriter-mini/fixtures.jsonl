@@ -1,0 +1,5 @@
+{"id":"pw_0001","theory":["Anne is a tiger.","Every tiger is fierce."],"question":"Anne is fierce.","answer":"yes"}
+{"id":"pw_0002","theory":["Bob is a cat.","Every cat is an animal."],"question":"Bob is an animal.","answer":"yes"}
+{"id":"pw_0003","theory":["Charlie is a bird."],"question":"Charlie is an animal.","answer":"unknown"}
+{"id":"pw_0004","theory":["Dave is a man.","Every man is mortal."],"question":"Dave is a god.","answer":"no"}
+

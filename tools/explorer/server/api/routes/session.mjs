@@ -6,11 +6,18 @@ import * as NLG from "../../nlg.mjs";
 function normalizeBaseMode(value) {
   const v = String(value || "").trim().toLowerCase();
   if (v === "formal" || v === "base.formal" || v === "base.formal.cnl") return "formal";
+  if (v === "literature" || v === "literature.cnl") return "literature";
+  if (v === "legal" || v === "legal.cnl") return "legal";
   return "default";
 }
 
 function baseEntrypointForMode(mode) {
-  return mode === "formal" ? "theories/base.formal.cnl" : "theories/base.cnl";
+  switch (mode) {
+    case "formal": return "theories/base.formal.cnl";
+    case "literature": return "theories/literature.cnl";
+    case "legal": return "theories/legal.cnl";
+    default: return "theories/base.cnl";
+  }
 }
 
 export async function handleSessionCreate(req, res, url) {

@@ -49,3 +49,4 @@ The parsing suite includes canonical corpora with both valid and invalid cases:
 - DS04 for semantic expectations.
 - DS05 for unit testing alignment.
 - DS07 for error code definitions used in invalid cases.
+- DS26 for deep evaluation suites sourced from external NLP/LLM benchmarks.

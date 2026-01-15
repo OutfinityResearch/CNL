@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theory: Consistency & Validation</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Theory</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Theory Part 7</span>
+        <h1>Theory Consistency & Validation</h1>
+        <p>Ensuring semantic integrity when composing massive, heterogeneous knowledge graphs.</p>
+      </section>
+
+      <section class="section">
+        <h2>The Integration Challenge</h2>
+        <p>
+          CNL-PL is designed to be modular. A "Theory" is rarely a monolith; it is a composition of layers. You typically start with a Base theory (time, simple agents), layer on a Domain theory (e.g., Legal or Medical), and finally import specific Ontologies (e.g., FIBO for finance or SNOMED for medicine).
+        </p>
+        <p>
+          This composition creates a massive challenge: <strong>Vocabulary Collision</strong>.
+        </p>
+        <p>
+          In the Semantic Web (RDF/OWL), collisions are handled via Namespaces (URIs). <code>foaf:Person</code> and <code>schema:Person</code> are technically distinct entities. However, in a Natural Language environment, users do not speak in URIs. They say "Every person is an agent."
+        </p>
+        <p>
+          If the system contains two definitions of "person", the statement becomes ambiguous. Does the user mean the FOAF definition or the Schema definition? Or the union of both?
+        </p>
+        <p>
+          CNL-PL takes a <strong>Unified Dictionary Approach</strong>. Within a single session, a word (token) must have a single, deterministic meaning. This requires a rigorous validation phase to detect and resolve conflicts <em>before</em> the system accepts any user input. This phase is handled by the <strong>Theory Checker</strong>.
+        </p>
+
+        <h2>The Validation Gate</h2>
+        <p>
+          The <code>check-theories</code> tool acts as the compiler's strict gatekeeper. It simulates the full loading process of a theory bundle—expanding all <code>Load:</code> directives, parsing every file, and building a virtual dictionary—to identify structural and semantic flaws.
+        </p>
+        <p>
+          It categorizes findings into <strong>Critical Errors</strong> (which prevent the system from starting) and <strong>Warnings</strong> (which allow startup but indicate potential logic bombs).
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Critical Semantic Errors</h2>
+        <p>These issues represent fundamental ambiguities that make parsing mathematically impossible or non-deterministic.</p>
+
+        <div class="card error-card">
+          <h3>Type-Binary Predicate Conflict</h3>
+          <p class="tag error">Error</p>
+          <p><strong>The Scenario:</strong> You import an ontology where "Group" is a class (<code>owl:Class</code>), and another where "Group" is a property (<code>owl:ObjectProperty</code>, e.g., "grouping items").</p>
+          <pre><code>"Group" is a type.
+"Group" is a binary predicate.</code></pre>
+          <p><strong>The Consequence:</strong> When the user writes <code>"Group X"</code>, the parser cannot decide if this is a Noun Phrase (Subject: "The Group X...") or a Verb Phrase (Command: "Please group X..."). This breaks the SVO parsing guarantee.</p>
+          <p><strong>The Fix:</strong> One of the terms must be renamed using a preprocessor directive: <code>RenamePredicate: "group" -> "group-items".</code></p>
+        </div>
+
+        <div class="card error-card">
+          <h3>Load-Time Rename Conflict</h3>
+          <p class="tag error">Error</p>
+          <p><strong>The Scenario:</strong> You attempt to resolve a conflict, but you provide contradictory instructions.</p>
+          <pre><code>RenameType: "agent" -> "actor".
+RenameType: "agent" -> "proxy".</code></pre>
+          <p><strong>The Consequence:</strong> The compiler does not know which target word to use. The resulting dictionary state is undefined.</p>
+          <p><strong>The Fix:</strong> Ensure a 1-to-1 mapping for all renames. Remove the conflicting directive.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Semantic Warnings</h2>
+        <p>These issues allow the system to run, but they often indicate that the underlying logic may behave differently than the user expects. Ignoring them is dangerous for critical systems.</p>
+
+        <div class="card warning-card">
+          <h3>Duplicate Type with Different Parents</h3>
+          <p class="tag warning">Warning</p>
+          <p><strong>The Scenario:</strong>
+            <br/>File A: <code>"Dog" is a subtype of "Animal".</code>
+            <br/>File B: <code>"Dog" is a subtype of "Pet".</code>
+          </p>
+          <p><strong>The Consequence:</strong> The compiler merges these definitions. <code>Dog</code> becomes a subtype of <strong>BOTH</strong> <code>Animal</code> and <code>Pet</code>.
+            <br/>In many cases, this is acceptable (Multiple Inheritance). However, if <code>Animal</code> and <code>Pet</code> were intended to be disjoint trees, this merge effectively "bridges" two ontologies that might not be compatible. It can lead to surprising inferences where a Dog inherits properties from a context (e.g., "Asset") that the user didn't intend.
+          </p>
+        </div>
+
+        <div class="card warning-card">
+          <h3>Duplicate Predicate with Different Constraints</h3>
+          <p class="tag warning">Warning</p>
+          <p><strong>The Scenario:</strong>
+            <br/>File A: <code>The domain of "has member" is "Organization".</code>
+            <br/>File B: <code>The domain of "has member" is "Group".</code>
+          </p>
+          <p><strong>The Consequence:</strong> The runtime must decide how to validate a sentence like <code>X has member Y</code>.
+            <br/>Depending on the strictness mode, it might enforce the <strong>Intersection</strong> (X must be BOTH an Organization and a Group) or the <strong>Union</strong>. This creates a "Shadow Schema" that exists nowhere in the source text but emerges from the collision. This is a common source of "Why is my valid data being rejected?" bugs.
+          </p>
+        </div>
+
+        <div class="card warning-card">
+          <h3>Ambiguous Predicate Arity</h3>
+          <p class="tag warning">Warning</p>
+          <p><strong>The Scenario:</strong> "Run" is defined as a Unary Predicate ("Server runs") and a Binary Predicate ("Server runs Process").</p>
+          <p><strong>The Consequence:</strong> While some parsers can handle this via lookahead, it significantly increases the "cognitive load" of the grammar and can lead to edge cases where an object is optional, causing the parser to misinterpret a following prepositional phrase as an argument. It is cleaner to separate them: "is running" vs "executes".</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Benign Duplicates</h2>
+        <p>Not all red text is bad. In a large modular system, some overlap is inevitable and harmless.</p>
+        <ul class="list">
+          <li><strong>Duplicate Type Declaration:</strong> If File A and File B both say <code>"Person" is a type</code> (and nothing else), this is perfectly fine. The system treats them as the same concept. This is a common pattern when multiple modules depend on a shared core (like `base.cnl`).</li>
+          <li><strong>Duplicate Predicate Declaration:</strong> Similar to types, if the constraints are identical (or absent), redefining a predicate is a no-op operation.</li>
+        </ul>
+        <p>The Theory Checker reports these as "Benign Duplicates" or low-severity warnings just to make you aware of the coupling, but they do not affect runtime logic.</p>
+      </section>
+
+      <section class="section">
+        <h2>Resolution Strategies</h2>
+        <p>When you encounter these errors, you have three main weapons:</p>
+        <ol>
+          <li><strong>Renaming (The Scalpel):</strong> Use <code>RenameType</code> or <code>RenamePredicate</code> in your loading file to shift one of the colliding concepts to a new name. This preserves the logic but disambiguates the vocabulary.</li>
+          <li><strong>Alignment (The Bridge):</strong> Create a dedicated <code>alignment.cnl</code> file. Instead of renaming, explicitly declare the relationship: <code>Rule: If X is a foaf-person, then X is a schema-person.</code> This accepts the duplication but formalizes the translation.</li>
+          <li><strong>Exclusion (The Hammer):</strong> If an imported ontology brings in too much noise, consider creating a "Mini" version (subset) of that ontology containing only the terms you strictly need, rather than importing the full 10,000-term library.</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Theory</div></footer>
+  </div>
+</body>
+</html>

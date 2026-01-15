@@ -1,0 +1,260 @@
+// This file is generated. Do not edit.
+// Source: ontologies/doco/doco.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Doco
+"abstract" is a type.
+"abstract" is a "unary predicate".
+"afterword" is a type.
+"afterword" is a "unary predicate".
+"appendix" is a type.
+"appendix" is a "unary predicate".
+"back-matter" is a type.
+"back-matter" is a "unary predicate".
+"bibliographic-reference-list" is a type.
+"bibliographic-reference-list" is a "unary predicate".
+"bibliography" is a type.
+"bibliography" is a "unary predicate".
+"block-quotation" is a type.
+"block-quotation" is a "unary predicate".
+"body-matter" is a type.
+"body-matter" is a "unary predicate".
+"captioned-box" is a type.
+"captioned-box" is a "unary predicate".
+"chapter" is a type.
+"chapter" is a "unary predicate".
+"chapter-label" is a type.
+"chapter-label" is a "unary predicate".
+"chapter-subtitle" is a type.
+"chapter-subtitle" is a "unary predicate".
+"chapter-title" is a type.
+"chapter-title" is a "unary predicate".
+"colophon" is a type.
+"colophon" is a "unary predicate".
+"complex-run-in-quotation" is a type.
+"complex-run-in-quotation" is a "unary predicate".
+"figure" is a type.
+"figure" is a "unary predicate".
+"figure-box" is a type.
+"figure-box" is a "unary predicate".
+"figure-label" is a type.
+"figure-label" is a "unary predicate".
+"footnote" is a type.
+"footnote" is a "unary predicate".
+"foreword" is a type.
+"foreword" is a "unary predicate".
+"formula" is a type.
+"formula" is a "unary predicate".
+"formula-box" is a type.
+"formula-box" is a "unary predicate".
+"front-matter" is a type.
+"front-matter" is a "unary predicate".
+"glossary" is a type.
+"glossary" is a "unary predicate".
+"index" is a type.
+"index" is a "unary predicate".
+"label" is a type.
+"label" is a "unary predicate".
+"line" is a type.
+"line" is a "unary predicate".
+"list" is a type.
+"list" is a "unary predicate".
+"list-of-agents" is a type.
+"list-of-agents" is a "unary predicate".
+"list-of-authors" is a type.
+"list-of-authors" is a "unary predicate".
+"list-of-contributors" is a type.
+"list-of-contributors" is a "unary predicate".
+"list-of-figures" is a type.
+"list-of-figures" is a "unary predicate".
+"list-of-organizations" is a type.
+"list-of-organizations" is a "unary predicate".
+"list-of-references" is a type.
+"list-of-references" is a "unary predicate".
+"list-of-tables" is a type.
+"list-of-tables" is a "unary predicate".
+"paragraph" is a type.
+"paragraph" is a "unary predicate".
+"part" is a type.
+"part" is a "unary predicate".
+"preface" is a type.
+"preface" is a "unary predicate".
+"section" is a type.
+"section" is a "unary predicate".
+"section-label" is a type.
+"section-label" is a "unary predicate".
+"section-subtitle" is a type.
+"section-subtitle" is a "unary predicate".
+"section-title" is a type.
+"section-title" is a "unary predicate".
+"sentence" is a type.
+"sentence" is a "unary predicate".
+"simple-run-in-quotation" is a type.
+"simple-run-in-quotation" is a "unary predicate".
+"stanza" is a type.
+"stanza" is a "unary predicate".
+"subtitle" is a type.
+"subtitle" is a "unary predicate".
+"table" is a type.
+"table" is a "unary predicate".
+"table-box" is a type.
+"table-box" is a "unary predicate".
+"table-label" is a type.
+"table-label" is a "unary predicate".
+"table-of-contents" is a type.
+"table-of-contents" is a "unary predicate".
+"text-box" is a type.
+"text-box" is a "unary predicate".
+"text-chunk" is a type.
+"text-chunk" is a "unary predicate".
+"title" is a type.
+"title" is a "unary predicate".
+"header" is a type.
+"header" is a "unary predicate".
+"bibliographic-reference" is a type.
+"bibliographic-reference" is a "unary predicate".
+"caption" is a type.
+"caption" is a "unary predicate".
+"discourse-element" is a type.
+"discourse-element" is a "unary predicate".
+"reference" is a type.
+"reference" is a "unary predicate".
+"block" is a type.
+"block" is a "unary predicate".
+"container" is a type.
+"container" is a "unary predicate".
+"field" is a type.
+"field" is a "unary predicate".
+"headed-container" is a type.
+"headed-container" is a "unary predicate".
+"inline" is a type.
+"inline" is a "unary predicate".
+"meta" is a type.
+"meta" is a "unary predicate".
+"milestone" is a type.
+"milestone" is a "unary predicate".
+"pattern" is a type.
+"pattern" is a "unary predicate".
+"popup" is a type.
+"popup" is a "unary predicate".
+"type" is a type.
+"type" is a "unary predicate".
+"class" is a type.
+"class" is a "unary predicate".
+"restriction" is a type.
+"restriction" is a "unary predicate".
+
+// Binary predicates
+"has-part" is a "binary predicate".
+"part of" is a "binary predicate".
+"relation" is a "binary predicate".
+"rel-contains" is a "binary predicate".
+"contained by" is a "binary predicate".
+"contained-by-as-header" is a "binary predicate".
+"top-object-property" is a "binary predicate".
+
+// Type hierarchy
+// Dropped subtype edges:
+// - reflexive: 2 (e.g. "abstract" -> "abstract", "abstract" -> "abstract")
+// - cycle-break: 1 (e.g. "header" -> "front-matter")
+"abstract" is a subtype of "class".
+"abstract" is a subtype of "type".
+"afterword" is a subtype of "class".
+"afterword" is a subtype of "type".
+"appendix" is a subtype of "class".
+"appendix" is a subtype of "type".
+"back-matter" is a subtype of "class".
+"back-matter" is a subtype of "type".
+"bibliographic-reference-list" is a subtype of "class".
+"bibliographic-reference-list" is a subtype of "type".
+"bibliography" is a subtype of "class".
+"bibliography" is a subtype of "type".
+"block-quotation" is a subtype of "container".
+"body-matter" is a subtype of "restriction".
+"body-matter" is a subtype of "type".
+"captioned-box" is a subtype of "class".
+"captioned-box" is a subtype of "type".
+"chapter" is a subtype of "class".
+"chapter" is a subtype of "type".
+"chapter-label" is a subtype of "class".
+"chapter-label" is a subtype of "type".
+"chapter-subtitle" is a subtype of "restriction".
+"chapter-subtitle" is a subtype of "type".
+"chapter-title" is a subtype of "restriction".
+"chapter-title" is a subtype of "type".
+"colophon" is a subtype of "class".
+"colophon" is a subtype of "type".
+"complex-run-in-quotation" is a subtype of "discourse-element".
+"complex-run-in-quotation" is a subtype of "popup".
+"figure" is a subtype of "class".
+"figure" is a subtype of "type".
+"figure-box" is a subtype of "class".
+"figure-box" is a subtype of "type".
+"figure-label" is a subtype of "class".
+"figure-label" is a subtype of "type".
+"footnote" is a subtype of "class".
+"footnote" is a subtype of "type".
+"foreword" is a subtype of "class".
+"foreword" is a subtype of "type".
+"formula" is a subtype of "discourse-element".
+"formula" is a subtype of "popup".
+"formula-box" is a subtype of "class".
+"formula-box" is a subtype of "type".
+"front-matter" is a subtype of "class".
+"front-matter" is a subtype of "header".
+"front-matter" is a subtype of "type".
+"glossary" is a subtype of "class".
+"glossary" is a subtype of "type".
+"index" is a subtype of "class".
+"index" is a subtype of "type".
+"label" is a subtype of "restriction".
+"label" is a subtype of "type".
+"line" is a subtype of "block".
+"line" is a subtype of "discourse-element".
+"list" is a subtype of "restriction".
+"list" is a subtype of "type".
+"list-of-agents" is a subtype of "list".
+"list-of-authors" is a subtype of "list-of-agents".
+"list-of-contributors" is a subtype of "list-of-agents".
+"list-of-figures" is a subtype of "class".
+"list-of-figures" is a subtype of "type".
+"list-of-organizations" is a subtype of "list-of-agents".
+"list-of-references" is a subtype of "class".
+"list-of-references" is a subtype of "type".
+"list-of-tables" is a subtype of "class".
+"list-of-tables" is a subtype of "type".
+"paragraph" is a subtype of "class".
+"paragraph" is a subtype of "type".
+"part" is a subtype of "class".
+"part" is a subtype of "type".
+"preface" is a subtype of "class".
+"preface" is a subtype of "type".
+"section" is a subtype of "restriction".
+"section" is a subtype of "type".
+"section-label" is a subtype of "restriction".
+"section-label" is a subtype of "type".
+"section-subtitle" is a subtype of "restriction".
+"section-subtitle" is a subtype of "type".
+"section-title" is a subtype of "restriction".
+"section-title" is a subtype of "type".
+"sentence" is a subtype of "discourse-element".
+"sentence" is a subtype of "inline".
+"simple-run-in-quotation" is a subtype of "inline".
+"stanza" is a subtype of "class".
+"stanza" is a subtype of "type".
+"subtitle" is a subtype of "block".
+"subtitle" is a subtype of "discourse-element".
+"table" is a subtype of "restriction".
+"table" is a subtype of "type".
+"table-box" is a subtype of "class".
+"table-box" is a subtype of "type".
+"table-label" is a subtype of "class".
+"table-label" is a subtype of "type".
+"table-of-contents" is a subtype of "restriction".
+"table-of-contents" is a subtype of "type".
+"text-box" is a subtype of "container".
+"text-box" is a subtype of "discourse-element".
+"text-chunk" is a subtype of "inline".
+"title" is a subtype of "restriction".
+"title" is a subtype of "type".

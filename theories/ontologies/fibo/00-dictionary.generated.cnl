@@ -1,0 +1,32 @@
+// This file is generated. Do not edit.
+// Source: ontologies/fibo/fibo.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Fibo
+"agent" is a type.
+"agent" is a "unary predicate".
+"autonomous-agent" is a type.
+"autonomous-agent" is a "unary predicate".
+"corporation" is a type.
+"corporation" is a "unary predicate".
+"currency" is a type.
+"currency" is a "unary predicate".
+"financial-contract" is a type.
+"financial-contract" is a "unary predicate".
+"organization" is a type.
+"organization" is a "unary predicate".
+"person" is a type.
+"person" is a "unary predicate".
+
+// Binary predicates
+"has-identity" is a "binary predicate".
+
+// Type hierarchy
+"autonomous-agent" is a subtype of "agent".
+"corporation" is a subtype of "organization".
+"organization" is a subtype of "autonomous-agent".
+"person" is a subtype of "autonomous-agent".
+
+// Domain and range constraints
+the domain of "has-identity" is "autonomous-agent".

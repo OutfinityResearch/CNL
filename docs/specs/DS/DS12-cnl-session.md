@@ -23,17 +23,27 @@ CNLSession manages:
 - `autoloadBase`: when true (default), session auto-loads the base bundle defined in DS14.
 - `rootDir`: filesystem root used to resolve default base bundle paths (defaults to `process.cwd()`).
 
-## Load Directive (Preprocessor)
-To keep the base bundle explicit while still allowing “include” style composition, the session supports a single directive:
+## Theory Directives (Preprocessor)
+To keep theory bundles explicit while still allowing “include”-style composition and transparent vocabulary disambiguation, the session supports preprocessor directives that are expanded **before parsing** (see DS25/DS24):
 - `Load: "<relative-or-absolute-path>".`
+- `RenameType: "<from>" -> "<to>".`
+- `RenamePredicate: "<from>" -> "<to>".`
 
 Behavior:
-- Load directives are expanded (inlined) **before parsing**.
+- `Load:` directives are expanded recursively, preserving the same inlined order as if files were pasted at the directive site.
 - Paths are resolved relative to `rootDir` by default, or relative to the current source file when using `./` or `../`.
-- Cycles are rejected.
+- Cycles and repeated loads are rejected.
 - Paths are restricted to stay within `rootDir`.
+- `RenameType:` / `RenamePredicate:` directives are collected from all loaded files and applied to the expanded program **before compilation** (DS25).
 
 This is used by `theories/base.cnl` to pull in selected vendored ontology imports (DS22).
+
+### Load-time diagnostics
+During theory loading, the session runs theory diagnostics (DS24) over the loaded file set and attaches resulting issues to:
+- `session.state.dictionary.warnings`
+
+This is what KB Explorer displays under `⚠️ issues`.
+If rename directives were applied, the session attaches `LoadTimeRenameApplied` issues (DS24/DS25).
 
 ## Lifecycle
 1. Initialize with optional dictionary and bitset implementation.
@@ -105,3 +115,4 @@ session.reset()
 - DS10 for compilation.
 - DS11 for reasoning primitives.
 - DS13 for dictionary typing and validation.
+- DS25 for vocabulary renames (directive-based load-time policy).

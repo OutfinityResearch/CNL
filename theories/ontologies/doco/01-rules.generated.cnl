@@ -1,0 +1,8 @@
+// This file is generated. Do not edit.
+// Source: ontologies/doco/doco.ttl
+
+--- CONTEXT: Doco ---
+
+// Generated from ontology import: Doco
+Rule: If X is contained by Y, then X is part of Y.
+Rule: If X rel-contains Y, then X has-part Y.

@@ -1,25 +1,50 @@
 #!/usr/bin/env node
 /**
- * checkTheories - Static file checker for CNL theory files.
+ * checkTheories - Static checker for CNL theory bundles.
  *
- * Scans all files loaded via Load: directives starting from an entrypoint,
- * parses them, and reports errors/warnings.
+ * For each entrypoint:
+ * - expands `Load:` directives
+ * - collects and validates directive-based renames (`RenameType:` / `RenamePredicate:`)
+ * - strips preprocessor directives, parses, compiles, and gathers dictionary issues
+ * - computes cross-file duplicate/conflict issues (DS24)
+ *
+ * By default, it checks 4 main entrypoints:
+ * - theories/base.cnl
+ * - theories/base.formal.cnl
+ * - theories/legal.cnl
+ * - theories/literature.cnl
  *
  * Usage:
- *   node tools/check-theories.mjs [--entrypoint theories/base.cnl] [-f output.txt]
+ *   node tools/check-theories.mjs
+ *   node tools/check-theories.mjs -e theories/base.cnl -e theories/legal.cnl
+ *   node tools/check-theories.mjs -e theories/base.formal.cnl -v
+ *   node tools/check-theories.mjs -f report.txt
  */
 
 import fs from "node:fs";
 import path from "node:path";
 import { parseProgram } from "../src/parser/grammar.mjs";
 import { createCompilerState, compileProgram } from "../src/compiler/compile.mjs";
-import { analyzeCrossOntologyDuplicates, expandTheoryEntrypoint } from "../src/theories/diagnostics.mjs";
+import {
+  analyzeCrossOntologyDuplicates,
+  expandTheoryEntrypoint,
+  extractLoadTimeRenames,
+  stripPreprocessorDirectives,
+} from "../src/theories/diagnostics.mjs";
+import { applyLoadTimeRenames } from "../src/theories/renames.mjs";
 
-const LOAD_DIRECTIVE_RE = /^\s*Load\s*:\s*"([^"]+)"\s*\.\s*$/i;
+const DEFAULT_ENTRYPOINTS = [
+  "theories/base.cnl",
+  "theories/base.formal.cnl",
+  "theories/legal.cnl",
+  "theories/literature.cnl",
+];
+
+const ANSI_RE = /\u001b\[[0-9;]*m/g;
 
 function parseArgs(argv) {
   const args = {
-    entrypoint: "theories/base.cnl",
+    entrypoints: [],
     outputFile: null,
     help: false,
     verbose: false,
@@ -27,12 +52,12 @@ function parseArgs(argv) {
   for (let i = 2; i < argv.length; i += 1) {
     const raw = argv[i];
     if (raw === "--entrypoint" || raw === "-e") {
-      args.entrypoint = argv[i + 1];
+      args.entrypoints.push(argv[i + 1]);
       i += 1;
       continue;
     }
     if (raw.startsWith("--entrypoint=")) {
-      args.entrypoint = raw.slice("--entrypoint=".length);
+      args.entrypoints.push(raw.slice("--entrypoint=".length));
       continue;
     }
     if (raw === "-f" || raw === "--output") {
@@ -57,59 +82,121 @@ function parseArgs(argv) {
 }
 
 function usage() {
-  return `checkTheories - Static file checker for CNL theory files.
+  return `checkTheories - Static checker for CNL theory bundles.
 
 Usage:
   node tools/check-theories.mjs [options]
 
 Options:
-  --entrypoint, -e <file>   Entrypoint file (default: theories/base.cnl)
+  --entrypoint, -e <file>   Entrypoint file (repeatable). Default: 4 main entrypoints.
   --output, -f <file>       Write report to file instead of stdout
-  --verbose, -v             Show verbose output including loaded files
+  --verbose, -v             Verbose output (loaded files + sample issues)
   --help, -h                Show this help message
 
 Examples:
   node tools/check-theories.mjs
   node tools/check-theories.mjs -e theories/base.formal.cnl
+  node tools/check-theories.mjs -e theories/base.cnl -e theories/legal.cnl
   node tools/check-theories.mjs -f report.txt
 `;
 }
 
-function resolveLoadPath(raw, options = {}) {
-  const rootDir = options.rootDir ?? process.cwd();
-  const source = options.source || null;
-  const baseDir = source ? path.dirname(source) : rootDir;
-  const cleaned = String(raw || "").trim();
-  if (!cleaned) {
-    throw new Error("Empty load path.");
+function stripAnsi(text) {
+  return String(text ?? "").replace(ANSI_RE, "");
+}
+
+function padRight(text, width) {
+  const s = String(text ?? "");
+  const visible = stripAnsi(s);
+  if (visible.length >= width) return s;
+  return s + " ".repeat(width - visible.length);
+}
+
+function renderTable(headers, rows) {
+  const widths = headers.map((h, idx) => {
+    let w = stripAnsi(h).length;
+    for (const row of rows) {
+      w = Math.max(w, stripAnsi(row[idx] ?? "").length);
+    }
+    return w;
+  });
+  const headerLine = headers.map((h, idx) => padRight(h, widths[idx])).join(" | ");
+  const sepLine = widths.map((w) => "-".repeat(w)).join("-+-");
+  const bodyLines = rows.map((row) => row.map((cell, idx) => padRight(cell ?? "", widths[idx])).join(" | "));
+  return [headerLine, sepLine, ...bodyLines].join("\n");
+}
+
+function createColor(options = {}) {
+  const enabled = options.enabled ?? (Boolean(process.stdout.isTTY) && !process.env.NO_COLOR);
+  const color = (code, text) => (enabled ? `\u001b[${code}m${text}\u001b[0m` : String(text));
+  return {
+    enabled,
+    red: (t) => color("91", t), // bright red
+    yellow: (t) => color("93", t), // bright yellow
+    green: (t) => color("92", t), // bright green
+    cyan: (t) => color("36", t),
+    dim: (t) => color("2", t),
+    bold: (t) => color("1", t),
+  };
+}
+
+function legendRows() {
+  return [
+    ["FILE_NOT_FOUND", "error", "Theory bundle cannot be loaded.", "Fix the path or the Load: directive target."],
+    ["LOAD_ERROR", "error", "Load expansion failed (escaping rootDir, cycles/repeats, invalid paths).", "Fix Load: paths and remove cycles/repeats."],
+    ["PARSE_ERROR", "error", "Theory file cannot be parsed; compilation will be incomplete.", "Fix syntax (DS03) near the reported location."],
+    ["COMPILE_ERROR", "error", "Compilation failed for at least one statement.", "Fix dictionary declarations, grounding, or invalid statements."],
+    ["LoadTimeRenameConflict", "error", "Non-deterministic renames: same key maps to multiple targets.", "Make RenameType/RenamePredicate directives consistent (DS25)."],
+    ["TypeBinaryPredicateConflict", "error", "Key is both a type and a binary predicate; meaning is ambiguous.", "Rename one side (prefer RenamePredicate) or resolve at generation-time (DS22/DS25)."],
+    ["AmbiguousPredicateArity", "warning", "Predicate is declared unary and binary; may break validation.", "Fix dictionary declarations to a single arity."],
+    ["AmbiguousTypeParent", "warning", "Type has multiple parents; hierarchy is unclear.", "Pick one parent or accept multi-parent modeling explicitly."],
+    ["DuplicateTypeDeclaration", "warning", "Same type key declared across multiple loaded files.", "Review overlaps; optionally disambiguate by renaming conflicting sources."],
+    ["DuplicatePredicateDeclaration", "warning", "Same binary predicate key declared across multiple loaded files.", "Review overlaps; optionally disambiguate by renaming conflicting sources."],
+    ["DuplicateTypeDifferentParents", "warning", "Same type key has different parents across sources.", "Treat as semantic conflict; rename or choose a canonical parent."],
+    ["DuplicatePredicateDifferentConstraints", "warning", "Same predicate has different domain/range constraints across sources.", "Treat as semantic conflict; rename or harmonize constraints."],
+    ["DuplicateRule", "warning", "Redundant rules add noise and can slow reasoning.", "Deduplicate rule sources or import filters."],
+    ["LoadTimeRenameApplied", "warning", "Bundle was rewritten at load-time (transparent but still a rewrite).", "Verify rename directives match your intended vocabulary (DS25)."],
+  ];
+}
+
+function selectEntrypoints(args, rootDir) {
+  const requested = args.entrypoints.length > 0 ? args.entrypoints : DEFAULT_ENTRYPOINTS;
+  const existing = [];
+  const missing = [];
+  for (const rel of requested) {
+    const abs = path.resolve(rootDir, rel);
+    if (fs.existsSync(abs)) existing.push(rel);
+    else missing.push(rel);
   }
-
-  const abs = path.isAbsolute(cleaned)
-    ? cleaned
-    : cleaned.startsWith("./") || cleaned.startsWith("../")
-      ? path.resolve(baseDir, cleaned)
-      : path.resolve(rootDir, cleaned);
-
-  return path.resolve(abs);
+  return { requested, existing, missing };
 }
 
 class TheoryChecker {
   constructor(options = {}) {
     this.rootDir = options.rootDir ?? process.cwd();
     this.verbose = options.verbose ?? false;
-    this.loadedFiles = new Map(); // path -> { text, errors, warnings }
+    this.loadedFiles = new Map(); // absPath -> { text, relPath, ast?, parseSuccess? }
     this.loadOrder = [];
     this.errors = [];
     this.warnings = [];
-    this.duplicateTypes = new Map();
-    this.duplicatePredicates = new Map();
-    this.typePredicateConflicts = [];
-    this.cyclicSubtypes = [];
-    this.reflexiveSubtypes = [];
-    this.nonEnglishLabels = [];
+    this.loadTimeRenames = null;
+    this.compiledState = null;
   }
 
   check(entrypoint) {
+    const result = {
+      entrypoint,
+      summary: {
+        filesLoaded: 0,
+        totalErrors: 0,
+        totalWarnings: 0,
+      },
+      errors: [],
+      warnings: [],
+      counts: [],
+      loadedFiles: [],
+    };
+
     let expanded = null;
     try {
       expanded = expandTheoryEntrypoint(entrypoint, { rootDir: this.rootDir });
@@ -120,106 +207,58 @@ class TheoryChecker {
         message: `Failed to expand Load directives: ${err.message || String(err)}`,
         file: entrypoint,
       });
-      return this.generateReport();
+      return this.#buildResult(result);
     }
 
     this.loadedFiles.clear();
     this.loadOrder.length = 0;
+    this.errors.length = 0;
+    this.warnings.length = 0;
+
     for (const f of expanded.files) {
       this.loadedFiles.set(f.absPath, { text: f.text, relPath: f.relPath, errors: [], warnings: [] });
       this.loadOrder.push(f.absPath);
     }
-    
-    // Phase 2: Parse each file individually and collect errors
-    this.parseFiles();
-    
-    // Phase 3: Compile all together and check for semantic issues
-    this.compileAndCheck();
-    
-    // Phase 4: Analyze for conceptual issues
-    this.analyzeConceptualIssues();
-    
-    return this.generateReport();
-  }
 
-  collectFiles(filePath, visited = new Set()) {
-    if (visited.has(filePath)) {
-      this.warnings.push({
-        kind: "CYCLIC_LOAD",
-        severity: "warning",
-        message: `Cyclic Load detected: ${path.relative(this.rootDir, filePath)}`,
-        file: filePath,
+    const extracted = extractLoadTimeRenames(expanded.files);
+    this.loadTimeRenames = {
+      predicateKeyRenames: extracted.predicateKeyRenames,
+      typeKeyRenames: extracted.typeKeyRenames,
+    };
+    for (const issue of extracted.issues) {
+      const bucket = issue.severity === "error" ? this.errors : this.warnings;
+      bucket.push({
+        kind: issue.kind,
+        severity: issue.severity === "error" ? "error" : "warning",
+        message: issue.message,
+        file: issue.file,
+        line: issue.line,
       });
-      return;
     }
-    
-    if (!fs.existsSync(filePath)) {
-      this.errors.push({
-        kind: "FILE_NOT_FOUND",
-        severity: "error",
-        message: `File not found: ${path.relative(this.rootDir, filePath)}`,
-        file: filePath,
-      });
-      return;
-    }
-    
-    visited.add(filePath);
-    
-    const text = fs.readFileSync(filePath, "utf8");
-    const relPath = path.relative(this.rootDir, filePath);
-    this.loadedFiles.set(filePath, { text, relPath, errors: [], warnings: [] });
-    this.loadOrder.push(filePath);
-    
-    // Find Load directives
-    const lines = text.split("\n");
-    for (let i = 0; i < lines.length; i++) {
-      const match = lines[i].match(LOAD_DIRECTIVE_RE);
-      if (match) {
-        try {
-          const loadPath = resolveLoadPath(match[1], { rootDir: this.rootDir, source: filePath });
-          this.collectFiles(loadPath, visited);
-        } catch (err) {
-          this.errors.push({
-            kind: "LOAD_ERROR",
-            severity: "error",
-            message: `Failed to resolve Load path "${match[1]}": ${err.message}`,
-            file: filePath,
-            line: i + 1,
-          });
-        }
-      }
-    }
+
+    this.parseFiles();
+    this.compileAndCheck();
+    this.collectDictionaryIssues();
+    this.analyzeConceptualIssues();
+
+    return this.#buildResult(result);
   }
 
   parseFiles() {
     for (const filePath of this.loadOrder) {
       const entry = this.loadedFiles.get(filePath);
-      // Remove Load directives for parsing (line by line)
-      const lines = entry.text.split("\n");
-      const cleanedLines = lines.map(line => {
-        if (LOAD_DIRECTIVE_RE.test(line)) {
-          return "// (Load removed for parsing)";
-        }
-        return line;
-      });
-      const textWithoutLoads = cleanedLines.join("\n");
-      
+      const textWithoutDirectives = stripPreprocessorDirectives(entry.text);
       try {
-        const ast = parseProgram(textWithoutLoads);
+        const ast = parseProgram(textWithoutDirectives);
         entry.ast = ast;
         entry.parseSuccess = true;
       } catch (err) {
         entry.parseSuccess = false;
-        entry.errors.push({
-          type: "PARSE_ERROR",
-          message: err.message || "Parse error",
-          details: err,
-        });
         this.errors.push({
           kind: "PARSE_ERROR",
           severity: "error",
           message: `Parse error in ${entry.relPath}: ${err.message || "Unknown error"}`,
-          file: filePath,
+          file: entry.relPath,
         });
       }
     }
@@ -230,36 +269,57 @@ class TheoryChecker {
       validateDictionary: true,
       projectEntityAttributes: false,
     });
-    
-    // Compile all files in order
+
     for (const filePath of this.loadOrder) {
       const entry = this.loadedFiles.get(filePath);
       if (!entry.ast) continue;
-      
+
       state.errors.length = 0;
+      if (this.loadTimeRenames) {
+        applyLoadTimeRenames(entry.ast, this.loadTimeRenames);
+      }
       compileProgram(entry.ast, {
         state,
         projectEntityAttributes: false,
       });
-      
+
       if (state.errors.length > 0) {
         for (const err of state.errors) {
-          entry.errors.push({
-            type: "COMPILE_ERROR",
-            message: err.message || String(err),
-            details: err,
-          });
           this.errors.push({
             kind: "COMPILE_ERROR",
             severity: "error",
             message: `Compile error in ${entry.relPath}: ${err.message || String(err)}`,
-            file: filePath,
+            file: entry.relPath,
           });
         }
       }
     }
-    
+
     this.compiledState = state;
+  }
+
+  collectDictionaryIssues() {
+    const dictionary = this.compiledState?.dictionary;
+    if (!dictionary) return;
+
+    const seen = new Set();
+    const add = (issue) => {
+      if (!issue || typeof issue !== "object") return;
+      const dedupeKey = `${issue.kind || "unknown"}|${issue.key || ""}|${issue.message || ""}`;
+      if (seen.has(dedupeKey)) return;
+      seen.add(dedupeKey);
+      const entry = {
+        kind: issue.kind || "DictionaryIssue",
+        severity: issue.severity === "error" ? "error" : "warning",
+        message: issue.message || String(issue),
+        key: issue.key,
+      };
+      if (entry.severity === "error") this.errors.push(entry);
+      else this.warnings.push(entry);
+    };
+
+    (dictionary.errors || []).forEach(add);
+    (dictionary.warnings || []).forEach(add);
   }
 
   analyzeConceptualIssues() {
@@ -269,144 +329,208 @@ class TheoryChecker {
       text: entry.text,
     }));
 
-    const issues = analyzeCrossOntologyDuplicates(files, { includeBenign: true });
-    for (const i of issues) {
-      this.warnings.push({ kind: i.kind, severity: i.severity, message: i.message });
-      if (i.kind.startsWith("DuplicateType")) {
-        this.duplicateTypes.set(i.key, i.details?.files || []);
+    const issues = analyzeCrossOntologyDuplicates(files, { includeBenign: true, renames: this.loadTimeRenames });
+    for (const issue of issues) {
+      this.warnings.push({
+        kind: issue.kind,
+        severity: "warning",
+        message: issue.message,
+        key: issue.key,
+      });
+    }
+  }
+
+  #buildResult(result) {
+    const countsByKind = new Map(); // kind -> { error, warning }
+    const bump = (issue) => {
+      const kind = issue.kind || "UnknownIssue";
+      const severity = issue.severity === "error" ? "error" : "warning";
+      if (!countsByKind.has(kind)) countsByKind.set(kind, { error: 0, warning: 0 });
+      countsByKind.get(kind)[severity] += 1;
+    };
+    this.errors.forEach(bump);
+    this.warnings.forEach(bump);
+
+    const sortedKinds = [...countsByKind.keys()].sort((a, b) => a.localeCompare(b));
+    result.counts = sortedKinds.map((kind) => ({
+      kind,
+      errors: countsByKind.get(kind).error,
+      warnings: countsByKind.get(kind).warning,
+    }));
+
+    result.errors = this.errors;
+    result.warnings = this.warnings;
+    result.summary.filesLoaded = this.loadOrder.length;
+    result.summary.totalErrors = this.errors.length;
+    result.summary.totalWarnings = this.warnings.length;
+    result.loadedFiles = this.loadOrder.map((absPath) => {
+      const entry = this.loadedFiles.get(absPath);
+      return {
+        relPath: entry?.relPath ?? path.relative(this.rootDir, absPath).replace(/\\/g, "/"),
+        parseSuccess: Boolean(entry?.parseSuccess),
+      };
+    });
+
+    result.success = this.errors.length === 0;
+    return result;
+  }
+}
+
+function renderFinalReport(runResults, meta = {}) {
+  const color = createColor({ enabled: meta.colorEnabled });
+  const lines = [];
+  lines.push(color.cyan("======================================================================"));
+  lines.push(color.cyan("CNL Theory Check Report (multi-entrypoint)"));
+  lines.push(color.cyan("======================================================================"));
+  lines.push("");
+
+  if (meta.missing?.length) {
+    lines.push(color.yellow("NOTE: Some default entrypoints were missing and were skipped:"));
+    meta.missing.forEach((m) => lines.push(`- ${m}`));
+    lines.push("");
+  }
+
+  lines.push(color.bold("Legend (issue kinds and likely consequences)"));
+  const legend = legendRows();
+  const legendSeverityByKind = new Map(legend.map(([kind, severity]) => [kind, severity]));
+  lines.push(
+    renderTable(
+      ["Kind", "Severity", "Likely consequence", "Typical action"],
+      legend.map(([kind, severity, consequence, action]) => {
+        const s = severity === "error" ? color.red(severity) : color.yellow(severity);
+        const k = severity === "error" ? color.red(kind) : color.yellow(kind);
+        return [k, s, consequence, action];
+      }),
+    ),
+  );
+  lines.push("");
+
+  for (const r of runResults) {
+    lines.push("-".repeat(70));
+    lines.push(color.bold(`Entrypoint: ${r.entrypoint}`));
+    lines.push(`Files loaded: ${r.summary.filesLoaded}`);
+    lines.push(
+      `Total errors: ${
+        r.summary.totalErrors === 0 ? color.green(String(r.summary.totalErrors)) : color.red(String(r.summary.totalErrors))
+      }`,
+    );
+    lines.push(
+      `Total warnings: ${
+        r.summary.totalWarnings === 0 ? color.green(String(r.summary.totalWarnings)) : color.yellow(String(r.summary.totalWarnings))
+      }`,
+    );
+    lines.push("");
+
+    const allKinds = new Set();
+    legend.forEach(([kind]) => allKinds.add(kind));
+    (r.counts || []).forEach((c) => allKinds.add(c.kind));
+    const orderedKinds = [...allKinds].sort((a, b) => a.localeCompare(b));
+
+    const errorsByKind = new Map();
+    const warningsByKind = new Map();
+    (r.counts || []).forEach((c) => {
+      if (c.errors) errorsByKind.set(c.kind, c.errors);
+      if (c.warnings) warningsByKind.set(c.kind, c.warnings);
+    });
+
+    const issueRows = [];
+    for (const kind of orderedKinds) {
+      const errorCount = errorsByKind.get(kind) ?? 0;
+      const warningCount = warningsByKind.get(kind) ?? 0;
+      const total = errorCount + warningCount;
+      const severity = legendSeverityByKind.get(kind) ?? (errorCount > 0 ? "error" : "warning");
+      if (color.enabled) {
+        const kindCell = severity === "error" ? color.red(kind) : color.yellow(kind);
+        const countCell = total === 0 ? color.green(String(total)) : severity === "error" ? color.red(String(total)) : color.yellow(String(total));
+        issueRows.push([kindCell, countCell]);
+      } else {
+        const prefix = severity === "error" ? "ERROR" : "WARN";
+        issueRows.push([`${prefix}:${kind}`, String(total)]);
       }
-      if (i.kind.startsWith("DuplicatePredicate")) {
-        this.duplicatePredicates.set(i.key, i.details?.files || []);
+    }
+
+    lines.push(color.dim("Issues by kind (green=0, red=errors, yellow=warnings)"));
+    lines.push(renderTable(["Kind", "Count"], issueRows));
+    lines.push("");
+
+    if (meta.verbose) {
+      lines.push("Loaded files:");
+      r.loadedFiles.forEach((f) => {
+        const status = f.parseSuccess ? "OK" : "PARSE_ERROR";
+        lines.push(`- [${status}] ${f.relPath}`);
+      });
+      lines.push("");
+
+      if (r.errors.length > 0) {
+        lines.push("Sample errors (first 10):");
+        r.errors.slice(0, 10).forEach((e) => lines.push(`- [${e.kind}] ${e.message}`));
+        lines.push("");
+      }
+      if (r.warnings.length > 0) {
+        lines.push("Sample warnings (first 10):");
+        r.warnings.slice(0, 10).forEach((w) => lines.push(`- [${w.kind}] ${w.message}`));
+        lines.push("");
       }
     }
   }
 
-  generateReport() {
-    const lines = [];
-    
-    lines.push("=" .repeat(70));
-    lines.push("CNL Theory Check Report");
-    lines.push("=" .repeat(70));
-    lines.push("");
-    lines.push(`Entrypoint: ${this.loadOrder[0] ? path.relative(this.rootDir, this.loadOrder[0]) : "N/A"}`);
-    lines.push(`Files loaded: ${this.loadOrder.length}`);
-    lines.push(`Total errors: ${this.errors.length}`);
-    lines.push(`Total warnings: ${this.warnings.length}`);
-    lines.push("");
-    
-    if (this.verbose) {
-      lines.push("-".repeat(70));
-      lines.push("LOADED FILES:");
-      lines.push("-".repeat(70));
-      for (const filePath of this.loadOrder) {
-        const entry = this.loadedFiles.get(filePath);
-        const status = entry.parseSuccess ? "OK" : "PARSE_ERROR";
-        lines.push(`  [${status}] ${entry.relPath}`);
-      }
-      lines.push("");
-    }
-    
-    if (this.errors.length > 0) {
-      lines.push("-".repeat(70));
-      lines.push("ERRORS:");
-      lines.push("-".repeat(70));
-      for (const err of this.errors) {
-        lines.push(`  [${err.kind}] ${err.message}`);
-      }
-      lines.push("");
-    }
-    
-    if (this.warnings.length > 0) {
-      lines.push("-".repeat(70));
-      lines.push("WARNINGS:");
-      lines.push("-".repeat(70));
-      
-      // Group by kind
-      const byKind = new Map();
-      for (const warn of this.warnings) {
-        if (!byKind.has(warn.kind)) {
-          byKind.set(warn.kind, []);
-        }
-        byKind.get(warn.kind).push(warn);
-      }
-      
-      for (const [kind, warns] of byKind) {
-        lines.push(`\n  ${kind} (${warns.length}):`);
-        for (const warn of warns.slice(0, 20)) {
-          lines.push(`    - ${warn.message}`);
-        }
-        if (warns.length > 20) {
-          lines.push(`    ... and ${warns.length - 20} more`);
-        }
-      }
-      lines.push("");
-    }
-    
-    lines.push("-".repeat(70));
-    lines.push("SUMMARY:");
-    lines.push("-".repeat(70));
-    lines.push(`  Duplicate types: ${this.duplicateTypes.size}`);
-    lines.push(`  Duplicate predicates: ${this.duplicatePredicates.size}`);
-    lines.push(`  Type/predicate conflicts: ${this.typePredicateConflicts.length}`);
-    lines.push(`  Reflexive subtypes: ${this.reflexiveSubtypes.length}`);
-    lines.push(`  Cyclic subtype chains: ${this.cyclicSubtypes.length}`);
-    lines.push(`  Non-English labels: ${this.nonEnglishLabels.length}`);
-    lines.push("");
-    
-    if (this.errors.length === 0 && this.warnings.length === 0) {
-      lines.push("All checks passed.");
-    } else if (this.errors.length === 0) {
-      lines.push("No errors found, but there are warnings to review.");
-    } else {
-      lines.push("Errors found - theory loading may fail.");
-    }
-    
-    lines.push("");
-    
-    return {
-      success: this.errors.length === 0,
-      errors: this.errors,
-      warnings: this.warnings,
-      summary: {
-        filesLoaded: this.loadOrder.length,
-        totalErrors: this.errors.length,
-        totalWarnings: this.warnings.length,
-        duplicateTypes: this.duplicateTypes.size,
-        duplicatePredicates: this.duplicatePredicates.size,
-        typePredicateConflicts: this.typePredicateConflicts.length,
-        reflexiveSubtypes: this.reflexiveSubtypes.length,
-        cyclicSubtypes: this.cyclicSubtypes.length,
-        nonEnglishLabels: this.nonEnglishLabels.length,
-      },
-      report: lines.join("\n"),
-    };
-  }
+  const summaryRows = runResults.map((r) => [
+    r.entrypoint,
+    String(r.summary.filesLoaded),
+    r.summary.totalErrors === 0 ? color.green(String(r.summary.totalErrors)) : color.red(String(r.summary.totalErrors)),
+    r.summary.totalWarnings === 0 ? color.green(String(r.summary.totalWarnings)) : color.yellow(String(r.summary.totalWarnings)),
+  ]);
+  lines.push(color.bold("Summary per entrypoint"));
+  lines.push(renderTable(["Entrypoint", "Files loaded", "Errors", "Warnings"], summaryRows));
+  lines.push("");
+
+  const success = runResults.every((r) => r.success);
+  lines.push(success ? color.green("Result: PASS (no errors)") : color.red("Result: FAIL (errors detected)"));
+  lines.push("");
+  return { report: lines.join("\n"), success };
 }
 
 // Main entry point
 if (process.argv[1].endsWith("check-theories.mjs")) {
   const args = parseArgs(process.argv);
-  
+
   if (args.help) {
     console.log(usage());
     process.exit(0);
   }
-  
-  const checker = new TheoryChecker({
-    rootDir: process.cwd(),
-    verbose: args.verbose,
-  });
-  
-  const result = checker.check(args.entrypoint);
-  
-  if (args.outputFile) {
-    fs.writeFileSync(args.outputFile, result.report, "utf8");
-    console.log(`Report written to ${args.outputFile}`);
-  } else {
-    console.log(result.report);
+
+  const rootDir = process.cwd();
+  const selection = selectEntrypoints(args, rootDir);
+  const entrypoints = selection.existing;
+
+  const progressColor = createColor({ enabled: !args.outputFile });
+  const runResults = [];
+  for (const entrypoint of entrypoints) {
+    console.log(`\n${progressColor.cyan("▶")} ${progressColor.bold("Checking")} ${entrypoint}`);
+    const checker = new TheoryChecker({ rootDir, verbose: args.verbose });
+    const res = checker.check(entrypoint);
+    const errText = res.summary.totalErrors === 0 ? progressColor.green(res.summary.totalErrors) : progressColor.red(res.summary.totalErrors);
+    const warnText =
+      res.summary.totalWarnings === 0 ? progressColor.green(res.summary.totalWarnings) : progressColor.yellow(res.summary.totalWarnings);
+    console.log(`  Loaded files: ${res.summary.filesLoaded}`);
+    console.log(`  Errors: ${errText} | Warnings: ${warnText}`);
+    runResults.push(res);
   }
-  
-  process.exit(result.success ? 0 : 1);
+
+  const final = renderFinalReport(runResults, {
+    missing: selection.missing,
+    verbose: args.verbose,
+    colorEnabled: !args.outputFile,
+  });
+
+  if (args.outputFile) {
+    fs.writeFileSync(args.outputFile, final.report, "utf8");
+    console.log(`\nReport written to ${args.outputFile}`);
+  } else {
+    console.log("\n" + final.report);
+  }
+
+  process.exit(final.success ? 0 : 1);
 }
 
 export { TheoryChecker };

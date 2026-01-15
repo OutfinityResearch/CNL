@@ -1,0 +1,117 @@
+// This file is generated. Do not edit.
+// Source: ontologies/ssn/ssn.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Ssn
+"vocabulary" is a type.
+"vocabulary" is a "unary predicate".
+"type" is a type.
+"type" is a "unary predicate".
+"restriction" is a type.
+"restriction" is a "unary predicate".
+"actuatable-property" is a type.
+"actuatable-property" is a "unary predicate".
+"actuation" is a type.
+"actuation" is a "unary predicate".
+"actuator" is a type.
+"actuator" is a "unary predicate".
+"feature-of-interest" is a type.
+"feature-of-interest" is a "unary predicate".
+"observable-property" is a type.
+"observable-property" is a "unary predicate".
+"observation" is a type.
+"observation" is a "unary predicate".
+"platform" is a type.
+"platform" is a "unary predicate".
+"procedure" is a type.
+"procedure" is a "unary predicate".
+"result" is a type.
+"result" is a "unary predicate".
+"sample" is a type.
+"sample" is a "unary predicate".
+"sampler" is a type.
+"sampler" is a "unary predicate".
+"sampling" is a type.
+"sampling" is a "unary predicate".
+"sensor" is a type.
+"sensor" is a "unary predicate".
+"deployment" is a type.
+"deployment" is a "unary predicate".
+"input" is a type.
+"input" is a "unary predicate".
+"output" is a type.
+"output" is a "unary predicate".
+"property" is a type.
+"property" is a "unary predicate".
+"stimulus" is a type.
+"stimulus" is a "unary predicate".
+"system" is a type.
+"system" is a "unary predicate".
+"agent" is a type.
+"agent" is a "unary predicate".
+
+// Binary predicates
+"observes" is a "binary predicate".
+"deployed-on-platform" is a "binary predicate".
+"deployed-system" is a "binary predicate".
+"detects" is a "binary predicate".
+"for-property" is a "binary predicate".
+"has-deployment" is a "binary predicate".
+"has-input" is a "binary predicate".
+"has-output" is a "binary predicate".
+"has-property" is a "binary predicate".
+"has-subsystem" is a "binary predicate".
+"implemented by" is a "binary predicate".
+"implements" is a "binary predicate".
+"in-deployment" is a "binary predicate".
+"property of" is a "binary predicate".
+"proxy for" is a "binary predicate".
+"was-originated-by" is a "binary predicate".
+
+// Type hierarchy
+"actuatable-property" is a subtype of "property".
+"actuatable-property" is a subtype of "restriction".
+"actuatable-property" is a subtype of "type".
+"actuation" is a subtype of "restriction".
+"actuation" is a subtype of "type".
+"actuator" is a subtype of "restriction".
+"actuator" is a subtype of "system".
+"actuator" is a subtype of "type".
+"deployment" is a subtype of "restriction".
+"deployment" is a subtype of "type".
+"feature-of-interest" is a subtype of "restriction".
+"feature-of-interest" is a subtype of "type".
+"input" is a subtype of "restriction".
+"input" is a subtype of "type".
+"observable-property" is a subtype of "property".
+"observable-property" is a subtype of "restriction".
+"observable-property" is a subtype of "type".
+"observation" is a subtype of "restriction".
+"observation" is a subtype of "type".
+"output" is a subtype of "restriction".
+"output" is a subtype of "type".
+"platform" is a subtype of "restriction".
+"platform" is a subtype of "type".
+"procedure" is a subtype of "restriction".
+"procedure" is a subtype of "type".
+"property" is a subtype of "restriction".
+"property" is a subtype of "type".
+"result" is a subtype of "restriction".
+"result" is a subtype of "type".
+"sample" is a subtype of "feature-of-interest".
+"sample" is a subtype of "restriction".
+"sample" is a subtype of "result".
+"sample" is a subtype of "type".
+"sampler" is a subtype of "restriction".
+"sampler" is a subtype of "system".
+"sampler" is a subtype of "type".
+"sampling" is a subtype of "restriction".
+"sampling" is a subtype of "type".
+"sensor" is a subtype of "restriction".
+"sensor" is a subtype of "system".
+"sensor" is a subtype of "type".
+"stimulus" is a subtype of "restriction".
+"stimulus" is a subtype of "type".
+"system" is a subtype of "restriction".
+"system" is a subtype of "type".

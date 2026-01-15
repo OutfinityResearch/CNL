@@ -146,3 +146,4 @@ To keep bundle loading deterministic and unambiguous:
 - DS10 for placeholder rule templates used by imported schema rules.
 - DS13/DS14 for BaseDictionary + base bundle philosophy.
 - DS24 for theory consistency checks and ontology collision resolution.
+- DS25 for vocabulary renames policy (generation-time vs load-time).

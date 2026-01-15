@@ -1,0 +1,4594 @@
+// This file is generated. Do not edit.
+// Source: ontologies/schema/schema.ttl
+
+--- CONTEXT: BaseDictionary ---
+
+// Generated from ontology import: Schema
+
+// Resolved key collisions (type vs binary predicate):
+// - "address": chose class (dropped property)
+// - "aggregate-rating": chose class (dropped property)
+// - "audience": chose class (dropped property)
+// - "brand": chose property (dropped class)
+// - "brand-name": chose property (dropped class)
+// - "business-function": chose class (dropped property)
+// - "catalog": chose class (dropped property)
+// - "code": chose class (dropped property)
+// - "collection": chose property (dropped class)
+// - "comment": chose class (dropped property)
+// - "contact-point": chose class (dropped property)
+// - "course": chose property (dropped class)
+// - "dataset": chose class (dropped property)
+// - "day-of-week": chose class (dropped property)
+// - "delivery-method": chose property (dropped class)
+// - "diet": chose property (dropped class)
+// - "distance": chose class (dropped property)
+// - "distribution": chose class (dropped property)
+// - "dose-schedule": chose class (dropped property)
+// - "drug": chose class (dropped property)
+// - "drug-class": chose class (dropped property)
+// - "duration": chose class (dropped property)
+// - "entertainment-business": chose property (dropped class)
+// - "episode": chose property (dropped class)
+// - "error": chose class (dropped property)
+// - "event": chose class (dropped property)
+// - "exercise-plan": chose property (dropped class)
+// - "food-establishment": chose property (dropped class)
+// - "food-event": chose property (dropped class)
+// - "game": chose class (dropped property)
+// - "game-server": chose class (dropped property)
+// - "image": chose class (dropped property)
+// - "incentive-status": chose class (dropped property)
+// - "incentive-type": chose class (dropped property)
+// - "infectious-agent-class": chose class (dropped property)
+// - "issue": chose property (dropped class)
+// - "language": chose property (dropped class)
+// - "location": chose property (dropped class)
+// - "map": chose class (dropped property)
+// - "medical-audience": chose class (dropped property)
+// - "medical-specialty": chose class (dropped property)
+// - "medicine-system": chose class (dropped property)
+// - "menu": chose class (dropped property)
+// - "nerve": chose class (dropped property)
+// - "opening-hours-specification": chose class (dropped property)
+// - "operating-system": chose class (dropped property)
+// - "order-status": chose class (dropped property)
+// - "payment-method": chose property (dropped class)
+// - "payment-method-type": chose class (dropped property)
+// - "price": chose property (dropped class)
+// - "purchase-type": chose class (dropped property)
+// - "question": chose property (dropped class)
+// - "real-estate-agent": chose property (dropped class)
+// - "recipe": chose property (dropped class)
+// - "result": chose class (dropped property)
+// - "review": chose class (dropped property)
+// - "runtime-platform": chose class (dropped property)
+// - "season": chose property (dropped class)
+// - "shipping-conditions": chose class (dropped property)
+// - "specialty": chose class (dropped property)
+// - "sports-activity-location": chose property (dropped class)
+// - "sports-event": chose property (dropped class)
+// - "sports-team": chose property (dropped class)
+// - "text": chose class (dropped property)
+// - "url": chose class (dropped property)
+// - "warranty-promise": chose class (dropped property)
+// - "warranty-scope": chose class (dropped property)
+
+// Resolved class/property conflicts:
+// - priceSpecification: chosen class (no property-like signals)
+// - timestamp: chosen class (no property-like signals)
+"f31-performance" is a type.
+"f31-performance" is a "unary predicate".
+"105590001" is a type.
+"105590001" is a "unary predicate".
+"116154003" is a type.
+"116154003" is a "unary predicate".
+"277132007" is a type.
+"277132007" is a "unary predicate".
+"387713003" is a type.
+"387713003" is a "unary predicate".
+"410942007" is a type.
+"410942007" is a "unary predicate".
+"50731006" is a type.
+"50731006" is a "unary predicate".
+"51114001" is a type.
+"51114001" is a "unary predicate".
+"63653004" is a type.
+"63653004" is a "unary predicate".
+"dataset" is a type.
+"dataset" is a "unary predicate".
+"event" is a type.
+"event" is a "unary predicate".
+"image" is a type.
+"image" is a "unary predicate".
+"text" is a type.
+"text" is a "unary predicate".
+"periodical" is a type.
+"periodical" is a "unary predicate".
+"result" is a type.
+"result" is a "unary predicate".
+"amount-type" is a type.
+"amount-type" is a "unary predicate".
+"country" is a type.
+"country" is a "unary predicate".
+"electronic-document" is a type.
+"electronic-document" is a "unary predicate".
+"financial-card" is a type.
+"financial-card" is a "unary predicate".
+"geographical-coordinate" is a type.
+"geographical-coordinate" is a "unary predicate".
+"invoice" is a type.
+"invoice" is a "unary predicate".
+"line-trade-agreement" is a type.
+"line-trade-agreement" is a "unary predicate".
+"offer" is a type.
+"offer" is a "unary predicate".
+"order" is a type.
+"order" is a "unary predicate".
+"payment-means" is a type.
+"payment-means" is a "unary predicate".
+"request-for-quotation" is a type.
+"request-for-quotation" is a "unary predicate".
+"specified-certificate" is a type.
+"specified-certificate" is a "unary predicate".
+"specified-trade-product" is a type.
+"specified-trade-product" is a "unary predicate".
+"trade-address" is a type.
+"trade-address" is a "unary predicate".
+"trade-product" is a type.
+"trade-product" is a "unary predicate".
+"transport-method" is a type.
+"transport-method" is a "unary predicate".
+"property" is a type.
+"property" is a "unary predicate".
+"class" is a type.
+"class" is a "unary predicate".
+"v-card" is a type.
+"v-card" is a "unary predicate".
+"catalog" is a type.
+"catalog" is a "unary predicate".
+"distribution" is a type.
+"distribution" is a "unary predicate".
+"error" is a type.
+"error" is a "unary predicate".
+"instantaneous-event" is a type.
+"instantaneous-event" is a "unary predicate".
+"at-time" is a type.
+"at-time" is a "unary predicate".
+"person" is a type.
+"person" is a "unary predicate".
+"certification-details" is a type.
+"certification-details" is a "unary predicate".
+"contact-point" is a type.
+"contact-point" is a "unary predicate".
+"organization" is a type.
+"organization" is a "unary predicate".
+"postal-address" is a type.
+"postal-address" is a "unary predicate".
+"3-d-model" is a type.
+"3-d-model" is a "unary predicate".
+"am-radio-channel" is a type.
+"am-radio-channel" is a "unary predicate".
+"api-reference" is a type.
+"api-reference" is a "unary predicate".
+"about-page" is a type.
+"about-page" is a "unary predicate".
+"accept-action" is a type.
+"accept-action" is a "unary predicate".
+"accommodation" is a type.
+"accommodation" is a "unary predicate".
+"accounting-service" is a type.
+"accounting-service" is a "unary predicate".
+"achieve-action" is a type.
+"achieve-action" is a "unary predicate".
+"action" is a type.
+"action" is a "unary predicate".
+"action-access-specification" is a type.
+"action-access-specification" is a "unary predicate".
+"action-status-type" is a type.
+"action-status-type" is a "unary predicate".
+"activate-action" is a type.
+"activate-action" is a "unary predicate".
+"add-action" is a type.
+"add-action" is a "unary predicate".
+"administrative-area" is a type.
+"administrative-area" is a "unary predicate".
+"adult-entertainment" is a type.
+"adult-entertainment" is a "unary predicate".
+"adult-oriented-enumeration" is a type.
+"adult-oriented-enumeration" is a "unary predicate".
+"advertiser-content-article" is a type.
+"advertiser-content-article" is a "unary predicate".
+"aggregate-offer" is a type.
+"aggregate-offer" is a "unary predicate".
+"aggregate-rating" is a type.
+"aggregate-rating" is a "unary predicate".
+"agree-action" is a type.
+"agree-action" is a "unary predicate".
+"airline" is a type.
+"airline" is a "unary predicate".
+"airport" is a type.
+"airport" is a "unary predicate".
+"alignment-object" is a type.
+"alignment-object" is a "unary predicate".
+"allocate-action" is a type.
+"allocate-action" is a "unary predicate".
+"amp-story" is a type.
+"amp-story" is a "unary predicate".
+"amusement-park" is a type.
+"amusement-park" is a "unary predicate".
+"analysis-news-article" is a type.
+"analysis-news-article" is a "unary predicate".
+"anatomical-structure" is a type.
+"anatomical-structure" is a "unary predicate".
+"anatomical-system" is a type.
+"anatomical-system" is a "unary predicate".
+"animal-shelter" is a type.
+"animal-shelter" is a "unary predicate".
+"answer" is a type.
+"answer" is a "unary predicate".
+"apartment" is a type.
+"apartment" is a "unary predicate".
+"apartment-complex" is a type.
+"apartment-complex" is a "unary predicate".
+"append-action" is a type.
+"append-action" is a "unary predicate".
+"apply-action" is a type.
+"apply-action" is a "unary predicate".
+"approved-indication" is a type.
+"approved-indication" is a "unary predicate".
+"aquarium" is a type.
+"aquarium" is a "unary predicate".
+"archive-component" is a type.
+"archive-component" is a "unary predicate".
+"archive-organization" is a type.
+"archive-organization" is a "unary predicate".
+"arrive-action" is a type.
+"arrive-action" is a "unary predicate".
+"art-gallery" is a type.
+"art-gallery" is a "unary predicate".
+"artery" is a type.
+"artery" is a "unary predicate".
+"article" is a type.
+"article" is a "unary predicate".
+"ask-action" is a type.
+"ask-action" is a "unary predicate".
+"ask-public-news-article" is a type.
+"ask-public-news-article" is a "unary predicate".
+"assess-action" is a type.
+"assess-action" is a "unary predicate".
+"assign-action" is a type.
+"assign-action" is a "unary predicate".
+"atlas" is a type.
+"atlas" is a "unary predicate".
+"attorney" is a type.
+"attorney" is a "unary predicate".
+"audience" is a type.
+"audience" is a "unary predicate".
+"audio-object" is a type.
+"audio-object" is a "unary predicate".
+"audio-object-snapshot" is a type.
+"audio-object-snapshot" is a "unary predicate".
+"audiobook" is a type.
+"audiobook" is a "unary predicate".
+"authenticate-action" is a type.
+"authenticate-action" is a "unary predicate".
+"authorize-action" is a type.
+"authorize-action" is a "unary predicate".
+"auto-body-shop" is a type.
+"auto-body-shop" is a "unary predicate".
+"auto-dealer" is a type.
+"auto-dealer" is a "unary predicate".
+"auto-parts-store" is a type.
+"auto-parts-store" is a "unary predicate".
+"auto-rental" is a type.
+"auto-rental" is a "unary predicate".
+"auto-repair" is a type.
+"auto-repair" is a "unary predicate".
+"auto-wash" is a type.
+"auto-wash" is a "unary predicate".
+"automated-teller" is a type.
+"automated-teller" is a "unary predicate".
+"automotive-business" is a type.
+"automotive-business" is a "unary predicate".
+"background-news-article" is a type.
+"background-news-article" is a "unary predicate".
+"bakery" is a type.
+"bakery" is a "unary predicate".
+"bank-account" is a type.
+"bank-account" is a "unary predicate".
+"bank-or-credit-union" is a type.
+"bank-or-credit-union" is a "unary predicate".
+"bar-or-pub" is a type.
+"bar-or-pub" is a "unary predicate".
+"barcode" is a type.
+"barcode" is a "unary predicate".
+"beach" is a type.
+"beach" is a "unary predicate".
+"beauty-salon" is a type.
+"beauty-salon" is a "unary predicate".
+"bed-and-breakfast" is a type.
+"bed-and-breakfast" is a "unary predicate".
+"bed-details" is a type.
+"bed-details" is a "unary predicate".
+"bed-type" is a type.
+"bed-type" is a "unary predicate".
+"befriend-action" is a type.
+"befriend-action" is a "unary predicate".
+"bike-store" is a type.
+"bike-store" is a "unary predicate".
+"bio-chem-entity" is a type.
+"bio-chem-entity" is a "unary predicate".
+"blog" is a type.
+"blog" is a "unary predicate".
+"blog-posting" is a type.
+"blog-posting" is a "unary predicate".
+"blood-test" is a type.
+"blood-test" is a "unary predicate".
+"boarding-policy-type" is a type.
+"boarding-policy-type" is a "unary predicate".
+"boat-reservation" is a type.
+"boat-reservation" is a "unary predicate".
+"boat-terminal" is a type.
+"boat-terminal" is a "unary predicate".
+"boat-trip" is a type.
+"boat-trip" is a "unary predicate".
+"body-measurement-type-enumeration" is a type.
+"body-measurement-type-enumeration" is a "unary predicate".
+"body-of-water" is a type.
+"body-of-water" is a "unary predicate".
+"bone" is a type.
+"bone" is a "unary predicate".
+"book" is a type.
+"book" is a "unary predicate".
+"book-format-type" is a type.
+"book-format-type" is a "unary predicate".
+"book-series" is a type.
+"book-series" is a "unary predicate".
+"book-store" is a type.
+"book-store" is a "unary predicate".
+"bookmark-action" is a type.
+"bookmark-action" is a "unary predicate".
+"boolean" is a type.
+"boolean" is a "unary predicate".
+"borrow-action" is a type.
+"borrow-action" is a "unary predicate".
+"bowling-alley" is a type.
+"bowling-alley" is a "unary predicate".
+"brain-structure" is a type.
+"brain-structure" is a "unary predicate".
+"breadcrumb-list" is a type.
+"breadcrumb-list" is a "unary predicate".
+"brewery" is a type.
+"brewery" is a "unary predicate".
+"bridge" is a type.
+"bridge" is a "unary predicate".
+"broadcast-channel" is a type.
+"broadcast-channel" is a "unary predicate".
+"broadcast-event" is a type.
+"broadcast-event" is a "unary predicate".
+"broadcast-frequency-specification" is a type.
+"broadcast-frequency-specification" is a "unary predicate".
+"broadcast-service" is a type.
+"broadcast-service" is a "unary predicate".
+"brokerage-account" is a type.
+"brokerage-account" is a "unary predicate".
+"buddhist-temple" is a type.
+"buddhist-temple" is a "unary predicate".
+"bus-or-coach" is a type.
+"bus-or-coach" is a "unary predicate".
+"bus-reservation" is a type.
+"bus-reservation" is a "unary predicate".
+"bus-station" is a type.
+"bus-station" is a "unary predicate".
+"bus-stop" is a type.
+"bus-stop" is a "unary predicate".
+"bus-trip" is a type.
+"bus-trip" is a "unary predicate".
+"business-audience" is a type.
+"business-audience" is a "unary predicate".
+"business-entity-type" is a type.
+"business-entity-type" is a "unary predicate".
+"business-event" is a type.
+"business-event" is a "unary predicate".
+"business-function" is a type.
+"business-function" is a "unary predicate".
+"buy-action" is a type.
+"buy-action" is a "unary predicate".
+"cdcpmd-record" is a type.
+"cdcpmd-record" is a "unary predicate".
+"cable-or-satellite-service" is a type.
+"cable-or-satellite-service" is a "unary predicate".
+"cafe-or-coffee-shop" is a type.
+"cafe-or-coffee-shop" is a "unary predicate".
+"campground" is a type.
+"campground" is a "unary predicate".
+"camping-pitch" is a type.
+"camping-pitch" is a "unary predicate".
+"canal" is a type.
+"canal" is a "unary predicate".
+"cancel-action" is a type.
+"cancel-action" is a "unary predicate".
+"car" is a type.
+"car" is a "unary predicate".
+"car-usage-type" is a type.
+"car-usage-type" is a "unary predicate".
+"casino" is a type.
+"casino" is a "unary predicate".
+"category-code" is a type.
+"category-code" is a "unary predicate".
+"category-code-set" is a type.
+"category-code-set" is a "unary predicate".
+"catholic-church" is a type.
+"catholic-church" is a "unary predicate".
+"cemetery" is a type.
+"cemetery" is a "unary predicate".
+"certification" is a type.
+"certification" is a "unary predicate".
+"certification-status-enumeration" is a type.
+"certification-status-enumeration" is a "unary predicate".
+"chapter" is a type.
+"chapter" is a "unary predicate".
+"check-action" is a type.
+"check-action" is a "unary predicate".
+"check-in-action" is a type.
+"check-in-action" is a "unary predicate".
+"check-out-action" is a type.
+"check-out-action" is a "unary predicate".
+"checkout-page" is a type.
+"checkout-page" is a "unary predicate".
+"chemical-substance" is a type.
+"chemical-substance" is a "unary predicate".
+"child-care" is a type.
+"child-care" is a "unary predicate".
+"childrens-event" is a type.
+"childrens-event" is a "unary predicate".
+"choose-action" is a type.
+"choose-action" is a "unary predicate".
+"church" is a type.
+"church" is a "unary predicate".
+"city" is a type.
+"city" is a "unary predicate".
+"city-hall" is a type.
+"city-hall" is a "unary predicate".
+"civic-structure" is a type.
+"civic-structure" is a "unary predicate".
+"claim" is a type.
+"claim" is a "unary predicate".
+"claim-review" is a type.
+"claim-review" is a "unary predicate".
+"clip" is a type.
+"clip" is a "unary predicate".
+"clothing-store" is a type.
+"clothing-store" is a "unary predicate".
+"code" is a type.
+"code" is a "unary predicate".
+"collection-page" is a type.
+"collection-page" is a "unary predicate".
+"college-or-university" is a type.
+"college-or-university" is a "unary predicate".
+"comedy-club" is a type.
+"comedy-club" is a "unary predicate".
+"comedy-event" is a type.
+"comedy-event" is a "unary predicate".
+"comic-cover-art" is a type.
+"comic-cover-art" is a "unary predicate".
+"comic-issue" is a type.
+"comic-issue" is a "unary predicate".
+"comic-series" is a type.
+"comic-series" is a "unary predicate".
+"comic-story" is a type.
+"comic-story" is a "unary predicate".
+"comment" is a type.
+"comment" is a "unary predicate".
+"comment-action" is a type.
+"comment-action" is a "unary predicate".
+"communicate-action" is a type.
+"communicate-action" is a "unary predicate".
+"community-health" is a type.
+"community-health" is a "unary predicate".
+"complete-data-feed" is a type.
+"complete-data-feed" is a "unary predicate".
+"compound-price-specification" is a type.
+"compound-price-specification" is a "unary predicate".
+"computer-language" is a type.
+"computer-language" is a "unary predicate".
+"computer-store" is a type.
+"computer-store" is a "unary predicate".
+"conference-event" is a type.
+"conference-event" is a "unary predicate".
+"confirm-action" is a type.
+"confirm-action" is a "unary predicate".
+"consortium" is a type.
+"consortium" is a "unary predicate".
+"constraint-node" is a type.
+"constraint-node" is a "unary predicate".
+"consume-action" is a type.
+"consume-action" is a "unary predicate".
+"contact-page" is a type.
+"contact-page" is a "unary predicate".
+"contact-point-option" is a type.
+"contact-point-option" is a "unary predicate".
+"continent" is a type.
+"continent" is a "unary predicate".
+"control-action" is a type.
+"control-action" is a "unary predicate".
+"convenience-store" is a type.
+"convenience-store" is a "unary predicate".
+"conversation" is a type.
+"conversation" is a "unary predicate".
+"cook-action" is a type.
+"cook-action" is a "unary predicate".
+"cooperative" is a type.
+"cooperative" is a "unary predicate".
+"corporation" is a type.
+"corporation" is a "unary predicate".
+"correction-comment" is a type.
+"correction-comment" is a "unary predicate".
+"course-instance" is a type.
+"course-instance" is a "unary predicate".
+"courthouse" is a type.
+"courthouse" is a "unary predicate".
+"cover-art" is a type.
+"cover-art" is a "unary predicate".
+"covid-testing-facility" is a type.
+"covid-testing-facility" is a "unary predicate".
+"create-action" is a type.
+"create-action" is a "unary predicate".
+"creative-work" is a type.
+"creative-work" is a "unary predicate".
+"creative-work-season" is a type.
+"creative-work-season" is a "unary predicate".
+"creative-work-series" is a type.
+"creative-work-series" is a "unary predicate".
+"credit-card" is a type.
+"credit-card" is a "unary predicate".
+"crematorium" is a type.
+"crematorium" is a "unary predicate".
+"critic-review" is a type.
+"critic-review" is a "unary predicate".
+"css-selector-type" is a type.
+"css-selector-type" is a "unary predicate".
+"currency-conversion-service" is a type.
+"currency-conversion-service" is a "unary predicate".
+"d-dx-element" is a type.
+"d-dx-element" is a "unary predicate".
+"dance-event" is a type.
+"dance-event" is a "unary predicate".
+"dance-group" is a type.
+"dance-group" is a "unary predicate".
+"data-catalog" is a type.
+"data-catalog" is a "unary predicate".
+"data-download" is a type.
+"data-download" is a "unary predicate".
+"data-feed" is a type.
+"data-feed" is a "unary predicate".
+"data-feed-item" is a type.
+"data-feed-item" is a "unary predicate".
+"data-type" is a type.
+"data-type" is a "unary predicate".
+"date" is a type.
+"date" is a "unary predicate".
+"date-time" is a type.
+"date-time" is a "unary predicate".
+"dated-money-specification" is a type.
+"dated-money-specification" is a "unary predicate".
+"day-of-week" is a type.
+"day-of-week" is a "unary predicate".
+"day-spa" is a type.
+"day-spa" is a "unary predicate".
+"deactivate-action" is a type.
+"deactivate-action" is a "unary predicate".
+"defence-establishment" is a type.
+"defence-establishment" is a "unary predicate".
+"defined-region" is a type.
+"defined-region" is a "unary predicate".
+"defined-term" is a type.
+"defined-term" is a "unary predicate".
+"defined-term-set" is a type.
+"defined-term-set" is a "unary predicate".
+"delete-action" is a type.
+"delete-action" is a "unary predicate".
+"delivery-charge-specification" is a type.
+"delivery-charge-specification" is a "unary predicate".
+"delivery-event" is a type.
+"delivery-event" is a "unary predicate".
+"demand" is a type.
+"demand" is a "unary predicate".
+"dentist" is a type.
+"dentist" is a "unary predicate".
+"depart-action" is a type.
+"depart-action" is a "unary predicate".
+"department-store" is a type.
+"department-store" is a "unary predicate".
+"deposit-account" is a type.
+"deposit-account" is a "unary predicate".
+"dermatology" is a type.
+"dermatology" is a "unary predicate".
+"diagnostic-lab" is a type.
+"diagnostic-lab" is a "unary predicate".
+"diagnostic-procedure" is a type.
+"diagnostic-procedure" is a "unary predicate".
+"diet-nutrition" is a type.
+"diet-nutrition" is a "unary predicate".
+"dietary-supplement" is a type.
+"dietary-supplement" is a "unary predicate".
+"digital-document" is a type.
+"digital-document" is a "unary predicate".
+"digital-document-permission" is a type.
+"digital-document-permission" is a "unary predicate".
+"digital-document-permission-type" is a type.
+"digital-document-permission-type" is a "unary predicate".
+"digital-platform-enumeration" is a type.
+"digital-platform-enumeration" is a "unary predicate".
+"disagree-action" is a type.
+"disagree-action" is a "unary predicate".
+"discover-action" is a type.
+"discover-action" is a "unary predicate".
+"discussion-forum-posting" is a type.
+"discussion-forum-posting" is a "unary predicate".
+"dislike-action" is a type.
+"dislike-action" is a "unary predicate".
+"distance" is a type.
+"distance" is a "unary predicate".
+"distillery" is a type.
+"distillery" is a "unary predicate".
+"donate-action" is a type.
+"donate-action" is a "unary predicate".
+"dose-schedule" is a type.
+"dose-schedule" is a "unary predicate".
+"download-action" is a type.
+"download-action" is a "unary predicate".
+"draw-action" is a type.
+"draw-action" is a "unary predicate".
+"drawing" is a type.
+"drawing" is a "unary predicate".
+"drink-action" is a type.
+"drink-action" is a "unary predicate".
+"drive-wheel-configuration-value" is a type.
+"drive-wheel-configuration-value" is a "unary predicate".
+"drug" is a type.
+"drug" is a "unary predicate".
+"drug-class" is a type.
+"drug-class" is a "unary predicate".
+"drug-cost" is a type.
+"drug-cost" is a "unary predicate".
+"drug-cost-category" is a type.
+"drug-cost-category" is a "unary predicate".
+"drug-legal-status" is a type.
+"drug-legal-status" is a "unary predicate".
+"drug-pregnancy-category" is a type.
+"drug-pregnancy-category" is a "unary predicate".
+"drug-prescription-status" is a type.
+"drug-prescription-status" is a "unary predicate".
+"drug-strength" is a type.
+"drug-strength" is a "unary predicate".
+"dry-cleaning-or-laundry" is a type.
+"dry-cleaning-or-laundry" is a "unary predicate".
+"duration" is a type.
+"duration" is a "unary predicate".
+"eu-energy-efficiency-enumeration" is a type.
+"eu-energy-efficiency-enumeration" is a "unary predicate".
+"eat-action" is a type.
+"eat-action" is a "unary predicate".
+"education-event" is a type.
+"education-event" is a "unary predicate".
+"educational-audience" is a type.
+"educational-audience" is a "unary predicate".
+"educational-occupational-credential" is a type.
+"educational-occupational-credential" is a "unary predicate".
+"educational-occupational-program" is a type.
+"educational-occupational-program" is a "unary predicate".
+"educational-organization" is a type.
+"educational-organization" is a "unary predicate".
+"electrician" is a type.
+"electrician" is a "unary predicate".
+"electronics-store" is a type.
+"electronics-store" is a "unary predicate".
+"elementary-school" is a type.
+"elementary-school" is a "unary predicate".
+"email-message" is a type.
+"email-message" is a "unary predicate".
+"embassy" is a type.
+"embassy" is a "unary predicate".
+"emergency" is a type.
+"emergency" is a "unary predicate".
+"emergency-service" is a type.
+"emergency-service" is a "unary predicate".
+"employee-role" is a type.
+"employee-role" is a "unary predicate".
+"employer-aggregate-rating" is a type.
+"employer-aggregate-rating" is a "unary predicate".
+"employer-review" is a type.
+"employer-review" is a "unary predicate".
+"employment-agency" is a type.
+"employment-agency" is a "unary predicate".
+"endorse-action" is a type.
+"endorse-action" is a "unary predicate".
+"endorsement-rating" is a type.
+"endorsement-rating" is a "unary predicate".
+"energy" is a type.
+"energy" is a "unary predicate".
+"energy-consumption-details" is a type.
+"energy-consumption-details" is a "unary predicate".
+"energy-efficiency-enumeration" is a type.
+"energy-efficiency-enumeration" is a "unary predicate".
+"energy-star-energy-efficiency-enumeration" is a type.
+"energy-star-energy-efficiency-enumeration" is a "unary predicate".
+"engine-specification" is a type.
+"engine-specification" is a "unary predicate".
+"entry-point" is a type.
+"entry-point" is a "unary predicate".
+"enumeration" is a type.
+"enumeration" is a "unary predicate".
+"event-attendance-mode-enumeration" is a type.
+"event-attendance-mode-enumeration" is a "unary predicate".
+"event-reservation" is a type.
+"event-reservation" is a "unary predicate".
+"event-series" is a type.
+"event-series" is a "unary predicate".
+"event-status-type" is a type.
+"event-status-type" is a "unary predicate".
+"event-venue" is a type.
+"event-venue" is a "unary predicate".
+"exchange-rate-specification" is a type.
+"exchange-rate-specification" is a "unary predicate".
+"exercise-action" is a type.
+"exercise-action" is a "unary predicate".
+"exercise-gym" is a type.
+"exercise-gym" is a "unary predicate".
+"exhibition-event" is a type.
+"exhibition-event" is a "unary predicate".
+"faq-page" is a type.
+"faq-page" is a "unary predicate".
+"fm-radio-channel" is a type.
+"fm-radio-channel" is a "unary predicate".
+"fast-food-restaurant" is a type.
+"fast-food-restaurant" is a "unary predicate".
+"festival" is a type.
+"festival" is a "unary predicate".
+"film-action" is a type.
+"film-action" is a "unary predicate".
+"financial-incentive" is a type.
+"financial-incentive" is a "unary predicate".
+"financial-product" is a type.
+"financial-product" is a "unary predicate".
+"financial-service" is a type.
+"financial-service" is a "unary predicate".
+"find-action" is a type.
+"find-action" is a "unary predicate".
+"fire-station" is a type.
+"fire-station" is a "unary predicate".
+"flight" is a type.
+"flight" is a "unary predicate".
+"flight-reservation" is a type.
+"flight-reservation" is a "unary predicate".
+"float" is a type.
+"float" is a "unary predicate".
+"floor-plan" is a type.
+"floor-plan" is a "unary predicate".
+"florist" is a type.
+"florist" is a "unary predicate".
+"follow-action" is a type.
+"follow-action" is a "unary predicate".
+"food-establishment-reservation" is a type.
+"food-establishment-reservation" is a "unary predicate".
+"food-service" is a type.
+"food-service" is a "unary predicate".
+"fulfillment-type-enumeration" is a type.
+"fulfillment-type-enumeration" is a "unary predicate".
+"funding-agency" is a type.
+"funding-agency" is a "unary predicate".
+"funding-scheme" is a type.
+"funding-scheme" is a "unary predicate".
+"furniture-store" is a type.
+"furniture-store" is a "unary predicate".
+"game" is a type.
+"game" is a "unary predicate".
+"game-availability-enumeration" is a type.
+"game-availability-enumeration" is a "unary predicate".
+"game-play-mode" is a type.
+"game-play-mode" is a "unary predicate".
+"game-server" is a type.
+"game-server" is a "unary predicate".
+"game-server-status" is a type.
+"game-server-status" is a "unary predicate".
+"garden-store" is a type.
+"garden-store" is a "unary predicate".
+"gas-station" is a type.
+"gas-station" is a "unary predicate".
+"gated-residence-community" is a type.
+"gated-residence-community" is a "unary predicate".
+"gender-type" is a type.
+"gender-type" is a "unary predicate".
+"gene" is a type.
+"gene" is a "unary predicate".
+"general-contractor" is a type.
+"general-contractor" is a "unary predicate".
+"geo-circle" is a type.
+"geo-circle" is a "unary predicate".
+"geo-coordinates" is a type.
+"geo-coordinates" is a "unary predicate".
+"geo-shape" is a type.
+"geo-shape" is a "unary predicate".
+"geospatial-geometry" is a type.
+"geospatial-geometry" is a "unary predicate".
+"geriatric" is a type.
+"geriatric" is a "unary predicate".
+"give-action" is a type.
+"give-action" is a "unary predicate".
+"golf-course" is a type.
+"golf-course" is a "unary predicate".
+"government-benefits-type" is a type.
+"government-benefits-type" is a "unary predicate".
+"government-building" is a type.
+"government-building" is a "unary predicate".
+"government-office" is a type.
+"government-office" is a "unary predicate".
+"government-organization" is a type.
+"government-organization" is a "unary predicate".
+"government-permit" is a type.
+"government-permit" is a "unary predicate".
+"government-service" is a type.
+"government-service" is a "unary predicate".
+"grant" is a type.
+"grant" is a "unary predicate".
+"grocery-store" is a type.
+"grocery-store" is a "unary predicate".
+"guide" is a type.
+"guide" is a "unary predicate".
+"gynecologic" is a type.
+"gynecologic" is a "unary predicate".
+"hvac-business" is a type.
+"hvac-business" is a "unary predicate".
+"hackathon" is a type.
+"hackathon" is a "unary predicate".
+"hair-salon" is a type.
+"hair-salon" is a "unary predicate".
+"hardware-store" is a type.
+"hardware-store" is a "unary predicate".
+"health-and-beauty-business" is a type.
+"health-and-beauty-business" is a "unary predicate".
+"health-aspect-enumeration" is a type.
+"health-aspect-enumeration" is a "unary predicate".
+"health-club" is a type.
+"health-club" is a "unary predicate".
+"health-insurance-plan" is a type.
+"health-insurance-plan" is a "unary predicate".
+"health-plan-cost-sharing-specification" is a type.
+"health-plan-cost-sharing-specification" is a "unary predicate".
+"health-plan-formulary" is a type.
+"health-plan-formulary" is a "unary predicate".
+"health-plan-network" is a type.
+"health-plan-network" is a "unary predicate".
+"health-topic-content" is a type.
+"health-topic-content" is a "unary predicate".
+"high-school" is a type.
+"high-school" is a "unary predicate".
+"hindu-temple" is a type.
+"hindu-temple" is a "unary predicate".
+"hobby-shop" is a type.
+"hobby-shop" is a "unary predicate".
+"home-and-construction-business" is a type.
+"home-and-construction-business" is a "unary predicate".
+"home-goods-store" is a type.
+"home-goods-store" is a "unary predicate".
+"hospital" is a type.
+"hospital" is a "unary predicate".
+"hostel" is a type.
+"hostel" is a "unary predicate".
+"hotel" is a type.
+"hotel" is a "unary predicate".
+"hotel-room" is a type.
+"hotel-room" is a "unary predicate".
+"house" is a type.
+"house" is a "unary predicate".
+"house-painter" is a type.
+"house-painter" is a "unary predicate".
+"how-to" is a type.
+"how-to" is a "unary predicate".
+"how-to-direction" is a type.
+"how-to-direction" is a "unary predicate".
+"how-to-item" is a type.
+"how-to-item" is a "unary predicate".
+"how-to-section" is a type.
+"how-to-section" is a "unary predicate".
+"how-to-step" is a type.
+"how-to-step" is a "unary predicate".
+"how-to-supply" is a type.
+"how-to-supply" is a "unary predicate".
+"how-to-tip" is a type.
+"how-to-tip" is a "unary predicate".
+"how-to-tool" is a type.
+"how-to-tool" is a "unary predicate".
+"hyper-toc" is a type.
+"hyper-toc" is a "unary predicate".
+"hyper-toc-entry" is a type.
+"hyper-toc-entry" is a "unary predicate".
+"iptc-digital-source-enumeration" is a type.
+"iptc-digital-source-enumeration" is a "unary predicate".
+"ice-cream-shop" is a type.
+"ice-cream-shop" is a "unary predicate".
+"ignore-action" is a type.
+"ignore-action" is a "unary predicate".
+"image-gallery" is a type.
+"image-gallery" is a "unary predicate".
+"image-object" is a type.
+"image-object" is a "unary predicate".
+"image-object-snapshot" is a type.
+"image-object-snapshot" is a "unary predicate".
+"imaging-test" is a type.
+"imaging-test" is a "unary predicate".
+"incentive-qualified-expense-type" is a type.
+"incentive-qualified-expense-type" is a "unary predicate".
+"incentive-status" is a type.
+"incentive-status" is a "unary predicate".
+"incentive-type" is a type.
+"incentive-type" is a "unary predicate".
+"individual-physician" is a type.
+"individual-physician" is a "unary predicate".
+"individual-product" is a type.
+"individual-product" is a "unary predicate".
+"infectious-agent-class" is a type.
+"infectious-agent-class" is a "unary predicate".
+"infectious-disease" is a type.
+"infectious-disease" is a "unary predicate".
+"inform-action" is a type.
+"inform-action" is a "unary predicate".
+"insert-action" is a type.
+"insert-action" is a "unary predicate".
+"install-action" is a type.
+"install-action" is a "unary predicate".
+"insurance-agency" is a type.
+"insurance-agency" is a "unary predicate".
+"intangible" is a type.
+"intangible" is a "unary predicate".
+"integer" is a type.
+"integer" is a "unary predicate".
+"interact-action" is a type.
+"interact-action" is a "unary predicate".
+"interaction-counter" is a type.
+"interaction-counter" is a "unary predicate".
+"internet-cafe" is a type.
+"internet-cafe" is a "unary predicate".
+"investment-fund" is a type.
+"investment-fund" is a "unary predicate".
+"investment-or-deposit" is a type.
+"investment-or-deposit" is a "unary predicate".
+"invite-action" is a type.
+"invite-action" is a "unary predicate".
+"item-availability" is a type.
+"item-availability" is a "unary predicate".
+"item-list" is a type.
+"item-list" is a "unary predicate".
+"item-list-order-type" is a type.
+"item-list-order-type" is a "unary predicate".
+"item-page" is a type.
+"item-page" is a "unary predicate".
+"jewelry-store" is a type.
+"jewelry-store" is a "unary predicate".
+"job-posting" is a type.
+"job-posting" is a "unary predicate".
+"join-action" is a type.
+"join-action" is a "unary predicate".
+"joint" is a type.
+"joint" is a "unary predicate".
+"lake-body-of-water" is a type.
+"lake-body-of-water" is a "unary predicate".
+"landform" is a type.
+"landform" is a "unary predicate".
+"landmarks-or-historical-buildings" is a type.
+"landmarks-or-historical-buildings" is a "unary predicate".
+"learning-resource" is a type.
+"learning-resource" is a "unary predicate".
+"leave-action" is a type.
+"leave-action" is a "unary predicate".
+"legal-force-status" is a type.
+"legal-force-status" is a "unary predicate".
+"legal-service" is a type.
+"legal-service" is a "unary predicate".
+"legal-value-level" is a type.
+"legal-value-level" is a "unary predicate".
+"legislation" is a type.
+"legislation" is a "unary predicate".
+"legislation-object" is a type.
+"legislation-object" is a "unary predicate".
+"legislative-building" is a type.
+"legislative-building" is a "unary predicate".
+"lend-action" is a type.
+"lend-action" is a "unary predicate".
+"library" is a type.
+"library" is a "unary predicate".
+"library-system" is a type.
+"library-system" is a "unary predicate".
+"lifestyle-modification" is a type.
+"lifestyle-modification" is a "unary predicate".
+"ligament" is a type.
+"ligament" is a "unary predicate".
+"like-action" is a type.
+"like-action" is a "unary predicate".
+"link-role" is a type.
+"link-role" is a "unary predicate".
+"liquor-store" is a type.
+"liquor-store" is a "unary predicate".
+"list-item" is a type.
+"list-item" is a "unary predicate".
+"listen-action" is a type.
+"listen-action" is a "unary predicate".
+"literary-event" is a type.
+"literary-event" is a "unary predicate".
+"live-blog-posting" is a type.
+"live-blog-posting" is a "unary predicate".
+"loan-or-credit" is a type.
+"loan-or-credit" is a "unary predicate".
+"local-business" is a type.
+"local-business" is a "unary predicate".
+"location-feature-specification" is a type.
+"location-feature-specification" is a "unary predicate".
+"locksmith" is a type.
+"locksmith" is a "unary predicate".
+"lodging-business" is a type.
+"lodging-business" is a "unary predicate".
+"lodging-reservation" is a type.
+"lodging-reservation" is a "unary predicate".
+"login-action" is a type.
+"login-action" is a "unary predicate".
+"lose-action" is a type.
+"lose-action" is a "unary predicate".
+"lymphatic-vessel" is a type.
+"lymphatic-vessel" is a "unary predicate".
+"manuscript" is a type.
+"manuscript" is a "unary predicate".
+"map" is a type.
+"map" is a "unary predicate".
+"map-category-type" is a type.
+"map-category-type" is a "unary predicate".
+"marry-action" is a type.
+"marry-action" is a "unary predicate".
+"mass" is a type.
+"mass" is a "unary predicate".
+"math-solver" is a type.
+"math-solver" is a "unary predicate".
+"maximum-dose-schedule" is a type.
+"maximum-dose-schedule" is a "unary predicate".
+"measurement-method-enum" is a type.
+"measurement-method-enum" is a "unary predicate".
+"measurement-type-enumeration" is a type.
+"measurement-type-enumeration" is a "unary predicate".
+"media-enumeration" is a type.
+"media-enumeration" is a "unary predicate".
+"media-gallery" is a type.
+"media-gallery" is a "unary predicate".
+"media-manipulation-rating-enumeration" is a type.
+"media-manipulation-rating-enumeration" is a "unary predicate".
+"media-object" is a type.
+"media-object" is a "unary predicate".
+"media-review" is a type.
+"media-review" is a "unary predicate".
+"media-review-item" is a type.
+"media-review-item" is a "unary predicate".
+"media-subscription" is a type.
+"media-subscription" is a "unary predicate".
+"medical-audience" is a type.
+"medical-audience" is a "unary predicate".
+"medical-audience-type" is a type.
+"medical-audience-type" is a "unary predicate".
+"medical-business" is a type.
+"medical-business" is a "unary predicate".
+"medical-cause" is a type.
+"medical-cause" is a "unary predicate".
+"medical-clinic" is a type.
+"medical-clinic" is a "unary predicate".
+"medical-code" is a type.
+"medical-code" is a "unary predicate".
+"medical-condition" is a type.
+"medical-condition" is a "unary predicate".
+"medical-condition-stage" is a type.
+"medical-condition-stage" is a "unary predicate".
+"medical-contraindication" is a type.
+"medical-contraindication" is a "unary predicate".
+"medical-device" is a type.
+"medical-device" is a "unary predicate".
+"medical-device-purpose" is a type.
+"medical-device-purpose" is a "unary predicate".
+"medical-entity" is a type.
+"medical-entity" is a "unary predicate".
+"medical-enumeration" is a type.
+"medical-enumeration" is a "unary predicate".
+"medical-evidence-level" is a type.
+"medical-evidence-level" is a "unary predicate".
+"medical-guideline" is a type.
+"medical-guideline" is a "unary predicate".
+"medical-guideline-contraindication" is a type.
+"medical-guideline-contraindication" is a "unary predicate".
+"medical-guideline-recommendation" is a type.
+"medical-guideline-recommendation" is a "unary predicate".
+"medical-imaging-technique" is a type.
+"medical-imaging-technique" is a "unary predicate".
+"medical-indication" is a type.
+"medical-indication" is a "unary predicate".
+"medical-intangible" is a type.
+"medical-intangible" is a "unary predicate".
+"medical-observational-study" is a type.
+"medical-observational-study" is a "unary predicate".
+"medical-observational-study-design" is a type.
+"medical-observational-study-design" is a "unary predicate".
+"medical-organization" is a type.
+"medical-organization" is a "unary predicate".
+"medical-procedure" is a type.
+"medical-procedure" is a "unary predicate".
+"medical-procedure-type" is a type.
+"medical-procedure-type" is a "unary predicate".
+"medical-risk-calculator" is a type.
+"medical-risk-calculator" is a "unary predicate".
+"medical-risk-estimator" is a type.
+"medical-risk-estimator" is a "unary predicate".
+"medical-risk-factor" is a type.
+"medical-risk-factor" is a "unary predicate".
+"medical-risk-score" is a type.
+"medical-risk-score" is a "unary predicate".
+"medical-scholarly-article" is a type.
+"medical-scholarly-article" is a "unary predicate".
+"medical-sign" is a type.
+"medical-sign" is a "unary predicate".
+"medical-sign-or-symptom" is a type.
+"medical-sign-or-symptom" is a "unary predicate".
+"medical-specialty" is a type.
+"medical-specialty" is a "unary predicate".
+"medical-study" is a type.
+"medical-study" is a "unary predicate".
+"medical-study-status" is a type.
+"medical-study-status" is a "unary predicate".
+"medical-symptom" is a type.
+"medical-symptom" is a "unary predicate".
+"medical-test" is a type.
+"medical-test" is a "unary predicate".
+"medical-test-panel" is a type.
+"medical-test-panel" is a "unary predicate".
+"medical-therapy" is a type.
+"medical-therapy" is a "unary predicate".
+"medical-trial" is a type.
+"medical-trial" is a "unary predicate".
+"medical-trial-design" is a type.
+"medical-trial-design" is a "unary predicate".
+"medical-web-page" is a type.
+"medical-web-page" is a "unary predicate".
+"medicine-system" is a type.
+"medicine-system" is a "unary predicate".
+"meeting-room" is a type.
+"meeting-room" is a "unary predicate".
+"member-program" is a type.
+"member-program" is a "unary predicate".
+"member-program-tier" is a type.
+"member-program-tier" is a "unary predicate".
+"mens-clothing-store" is a type.
+"mens-clothing-store" is a "unary predicate".
+"menu" is a type.
+"menu" is a "unary predicate".
+"menu-item" is a type.
+"menu-item" is a "unary predicate".
+"menu-section" is a type.
+"menu-section" is a "unary predicate".
+"merchant-return-enumeration" is a type.
+"merchant-return-enumeration" is a "unary predicate".
+"merchant-return-policy" is a type.
+"merchant-return-policy" is a "unary predicate".
+"merchant-return-policy-seasonal-override" is a type.
+"merchant-return-policy-seasonal-override" is a "unary predicate".
+"message" is a type.
+"message" is a "unary predicate".
+"middle-school" is a type.
+"middle-school" is a "unary predicate".
+"midwifery" is a type.
+"midwifery" is a "unary predicate".
+"mobile-application" is a type.
+"mobile-application" is a "unary predicate".
+"mobile-phone-store" is a type.
+"mobile-phone-store" is a "unary predicate".
+"molecular-entity" is a type.
+"molecular-entity" is a "unary predicate".
+"monetary-amount" is a type.
+"monetary-amount" is a "unary predicate".
+"monetary-amount-distribution" is a type.
+"monetary-amount-distribution" is a "unary predicate".
+"monetary-grant" is a type.
+"monetary-grant" is a "unary predicate".
+"money-transfer" is a type.
+"money-transfer" is a "unary predicate".
+"mortgage-loan" is a type.
+"mortgage-loan" is a "unary predicate".
+"mosque" is a type.
+"mosque" is a "unary predicate".
+"motel" is a type.
+"motel" is a "unary predicate".
+"motorcycle" is a type.
+"motorcycle" is a "unary predicate".
+"motorcycle-dealer" is a type.
+"motorcycle-dealer" is a "unary predicate".
+"motorcycle-repair" is a type.
+"motorcycle-repair" is a "unary predicate".
+"motorized-bicycle" is a type.
+"motorized-bicycle" is a "unary predicate".
+"mountain" is a type.
+"mountain" is a "unary predicate".
+"move-action" is a type.
+"move-action" is a "unary predicate".
+"movie" is a type.
+"movie" is a "unary predicate".
+"movie-clip" is a type.
+"movie-clip" is a "unary predicate".
+"movie-rental-store" is a type.
+"movie-rental-store" is a "unary predicate".
+"movie-series" is a type.
+"movie-series" is a "unary predicate".
+"movie-theater" is a type.
+"movie-theater" is a "unary predicate".
+"moving-company" is a type.
+"moving-company" is a "unary predicate".
+"muscle" is a type.
+"muscle" is a "unary predicate".
+"museum" is a type.
+"museum" is a "unary predicate".
+"music-album" is a type.
+"music-album" is a "unary predicate".
+"music-album-production-type" is a type.
+"music-album-production-type" is a "unary predicate".
+"music-album-release-type" is a type.
+"music-album-release-type" is a "unary predicate".
+"music-composition" is a type.
+"music-composition" is a "unary predicate".
+"music-event" is a type.
+"music-event" is a "unary predicate".
+"music-group" is a type.
+"music-group" is a "unary predicate".
+"music-playlist" is a type.
+"music-playlist" is a "unary predicate".
+"music-recording" is a type.
+"music-recording" is a "unary predicate".
+"music-release" is a type.
+"music-release" is a "unary predicate".
+"music-release-format-type" is a type.
+"music-release-format-type" is a "unary predicate".
+"music-store" is a type.
+"music-store" is a "unary predicate".
+"music-venue" is a type.
+"music-venue" is a "unary predicate".
+"music-video-object" is a type.
+"music-video-object" is a "unary predicate".
+"ngo" is a type.
+"ngo" is a "unary predicate".
+"nl-nonprofit-type" is a type.
+"nl-nonprofit-type" is a "unary predicate".
+"nail-salon" is a type.
+"nail-salon" is a "unary predicate".
+"nerve" is a type.
+"nerve" is a "unary predicate".
+"news-article" is a type.
+"news-article" is a "unary predicate".
+"news-media-organization" is a type.
+"news-media-organization" is a "unary predicate".
+"newspaper" is a type.
+"newspaper" is a "unary predicate".
+"night-club" is a type.
+"night-club" is a "unary predicate".
+"nonprofit-type" is a type.
+"nonprofit-type" is a "unary predicate".
+"notary" is a type.
+"notary" is a "unary predicate".
+"note-digital-document" is a type.
+"note-digital-document" is a "unary predicate".
+"number" is a type.
+"number" is a "unary predicate".
+"nursing" is a type.
+"nursing" is a "unary predicate".
+"nutrition-information" is a type.
+"nutrition-information" is a "unary predicate".
+"observation" is a type.
+"observation" is a "unary predicate".
+"obstetric" is a type.
+"obstetric" is a "unary predicate".
+"occupation" is a type.
+"occupation" is a "unary predicate".
+"occupational-experience-requirements" is a type.
+"occupational-experience-requirements" is a "unary predicate".
+"occupational-therapy" is a type.
+"occupational-therapy" is a "unary predicate".
+"ocean-body-of-water" is a type.
+"ocean-body-of-water" is a "unary predicate".
+"offer-catalog" is a type.
+"offer-catalog" is a "unary predicate".
+"offer-for-lease" is a type.
+"offer-for-lease" is a "unary predicate".
+"offer-for-purchase" is a type.
+"offer-for-purchase" is a "unary predicate".
+"offer-item-condition" is a type.
+"offer-item-condition" is a "unary predicate".
+"offer-shipping-details" is a type.
+"offer-shipping-details" is a "unary predicate".
+"office-equipment-store" is a type.
+"office-equipment-store" is a "unary predicate".
+"on-demand-event" is a type.
+"on-demand-event" is a "unary predicate".
+"oncologic" is a type.
+"oncologic" is a "unary predicate".
+"online-business" is a type.
+"online-business" is a "unary predicate".
+"online-marketplace" is a type.
+"online-marketplace" is a "unary predicate".
+"online-store" is a type.
+"online-store" is a "unary predicate".
+"opening-hours-specification" is a type.
+"opening-hours-specification" is a "unary predicate".
+"operating-system" is a type.
+"operating-system" is a "unary predicate".
+"opinion-news-article" is a type.
+"opinion-news-article" is a "unary predicate".
+"optician" is a type.
+"optician" is a "unary predicate".
+"optometric" is a type.
+"optometric" is a "unary predicate".
+"order-action" is a type.
+"order-action" is a "unary predicate".
+"order-item" is a type.
+"order-item" is a "unary predicate".
+"order-status" is a type.
+"order-status" is a "unary predicate".
+"organization-role" is a type.
+"organization-role" is a "unary predicate".
+"organize-action" is a type.
+"organize-action" is a "unary predicate".
+"otolaryngologic" is a type.
+"otolaryngologic" is a "unary predicate".
+"outlet-store" is a type.
+"outlet-store" is a "unary predicate".
+"ownership-info" is a type.
+"ownership-info" is a "unary predicate".
+"paint-action" is a type.
+"paint-action" is a "unary predicate".
+"painting" is a type.
+"painting" is a "unary predicate".
+"palliative-procedure" is a type.
+"palliative-procedure" is a "unary predicate".
+"parcel-delivery" is a type.
+"parcel-delivery" is a "unary predicate".
+"parent-audience" is a type.
+"parent-audience" is a "unary predicate".
+"park" is a type.
+"park" is a "unary predicate".
+"parking-facility" is a type.
+"parking-facility" is a "unary predicate".
+"pathology-test" is a type.
+"pathology-test" is a "unary predicate".
+"patient" is a type.
+"patient" is a "unary predicate".
+"pawn-shop" is a type.
+"pawn-shop" is a "unary predicate".
+"pay-action" is a type.
+"pay-action" is a "unary predicate".
+"payment-card" is a type.
+"payment-card" is a "unary predicate".
+"payment-charge-specification" is a type.
+"payment-charge-specification" is a "unary predicate".
+"payment-method-type" is a type.
+"payment-method-type" is a "unary predicate".
+"payment-service" is a type.
+"payment-service" is a "unary predicate".
+"payment-status-type" is a type.
+"payment-status-type" is a "unary predicate".
+"pediatric" is a type.
+"pediatric" is a "unary predicate".
+"people-audience" is a type.
+"people-audience" is a "unary predicate".
+"perform-action" is a type.
+"perform-action" is a "unary predicate".
+"performance-role" is a type.
+"performance-role" is a "unary predicate".
+"performing-arts-event" is a type.
+"performing-arts-event" is a "unary predicate".
+"performing-arts-theater" is a type.
+"performing-arts-theater" is a "unary predicate".
+"performing-group" is a type.
+"performing-group" is a "unary predicate".
+"permit" is a type.
+"permit" is a "unary predicate".
+"pet-store" is a type.
+"pet-store" is a "unary predicate".
+"pharmacy" is a type.
+"pharmacy" is a "unary predicate".
+"photograph" is a type.
+"photograph" is a "unary predicate".
+"photograph-action" is a type.
+"photograph-action" is a "unary predicate".
+"physical-activity" is a type.
+"physical-activity" is a "unary predicate".
+"physical-activity-category" is a type.
+"physical-activity-category" is a "unary predicate".
+"physical-exam" is a type.
+"physical-exam" is a "unary predicate".
+"physical-therapy" is a type.
+"physical-therapy" is a "unary predicate".
+"physician" is a type.
+"physician" is a "unary predicate".
+"physicians-office" is a type.
+"physicians-office" is a "unary predicate".
+"physiotherapy" is a type.
+"physiotherapy" is a "unary predicate".
+"place" is a type.
+"place" is a "unary predicate".
+"place-of-worship" is a type.
+"place-of-worship" is a "unary predicate".
+"plan-action" is a type.
+"plan-action" is a "unary predicate".
+"plastic-surgery" is a type.
+"plastic-surgery" is a "unary predicate".
+"play" is a type.
+"play" is a "unary predicate".
+"play-action" is a type.
+"play-action" is a "unary predicate".
+"play-game-action" is a type.
+"play-game-action" is a "unary predicate".
+"playground" is a type.
+"playground" is a "unary predicate".
+"plumber" is a type.
+"plumber" is a "unary predicate".
+"podcast-episode" is a type.
+"podcast-episode" is a "unary predicate".
+"podcast-season" is a type.
+"podcast-season" is a "unary predicate".
+"podcast-series" is a type.
+"podcast-series" is a "unary predicate".
+"podiatric" is a type.
+"podiatric" is a "unary predicate".
+"police-station" is a type.
+"police-station" is a "unary predicate".
+"political-party" is a type.
+"political-party" is a "unary predicate".
+"pond" is a type.
+"pond" is a "unary predicate".
+"post-office" is a type.
+"post-office" is a "unary predicate".
+"postal-code-range-specification" is a type.
+"postal-code-range-specification" is a "unary predicate".
+"poster" is a type.
+"poster" is a "unary predicate".
+"pre-order-action" is a type.
+"pre-order-action" is a "unary predicate".
+"prepend-action" is a type.
+"prepend-action" is a "unary predicate".
+"preschool" is a type.
+"preschool" is a "unary predicate".
+"presentation-digital-document" is a type.
+"presentation-digital-document" is a "unary predicate".
+"prevention-indication" is a type.
+"prevention-indication" is a "unary predicate".
+"price-component-type-enumeration" is a type.
+"price-component-type-enumeration" is a "unary predicate".
+"price-specification" is a type.
+"price-specification" is a "unary predicate".
+"price-type-enumeration" is a type.
+"price-type-enumeration" is a "unary predicate".
+"primary-care" is a type.
+"primary-care" is a "unary predicate".
+"product" is a type.
+"product" is a "unary predicate".
+"product-collection" is a type.
+"product-collection" is a "unary predicate".
+"product-group" is a type.
+"product-group" is a "unary predicate".
+"product-model" is a type.
+"product-model" is a "unary predicate".
+"professional-service" is a type.
+"professional-service" is a "unary predicate".
+"profile-page" is a type.
+"profile-page" is a "unary predicate".
+"program-membership" is a type.
+"program-membership" is a "unary predicate".
+"project" is a type.
+"project" is a "unary predicate".
+"pronounceable-text" is a type.
+"pronounceable-text" is a "unary predicate".
+"property-value" is a type.
+"property-value" is a "unary predicate".
+"property-value-specification" is a type.
+"property-value-specification" is a "unary predicate".
+"protein" is a type.
+"protein" is a "unary predicate".
+"psychiatric" is a type.
+"psychiatric" is a "unary predicate".
+"psychological-treatment" is a type.
+"psychological-treatment" is a "unary predicate".
+"public-health" is a type.
+"public-health" is a "unary predicate".
+"public-swimming-pool" is a type.
+"public-swimming-pool" is a "unary predicate".
+"public-toilet" is a type.
+"public-toilet" is a "unary predicate".
+"publication-event" is a type.
+"publication-event" is a "unary predicate".
+"publication-issue" is a type.
+"publication-issue" is a "unary predicate".
+"publication-volume" is a type.
+"publication-volume" is a "unary predicate".
+"purchase-type" is a type.
+"purchase-type" is a "unary predicate".
+"qa-page" is a type.
+"qa-page" is a "unary predicate".
+"qualitative-value" is a type.
+"qualitative-value" is a "unary predicate".
+"quantitative-value" is a type.
+"quantitative-value" is a "unary predicate".
+"quantitative-value-distribution" is a type.
+"quantitative-value-distribution" is a "unary predicate".
+"quantity" is a type.
+"quantity" is a "unary predicate".
+"quiz" is a type.
+"quiz" is a "unary predicate".
+"quotation" is a type.
+"quotation" is a "unary predicate".
+"quote-action" is a type.
+"quote-action" is a "unary predicate".
+"rv-park" is a type.
+"rv-park" is a "unary predicate".
+"radiation-therapy" is a type.
+"radiation-therapy" is a "unary predicate".
+"radio-broadcast-service" is a type.
+"radio-broadcast-service" is a "unary predicate".
+"radio-channel" is a type.
+"radio-channel" is a "unary predicate".
+"radio-clip" is a type.
+"radio-clip" is a "unary predicate".
+"radio-episode" is a type.
+"radio-episode" is a "unary predicate".
+"radio-season" is a type.
+"radio-season" is a "unary predicate".
+"radio-series" is a type.
+"radio-series" is a "unary predicate".
+"radio-station" is a type.
+"radio-station" is a "unary predicate".
+"rating" is a type.
+"rating" is a "unary predicate".
+"react-action" is a type.
+"react-action" is a "unary predicate".
+"read-action" is a type.
+"read-action" is a "unary predicate".
+"real-estate-listing" is a type.
+"real-estate-listing" is a "unary predicate".
+"receive-action" is a type.
+"receive-action" is a "unary predicate".
+"recommendation" is a type.
+"recommendation" is a "unary predicate".
+"recommended-dose-schedule" is a type.
+"recommended-dose-schedule" is a "unary predicate".
+"recycling-center" is a type.
+"recycling-center" is a "unary predicate".
+"refund-type-enumeration" is a type.
+"refund-type-enumeration" is a "unary predicate".
+"register-action" is a type.
+"register-action" is a "unary predicate".
+"reject-action" is a type.
+"reject-action" is a "unary predicate".
+"rent-action" is a type.
+"rent-action" is a "unary predicate".
+"rental-car-reservation" is a type.
+"rental-car-reservation" is a "unary predicate".
+"repayment-specification" is a type.
+"repayment-specification" is a "unary predicate".
+"replace-action" is a type.
+"replace-action" is a "unary predicate".
+"reply-action" is a type.
+"reply-action" is a "unary predicate".
+"report" is a type.
+"report" is a "unary predicate".
+"reportage-news-article" is a type.
+"reportage-news-article" is a "unary predicate".
+"reported-dose-schedule" is a type.
+"reported-dose-schedule" is a "unary predicate".
+"research-organization" is a type.
+"research-organization" is a "unary predicate".
+"research-project" is a type.
+"research-project" is a "unary predicate".
+"researcher" is a type.
+"researcher" is a "unary predicate".
+"reservation" is a type.
+"reservation" is a "unary predicate".
+"reservation-package" is a type.
+"reservation-package" is a "unary predicate".
+"reservation-status-type" is a type.
+"reservation-status-type" is a "unary predicate".
+"reserve-action" is a type.
+"reserve-action" is a "unary predicate".
+"reservoir" is a type.
+"reservoir" is a "unary predicate".
+"reset-password-action" is a type.
+"reset-password-action" is a "unary predicate".
+"residence" is a type.
+"residence" is a "unary predicate".
+"resort" is a type.
+"resort" is a "unary predicate".
+"respiratory-therapy" is a type.
+"respiratory-therapy" is a "unary predicate".
+"restaurant" is a type.
+"restaurant" is a "unary predicate".
+"restricted-diet" is a type.
+"restricted-diet" is a "unary predicate".
+"resume-action" is a type.
+"resume-action" is a "unary predicate".
+"return-action" is a type.
+"return-action" is a "unary predicate".
+"return-fees-enumeration" is a type.
+"return-fees-enumeration" is a "unary predicate".
+"return-label-source-enumeration" is a type.
+"return-label-source-enumeration" is a "unary predicate".
+"return-method-enumeration" is a type.
+"return-method-enumeration" is a "unary predicate".
+"review" is a type.
+"review" is a "unary predicate".
+"review-action" is a type.
+"review-action" is a "unary predicate".
+"review-news-article" is a type.
+"review-news-article" is a "unary predicate".
+"river-body-of-water" is a type.
+"river-body-of-water" is a "unary predicate".
+"role" is a type.
+"role" is a "unary predicate".
+"roofing-contractor" is a type.
+"roofing-contractor" is a "unary predicate".
+"room" is a type.
+"room" is a "unary predicate".
+"rsvp-action" is a type.
+"rsvp-action" is a "unary predicate".
+"rsvp-response-type" is a type.
+"rsvp-response-type" is a "unary predicate".
+"runtime-platform" is a type.
+"runtime-platform" is a "unary predicate".
+"sale-event" is a type.
+"sale-event" is a "unary predicate".
+"satirical-article" is a type.
+"satirical-article" is a "unary predicate".
+"schedule" is a type.
+"schedule" is a "unary predicate".
+"schedule-action" is a type.
+"schedule-action" is a "unary predicate".
+"scholarly-article" is a type.
+"scholarly-article" is a "unary predicate".
+"school" is a type.
+"school" is a "unary predicate".
+"school-district" is a type.
+"school-district" is a "unary predicate".
+"screening-event" is a type.
+"screening-event" is a "unary predicate".
+"sculpture" is a type.
+"sculpture" is a "unary predicate".
+"sea-body-of-water" is a type.
+"sea-body-of-water" is a "unary predicate".
+"search-action" is a type.
+"search-action" is a "unary predicate".
+"search-rescue-organization" is a type.
+"search-rescue-organization" is a "unary predicate".
+"search-results-page" is a type.
+"search-results-page" is a "unary predicate".
+"seat" is a type.
+"seat" is a "unary predicate".
+"seek-to-action" is a type.
+"seek-to-action" is a "unary predicate".
+"self-storage" is a type.
+"self-storage" is a "unary predicate".
+"sell-action" is a type.
+"sell-action" is a "unary predicate".
+"send-action" is a type.
+"send-action" is a "unary predicate".
+"sequential-art" is a type.
+"sequential-art" is a "unary predicate".
+"series" is a type.
+"series" is a "unary predicate".
+"service" is a type.
+"service" is a "unary predicate".
+"service-channel" is a type.
+"service-channel" is a "unary predicate".
+"service-period" is a type.
+"service-period" is a "unary predicate".
+"share-action" is a type.
+"share-action" is a "unary predicate".
+"sheet-music" is a type.
+"sheet-music" is a "unary predicate".
+"shipping-conditions" is a type.
+"shipping-conditions" is a "unary predicate".
+"shipping-delivery-time" is a type.
+"shipping-delivery-time" is a "unary predicate".
+"shipping-rate-settings" is a type.
+"shipping-rate-settings" is a "unary predicate".
+"shipping-service" is a type.
+"shipping-service" is a "unary predicate".
+"shoe-store" is a type.
+"shoe-store" is a "unary predicate".
+"shopping-center" is a type.
+"shopping-center" is a "unary predicate".
+"short-story" is a type.
+"short-story" is a "unary predicate".
+"single-family-residence" is a type.
+"single-family-residence" is a "unary predicate".
+"site-navigation-element" is a type.
+"site-navigation-element" is a "unary predicate".
+"size-group-enumeration" is a type.
+"size-group-enumeration" is a "unary predicate".
+"size-specification" is a type.
+"size-specification" is a "unary predicate".
+"size-system-enumeration" is a type.
+"size-system-enumeration" is a "unary predicate".
+"ski-resort" is a type.
+"ski-resort" is a "unary predicate".
+"social-event" is a type.
+"social-event" is a "unary predicate".
+"social-media-posting" is a type.
+"social-media-posting" is a "unary predicate".
+"software-application" is a type.
+"software-application" is a "unary predicate".
+"software-source-code" is a type.
+"software-source-code" is a "unary predicate".
+"solve-math-action" is a type.
+"solve-math-action" is a "unary predicate".
+"some-products" is a type.
+"some-products" is a "unary predicate".
+"speakable-specification" is a type.
+"speakable-specification" is a "unary predicate".
+"special-announcement" is a type.
+"special-announcement" is a "unary predicate".
+"specialty" is a type.
+"specialty" is a "unary predicate".
+"sporting-goods-store" is a type.
+"sporting-goods-store" is a "unary predicate".
+"sports-club" is a type.
+"sports-club" is a "unary predicate".
+"sports-organization" is a type.
+"sports-organization" is a "unary predicate".
+"spreadsheet-digital-document" is a type.
+"spreadsheet-digital-document" is a "unary predicate".
+"stadium-or-arena" is a type.
+"stadium-or-arena" is a "unary predicate".
+"state" is a type.
+"state" is a "unary predicate".
+"statement" is a type.
+"statement" is a "unary predicate".
+"statistical-population" is a type.
+"statistical-population" is a "unary predicate".
+"statistical-variable" is a type.
+"statistical-variable" is a "unary predicate".
+"status-enumeration" is a type.
+"status-enumeration" is a "unary predicate".
+"steering-position-value" is a type.
+"steering-position-value" is a "unary predicate".
+"store" is a type.
+"store" is a "unary predicate".
+"structured-value" is a type.
+"structured-value" is a "unary predicate".
+"subscribe-action" is a type.
+"subscribe-action" is a "unary predicate".
+"substance" is a type.
+"substance" is a "unary predicate".
+"subway-station" is a type.
+"subway-station" is a "unary predicate".
+"suite" is a type.
+"suite" is a "unary predicate".
+"superficial-anatomy" is a type.
+"superficial-anatomy" is a "unary predicate".
+"surgical-procedure" is a type.
+"surgical-procedure" is a "unary predicate".
+"suspend-action" is a type.
+"suspend-action" is a "unary predicate".
+"syllabus" is a type.
+"syllabus" is a "unary predicate".
+"synagogue" is a type.
+"synagogue" is a "unary predicate".
+"tv-clip" is a type.
+"tv-clip" is a "unary predicate".
+"tv-episode" is a type.
+"tv-episode" is a "unary predicate".
+"tv-season" is a type.
+"tv-season" is a "unary predicate".
+"tv-series" is a type.
+"tv-series" is a "unary predicate".
+"table" is a type.
+"table" is a "unary predicate".
+"take-action" is a type.
+"take-action" is a "unary predicate".
+"tattoo-parlor" is a type.
+"tattoo-parlor" is a "unary predicate".
+"taxi" is a type.
+"taxi" is a "unary predicate".
+"taxi-reservation" is a type.
+"taxi-reservation" is a "unary predicate".
+"taxi-service" is a type.
+"taxi-service" is a "unary predicate".
+"taxi-stand" is a type.
+"taxi-stand" is a "unary predicate".
+"taxon" is a type.
+"taxon" is a "unary predicate".
+"tech-article" is a type.
+"tech-article" is a "unary predicate".
+"television-channel" is a type.
+"television-channel" is a "unary predicate".
+"television-station" is a type.
+"television-station" is a "unary predicate".
+"tennis-complex" is a type.
+"tennis-complex" is a "unary predicate".
+"text-digital-document" is a type.
+"text-digital-document" is a "unary predicate".
+"text-object" is a type.
+"text-object" is a "unary predicate".
+"theater-event" is a type.
+"theater-event" is a "unary predicate".
+"theater-group" is a type.
+"theater-group" is a "unary predicate".
+"therapeutic-procedure" is a type.
+"therapeutic-procedure" is a "unary predicate".
+"thesis" is a type.
+"thesis" is a "unary predicate".
+"thing" is a type.
+"thing" is a "unary predicate".
+"ticket" is a type.
+"ticket" is a "unary predicate".
+"tie-action" is a type.
+"tie-action" is a "unary predicate".
+"tier-benefit-enumeration" is a type.
+"tier-benefit-enumeration" is a "unary predicate".
+"time" is a type.
+"time" is a "unary predicate".
+"tip-action" is a type.
+"tip-action" is a "unary predicate".
+"tire-shop" is a type.
+"tire-shop" is a "unary predicate".
+"tourist-attraction" is a type.
+"tourist-attraction" is a "unary predicate".
+"tourist-destination" is a type.
+"tourist-destination" is a "unary predicate".
+"tourist-information-center" is a type.
+"tourist-information-center" is a "unary predicate".
+"tourist-trip" is a type.
+"tourist-trip" is a "unary predicate".
+"toy-store" is a type.
+"toy-store" is a "unary predicate".
+"track-action" is a type.
+"track-action" is a "unary predicate".
+"trade-action" is a type.
+"trade-action" is a "unary predicate".
+"train-reservation" is a type.
+"train-reservation" is a "unary predicate".
+"train-station" is a type.
+"train-station" is a "unary predicate".
+"train-trip" is a type.
+"train-trip" is a "unary predicate".
+"transfer-action" is a type.
+"transfer-action" is a "unary predicate".
+"travel-action" is a type.
+"travel-action" is a "unary predicate".
+"travel-agency" is a type.
+"travel-agency" is a "unary predicate".
+"treatment-indication" is a type.
+"treatment-indication" is a "unary predicate".
+"trip" is a type.
+"trip" is a "unary predicate".
+"type-and-quantity-node" is a type.
+"type-and-quantity-node" is a "unary predicate".
+"uk-nonprofit-type" is a type.
+"uk-nonprofit-type" is a "unary predicate".
+"url" is a type.
+"url" is a "unary predicate".
+"us-nonprofit-type" is a type.
+"us-nonprofit-type" is a "unary predicate".
+"un-register-action" is a type.
+"un-register-action" is a "unary predicate".
+"unit-price-specification" is a type.
+"unit-price-specification" is a "unary predicate".
+"update-action" is a type.
+"update-action" is a "unary predicate".
+"use-action" is a type.
+"use-action" is a "unary predicate".
+"user-blocks" is a type.
+"user-blocks" is a "unary predicate".
+"user-checkins" is a type.
+"user-checkins" is a "unary predicate".
+"user-comments" is a type.
+"user-comments" is a "unary predicate".
+"user-downloads" is a type.
+"user-downloads" is a "unary predicate".
+"user-interaction" is a type.
+"user-interaction" is a "unary predicate".
+"user-likes" is a type.
+"user-likes" is a "unary predicate".
+"user-page-visits" is a type.
+"user-page-visits" is a "unary predicate".
+"user-plays" is a type.
+"user-plays" is a "unary predicate".
+"user-plus-ones" is a type.
+"user-plus-ones" is a "unary predicate".
+"user-review" is a type.
+"user-review" is a "unary predicate".
+"user-tweets" is a type.
+"user-tweets" is a "unary predicate".
+"vacation-rental" is a type.
+"vacation-rental" is a "unary predicate".
+"vehicle" is a type.
+"vehicle" is a "unary predicate".
+"vein" is a type.
+"vein" is a "unary predicate".
+"vessel" is a type.
+"vessel" is a "unary predicate".
+"veterinary-care" is a type.
+"veterinary-care" is a "unary predicate".
+"video-gallery" is a type.
+"video-gallery" is a "unary predicate".
+"video-game" is a type.
+"video-game" is a "unary predicate".
+"video-game-clip" is a type.
+"video-game-clip" is a "unary predicate".
+"video-game-series" is a type.
+"video-game-series" is a "unary predicate".
+"video-object" is a type.
+"video-object" is a "unary predicate".
+"video-object-snapshot" is a type.
+"video-object-snapshot" is a "unary predicate".
+"view-action" is a type.
+"view-action" is a "unary predicate".
+"virtual-location" is a type.
+"virtual-location" is a "unary predicate".
+"visual-arts-event" is a type.
+"visual-arts-event" is a "unary predicate".
+"visual-artwork" is a type.
+"visual-artwork" is a "unary predicate".
+"vital-sign" is a type.
+"vital-sign" is a "unary predicate".
+"volcano" is a type.
+"volcano" is a "unary predicate".
+"vote-action" is a type.
+"vote-action" is a "unary predicate".
+"wp-ad-block" is a type.
+"wp-ad-block" is a "unary predicate".
+"wp-footer" is a type.
+"wp-footer" is a "unary predicate".
+"wp-header" is a type.
+"wp-header" is a "unary predicate".
+"wp-side-bar" is a type.
+"wp-side-bar" is a "unary predicate".
+"want-action" is a type.
+"want-action" is a "unary predicate".
+"warranty-promise" is a type.
+"warranty-promise" is a "unary predicate".
+"warranty-scope" is a type.
+"warranty-scope" is a "unary predicate".
+"watch-action" is a type.
+"watch-action" is a "unary predicate".
+"waterfall" is a type.
+"waterfall" is a "unary predicate".
+"wear-action" is a type.
+"wear-action" is a "unary predicate".
+"wearable-measurement-type-enumeration" is a type.
+"wearable-measurement-type-enumeration" is a "unary predicate".
+"wearable-size-group-enumeration" is a type.
+"wearable-size-group-enumeration" is a "unary predicate".
+"wearable-size-system-enumeration" is a type.
+"wearable-size-system-enumeration" is a "unary predicate".
+"web-api" is a type.
+"web-api" is a "unary predicate".
+"web-application" is a type.
+"web-application" is a "unary predicate".
+"web-content" is a type.
+"web-content" is a "unary predicate".
+"web-page" is a type.
+"web-page" is a "unary predicate".
+"web-page-element" is a type.
+"web-page-element" is a "unary predicate".
+"web-site" is a type.
+"web-site" is a "unary predicate".
+"wholesale-store" is a type.
+"wholesale-store" is a "unary predicate".
+"win-action" is a type.
+"win-action" is a "unary predicate".
+"winery" is a type.
+"winery" is a "unary predicate".
+"work-based-program" is a type.
+"work-based-program" is a "unary predicate".
+"workers-union" is a type.
+"workers-union" is a "unary predicate".
+"write-action" is a type.
+"write-action" is a "unary predicate".
+"x-path-type" is a type.
+"x-path-type" is a "unary predicate".
+"zoo" is a type.
+"zoo" is a "unary predicate".
+"timestamp" is a type.
+"timestamp" is a "unary predicate".
+"cooperative-society" is a type.
+"cooperative-society" is a "unary predicate".
+"non-governmental-organization" is a type.
+"non-governmental-organization" is a "unary predicate".
+"payment-mechanism" is a type.
+"payment-mechanism" is a "unary predicate".
+"mutual-contractual-agreement" is a type.
+"mutual-contractual-agreement" is a "unary predicate".
+"certificate" is a type.
+"certificate" is a "unary predicate".
+"document" is a type.
+"document" is a "unary predicate".
+"legal-document" is a type.
+"legal-document" is a "unary predicate".
+"occurrence" is a type.
+"occurrence" is a "unary predicate".
+"municipality" is a type.
+"municipality" is a "unary predicate".
+"classifier" is a type.
+"classifier" is a "unary predicate".
+"geopolitical-entity" is a type.
+"geopolitical-entity" is a "unary predicate".
+"subdivision" is a type.
+"subdivision" is a "unary predicate".
+"address" is a type.
+"address" is a "unary predicate".
+"geographic-coordinate" is a type.
+"geographic-coordinate" is a "unary predicate".
+
+// Binary predicates
+"amends" is a "binary predicate".
+"changes" is a "binary predicate".
+"commences" is a "binary predicate".
+"consolidates" is a "binary predicate".
+"corrects" is a "binary predicate".
+"countersigned by" is a "binary predicate".
+"date-applicability" is a "binary predicate".
+"date-document" is a "binary predicate".
+"ensures-implementation-of" is a "binary predicate".
+"implements" is a "binary predicate".
+"in-force" is a "binary predicate".
+"jurisdiction" is a "binary predicate".
+"legal-value" is a "binary predicate".
+"passed by" is a "binary predicate".
+"repeals" is a "binary predicate".
+"responsibility of" is a "binary predicate".
+"transposes" is a "binary predicate".
+"type-document" is a "binary predicate".
+"version-date" is a "binary predicate".
+"description" is a "binary predicate".
+"identifier" is a "binary predicate".
+"spatial" is a "binary predicate".
+"temporal" is a "binary predicate".
+"title" is a "binary predicate".
+"isbn" is a "binary predicate".
+"issn" is a "binary predicate".
+"issue" is a "binary predicate".
+"page-end" is a "binary predicate".
+"page-start" is a "binary predicate".
+"pages" is a "binary predicate".
+"volume" is a "binary predicate".
+"label" is a "binary predicate".
+"applicable-certificate" is a "binary predicate".
+"billing-address" is a "binary predicate".
+"certificate-identifier" is a "binary predicate".
+"despatch-location" is a "binary predicate".
+"effective-end-date-time" is a "binary predicate".
+"included-consignment-item" is a "binary predicate".
+"inspection-date-time" is a "binary predicate".
+"line-item-identifier" is a "binary predicate".
+"model-name" is a "binary predicate".
+"order-date" is a "binary predicate".
+"order-identifier" is a "binary predicate".
+"payment-due-date" is a "binary predicate".
+"payment-means-id" is a "binary predicate".
+"price-type-code" is a "binary predicate".
+"processing-country" is a "binary predicate".
+"product-availability-date" is a "binary predicate".
+"production-date" is a "binary predicate".
+"promotional-message" is a "binary predicate".
+"referenced-order" is a "binary predicate".
+"related-product" is a "binary predicate".
+"seller" is a "binary predicate".
+"serial-id" is a "binary predicate".
+"service-provider" is a "binary predicate".
+"ship-to-address" is a "binary predicate".
+"substitute-product" is a "binary predicate".
+"billing-period" is a "binary predicate".
+"brand-name" is a "binary predicate".
+"colour-description" is a "binary predicate".
+"d-uns-id" is a "binary predicate".
+"final-assembly-country" is a "binary predicate".
+"g-ln-id" is a "binary predicate".
+"g-tin-id" is a "binary predicate".
+"logo-referenced-document" is a "binary predicate".
+"manufacturer-assigned-id" is a "binary predicate".
+"manufacturer-party" is a "binary predicate".
+"n-sn-id" is a "binary predicate".
+"order-quantity" is a "binary predicate".
+"origin-country" is a "binary predicate".
+"post-office-box" is a "binary predicate".
+"postcode-code" is a "binary predicate".
+"print-design-description" is a "binary predicate".
+"seller-assigned-id" is a "binary predicate".
+"size-description" is a "binary predicate".
+"variant-id" is a "binary predicate".
+"type" is a "binary predicate".
+"broader" is a "binary predicate".
+"address-locality" is a "binary predicate".
+"available-language" is a "binary predicate".
+"contact-type" is a "binary predicate".
+"email" is a "binary predicate".
+"fax-number" is a "binary predicate".
+"global-location-number" is a "binary predicate".
+"gtin" is a "binary predicate".
+"manufacturer" is a "binary predicate".
+"organization-formation-date" is a "binary predicate".
+"organization-legal-name" is a "binary predicate".
+"organization-termination-date" is a "binary predicate".
+"owns" is a "binary predicate".
+"parent-organization" is a "binary predicate".
+"sub-organization" is a "binary predicate".
+"telephone" is a "binary predicate".
+"about" is a "binary predicate".
+"abridged" is a "binary predicate".
+"abstract" is a "binary predicate".
+"acceleration-time" is a "binary predicate".
+"accepted-answer" is a "binary predicate".
+"accepted-offer" is a "binary predicate".
+"accepted-payment-method" is a "binary predicate".
+"accepts-reservations" is a "binary predicate".
+"access-code" is a "binary predicate".
+"access-mode" is a "binary predicate".
+"access-mode-sufficient" is a "binary predicate".
+"accessibility-api" is a "binary predicate".
+"accessibility-control" is a "binary predicate".
+"accessibility-feature" is a "binary predicate".
+"accessibility-hazard" is a "binary predicate".
+"accessibility-summary" is a "binary predicate".
+"accommodation-category" is a "binary predicate".
+"accommodation-floor-plan" is a "binary predicate".
+"account-id" is a "binary predicate".
+"account-minimum-inflow" is a "binary predicate".
+"account-overdraft-limit" is a "binary predicate".
+"accountable-person" is a "binary predicate".
+"acquire-license-page" is a "binary predicate".
+"acquired from" is a "binary predicate".
+"acriss-code" is a "binary predicate".
+"action-accessibility-requirement" is a "binary predicate".
+"action-application" is a "binary predicate".
+"action-option" is a "binary predicate".
+"action-platform" is a "binary predicate".
+"action-process" is a "binary predicate".
+"action-status" is a "binary predicate".
+"actionable-feedback-policy" is a "binary predicate".
+"active-ingredient" is a "binary predicate".
+"activity-duration" is a "binary predicate".
+"activity-frequency" is a "binary predicate".
+"actor" is a "binary predicate".
+"actors" is a "binary predicate".
+"add on" is a "binary predicate".
+"additional-name" is a "binary predicate".
+"additional-number-of-guests" is a "binary predicate".
+"additional-property" is a "binary predicate".
+"additional-type" is a "binary predicate".
+"additional-variable" is a "binary predicate".
+"address-country" is a "binary predicate".
+"address-region" is a "binary predicate".
+"administration-route" is a "binary predicate".
+"advance-booking-requirement" is a "binary predicate".
+"adverse-outcome" is a "binary predicate".
+"affected by" is a "binary predicate".
+"affiliation" is a "binary predicate".
+"after-media" is a "binary predicate".
+"agent" is a "binary predicate".
+"agent-interaction-statistic" is a "binary predicate".
+"aggregate-element" is a "binary predicate".
+"aircraft" is a "binary predicate".
+"album" is a "binary predicate".
+"album-production-type" is a "binary predicate".
+"album-release" is a "binary predicate".
+"album-release-type" is a "binary predicate".
+"albums" is a "binary predicate".
+"alcohol-warning" is a "binary predicate".
+"algorithm" is a "binary predicate".
+"alignment-type" is a "binary predicate".
+"alternate-name" is a "binary predicate".
+"alternative-headline" is a "binary predicate".
+"alternative of" is a "binary predicate".
+"alumni" is a "binary predicate".
+"alumni of" is a "binary predicate".
+"amenity-feature" is a "binary predicate".
+"amount" is a "binary predicate".
+"amount-of-this-good" is a "binary predicate".
+"announcement-location" is a "binary predicate".
+"annual-percentage-rate" is a "binary predicate".
+"answer-count" is a "binary predicate".
+"answer-explanation" is a "binary predicate".
+"antagonist" is a "binary predicate".
+"appearance" is a "binary predicate".
+"applicable-country" is a "binary predicate".
+"applicable-location" is a "binary predicate".
+"applicant-location-requirements" is a "binary predicate".
+"application" is a "binary predicate".
+"application-category" is a "binary predicate".
+"application-contact" is a "binary predicate".
+"application-deadline" is a "binary predicate".
+"application-start-date" is a "binary predicate".
+"application-sub-category" is a "binary predicate".
+"application-suite" is a "binary predicate".
+"applies-to-delivery-method" is a "binary predicate".
+"applies-to-payment-method" is a "binary predicate".
+"archive-held" is a "binary predicate".
+"archived at" is a "binary predicate".
+"area" is a "binary predicate".
+"area-served" is a "binary predicate".
+"arrival-airport" is a "binary predicate".
+"arrival-boat-terminal" is a "binary predicate".
+"arrival-bus-stop" is a "binary predicate".
+"arrival-gate" is a "binary predicate".
+"arrival-platform" is a "binary predicate".
+"arrival-station" is a "binary predicate".
+"arrival-terminal" is a "binary predicate".
+"arrival-time" is a "binary predicate".
+"art-edition" is a "binary predicate".
+"art-medium" is a "binary predicate".
+"arterial-branch" is a "binary predicate".
+"artform" is a "binary predicate".
+"article-body" is a "binary predicate".
+"article-section" is a "binary predicate".
+"artist" is a "binary predicate".
+"artwork-surface" is a "binary predicate".
+"asin" is a "binary predicate".
+"aspect" is a "binary predicate".
+"assembly" is a "binary predicate".
+"assembly-version" is a "binary predicate".
+"assesses" is a "binary predicate".
+"associated-anatomy" is a "binary predicate".
+"associated-article" is a "binary predicate".
+"associated-claim-review" is a "binary predicate".
+"associated-disease" is a "binary predicate".
+"associated-media" is a "binary predicate".
+"associated-media-review" is a "binary predicate".
+"associated-pathophysiology" is a "binary predicate".
+"associated-review" is a "binary predicate".
+"athlete" is a "binary predicate".
+"attendee" is a "binary predicate".
+"attendees" is a "binary predicate".
+"audience-type" is a "binary predicate".
+"audio" is a "binary predicate".
+"audit-date" is a "binary predicate".
+"authenticator" is a "binary predicate".
+"author" is a "binary predicate".
+"availability" is a "binary predicate".
+"availability-ends" is a "binary predicate".
+"availability-starts" is a "binary predicate".
+"available-at-or-from" is a "binary predicate".
+"available-channel" is a "binary predicate".
+"available-delivery-method" is a "binary predicate".
+"available from" is a "binary predicate".
+"available in" is a "binary predicate".
+"available-on-device" is a "binary predicate".
+"available-service" is a "binary predicate".
+"available-strength" is a "binary predicate".
+"available-test" is a "binary predicate".
+"available through" is a "binary predicate".
+"award" is a "binary predicate".
+"awards" is a "binary predicate".
+"away-team" is a "binary predicate".
+"backstory" is a "binary predicate".
+"bank-account-type" is a "binary predicate".
+"base-salary" is a "binary predicate".
+"bcc-recipient" is a "binary predicate".
+"bed" is a "binary predicate".
+"before-media" is a "binary predicate".
+"beneficiary-bank" is a "binary predicate".
+"benefits" is a "binary predicate".
+"benefits-summary-url" is a "binary predicate".
+"best-rating" is a "binary predicate".
+"billing-duration" is a "binary predicate".
+"billing-increment" is a "binary predicate".
+"billing-start" is a "binary predicate".
+"bio-chem-interaction" is a "binary predicate".
+"bio-chem-similarity" is a "binary predicate".
+"biological-role" is a "binary predicate".
+"biomechnical-class" is a "binary predicate".
+"birth-date" is a "binary predicate".
+"birth-place" is a "binary predicate".
+"bitrate" is a "binary predicate".
+"blog-post" is a "binary predicate".
+"blog-posts" is a "binary predicate".
+"blood-supply" is a "binary predicate".
+"boarding-group" is a "binary predicate".
+"boarding-policy" is a "binary predicate".
+"body-location" is a "binary predicate".
+"body-type" is a "binary predicate".
+"book-edition" is a "binary predicate".
+"book-format" is a "binary predicate".
+"booking-agent" is a "binary predicate".
+"booking-time" is a "binary predicate".
+"borrower" is a "binary predicate".
+"box" is a "binary predicate".
+"branch" is a "binary predicate".
+"branch-code" is a "binary predicate".
+"branch of" is a "binary predicate".
+"brand" is a "binary predicate".
+"breadcrumb" is a "binary predicate".
+"breastfeeding-warning" is a "binary predicate".
+"broadcast-affiliate-of" is a "binary predicate".
+"broadcast-channel-id" is a "binary predicate".
+"broadcast-display-name" is a "binary predicate".
+"broadcast-frequency" is a "binary predicate".
+"broadcast-frequency-value" is a "binary predicate".
+"broadcast-of-event" is a "binary predicate".
+"broadcast-service-tier" is a "binary predicate".
+"broadcast-signal-modulation" is a "binary predicate".
+"broadcast-sub-channel" is a "binary predicate".
+"broadcast-timezone" is a "binary predicate".
+"broadcaster" is a "binary predicate".
+"broker" is a "binary predicate".
+"browser-requirements" is a "binary predicate".
+"bus-name" is a "binary predicate".
+"bus-number" is a "binary predicate".
+"business-days" is a "binary predicate".
+"buyer" is a "binary predicate".
+"by-artist" is a "binary predicate".
+"by-day" is a "binary predicate".
+"by-month" is a "binary predicate".
+"by-month-day" is a "binary predicate".
+"by-month-week" is a "binary predicate".
+"call-sign" is a "binary predicate".
+"calories" is a "binary predicate".
+"candidate" is a "binary predicate".
+"caption" is a "binary predicate".
+"carbohydrate-content" is a "binary predicate".
+"cargo-volume" is a "binary predicate".
+"carrier" is a "binary predicate".
+"carrier-requirements" is a "binary predicate".
+"cash-back" is a "binary predicate".
+"catalog-number" is a "binary predicate".
+"category" is a "binary predicate".
+"cause" is a "binary predicate".
+"cause of" is a "binary predicate".
+"cc-recipient" is a "binary predicate".
+"certification-identification" is a "binary predicate".
+"certification-rating" is a "binary predicate".
+"certification-status" is a "binary predicate".
+"character" is a "binary predicate".
+"character-attribute" is a "binary predicate".
+"character-name" is a "binary predicate".
+"cheat-code" is a "binary predicate".
+"checkin-time" is a "binary predicate".
+"checkout-page-url-template" is a "binary predicate".
+"checkout-time" is a "binary predicate".
+"chemical-composition" is a "binary predicate".
+"chemical-role" is a "binary predicate".
+"child-max-age" is a "binary predicate".
+"child-min-age" is a "binary predicate".
+"child-taxon" is a "binary predicate".
+"children" is a "binary predicate".
+"cholesterol-content" is a "binary predicate".
+"circle" is a "binary predicate".
+"citation" is a "binary predicate".
+"claim-interpreter" is a "binary predicate".
+"claim-reviewed" is a "binary predicate".
+"clincal-pharmacology" is a "binary predicate".
+"clinical-pharmacology" is a "binary predicate".
+"clip-number" is a "binary predicate".
+"closes" is a "binary predicate".
+"coach" is a "binary predicate".
+"code-repository" is a "binary predicate".
+"code-sample-type" is a "binary predicate".
+"code-value" is a "binary predicate".
+"coding-system" is a "binary predicate".
+"colleague" is a "binary predicate".
+"colleagues" is a "binary predicate".
+"collection" is a "binary predicate".
+"collection-size" is a "binary predicate".
+"color" is a "binary predicate".
+"color-swatch" is a "binary predicate".
+"colorist" is a "binary predicate".
+"comment-count" is a "binary predicate".
+"comment-text" is a "binary predicate".
+"comment-time" is a "binary predicate".
+"company-registration" is a "binary predicate".
+"competency-required" is a "binary predicate".
+"competitor" is a "binary predicate".
+"composer" is a "binary predicate".
+"comprised of" is a "binary predicate".
+"conditions-of-access" is a "binary predicate".
+"confirmation-number" is a "binary predicate".
+"connected to" is a "binary predicate".
+"constraint-property" is a "binary predicate".
+"contact-option" is a "binary predicate".
+"contact-points" is a "binary predicate".
+"contactless-payment" is a "binary predicate".
+"contained in" is a "binary predicate".
+"contained-in-place" is a "binary predicate".
+"rel-contains-place" is a "binary predicate".
+"rel-contains-season" is a "binary predicate".
+"content-location" is a "binary predicate".
+"content-rating" is a "binary predicate".
+"content-reference-time" is a "binary predicate".
+"content-size" is a "binary predicate".
+"content-type" is a "binary predicate".
+"content-url" is a "binary predicate".
+"contraindication" is a "binary predicate".
+"contributor" is a "binary predicate".
+"cook-time" is a "binary predicate".
+"cooking-method" is a "binary predicate".
+"copyright-holder" is a "binary predicate".
+"copyright-notice" is a "binary predicate".
+"copyright-year" is a "binary predicate".
+"correction" is a "binary predicate".
+"corrections-policy" is a "binary predicate".
+"cost-category" is a "binary predicate".
+"cost-currency" is a "binary predicate".
+"cost-origin" is a "binary predicate".
+"cost-per-unit" is a "binary predicate".
+"countries-not-supported" is a "binary predicate".
+"countries-supported" is a "binary predicate".
+"country-of-assembly" is a "binary predicate".
+"country-of-last-processing" is a "binary predicate".
+"country-of-origin" is a "binary predicate".
+"course" is a "binary predicate".
+"course-code" is a "binary predicate".
+"course-mode" is a "binary predicate".
+"course-prerequisites" is a "binary predicate".
+"course-schedule" is a "binary predicate".
+"course-workload" is a "binary predicate".
+"coverage-end-time" is a "binary predicate".
+"coverage-start-time" is a "binary predicate".
+"creative-work-status" is a "binary predicate".
+"creator" is a "binary predicate".
+"credential-category" is a "binary predicate".
+"credit-text" is a "binary predicate".
+"credited to" is a "binary predicate".
+"css-selector" is a "binary predicate".
+"currencies-accepted" is a "binary predicate".
+"currency" is a "binary predicate".
+"current-exchange-rate" is a "binary predicate".
+"customer" is a "binary predicate".
+"customer-remorse-return-fees" is a "binary predicate".
+"customer-remorse-return-label-source" is a "binary predicate".
+"customer-remorse-return-shipping-fees-amount" is a "binary predicate".
+"cutoff-time" is a "binary predicate".
+"cvd-collection-date" is a "binary predicate".
+"cvd-facility-county" is a "binary predicate".
+"cvd-facility-id" is a "binary predicate".
+"cvd-num-beds" is a "binary predicate".
+"cvd-num-beds-occ" is a "binary predicate".
+"cvd-num-c19-died" is a "binary predicate".
+"cvd-num-c19-ho-pats" is a "binary predicate".
+"cvd-num-c19-hosp-pats" is a "binary predicate".
+"cvd-num-c19-mech-vent-pats" is a "binary predicate".
+"cvd-num-c19-of-mech-vent-pats" is a "binary predicate".
+"cvd-num-c19-overflow-pats" is a "binary predicate".
+"cvd-num-icu-beds" is a "binary predicate".
+"cvd-num-icu-beds-occ" is a "binary predicate".
+"cvd-num-tot-beds" is a "binary predicate".
+"cvd-num-vent" is a "binary predicate".
+"cvd-num-vent-use" is a "binary predicate".
+"data" is a "binary predicate".
+"data-feed-element" is a "binary predicate".
+"dataset-time-interval" is a "binary predicate".
+"date-created" is a "binary predicate".
+"date-deleted" is a "binary predicate".
+"date-issued" is a "binary predicate".
+"date-modified" is a "binary predicate".
+"date-posted" is a "binary predicate".
+"date-published" is a "binary predicate".
+"date-read" is a "binary predicate".
+"date-received" is a "binary predicate".
+"date-sent" is a "binary predicate".
+"date-vehicle-first-registered" is a "binary predicate".
+"dateline" is a "binary predicate".
+"death-date" is a "binary predicate".
+"death-place" is a "binary predicate".
+"default-value" is a "binary predicate".
+"delivery-address" is a "binary predicate".
+"delivery-lead-time" is a "binary predicate".
+"delivery-method" is a "binary predicate".
+"delivery-status" is a "binary predicate".
+"delivery-time" is a "binary predicate".
+"department" is a "binary predicate".
+"departure-airport" is a "binary predicate".
+"departure-boat-terminal" is a "binary predicate".
+"departure-bus-stop" is a "binary predicate".
+"departure-gate" is a "binary predicate".
+"departure-platform" is a "binary predicate".
+"departure-station" is a "binary predicate".
+"departure-terminal" is a "binary predicate".
+"departure-time" is a "binary predicate".
+"dependencies" is a "binary predicate".
+"depth" is a "binary predicate".
+"device" is a "binary predicate".
+"diagnosis" is a "binary predicate".
+"diagram" is a "binary predicate".
+"diet" is a "binary predicate".
+"diet-features" is a "binary predicate".
+"differential-diagnosis" is a "binary predicate".
+"digital-source-type" is a "binary predicate".
+"direct-apply" is a "binary predicate".
+"director" is a "binary predicate".
+"directors" is a "binary predicate".
+"disambiguating-description" is a "binary predicate".
+"discount" is a "binary predicate".
+"discount-code" is a "binary predicate".
+"discount-currency" is a "binary predicate".
+"discusses" is a "binary predicate".
+"discussion-url" is a "binary predicate".
+"disease-prevention-info" is a "binary predicate".
+"disease-spread-statistics" is a "binary predicate".
+"display-location" is a "binary predicate".
+"dissolution-date" is a "binary predicate".
+"distinguishing-sign" is a "binary predicate".
+"diversity-policy" is a "binary predicate".
+"diversity-staffing-report" is a "binary predicate".
+"documentation" is a "binary predicate".
+"rel-does-not-ship" is a "binary predicate".
+"domain-includes" is a "binary predicate".
+"domiciled-mortgage" is a "binary predicate".
+"door-time" is a "binary predicate".
+"dosage-form" is a "binary predicate".
+"dose-unit" is a "binary predicate".
+"dose-value" is a "binary predicate".
+"down-payment" is a "binary predicate".
+"download-url" is a "binary predicate".
+"downvote-count" is a "binary predicate".
+"drains to" is a "binary predicate".
+"drive-wheel-configuration" is a "binary predicate".
+"dropoff-location" is a "binary predicate".
+"dropoff-time" is a "binary predicate".
+"drug-unit" is a "binary predicate".
+"duns" is a "binary predicate".
+"duplicate-therapy" is a "binary predicate".
+"duration-of-warranty" is a "binary predicate".
+"during-media" is a "binary predicate".
+"early-prepayment-penalty" is a "binary predicate".
+"edit-eidr" is a "binary predicate".
+"editor" is a "binary predicate".
+"edu-question-type" is a "binary predicate".
+"education-requirements" is a "binary predicate".
+"educational-alignment" is a "binary predicate".
+"educational-credential-awarded" is a "binary predicate".
+"educational-framework" is a "binary predicate".
+"educational-level" is a "binary predicate".
+"educational-program-mode" is a "binary predicate".
+"educational-role" is a "binary predicate".
+"educational-use" is a "binary predicate".
+"elevation" is a "binary predicate".
+"eligibility-to-work-requirement" is a "binary predicate".
+"eligible-customer-type" is a "binary predicate".
+"eligible-duration" is a "binary predicate".
+"eligible-quantity" is a "binary predicate".
+"eligible-region" is a "binary predicate".
+"eligible-transaction-volume" is a "binary predicate".
+"eligible-with-supplier" is a "binary predicate".
+"embed-url" is a "binary predicate".
+"embedded-text-caption" is a "binary predicate".
+"emissions-co2" is a "binary predicate".
+"employee" is a "binary predicate".
+"employees" is a "binary predicate".
+"employer-overview" is a "binary predicate".
+"employment-type" is a "binary predicate".
+"employment-unit" is a "binary predicate".
+"encodes-bio-chem-entity" is a "binary predicate".
+"encodes-creative-work" is a "binary predicate".
+"encoding" is a "binary predicate".
+"encoding-format" is a "binary predicate".
+"encoding-type" is a "binary predicate".
+"encodings" is a "binary predicate".
+"end-date" is a "binary predicate".
+"end-offset" is a "binary predicate".
+"end-time" is a "binary predicate".
+"endorsee" is a "binary predicate".
+"endorsers" is a "binary predicate".
+"energy-efficiency-scale-max" is a "binary predicate".
+"energy-efficiency-scale-min" is a "binary predicate".
+"engine-displacement" is a "binary predicate".
+"engine-power" is a "binary predicate".
+"engine-type" is a "binary predicate".
+"entertainment-business" is a "binary predicate".
+"epidemiology" is a "binary predicate".
+"episode" is a "binary predicate".
+"episode-number" is a "binary predicate".
+"episodes" is a "binary predicate".
+"rel-equal" is a "binary predicate".
+"error-code" is a "binary predicate".
+"estimated-cost" is a "binary predicate".
+"estimated-flight-duration" is a "binary predicate".
+"estimated-salary" is a "binary predicate".
+"estimates-risk-of" is a "binary predicate".
+"ethics-policy" is a "binary predicate".
+"event-attendance-mode" is a "binary predicate".
+"event-schedule" is a "binary predicate".
+"event-status" is a "binary predicate".
+"events" is a "binary predicate".
+"evidence-level" is a "binary predicate".
+"evidence-origin" is a "binary predicate".
+"example-of-work" is a "binary predicate".
+"except-date" is a "binary predicate".
+"exchange-rate-spread" is a "binary predicate".
+"executable-library-name" is a "binary predicate".
+"exercise-course" is a "binary predicate".
+"exercise-plan" is a "binary predicate".
+"exercise-related-diet" is a "binary predicate".
+"exercise-type" is a "binary predicate".
+"exif-data" is a "binary predicate".
+"expected-arrival-from" is a "binary predicate".
+"expected-arrival-until" is a "binary predicate".
+"expected-prognosis" is a "binary predicate".
+"expects-acceptance-of" is a "binary predicate".
+"experience-in-place-of-education" is a "binary predicate".
+"experience-requirements" is a "binary predicate".
+"expert-considerations" is a "binary predicate".
+"expires" is a "binary predicate".
+"expressed in" is a "binary predicate".
+"extended-address" is a "binary predicate".
+"family-name" is a "binary predicate".
+"fat-content" is a "binary predicate".
+"feature-list" is a "binary predicate".
+"fees-and-commissions-specification" is a "binary predicate".
+"fiber-content" is a "binary predicate".
+"file-format" is a "binary predicate".
+"file-size" is a "binary predicate".
+"financial-aid-eligible" is a "binary predicate".
+"first-appearance" is a "binary predicate".
+"first-performance" is a "binary predicate".
+"flight-distance" is a "binary predicate".
+"flight-number" is a "binary predicate".
+"floor-level" is a "binary predicate".
+"floor-limit" is a "binary predicate".
+"floor-size" is a "binary predicate".
+"followee" is a "binary predicate".
+"follows" is a "binary predicate".
+"followup" is a "binary predicate".
+"food-establishment" is a "binary predicate".
+"food-event" is a "binary predicate".
+"food-warning" is a "binary predicate".
+"founder" is a "binary predicate".
+"founders" is a "binary predicate".
+"founding-date" is a "binary predicate".
+"founding-location" is a "binary predicate".
+"free" is a "binary predicate".
+"free-shipping-threshold" is a "binary predicate".
+"frequency" is a "binary predicate".
+"from-location" is a "binary predicate".
+"fuel-capacity" is a "binary predicate".
+"fuel-consumption" is a "binary predicate".
+"fuel-efficiency" is a "binary predicate".
+"fuel-type" is a "binary predicate".
+"fulfillment-type" is a "binary predicate".
+"functional-class" is a "binary predicate".
+"funded-item" is a "binary predicate".
+"funder" is a "binary predicate".
+"funding" is a "binary predicate".
+"game-availability-type" is a "binary predicate".
+"game-edition" is a "binary predicate".
+"game-item" is a "binary predicate".
+"game-location" is a "binary predicate".
+"game-platform" is a "binary predicate".
+"game-tip" is a "binary predicate".
+"gender" is a "binary predicate".
+"genre" is a "binary predicate".
+"geo" is a "binary predicate".
+"geo-contains" is a "binary predicate".
+"geo-covered-by" is a "binary predicate".
+"geo-covers" is a "binary predicate".
+"geo-crosses" is a "binary predicate".
+"geo-disjoint" is a "binary predicate".
+"geo-equals" is a "binary predicate".
+"geo-intersects" is a "binary predicate".
+"geo-midpoint" is a "binary predicate".
+"geo-overlaps" is a "binary predicate".
+"geo-radius" is a "binary predicate".
+"geo-touches" is a "binary predicate".
+"geo within" is a "binary predicate".
+"geographic-area" is a "binary predicate".
+"getting-tested-info" is a "binary predicate".
+"given-name" is a "binary predicate".
+"government-benefits-info" is a "binary predicate".
+"grace-period" is a "binary predicate".
+"grantee" is a "binary predicate".
+"rel-greater" is a "binary predicate".
+"rel-greater-or-equal" is a "binary predicate".
+"gtin12" is a "binary predicate".
+"gtin13" is a "binary predicate".
+"gtin14" is a "binary predicate".
+"gtin8" is a "binary predicate".
+"guideline" is a "binary predicate".
+"guideline-date" is a "binary predicate".
+"guideline-subject" is a "binary predicate".
+"handling-time" is a "binary predicate".
+"has-adult-consideration" is a "binary predicate".
+"has-bio-chem-entity-part" is a "binary predicate".
+"has-bio-polymer-sequence" is a "binary predicate".
+"has-broadcast-channel" is a "binary predicate".
+"has-category-code" is a "binary predicate".
+"has-certification" is a "binary predicate".
+"has-course" is a "binary predicate".
+"has-course-instance" is a "binary predicate".
+"has-credential" is a "binary predicate".
+"has-defined-term" is a "binary predicate".
+"has-delivery-method" is a "binary predicate".
+"has-digital-document-permission" is a "binary predicate".
+"has-drive-through-service" is a "binary predicate".
+"has-energy-consumption-details" is a "binary predicate".
+"has-energy-efficiency-category" is a "binary predicate".
+"has-gs1-digital-link" is a "binary predicate".
+"has-health-aspect" is a "binary predicate".
+"has-map" is a "binary predicate".
+"has-measurement" is a "binary predicate".
+"has-member-program" is a "binary predicate".
+"has-menu" is a "binary predicate".
+"has-menu-item" is a "binary predicate".
+"has-menu-section" is a "binary predicate".
+"has-merchant-return-policy" is a "binary predicate".
+"has-molecular-function" is a "binary predicate".
+"has-occupation" is a "binary predicate".
+"has-offer-catalog" is a "binary predicate".
+"has-pos" is a "binary predicate".
+"has-part" is a "binary predicate".
+"has-participation-offer" is a "binary predicate".
+"has-representation" is a "binary predicate".
+"has-shipping-service" is a "binary predicate".
+"has-sponsorship-offer" is a "binary predicate".
+"has-store" is a "binary predicate".
+"has-tier-benefit" is a "binary predicate".
+"has-tier-requirement" is a "binary predicate".
+"has-tiers" is a "binary predicate".
+"has-variant" is a "binary predicate".
+"headline" is a "binary predicate".
+"health-condition" is a "binary predicate".
+"health-plan-coinsurance-option" is a "binary predicate".
+"health-plan-coinsurance-rate" is a "binary predicate".
+"health-plan-copay" is a "binary predicate".
+"health-plan-copay-option" is a "binary predicate".
+"health-plan-cost-sharing" is a "binary predicate".
+"health-plan-drug-option" is a "binary predicate".
+"health-plan-drug-tier" is a "binary predicate".
+"health-plan-id" is a "binary predicate".
+"health-plan-marketing-url" is a "binary predicate".
+"health-plan-network-id" is a "binary predicate".
+"health-plan-network-tier" is a "binary predicate".
+"health-plan-pharmacy-category" is a "binary predicate".
+"healthcare-reporting-data" is a "binary predicate".
+"height" is a "binary predicate".
+"high-price" is a "binary predicate".
+"hiring-organization" is a "binary predicate".
+"holding-archive" is a "binary predicate".
+"home-location" is a "binary predicate".
+"home-team" is a "binary predicate".
+"honorific-prefix" is a "binary predicate".
+"honorific-suffix" is a "binary predicate".
+"hospital-affiliation" is a "binary predicate".
+"hosting-organization" is a "binary predicate".
+"hours-available" is a "binary predicate".
+"how-performed" is a "binary predicate".
+"http-method" is a "binary predicate".
+"iata-code" is a "binary predicate".
+"icao-code" is a "binary predicate".
+"identifying-exam" is a "binary predicate".
+"identifying-test" is a "binary predicate".
+"illustrator" is a "binary predicate".
+"imaging-technique" is a "binary predicate".
+"in-album" is a "binary predicate".
+"in-broadcast-lineup" is a "binary predicate".
+"in-ch-i" is a "binary predicate".
+"in-ch-i-key" is a "binary predicate".
+"in-code-set" is a "binary predicate".
+"in-defined-term-set" is a "binary predicate".
+"in-language" is a "binary predicate".
+"in-playlist" is a "binary predicate".
+"in-product-group-with-id" is a "binary predicate".
+"in-store-returns-offered" is a "binary predicate".
+"in-support-of" is a "binary predicate".
+"incentive-amount" is a "binary predicate".
+"incentive-compensation" is a "binary predicate".
+"incentives" is a "binary predicate".
+"incentivized-item" is a "binary predicate".
+"included-composition" is a "binary predicate".
+"included-data-catalog" is a "binary predicate".
+"included-in-data-catalog" is a "binary predicate".
+"included-in-health-insurance-plan" is a "binary predicate".
+"included-risk-factor" is a "binary predicate".
+"includes-attraction" is a "binary predicate".
+"includes-health-plan-formulary" is a "binary predicate".
+"includes-health-plan-network" is a "binary predicate".
+"includes-object" is a "binary predicate".
+"income-limit" is a "binary predicate".
+"increases-risk-of" is a "binary predicate".
+"industry" is a "binary predicate".
+"ineligible-region" is a "binary predicate".
+"infectious-agent" is a "binary predicate".
+"ingredients" is a "binary predicate".
+"inker" is a "binary predicate".
+"insertion" is a "binary predicate".
+"install-url" is a "binary predicate".
+"instructor" is a "binary predicate".
+"instrument" is a "binary predicate".
+"intensity" is a "binary predicate".
+"interacting-drug" is a "binary predicate".
+"interaction-count" is a "binary predicate".
+"interaction-service" is a "binary predicate".
+"interaction-statistic" is a "binary predicate".
+"interaction-type" is a "binary predicate".
+"interactivity-type" is a "binary predicate".
+"interest-rate" is a "binary predicate".
+"interpreted-as-claim" is a "binary predicate".
+"inventory-level" is a "binary predicate".
+"inverse of" is a "binary predicate".
+"accepting-new-patients" is a "binary predicate".
+"accessible-for-free" is a "binary predicate".
+"accessory-or-spare-part-for" is a "binary predicate".
+"available-generically" is a "binary predicate".
+"based on" is a "binary predicate".
+"based-on-url" is a "binary predicate".
+"consumable for" is a "binary predicate".
+"encoded-by-bio-chem-entity" is a "binary predicate".
+"family-friendly" is a "binary predicate".
+"gift" is a "binary predicate".
+"involved-in-biological-process" is a "binary predicate".
+"live-broadcast" is a "binary predicate".
+"located-in-subcellular-location" is a "binary predicate".
+"part of" is a "binary predicate".
+"part-of-bio-chem-entity" is a "binary predicate".
+"rel-plan-for-apartment" is a "binary predicate".
+"proprietary" is a "binary predicate".
+"related to" is a "binary predicate".
+"resizable" is a "binary predicate".
+"similar to" is a "binary predicate".
+"store on" is a "binary predicate".
+"tier of" is a "binary predicate".
+"unlabelled-fallback" is a "binary predicate".
+"variant of" is a "binary predicate".
+"isic-v4" is a "binary predicate".
+"iso6523-code" is a "binary predicate".
+"isrc-code" is a "binary predicate".
+"issue-number" is a "binary predicate".
+"issued by" is a "binary predicate".
+"issued through" is a "binary predicate".
+"iswc-code" is a "binary predicate".
+"item" is a "binary predicate".
+"item-condition" is a "binary predicate".
+"item-defect-return-fees" is a "binary predicate".
+"item-defect-return-label-source" is a "binary predicate".
+"item-defect-return-shipping-fees-amount" is a "binary predicate".
+"item-list-element" is a "binary predicate".
+"item-list-order" is a "binary predicate".
+"item-location" is a "binary predicate".
+"item-offered" is a "binary predicate".
+"item-reviewed" is a "binary predicate".
+"item-shipped" is a "binary predicate".
+"itinerary" is a "binary predicate".
+"iupac-name" is a "binary predicate".
+"job-benefits" is a "binary predicate".
+"job-immediate-start" is a "binary predicate".
+"job-location" is a "binary predicate".
+"job-location-type" is a "binary predicate".
+"job-start-date" is a "binary predicate".
+"job-title" is a "binary predicate".
+"keywords" is a "binary predicate".
+"known-vehicle-damages" is a "binary predicate".
+"knows" is a "binary predicate".
+"knows about" is a "binary predicate".
+"knows-language" is a "binary predicate".
+"label-details" is a "binary predicate".
+"landlord" is a "binary predicate".
+"language" is a "binary predicate".
+"last-reviewed" is a "binary predicate".
+"latitude" is a "binary predicate".
+"layout-image" is a "binary predicate".
+"learning-resource-type" is a "binary predicate".
+"lease-length" is a "binary predicate".
+"legal-address" is a "binary predicate".
+"legal-name" is a "binary predicate".
+"legal-representative" is a "binary predicate".
+"legal-status" is a "binary predicate".
+"legislation-amends" is a "binary predicate".
+"legislation-applies" is a "binary predicate".
+"legislation-changes" is a "binary predicate".
+"legislation-commences" is a "binary predicate".
+"legislation-consolidates" is a "binary predicate".
+"legislation-corrects" is a "binary predicate".
+"legislation-countersigned-by" is a "binary predicate".
+"legislation-date" is a "binary predicate".
+"legislation-date-of-applicability" is a "binary predicate".
+"legislation-date-version" is a "binary predicate".
+"legislation-ensures-implementation-of" is a "binary predicate".
+"legislation-identifier" is a "binary predicate".
+"legislation-jurisdiction" is a "binary predicate".
+"legislation-legal-force" is a "binary predicate".
+"legislation-legal-value" is a "binary predicate".
+"legislation-passed-by" is a "binary predicate".
+"legislation-repeals" is a "binary predicate".
+"legislation-responsible" is a "binary predicate".
+"legislation-transposes" is a "binary predicate".
+"legislation-type" is a "binary predicate".
+"lei-code" is a "binary predicate".
+"lender" is a "binary predicate".
+"lesser" is a "binary predicate".
+"lesser-or-equal" is a "binary predicate".
+"letterer" is a "binary predicate".
+"license" is a "binary predicate".
+"life-event" is a "binary predicate".
+"line" is a "binary predicate".
+"link-relationship" is a "binary predicate".
+"live-blog-update" is a "binary predicate".
+"loan-mortgage-mandate-amount" is a "binary predicate".
+"loan-payment-amount" is a "binary predicate".
+"loan-payment-frequency" is a "binary predicate".
+"loan-repayment-form" is a "binary predicate".
+"loan-term" is a "binary predicate".
+"loan-type" is a "binary predicate".
+"location" is a "binary predicate".
+"location-created" is a "binary predicate".
+"lodging-unit-description" is a "binary predicate".
+"lodging-unit-type" is a "binary predicate".
+"logo" is a "binary predicate".
+"longitude" is a "binary predicate".
+"loser" is a "binary predicate".
+"low-price" is a "binary predicate".
+"lyricist" is a "binary predicate".
+"lyrics" is a "binary predicate".
+"main-content-of-page" is a "binary predicate".
+"main-entity" is a "binary predicate".
+"main-entity-of-page" is a "binary predicate".
+"maintainer" is a "binary predicate".
+"makes-offer" is a "binary predicate".
+"map-type" is a "binary predicate".
+"maps" is a "binary predicate".
+"margin-of-error" is a "binary predicate".
+"masthead" is a "binary predicate".
+"material" is a "binary predicate".
+"material-extent" is a "binary predicate".
+"math-expression" is a "binary predicate".
+"max-price" is a "binary predicate".
+"max-value" is a "binary predicate".
+"maximum-attendee-capacity" is a "binary predicate".
+"maximum-enrollment" is a "binary predicate".
+"maximum-intake" is a "binary predicate".
+"maximum-physical-attendee-capacity" is a "binary predicate".
+"maximum-virtual-attendee-capacity" is a "binary predicate".
+"meal-service" is a "binary predicate".
+"measured-property" is a "binary predicate".
+"measurement-denominator" is a "binary predicate".
+"measurement-method" is a "binary predicate".
+"measurement-qualifier" is a "binary predicate".
+"measurement-technique" is a "binary predicate".
+"mechanism-of-action" is a "binary predicate".
+"media-authenticity-category" is a "binary predicate".
+"media-item-appearance" is a "binary predicate".
+"median" is a "binary predicate".
+"meets-emission-standard" is a "binary predicate".
+"member" is a "binary predicate".
+"member of" is a "binary predicate".
+"members" is a "binary predicate".
+"membership-number" is a "binary predicate".
+"membership-points-earned" is a "binary predicate".
+"memory-requirements" is a "binary predicate".
+"mentions" is a "binary predicate".
+"menu-add-on" is a "binary predicate".
+"merchant" is a "binary predicate".
+"merchant-return-days" is a "binary predicate".
+"merchant-return-link" is a "binary predicate".
+"message-attachment" is a "binary predicate".
+"mileage-from-odometer" is a "binary predicate".
+"min-price" is a "binary predicate".
+"min-value" is a "binary predicate".
+"minimum-payment-due" is a "binary predicate".
+"mission-coverage-priorities-policy" is a "binary predicate".
+"mobile-url" is a "binary predicate".
+"model" is a "binary predicate".
+"model-date" is a "binary predicate".
+"modified-time" is a "binary predicate".
+"molecular-formula" is a "binary predicate".
+"molecular-weight" is a "binary predicate".
+"monoisotopic-molecular-weight" is a "binary predicate".
+"monthly-minimum-repayment-amount" is a "binary predicate".
+"months-of-experience" is a "binary predicate".
+"mpn" is a "binary predicate".
+"multiple-values" is a "binary predicate".
+"muscle-action" is a "binary predicate".
+"music-arrangement" is a "binary predicate".
+"music by" is a "binary predicate".
+"music-composition-form" is a "binary predicate".
+"music-group-member" is a "binary predicate".
+"music-release-format" is a "binary predicate".
+"musical-key" is a "binary predicate".
+"naics" is a "binary predicate".
+"name" is a "binary predicate".
+"named-position" is a "binary predicate".
+"nationality" is a "binary predicate".
+"natural-progression" is a "binary predicate".
+"negative-notes" is a "binary predicate".
+"nerve-motor" is a "binary predicate".
+"net-worth" is a "binary predicate".
+"news-updates-and-guidelines" is a "binary predicate".
+"next-item" is a "binary predicate".
+"rel-no-bylines-policy" is a "binary predicate".
+"non-equal" is a "binary predicate".
+"non-proprietary-name" is a "binary predicate".
+"nonprofit-status" is a "binary predicate".
+"normal-range" is a "binary predicate".
+"nsn" is a "binary predicate".
+"num-adults" is a "binary predicate".
+"num-children" is a "binary predicate".
+"num-constraints" is a "binary predicate".
+"num-items" is a "binary predicate".
+"num-tracks" is a "binary predicate".
+"rel-number-of-accommodation-units" is a "binary predicate".
+"rel-number-of-airbags" is a "binary predicate".
+"rel-number-of-available-accommodation-units" is a "binary predicate".
+"rel-number-of-axles" is a "binary predicate".
+"rel-number-of-bathrooms-total" is a "binary predicate".
+"rel-number-of-bedrooms" is a "binary predicate".
+"rel-number-of-beds" is a "binary predicate".
+"rel-number-of-credits" is a "binary predicate".
+"rel-number-of-doors" is a "binary predicate".
+"rel-number-of-employees" is a "binary predicate".
+"rel-number-of-episodes" is a "binary predicate".
+"rel-number-of-forward-gears" is a "binary predicate".
+"rel-number-of-full-bathrooms" is a "binary predicate".
+"rel-number-of-items" is a "binary predicate".
+"rel-number-of-loan-payments" is a "binary predicate".
+"rel-number-of-pages" is a "binary predicate".
+"rel-number-of-partial-bathrooms" is a "binary predicate".
+"rel-number-of-players" is a "binary predicate".
+"rel-number-of-previous-owners" is a "binary predicate".
+"rel-number-of-rooms" is a "binary predicate".
+"rel-number-of-seasons" is a "binary predicate".
+"numbered-position" is a "binary predicate".
+"nutrition" is a "binary predicate".
+"object" is a "binary predicate".
+"observation about" is a "binary predicate".
+"observation-date" is a "binary predicate".
+"observation-period" is a "binary predicate".
+"occupancy" is a "binary predicate".
+"occupation-location" is a "binary predicate".
+"occupational-category" is a "binary predicate".
+"occupational-credential-awarded" is a "binary predicate".
+"offer-count" is a "binary predicate".
+"offered by" is a "binary predicate".
+"offers" is a "binary predicate".
+"offers-prescription-by-mail" is a "binary predicate".
+"opening-hours" is a "binary predicate".
+"opens" is a "binary predicate".
+"opponent" is a "binary predicate".
+"option" is a "binary predicate".
+"order-delivery" is a "binary predicate".
+"order-item-number" is a "binary predicate".
+"order-item-status" is a "binary predicate".
+"order-number" is a "binary predicate".
+"order-percentage" is a "binary predicate".
+"order-value" is a "binary predicate".
+"ordered-item" is a "binary predicate".
+"organizer" is a "binary predicate".
+"origin-address" is a "binary predicate".
+"original-media-context-description" is a "binary predicate".
+"original-media-link" is a "binary predicate".
+"originates from" is a "binary predicate".
+"overdosage" is a "binary predicate".
+"owned from" is a "binary predicate".
+"owned through" is a "binary predicate".
+"owner" is a "binary predicate".
+"ownership-funding-info" is a "binary predicate".
+"pagination" is a "binary predicate".
+"parent" is a "binary predicate".
+"parent-item" is a "binary predicate".
+"parent-service" is a "binary predicate".
+"parent-taxon" is a "binary predicate".
+"parents" is a "binary predicate".
+"part-of-episode" is a "binary predicate".
+"part-of-invoice" is a "binary predicate".
+"part-of-order" is a "binary predicate".
+"part-of-season" is a "binary predicate".
+"part-of-series" is a "binary predicate".
+"part-of-system" is a "binary predicate".
+"part-of-tv-series" is a "binary predicate".
+"part-of-trip" is a "binary predicate".
+"participant" is a "binary predicate".
+"party-size" is a "binary predicate".
+"passenger-priority-status" is a "binary predicate".
+"passenger-sequence-number" is a "binary predicate".
+"pathophysiology" is a "binary predicate".
+"pattern" is a "binary predicate".
+"payload" is a "binary predicate".
+"payment-accepted" is a "binary predicate".
+"payment-due" is a "binary predicate".
+"payment-method" is a "binary predicate".
+"payment-method-id" is a "binary predicate".
+"payment-status" is a "binary predicate".
+"payment-url" is a "binary predicate".
+"penciler" is a "binary predicate".
+"percentile10" is a "binary predicate".
+"percentile25" is a "binary predicate".
+"percentile75" is a "binary predicate".
+"percentile90" is a "binary predicate".
+"perform-time" is a "binary predicate".
+"performer" is a "binary predicate".
+"performer in" is a "binary predicate".
+"performers" is a "binary predicate".
+"permission-type" is a "binary predicate".
+"permissions" is a "binary predicate".
+"permit-audience" is a "binary predicate".
+"permitted-usage" is a "binary predicate".
+"pets-allowed" is a "binary predicate".
+"phonetic-text" is a "binary predicate".
+"photo" is a "binary predicate".
+"photos" is a "binary predicate".
+"physical-requirement" is a "binary predicate".
+"physiological-benefits" is a "binary predicate".
+"pickup-location" is a "binary predicate".
+"pickup-time" is a "binary predicate".
+"play-mode" is a "binary predicate".
+"player-type" is a "binary predicate".
+"players-online" is a "binary predicate".
+"polygon" is a "binary predicate".
+"population-type" is a "binary predicate".
+"position" is a "binary predicate".
+"positive-notes" is a "binary predicate".
+"possible-complication" is a "binary predicate".
+"possible-treatment" is a "binary predicate".
+"post-office-box-number" is a "binary predicate".
+"post-op" is a "binary predicate".
+"postal-code" is a "binary predicate".
+"postal-code-begin" is a "binary predicate".
+"postal-code-end" is a "binary predicate".
+"postal-code-prefix" is a "binary predicate".
+"postal-code-range" is a "binary predicate".
+"potential-action" is a "binary predicate".
+"potential-use" is a "binary predicate".
+"practices at" is a "binary predicate".
+"pre-op" is a "binary predicate".
+"predecessor of" is a "binary predicate".
+"pregnancy-category" is a "binary predicate".
+"pregnancy-warning" is a "binary predicate".
+"prep-time" is a "binary predicate".
+"preparation" is a "binary predicate".
+"prescribing-info" is a "binary predicate".
+"prescription-status" is a "binary predicate".
+"previous-item" is a "binary predicate".
+"previous-start-date" is a "binary predicate".
+"price" is a "binary predicate".
+"price-component" is a "binary predicate".
+"price-component-type" is a "binary predicate".
+"price-currency" is a "binary predicate".
+"price-range" is a "binary predicate".
+"price-type" is a "binary predicate".
+"price-valid-until" is a "binary predicate".
+"primary-image-of-page" is a "binary predicate".
+"primary-prevention" is a "binary predicate".
+"print-column" is a "binary predicate".
+"print-edition" is a "binary predicate".
+"print-page" is a "binary predicate".
+"print-section" is a "binary predicate".
+"procedure" is a "binary predicate".
+"procedure-type" is a "binary predicate".
+"processing-time" is a "binary predicate".
+"processor-requirements" is a "binary predicate".
+"producer" is a "binary predicate".
+"produces" is a "binary predicate".
+"product-group-id" is a "binary predicate".
+"product-id" is a "binary predicate".
+"product-supported" is a "binary predicate".
+"production-company" is a "binary predicate".
+"proficiency-level" is a "binary predicate".
+"program" is a "binary predicate".
+"program-membership-used" is a "binary predicate".
+"program-name" is a "binary predicate".
+"program-prerequisites" is a "binary predicate".
+"program-type" is a "binary predicate".
+"programming-language" is a "binary predicate".
+"programming-model" is a "binary predicate".
+"pronouns" is a "binary predicate".
+"property-id" is a "binary predicate".
+"proprietary-name" is a "binary predicate".
+"protein-content" is a "binary predicate".
+"provider" is a "binary predicate".
+"provider-mobility" is a "binary predicate".
+"provides-broadcast-service" is a "binary predicate".
+"provides-service" is a "binary predicate".
+"public-access" is a "binary predicate".
+"public-transport-closures-info" is a "binary predicate".
+"publication" is a "binary predicate".
+"publication-type" is a "binary predicate".
+"published by" is a "binary predicate".
+"published on" is a "binary predicate".
+"publisher" is a "binary predicate".
+"publisher-imprint" is a "binary predicate".
+"publishing-principles" is a "binary predicate".
+"purchase-date" is a "binary predicate".
+"purchase-price-limit" is a "binary predicate".
+"qualifications" is a "binary predicate".
+"qualified-expense" is a "binary predicate".
+"quarantine-guidelines" is a "binary predicate".
+"query" is a "binary predicate".
+"quest" is a "binary predicate".
+"question" is a "binary predicate".
+"range-includes" is a "binary predicate".
+"rating-count" is a "binary predicate".
+"rating-explanation" is a "binary predicate".
+"rating-value" is a "binary predicate".
+"read by" is a "binary predicate".
+"readonly-value" is a "binary predicate".
+"real-estate-agent" is a "binary predicate".
+"recipe" is a "binary predicate".
+"recipe-category" is a "binary predicate".
+"recipe-cuisine" is a "binary predicate".
+"recipe-ingredient" is a "binary predicate".
+"recipe-instructions" is a "binary predicate".
+"recipe-yield" is a "binary predicate".
+"recipient" is a "binary predicate".
+"recognized by" is a "binary predicate".
+"recognizing-authority" is a "binary predicate".
+"recommendation-strength" is a "binary predicate".
+"recommended-intake" is a "binary predicate".
+"record-label" is a "binary predicate".
+"recorded-as" is a "binary predicate".
+"recorded at" is a "binary predicate".
+"recorded in" is a "binary predicate".
+"recording of" is a "binary predicate".
+"recourse-loan" is a "binary predicate".
+"referee" is a "binary predicate".
+"reference-quantity" is a "binary predicate".
+"references-order" is a "binary predicate".
+"refund-type" is a "binary predicate".
+"region-drained" is a "binary predicate".
+"regions-allowed" is a "binary predicate".
+"related-anatomy" is a "binary predicate".
+"related-condition" is a "binary predicate".
+"related-drug" is a "binary predicate".
+"related-link" is a "binary predicate".
+"related-structure" is a "binary predicate".
+"related-therapy" is a "binary predicate".
+"release-date" is a "binary predicate".
+"release-notes" is a "binary predicate".
+"release of" is a "binary predicate".
+"released-event" is a "binary predicate".
+"relevant-occupation" is a "binary predicate".
+"relevant-specialty" is a "binary predicate".
+"remaining-attendee-capacity" is a "binary predicate".
+"renegotiable-loan" is a "binary predicate".
+"repeat-count" is a "binary predicate".
+"repeat-frequency" is a "binary predicate".
+"repetitions" is a "binary predicate".
+"replacee" is a "binary predicate".
+"replacer" is a "binary predicate".
+"reply-to-url" is a "binary predicate".
+"report-number" is a "binary predicate".
+"representative-of-page" is a "binary predicate".
+"required-collateral" is a "binary predicate".
+"required-gender" is a "binary predicate".
+"required-max-age" is a "binary predicate".
+"required-min-age" is a "binary predicate".
+"required-quantity" is a "binary predicate".
+"requirements" is a "binary predicate".
+"requires-subscription" is a "binary predicate".
+"reservation for" is a "binary predicate".
+"reservation-id" is a "binary predicate".
+"reservation-status" is a "binary predicate".
+"reserved-ticket" is a "binary predicate".
+"responsibilities" is a "binary predicate".
+"rest-periods" is a "binary predicate".
+"restocking-fee" is a "binary predicate".
+"result-comment" is a "binary predicate".
+"result-review" is a "binary predicate".
+"rel-return-fees" is a "binary predicate".
+"rel-return-label-source" is a "binary predicate".
+"rel-return-method" is a "binary predicate".
+"rel-return-policy-category" is a "binary predicate".
+"rel-return-policy-country" is a "binary predicate".
+"rel-return-policy-seasonal-override" is a "binary predicate".
+"rel-return-shipping-fees-amount" is a "binary predicate".
+"review-aspect" is a "binary predicate".
+"review-body" is a "binary predicate".
+"review-count" is a "binary predicate".
+"review-rating" is a "binary predicate".
+"reviewed by" is a "binary predicate".
+"reviews" is a "binary predicate".
+"risk-factor" is a "binary predicate".
+"risks" is a "binary predicate".
+"role-name" is a "binary predicate".
+"roof-load" is a "binary predicate".
+"rsvp-response" is a "binary predicate".
+"runs to" is a "binary predicate".
+"runtime" is a "binary predicate".
+"rxcui" is a "binary predicate".
+"safety-consideration" is a "binary predicate".
+"salary-currency" is a "binary predicate".
+"salary-upon-completion" is a "binary predicate".
+"same-as" is a "binary predicate".
+"sample-type" is a "binary predicate".
+"saturated-fat-content" is a "binary predicate".
+"schedule-timezone" is a "binary predicate".
+"scheduled-payment-date" is a "binary predicate".
+"scheduled-time" is a "binary predicate".
+"schema-version" is a "binary predicate".
+"school-closures-info" is a "binary predicate".
+"screen-count" is a "binary predicate".
+"screenshot" is a "binary predicate".
+"sd-date-published" is a "binary predicate".
+"sd-license" is a "binary predicate".
+"sd-publisher" is a "binary predicate".
+"season" is a "binary predicate".
+"season-number" is a "binary predicate".
+"seasonal-override" is a "binary predicate".
+"seasons" is a "binary predicate".
+"seat-number" is a "binary predicate".
+"seat-row" is a "binary predicate".
+"seat-section" is a "binary predicate".
+"seating-capacity" is a "binary predicate".
+"seating-type" is a "binary predicate".
+"secondary-prevention" is a "binary predicate".
+"security-clearance-requirement" is a "binary predicate".
+"security-screening" is a "binary predicate".
+"seeks" is a "binary predicate".
+"sender" is a "binary predicate".
+"sensory-requirement" is a "binary predicate".
+"sensory-unit" is a "binary predicate".
+"serial-number" is a "binary predicate".
+"serious-adverse-outcome" is a "binary predicate".
+"server-status" is a "binary predicate".
+"serves-cuisine" is a "binary predicate".
+"service-area" is a "binary predicate".
+"service-audience" is a "binary predicate".
+"service-location" is a "binary predicate".
+"service-operator" is a "binary predicate".
+"service-output" is a "binary predicate".
+"service-phone" is a "binary predicate".
+"service-postal-address" is a "binary predicate".
+"service-sms-number" is a "binary predicate".
+"service-type" is a "binary predicate".
+"service-url" is a "binary predicate".
+"serving-size" is a "binary predicate".
+"sha256" is a "binary predicate".
+"shared-content" is a "binary predicate".
+"shipping-destination" is a "binary predicate".
+"shipping-details" is a "binary predicate".
+"shipping-origin" is a "binary predicate".
+"shipping-rate" is a "binary predicate".
+"sibling" is a "binary predicate".
+"siblings" is a "binary predicate".
+"sign-detected" is a "binary predicate".
+"sign-or-symptom" is a "binary predicate".
+"significance" is a "binary predicate".
+"significant-link" is a "binary predicate".
+"significant-links" is a "binary predicate".
+"size" is a "binary predicate".
+"size-group" is a "binary predicate".
+"size-system" is a "binary predicate".
+"skills" is a "binary predicate".
+"sku" is a "binary predicate".
+"slogan" is a "binary predicate".
+"smiles" is a "binary predicate".
+"smoking-allowed" is a "binary predicate".
+"sodium-content" is a "binary predicate".
+"software-add-on" is a "binary predicate".
+"software-help" is a "binary predicate".
+"software-requirements" is a "binary predicate".
+"software-version" is a "binary predicate".
+"source" is a "binary predicate".
+"source-organization" is a "binary predicate".
+"sourced from" is a "binary predicate".
+"spatial-coverage" is a "binary predicate".
+"speakable" is a "binary predicate".
+"special-commitments" is a "binary predicate".
+"special-opening-hours-specification" is a "binary predicate".
+"speech-to-text-markup" is a "binary predicate".
+"speed" is a "binary predicate".
+"spoken-by-character" is a "binary predicate".
+"sponsor" is a "binary predicate".
+"sport" is a "binary predicate".
+"sports-activity-location" is a "binary predicate".
+"sports-event" is a "binary predicate".
+"sports-team" is a "binary predicate".
+"spouse" is a "binary predicate".
+"stage" is a "binary predicate".
+"stage-as-number" is a "binary predicate".
+"star-rating" is a "binary predicate".
+"start-date" is a "binary predicate".
+"start-offset" is a "binary predicate".
+"start-time" is a "binary predicate".
+"stat-type" is a "binary predicate".
+"status" is a "binary predicate".
+"steering-position" is a "binary predicate".
+"step" is a "binary predicate".
+"step-value" is a "binary predicate".
+"rel-steps" is a "binary predicate".
+"storage-requirements" is a "binary predicate".
+"street-address" is a "binary predicate".
+"strength-unit" is a "binary predicate".
+"strength-value" is a "binary predicate".
+"structural-class" is a "binary predicate".
+"study" is a "binary predicate".
+"study-design" is a "binary predicate".
+"study-location" is a "binary predicate".
+"study-subject" is a "binary predicate".
+"sub-event" is a "binary predicate".
+"sub-events" is a "binary predicate".
+"sub-reservation" is a "binary predicate".
+"sub-stage-suffix" is a "binary predicate".
+"sub-structure" is a "binary predicate".
+"sub-test" is a "binary predicate".
+"sub-trip" is a "binary predicate".
+"subject of" is a "binary predicate".
+"subtitle-language" is a "binary predicate".
+"successor of" is a "binary predicate".
+"sugar-content" is a "binary predicate".
+"suggested-age" is a "binary predicate".
+"suggested-answer" is a "binary predicate".
+"suggested-gender" is a "binary predicate".
+"suggested-max-age" is a "binary predicate".
+"suggested-measurement" is a "binary predicate".
+"suggested-min-age" is a "binary predicate".
+"suitable-for-diet" is a "binary predicate".
+"super-event" is a "binary predicate".
+"superseded by" is a "binary predicate".
+"supply" is a "binary predicate".
+"supply to" is a "binary predicate".
+"supporting-data" is a "binary predicate".
+"surface" is a "binary predicate".
+"syllabus-sections" is a "binary predicate".
+"target" is a "binary predicate".
+"target-collection" is a "binary predicate".
+"target-description" is a "binary predicate".
+"target-name" is a "binary predicate".
+"target-platform" is a "binary predicate".
+"target-population" is a "binary predicate".
+"target-product" is a "binary predicate".
+"target-url" is a "binary predicate".
+"tax-id" is a "binary predicate".
+"taxon-rank" is a "binary predicate".
+"taxonomic-range" is a "binary predicate".
+"teaches" is a "binary predicate".
+"temporal-coverage" is a "binary predicate".
+"term-code" is a "binary predicate".
+"term-duration" is a "binary predicate".
+"terms-of-service" is a "binary predicate".
+"terms-per-year" is a "binary predicate".
+"text-value" is a "binary predicate".
+"thumbnail" is a "binary predicate".
+"thumbnail-url" is a "binary predicate".
+"ticker-symbol" is a "binary predicate".
+"ticket-number" is a "binary predicate".
+"ticket-token" is a "binary predicate".
+"ticketed-seat" is a "binary predicate".
+"time-of-day" is a "binary predicate".
+"time-required" is a "binary predicate".
+"time-to-complete" is a "binary predicate".
+"tissue-sample" is a "binary predicate".
+"title-eidr" is a "binary predicate".
+"to-location" is a "binary predicate".
+"to-recipient" is a "binary predicate".
+"toc-continuation" is a "binary predicate".
+"toc-entry" is a "binary predicate".
+"tongue-weight" is a "binary predicate".
+"tool" is a "binary predicate".
+"torque" is a "binary predicate".
+"rel-total-historical-enrollment" is a "binary predicate".
+"rel-total-job-openings" is a "binary predicate".
+"rel-total-payment-due" is a "binary predicate".
+"rel-total-price" is a "binary predicate".
+"rel-total-time" is a "binary predicate".
+"tour-booking-page" is a "binary predicate".
+"tourist-type" is a "binary predicate".
+"track" is a "binary predicate".
+"tracking-number" is a "binary predicate".
+"tracking-url" is a "binary predicate".
+"tracks" is a "binary predicate".
+"trailer" is a "binary predicate".
+"trailer-weight" is a "binary predicate".
+"train-name" is a "binary predicate".
+"train-number" is a "binary predicate".
+"training-salary" is a "binary predicate".
+"trans-fat-content" is a "binary predicate".
+"transcript" is a "binary predicate".
+"transit-time" is a "binary predicate".
+"translation-of-work" is a "binary predicate".
+"translator" is a "binary predicate".
+"transmission-method" is a "binary predicate".
+"travel-bans" is a "binary predicate".
+"trial-design" is a "binary predicate".
+"tributary" is a "binary predicate".
+"trip-origin" is a "binary predicate".
+"type-of-bed" is a "binary predicate".
+"type-of-good" is a "binary predicate".
+"typical-age-range" is a "binary predicate".
+"typical-credits-per-term" is a "binary predicate".
+"typical-test" is a "binary predicate".
+"under-name" is a "binary predicate".
+"unit-code" is a "binary predicate".
+"unit-text" is a "binary predicate".
+"unnamed-sources-policy" is a "binary predicate".
+"unsaturated-fat-content" is a "binary predicate".
+"upload-date" is a "binary predicate".
+"upvote-count" is a "binary predicate".
+"url-template" is a "binary predicate".
+"us-npi" is a "binary predicate".
+"usage-info" is a "binary predicate".
+"used-to-diagnose" is a "binary predicate".
+"user-interaction-count" is a "binary predicate".
+"uses-device" is a "binary predicate".
+"uses-health-plan-id-standard" is a "binary predicate".
+"utterances" is a "binary predicate".
+"valid for" is a "binary predicate".
+"valid-for-member-tier" is a "binary predicate".
+"valid from" is a "binary predicate".
+"valid in" is a "binary predicate".
+"valid through" is a "binary predicate".
+"valid-until" is a "binary predicate".
+"value" is a "binary predicate".
+"value-added-tax-included" is a "binary predicate".
+"value-max-length" is a "binary predicate".
+"value-min-length" is a "binary predicate".
+"value-name" is a "binary predicate".
+"value-pattern" is a "binary predicate".
+"value-reference" is a "binary predicate".
+"value-required" is a "binary predicate".
+"variable-measured" is a "binary predicate".
+"variant-cover" is a "binary predicate".
+"varies by" is a "binary predicate".
+"vat-id" is a "binary predicate".
+"vehicle-configuration" is a "binary predicate".
+"vehicle-engine" is a "binary predicate".
+"vehicle-identification-number" is a "binary predicate".
+"vehicle-interior-color" is a "binary predicate".
+"vehicle-interior-type" is a "binary predicate".
+"vehicle-model-date" is a "binary predicate".
+"vehicle-seating-capacity" is a "binary predicate".
+"vehicle-special-usage" is a "binary predicate".
+"vehicle-transmission" is a "binary predicate".
+"vendor" is a "binary predicate".
+"verification-fact-checking-policy" is a "binary predicate".
+"version" is a "binary predicate".
+"video" is a "binary predicate".
+"video-format" is a "binary predicate".
+"video-frame-size" is a "binary predicate".
+"video-quality" is a "binary predicate".
+"volume-number" is a "binary predicate".
+"warning" is a "binary predicate".
+"warranty" is a "binary predicate".
+"web-checkin-time" is a "binary predicate".
+"web-feed" is a "binary predicate".
+"weight" is a "binary predicate".
+"weight-percentage" is a "binary predicate".
+"weight-total" is a "binary predicate".
+"wheelbase" is a "binary predicate".
+"width" is a "binary predicate".
+"winner" is a "binary predicate".
+"word-count" is a "binary predicate".
+"work-example" is a "binary predicate".
+"work-featured" is a "binary predicate".
+"work-hours" is a "binary predicate".
+"work-location" is a "binary predicate".
+"work-performed" is a "binary predicate".
+"work-presented" is a "binary predicate".
+"work-translation" is a "binary predicate".
+"workload" is a "binary predicate".
+"works for" is a "binary predicate".
+"worst-rating" is a "binary predicate".
+"xpath" is a "binary predicate".
+"year-built" is a "binary predicate".
+"yearly-revenue" is a "binary predicate".
+"years-in-operation" is a "binary predicate".
+"yield" is a "binary predicate".
+"has-legal-entity-identifier" is a "binary predicate".
+"has-subsidiary" is a "binary predicate".
+"has-payment-due-date" is a "binary predicate".
+"has-payment-mechanism" is a "binary predicate".
+"has-amount" is a "binary predicate".
+"has-currency" is a "binary predicate".
+"has-monetary-amount" is a "binary predicate".
+"referenced in" is a "binary predicate".
+"refers to" is a "binary predicate".
+"has-registration-identifier" is a "binary predicate".
+"has-contact-point" is a "binary predicate".
+"has-member" is a "binary predicate".
+"has-tax-identifier" is a "binary predicate".
+"has-country-subdivision" is a "binary predicate".
+"has-municipality" is a "binary predicate".
+"has-postal-code" is a "binary predicate".
+"has-registered-address" is a "binary predicate".
+"has-product" is a "binary predicate".
+"has-service-area" is a "binary predicate".
+"has-supplier" is a "binary predicate".
+"product of" is a "binary predicate".
+"provisioned by" is a "binary predicate".
+"has-designation" is a "binary predicate".
+"has-legal-name" is a "binary predicate".
+"has-lei" is a "binary predicate".
+"exemplifies" is a "binary predicate".
+"classified by" is a "binary predicate".
+"has-date" is a "binary predicate".
+"has-end-date" is a "binary predicate".
+"has-start-date" is a "binary predicate".
+"identified by" is a "binary predicate".
+"has-address" is a "binary predicate".
+"has-latitude" is a "binary predicate".
+"has-location" is a "binary predicate".
+"has-longitude" is a "binary predicate".
+"located in" is a "binary predicate".
+"has-lower-bound" is a "binary predicate".
+"has-numeric-value" is a "binary predicate".
+"has-quantity" is a "binary predicate".
+"has-upper-bound" is a "binary predicate".
+"has-name" is a "binary predicate".
+
+// Type hierarchy
+// Dropped subtype edges:
+// - reflexive: 62 (e.g. "bank-account" -> "bank-account", "bank-account" -> "bank-account", "class" -> "class", "class" -> "class", "contact-point" -> "contact-point")
+// - abstract-to-concrete: 2 (e.g. "class" -> "intangible", "property" -> "intangible")
+// - cycle-break: 33 (e.g. "artery" -> "51114001", "certification-details" -> "certification", "cooperative-society" -> "cooperative", "data-catalog" -> "catalog", "distribution" -> "data-download")
+"105590001" is a subtype of "substance".
+"116154003" is a subtype of "patient".
+"277132007" is a subtype of "therapeutic-procedure".
+"3-d-model" is a subtype of "media-object".
+"387713003" is a subtype of "surgical-procedure".
+"410942007" is a subtype of "drug".
+"50731006" is a subtype of "medical-procedure".
+"51114001" is a subtype of "artery".
+"63653004" is a subtype of "medical-device".
+"about-page" is a subtype of "web-page".
+"accept-action" is a subtype of "allocate-action".
+"accommodation" is a subtype of "place".
+"accounting-service" is a subtype of "financial-service".
+"achieve-action" is a subtype of "action".
+"action" is a subtype of "thing".
+"action-access-specification" is a subtype of "intangible".
+"action-status-type" is a subtype of "status-enumeration".
+"activate-action" is a subtype of "control-action".
+"add-action" is a subtype of "update-action".
+"address" is a subtype of "postal-address".
+"administrative-area" is a subtype of "place".
+"administrative-area" is a subtype of "subdivision".
+"adult-oriented-enumeration" is a subtype of "enumeration".
+"advertiser-content-article" is a subtype of "article".
+"aggregate-offer" is a subtype of "offer".
+"aggregate-rating" is a subtype of "rating".
+"agree-action" is a subtype of "react-action".
+"airline" is a subtype of "organization".
+"airport" is a subtype of "civic-structure".
+"alignment-object" is a subtype of "intangible".
+"allocate-action" is a subtype of "organize-action".
+"am-radio-channel" is a subtype of "radio-channel".
+"amount-type" is a subtype of "price-specification".
+"amp-story" is a subtype of "creative-work".
+"amp-story" is a subtype of "media-object".
+"analysis-news-article" is a subtype of "news-article".
+"anatomical-structure" is a subtype of "medical-entity".
+"anatomical-system" is a subtype of "medical-entity".
+"animal-shelter" is a subtype of "local-business".
+"answer" is a subtype of "comment".
+"apartment" is a subtype of "accommodation".
+"apartment-complex" is a subtype of "residence".
+"api-reference" is a subtype of "tech-article".
+"append-action" is a subtype of "insert-action".
+"apply-action" is a subtype of "organize-action".
+"approved-indication" is a subtype of "medical-indication".
+"aquarium" is a subtype of "civic-structure".
+"archive-component" is a subtype of "creative-work".
+"archive-organization" is a subtype of "local-business".
+"arrive-action" is a subtype of "move-action".
+"artery" is a subtype of "vessel".
+"article" is a subtype of "creative-work".
+"ask-action" is a subtype of "communicate-action".
+"ask-public-news-article" is a subtype of "news-article".
+"assess-action" is a subtype of "action".
+"assign-action" is a subtype of "allocate-action".
+"at-time" is a subtype of "timestamp".
+"atlas" is a subtype of "creative-work".
+"attorney" is a subtype of "legal-service".
+"audience" is a subtype of "intangible".
+"audio-object" is a subtype of "media-object".
+"audio-object-snapshot" is a subtype of "audio-object".
+"audiobook" is a subtype of "audio-object".
+"audiobook" is a subtype of "book".
+"authenticate-action" is a subtype of "control-action".
+"authorize-action" is a subtype of "allocate-action".
+"auto-body-shop" is a subtype of "automotive-business".
+"auto-dealer" is a subtype of "automotive-business".
+"auto-parts-store" is a subtype of "automotive-business".
+"auto-parts-store" is a subtype of "store".
+"auto-rental" is a subtype of "automotive-business".
+"auto-repair" is a subtype of "automotive-business".
+"auto-wash" is a subtype of "automotive-business".
+"automated-teller" is a subtype of "financial-service".
+"automotive-business" is a subtype of "local-business".
+"background-news-article" is a subtype of "news-article".
+"bank-account" is a subtype of "financial-product".
+"bank-or-credit-union" is a subtype of "financial-service".
+"barcode" is a subtype of "image-object".
+"beach" is a subtype of "civic-structure".
+"beauty-salon" is a subtype of "health-and-beauty-business".
+"bed-and-breakfast" is a subtype of "lodging-business".
+"bed-details" is a subtype of "intangible".
+"bed-type" is a subtype of "qualitative-value".
+"befriend-action" is a subtype of "interact-action".
+"bike-store" is a subtype of "store".
+"bio-chem-entity" is a subtype of "thing".
+"blog" is a subtype of "creative-work".
+"blog-posting" is a subtype of "social-media-posting".
+"blood-test" is a subtype of "medical-test".
+"boarding-policy-type" is a subtype of "enumeration".
+"boat-reservation" is a subtype of "reservation".
+"boat-terminal" is a subtype of "civic-structure".
+"boat-trip" is a subtype of "trip".
+"body-measurement-type-enumeration" is a subtype of "measurement-type-enumeration".
+"body-of-water" is a subtype of "landform".
+"bone" is a subtype of "anatomical-structure".
+"book" is a subtype of "creative-work".
+"book-format-type" is a subtype of "enumeration".
+"book-series" is a subtype of "creative-work-series".
+"book-store" is a subtype of "store".
+"bookmark-action" is a subtype of "organize-action".
+"borrow-action" is a subtype of "transfer-action".
+"brain-structure" is a subtype of "anatomical-structure".
+"breadcrumb-list" is a subtype of "item-list".
+"bridge" is a subtype of "civic-structure".
+"broadcast-channel" is a subtype of "intangible".
+"broadcast-event" is a subtype of "publication-event".
+"broadcast-frequency-specification" is a subtype of "intangible".
+"broadcast-service" is a subtype of "service".
+"brokerage-account" is a subtype of "investment-or-deposit".
+"buddhist-temple" is a subtype of "place-of-worship".
+"bus-or-coach" is a subtype of "vehicle".
+"bus-reservation" is a subtype of "reservation".
+"bus-station" is a subtype of "civic-structure".
+"bus-stop" is a subtype of "civic-structure".
+"bus-trip" is a subtype of "trip".
+"business-audience" is a subtype of "audience".
+"business-entity-type" is a subtype of "enumeration".
+"business-event" is a subtype of "event".
+"business-function" is a subtype of "enumeration".
+"buy-action" is a subtype of "trade-action".
+"cable-or-satellite-service" is a subtype of "service".
+"campground" is a subtype of "civic-structure".
+"campground" is a subtype of "lodging-business".
+"camping-pitch" is a subtype of "accommodation".
+"canal" is a subtype of "body-of-water".
+"cancel-action" is a subtype of "plan-action".
+"car" is a subtype of "vehicle".
+"car-usage-type" is a subtype of "enumeration".
+"catalog" is a subtype of "data-catalog".
+"category-code" is a subtype of "defined-term".
+"category-code-set" is a subtype of "defined-term-set".
+"catholic-church" is a subtype of "church".
+"cdcpmd-record" is a subtype of "structured-value".
+"cemetery" is a subtype of "civic-structure".
+"certification" is a subtype of "certificate".
+"certification" is a subtype of "certification-details".
+"certification" is a subtype of "creative-work".
+"certification" is a subtype of "specified-certificate".
+"certification-status-enumeration" is a subtype of "enumeration".
+"chapter" is a subtype of "creative-work".
+"check-action" is a subtype of "find-action".
+"check-in-action" is a subtype of "communicate-action".
+"check-out-action" is a subtype of "communicate-action".
+"checkout-page" is a subtype of "web-page".
+"chemical-substance" is a subtype of "bio-chem-entity".
+"child-care" is a subtype of "local-business".
+"childrens-event" is a subtype of "event".
+"choose-action" is a subtype of "assess-action".
+"church" is a subtype of "place-of-worship".
+"city" is a subtype of "administrative-area".
+"city" is a subtype of "municipality".
+"city-hall" is a subtype of "government-building".
+"civic-structure" is a subtype of "place".
+"claim" is a subtype of "creative-work".
+"claim-review" is a subtype of "review".
+"clip" is a subtype of "creative-work".
+"clothing-store" is a subtype of "store".
+"code" is a subtype of "creative-work".
+"collection-page" is a subtype of "web-page".
+"college-or-university" is a subtype of "educational-organization".
+"comedy-event" is a subtype of "event".
+"comic-cover-art" is a subtype of "comic-story".
+"comic-cover-art" is a subtype of "cover-art".
+"comic-issue" is a subtype of "publication-issue".
+"comic-series" is a subtype of "periodical".
+"comic-story" is a subtype of "creative-work".
+"comment" is a subtype of "creative-work".
+"comment-action" is a subtype of "communicate-action".
+"communicate-action" is a subtype of "interact-action".
+"community-health" is a subtype of "medical-business".
+"complete-data-feed" is a subtype of "data-feed".
+"compound-price-specification" is a subtype of "price-specification".
+"computer-language" is a subtype of "intangible".
+"computer-store" is a subtype of "store".
+"conference-event" is a subtype of "event".
+"confirm-action" is a subtype of "inform-action".
+"consortium" is a subtype of "organization".
+"constraint-node" is a subtype of "intangible".
+"consume-action" is a subtype of "action".
+"contact-page" is a subtype of "web-page".
+"contact-point" is a subtype of "structured-value".
+"contact-point" is a subtype of "v-card".
+"contact-point-option" is a subtype of "enumeration".
+"continent" is a subtype of "landform".
+"control-action" is a subtype of "action".
+"convenience-store" is a subtype of "store".
+"conversation" is a subtype of "creative-work".
+"cook-action" is a subtype of "create-action".
+"cooperative" is a subtype of "cooperative-society".
+"cooperative" is a subtype of "organization".
+"corporation" is a subtype of "organization".
+"correction-comment" is a subtype of "comment".
+"country" is a subtype of "administrative-area".
+"country" is a subtype of "geopolitical-entity".
+"course-instance" is a subtype of "event".
+"courthouse" is a subtype of "government-building".
+"cover-art" is a subtype of "visual-artwork".
+"covid-testing-facility" is a subtype of "medical-clinic".
+"create-action" is a subtype of "action".
+"creative-work" is a subtype of "thing".
+"creative-work-season" is a subtype of "creative-work".
+"creative-work-series" is a subtype of "creative-work".
+"creative-work-series" is a subtype of "series".
+"credit-card" is a subtype of "loan-or-credit".
+"credit-card" is a subtype of "payment-card".
+"crematorium" is a subtype of "civic-structure".
+"critic-review" is a subtype of "review".
+"css-selector-type" is a subtype of "text".
+"currency-conversion-service" is a subtype of "financial-product".
+"d-dx-element" is a subtype of "medical-intangible".
+"dance-event" is a subtype of "event".
+"dance-group" is a subtype of "performing-group".
+"data-catalog" is a subtype of "creative-work".
+"data-download" is a subtype of "distribution".
+"data-download" is a subtype of "media-object".
+"data-feed" is a subtype of "dataset".
+"data-feed-item" is a subtype of "intangible".
+"data-type" is a subtype of "class".
+"dataset" is a subtype of "creative-work".
+"dated-money-specification" is a subtype of "structured-value".
+"day-of-week" is a subtype of "enumeration".
+"day-spa" is a subtype of "health-and-beauty-business".
+"deactivate-action" is a subtype of "control-action".
+"defence-establishment" is a subtype of "government-building".
+"defined-region" is a subtype of "place".
+"defined-region" is a subtype of "structured-value".
+"defined-term" is a subtype of "intangible".
+"defined-term-set" is a subtype of "creative-work".
+"delete-action" is a subtype of "update-action".
+"delivery-charge-specification" is a subtype of "price-specification".
+"delivery-event" is a subtype of "event".
+"demand" is a subtype of "intangible".
+"demand" is a subtype of "request-for-quotation".
+"dentist" is a subtype of "local-business".
+"dentist" is a subtype of "medical-business".
+"dentist" is a subtype of "medical-organization".
+"depart-action" is a subtype of "move-action".
+"department-store" is a subtype of "store".
+"deposit-account" is a subtype of "bank-account".
+"deposit-account" is a subtype of "investment-or-deposit".
+"dermatology" is a subtype of "medical-business".
+"diagnostic-lab" is a subtype of "medical-organization".
+"diagnostic-procedure" is a subtype of "medical-procedure".
+"diet-nutrition" is a subtype of "medical-business".
+"dietary-supplement" is a subtype of "product".
+"dietary-supplement" is a subtype of "substance".
+"digital-document" is a subtype of "creative-work".
+"digital-document" is a subtype of "document".
+"digital-document" is a subtype of "electronic-document".
+"digital-document-permission" is a subtype of "intangible".
+"digital-document-permission-type" is a subtype of "enumeration".
+"digital-platform-enumeration" is a subtype of "enumeration".
+"disagree-action" is a subtype of "react-action".
+"discover-action" is a subtype of "find-action".
+"discussion-forum-posting" is a subtype of "social-media-posting".
+"dislike-action" is a subtype of "react-action".
+"distance" is a subtype of "quantity".
+"donate-action" is a subtype of "transfer-action".
+"dose-schedule" is a subtype of "medical-intangible".
+"download-action" is a subtype of "transfer-action".
+"draw-action" is a subtype of "create-action".
+"drawing" is a subtype of "creative-work".
+"drink-action" is a subtype of "consume-action".
+"drive-wheel-configuration-value" is a subtype of "qualitative-value".
+"drug" is a subtype of "product".
+"drug" is a subtype of "substance".
+"drug-class" is a subtype of "medical-entity".
+"drug-cost" is a subtype of "medical-entity".
+"drug-cost-category" is a subtype of "medical-enumeration".
+"drug-legal-status" is a subtype of "medical-intangible".
+"drug-pregnancy-category" is a subtype of "medical-enumeration".
+"drug-prescription-status" is a subtype of "medical-enumeration".
+"drug-strength" is a subtype of "medical-intangible".
+"dry-cleaning-or-laundry" is a subtype of "local-business".
+"duration" is a subtype of "quantity".
+"eat-action" is a subtype of "consume-action".
+"education-event" is a subtype of "event".
+"educational-audience" is a subtype of "audience".
+"educational-occupational-credential" is a subtype of "creative-work".
+"educational-occupational-program" is a subtype of "intangible".
+"educational-organization" is a subtype of "civic-structure".
+"educational-organization" is a subtype of "organization".
+"electrician" is a subtype of "home-and-construction-business".
+"electronics-store" is a subtype of "store".
+"elementary-school" is a subtype of "educational-organization".
+"email-message" is a subtype of "message".
+"embassy" is a subtype of "government-building".
+"emergency" is a subtype of "medical-business".
+"emergency-service" is a subtype of "local-business".
+"employee-role" is a subtype of "organization-role".
+"employer-aggregate-rating" is a subtype of "aggregate-rating".
+"employer-review" is a subtype of "review".
+"employment-agency" is a subtype of "local-business".
+"endorse-action" is a subtype of "react-action".
+"endorsement-rating" is a subtype of "rating".
+"energy" is a subtype of "quantity".
+"energy-consumption-details" is a subtype of "intangible".
+"energy-efficiency-enumeration" is a subtype of "enumeration".
+"energy-star-energy-efficiency-enumeration" is a subtype of "energy-efficiency-enumeration".
+"engine-specification" is a subtype of "structured-value".
+"entry-point" is a subtype of "intangible".
+"enumeration" is a subtype of "intangible".
+"error" is a subtype of "instantaneous-event".
+"error" is a subtype of "result".
+"eu-energy-efficiency-enumeration" is a subtype of "energy-efficiency-enumeration".
+"event" is a subtype of "occurrence".
+"event" is a subtype of "thing".
+"event-attendance-mode-enumeration" is a subtype of "enumeration".
+"event-reservation" is a subtype of "reservation".
+"event-series" is a subtype of "event".
+"event-series" is a subtype of "series".
+"event-status-type" is a subtype of "status-enumeration".
+"event-venue" is a subtype of "civic-structure".
+"exchange-rate-specification" is a subtype of "structured-value".
+"exercise-action" is a subtype of "play-action".
+"exhibition-event" is a subtype of "event".
+"f31-performance" is a subtype of "performing-arts-event".
+"faq-page" is a subtype of "web-page".
+"festival" is a subtype of "event".
+"film-action" is a subtype of "create-action".
+"financial-card" is a subtype of "payment-card".
+"financial-incentive" is a subtype of "intangible".
+"financial-product" is a subtype of "service".
+"financial-service" is a subtype of "local-business".
+"find-action" is a subtype of "action".
+"fire-station" is a subtype of "civic-structure".
+"fire-station" is a subtype of "emergency-service".
+"flight" is a subtype of "trip".
+"flight-reservation" is a subtype of "reservation".
+"float" is a subtype of "number".
+"floor-plan" is a subtype of "intangible".
+"florist" is a subtype of "store".
+"fm-radio-channel" is a subtype of "radio-channel".
+"follow-action" is a subtype of "interact-action".
+"food-establishment-reservation" is a subtype of "reservation".
+"food-service" is a subtype of "service".
+"fulfillment-type-enumeration" is a subtype of "enumeration".
+"funding-agency" is a subtype of "project".
+"funding-scheme" is a subtype of "organization".
+"furniture-store" is a subtype of "store".
+"game" is a subtype of "creative-work".
+"game-availability-enumeration" is a subtype of "enumeration".
+"game-play-mode" is a subtype of "enumeration".
+"game-server" is a subtype of "intangible".
+"game-server-status" is a subtype of "status-enumeration".
+"garden-store" is a subtype of "store".
+"gas-station" is a subtype of "automotive-business".
+"gated-residence-community" is a subtype of "residence".
+"gender-type" is a subtype of "enumeration".
+"gene" is a subtype of "bio-chem-entity".
+"general-contractor" is a subtype of "home-and-construction-business".
+"geo-circle" is a subtype of "geo-shape".
+"geo-coordinates" is a subtype of "geographic-coordinate".
+"geo-coordinates" is a subtype of "geographical-coordinate".
+"geo-coordinates" is a subtype of "structured-value".
+"geo-shape" is a subtype of "structured-value".
+"geospatial-geometry" is a subtype of "intangible".
+"geriatric" is a subtype of "medical-business".
+"give-action" is a subtype of "transfer-action".
+"government-benefits-type" is a subtype of "enumeration".
+"government-building" is a subtype of "civic-structure".
+"government-office" is a subtype of "local-business".
+"government-organization" is a subtype of "organization".
+"government-permit" is a subtype of "permit".
+"government-service" is a subtype of "service".
+"grant" is a subtype of "intangible".
+"grocery-store" is a subtype of "store".
+"guide" is a subtype of "creative-work".
+"gynecologic" is a subtype of "medical-business".
+"hackathon" is a subtype of "event".
+"hair-salon" is a subtype of "health-and-beauty-business".
+"hardware-store" is a subtype of "store".
+"health-and-beauty-business" is a subtype of "local-business".
+"health-aspect-enumeration" is a subtype of "enumeration".
+"health-club" is a subtype of "health-and-beauty-business".
+"health-insurance-plan" is a subtype of "intangible".
+"health-plan-cost-sharing-specification" is a subtype of "intangible".
+"health-plan-formulary" is a subtype of "intangible".
+"health-plan-network" is a subtype of "intangible".
+"health-topic-content" is a subtype of "web-content".
+"high-school" is a subtype of "educational-organization".
+"hindu-temple" is a subtype of "place-of-worship".
+"hobby-shop" is a subtype of "store".
+"home-and-construction-business" is a subtype of "local-business".
+"home-goods-store" is a subtype of "store".
+"hospital" is a subtype of "civic-structure".
+"hospital" is a subtype of "emergency-service".
+"hospital" is a subtype of "medical-organization".
+"hostel" is a subtype of "lodging-business".
+"hotel" is a subtype of "lodging-business".
+"hotel-room" is a subtype of "room".
+"house" is a subtype of "accommodation".
+"house-painter" is a subtype of "home-and-construction-business".
+"how-to" is a subtype of "creative-work".
+"how-to-direction" is a subtype of "creative-work".
+"how-to-direction" is a subtype of "list-item".
+"how-to-item" is a subtype of "list-item".
+"how-to-section" is a subtype of "creative-work".
+"how-to-section" is a subtype of "item-list".
+"how-to-section" is a subtype of "list-item".
+"how-to-step" is a subtype of "creative-work".
+"how-to-step" is a subtype of "item-list".
+"how-to-step" is a subtype of "list-item".
+"how-to-supply" is a subtype of "how-to-item".
+"how-to-tip" is a subtype of "creative-work".
+"how-to-tip" is a subtype of "list-item".
+"how-to-tool" is a subtype of "how-to-item".
+"hvac-business" is a subtype of "home-and-construction-business".
+"hyper-toc" is a subtype of "creative-work".
+"hyper-toc-entry" is a subtype of "creative-work".
+"ignore-action" is a subtype of "assess-action".
+"image" is a subtype of "image-object".
+"image-gallery" is a subtype of "media-gallery".
+"image-object" is a subtype of "media-object".
+"image-object-snapshot" is a subtype of "image-object".
+"imaging-test" is a subtype of "medical-test".
+"incentive-qualified-expense-type" is a subtype of "enumeration".
+"incentive-status" is a subtype of "enumeration".
+"incentive-type" is a subtype of "enumeration".
+"individual-physician" is a subtype of "physician".
+"individual-product" is a subtype of "product".
+"individual-product" is a subtype of "specified-trade-product".
+"infectious-agent-class" is a subtype of "medical-enumeration".
+"infectious-disease" is a subtype of "medical-condition".
+"inform-action" is a subtype of "communicate-action".
+"insert-action" is a subtype of "add-action".
+"install-action" is a subtype of "consume-action".
+"instantaneous-event" is a subtype of "structured-value".
+"insurance-agency" is a subtype of "financial-service".
+"intangible" is a subtype of "thing".
+"integer" is a subtype of "number".
+"interact-action" is a subtype of "action".
+"interaction-counter" is a subtype of "structured-value".
+"internet-cafe" is a subtype of "local-business".
+"investment-fund" is a subtype of "investment-or-deposit".
+"investment-or-deposit" is a subtype of "financial-product".
+"invite-action" is a subtype of "communicate-action".
+"invoice" is a subtype of "intangible".
+"invoice" is a subtype of "legal-document".
+"iptc-digital-source-enumeration" is a subtype of "media-enumeration".
+"item-availability" is a subtype of "enumeration".
+"item-list" is a subtype of "intangible".
+"item-list-order-type" is a subtype of "enumeration".
+"item-page" is a subtype of "web-page".
+"jewelry-store" is a subtype of "store".
+"job-posting" is a subtype of "intangible".
+"join-action" is a subtype of "interact-action".
+"joint" is a subtype of "anatomical-structure".
+"lake-body-of-water" is a subtype of "body-of-water".
+"landform" is a subtype of "place".
+"landmarks-or-historical-buildings" is a subtype of "place".
+"learning-resource" is a subtype of "creative-work".
+"leave-action" is a subtype of "interact-action".
+"legal-force-status" is a subtype of "status-enumeration".
+"legal-service" is a subtype of "local-business".
+"legal-value-level" is a subtype of "enumeration".
+"legislation" is a subtype of "creative-work".
+"legislation-object" is a subtype of "legislation".
+"legislation-object" is a subtype of "media-object".
+"legislative-building" is a subtype of "government-building".
+"lend-action" is a subtype of "transfer-action".
+"library" is a subtype of "local-business".
+"library-system" is a subtype of "organization".
+"lifestyle-modification" is a subtype of "medical-entity".
+"ligament" is a subtype of "anatomical-structure".
+"like-action" is a subtype of "react-action".
+"line-trade-agreement" is a subtype of "order-item".
+"link-role" is a subtype of "role".
+"liquor-store" is a subtype of "store".
+"list-item" is a subtype of "intangible".
+"listen-action" is a subtype of "consume-action".
+"literary-event" is a subtype of "event".
+"live-blog-posting" is a subtype of "blog-posting".
+"loan-or-credit" is a subtype of "financial-product".
+"local-business" is a subtype of "organization".
+"local-business" is a subtype of "place".
+"location-feature-specification" is a subtype of "property-value".
+"locksmith" is a subtype of "home-and-construction-business".
+"lodging-business" is a subtype of "local-business".
+"lodging-reservation" is a subtype of "reservation".
+"login-action" is a subtype of "control-action".
+"lose-action" is a subtype of "achieve-action".
+"lymphatic-vessel" is a subtype of "vessel".
+"manuscript" is a subtype of "creative-work".
+"map" is a subtype of "creative-work".
+"map-category-type" is a subtype of "enumeration".
+"marry-action" is a subtype of "interact-action".
+"mass" is a subtype of "quantity".
+"math-solver" is a subtype of "creative-work".
+"maximum-dose-schedule" is a subtype of "dose-schedule".
+"measurement-method-enum" is a subtype of "enumeration".
+"measurement-type-enumeration" is a subtype of "enumeration".
+"media-enumeration" is a subtype of "enumeration".
+"media-gallery" is a subtype of "collection-page".
+"media-manipulation-rating-enumeration" is a subtype of "enumeration".
+"media-object" is a subtype of "creative-work".
+"media-review" is a subtype of "review".
+"media-review-item" is a subtype of "creative-work".
+"media-subscription" is a subtype of "intangible".
+"medical-audience" is a subtype of "audience".
+"medical-audience" is a subtype of "people-audience".
+"medical-audience-type" is a subtype of "medical-enumeration".
+"medical-business" is a subtype of "local-business".
+"medical-cause" is a subtype of "medical-entity".
+"medical-clinic" is a subtype of "medical-business".
+"medical-clinic" is a subtype of "medical-organization".
+"medical-code" is a subtype of "category-code".
+"medical-code" is a subtype of "medical-intangible".
+"medical-condition" is a subtype of "medical-entity".
+"medical-condition-stage" is a subtype of "medical-intangible".
+"medical-contraindication" is a subtype of "medical-entity".
+"medical-device" is a subtype of "medical-entity".
+"medical-device-purpose" is a subtype of "medical-enumeration".
+"medical-entity" is a subtype of "thing".
+"medical-enumeration" is a subtype of "enumeration".
+"medical-evidence-level" is a subtype of "medical-enumeration".
+"medical-guideline" is a subtype of "medical-entity".
+"medical-guideline-contraindication" is a subtype of "medical-guideline".
+"medical-guideline-recommendation" is a subtype of "medical-guideline".
+"medical-imaging-technique" is a subtype of "medical-enumeration".
+"medical-indication" is a subtype of "medical-entity".
+"medical-intangible" is a subtype of "medical-entity".
+"medical-observational-study" is a subtype of "medical-study".
+"medical-observational-study-design" is a subtype of "medical-enumeration".
+"medical-organization" is a subtype of "organization".
+"medical-procedure" is a subtype of "medical-entity".
+"medical-procedure-type" is a subtype of "medical-enumeration".
+"medical-risk-calculator" is a subtype of "medical-risk-estimator".
+"medical-risk-estimator" is a subtype of "medical-entity".
+"medical-risk-factor" is a subtype of "medical-entity".
+"medical-risk-score" is a subtype of "medical-risk-estimator".
+"medical-scholarly-article" is a subtype of "scholarly-article".
+"medical-sign" is a subtype of "medical-sign-or-symptom".
+"medical-sign-or-symptom" is a subtype of "medical-condition".
+"medical-specialty" is a subtype of "medical-enumeration".
+"medical-specialty" is a subtype of "specialty".
+"medical-study" is a subtype of "medical-entity".
+"medical-study-status" is a subtype of "medical-enumeration".
+"medical-symptom" is a subtype of "medical-sign-or-symptom".
+"medical-test" is a subtype of "medical-entity".
+"medical-test-panel" is a subtype of "medical-test".
+"medical-therapy" is a subtype of "therapeutic-procedure".
+"medical-trial" is a subtype of "medical-study".
+"medical-trial-design" is a subtype of "medical-enumeration".
+"medical-web-page" is a subtype of "web-page".
+"medicine-system" is a subtype of "medical-enumeration".
+"meeting-room" is a subtype of "room".
+"member-program" is a subtype of "intangible".
+"member-program-tier" is a subtype of "intangible".
+"mens-clothing-store" is a subtype of "store".
+"menu" is a subtype of "creative-work".
+"menu-item" is a subtype of "intangible".
+"menu-section" is a subtype of "creative-work".
+"merchant-return-enumeration" is a subtype of "enumeration".
+"merchant-return-policy" is a subtype of "intangible".
+"merchant-return-policy-seasonal-override" is a subtype of "intangible".
+"message" is a subtype of "creative-work".
+"middle-school" is a subtype of "educational-organization".
+"midwifery" is a subtype of "medical-business".
+"mobile-application" is a subtype of "software-application".
+"mobile-phone-store" is a subtype of "store".
+"molecular-entity" is a subtype of "bio-chem-entity".
+"monetary-amount" is a subtype of "structured-value".
+"monetary-amount-distribution" is a subtype of "quantitative-value-distribution".
+"monetary-grant" is a subtype of "grant".
+"money-transfer" is a subtype of "transfer-action".
+"mortgage-loan" is a subtype of "loan-or-credit".
+"mosque" is a subtype of "place-of-worship".
+"motel" is a subtype of "lodging-business".
+"motorcycle" is a subtype of "vehicle".
+"motorcycle-dealer" is a subtype of "automotive-business".
+"motorcycle-repair" is a subtype of "automotive-business".
+"motorized-bicycle" is a subtype of "vehicle".
+"mountain" is a subtype of "landform".
+"move-action" is a subtype of "action".
+"movie" is a subtype of "creative-work".
+"movie-clip" is a subtype of "clip".
+"movie-rental-store" is a subtype of "store".
+"movie-series" is a subtype of "creative-work-series".
+"movie-theater" is a subtype of "civic-structure".
+"moving-company" is a subtype of "home-and-construction-business".
+"muscle" is a subtype of "anatomical-structure".
+"museum" is a subtype of "civic-structure".
+"music-album" is a subtype of "music-playlist".
+"music-album-production-type" is a subtype of "enumeration".
+"music-album-release-type" is a subtype of "enumeration".
+"music-composition" is a subtype of "creative-work".
+"music-event" is a subtype of "event".
+"music-group" is a subtype of "performing-group".
+"music-playlist" is a subtype of "creative-work".
+"music-recording" is a subtype of "creative-work".
+"music-release" is a subtype of "music-playlist".
+"music-release-format-type" is a subtype of "enumeration".
+"music-store" is a subtype of "store".
+"music-venue" is a subtype of "civic-structure".
+"music-video-object" is a subtype of "media-object".
+"nail-salon" is a subtype of "health-and-beauty-business".
+"nerve" is a subtype of "anatomical-structure".
+"news-article" is a subtype of "article".
+"news-media-organization" is a subtype of "organization".
+"newspaper" is a subtype of "periodical".
+"ngo" is a subtype of "non-governmental-organization".
+"ngo" is a subtype of "organization".
+"nl-nonprofit-type" is a subtype of "nonprofit-type".
+"nonprofit-type" is a subtype of "enumeration".
+"notary" is a subtype of "legal-service".
+"note-digital-document" is a subtype of "digital-document".
+"nursing" is a subtype of "medical-business".
+"nutrition-information" is a subtype of "structured-value".
+"observation" is a subtype of "intangible".
+"observation" is a subtype of "quantitative-value".
+"obstetric" is a subtype of "medical-business".
+"occupation" is a subtype of "intangible".
+"occupational-experience-requirements" is a subtype of "intangible".
+"occupational-therapy" is a subtype of "medical-therapy".
+"ocean-body-of-water" is a subtype of "body-of-water".
+"offer" is a subtype of "intangible".
+"offer-catalog" is a subtype of "item-list".
+"offer-for-lease" is a subtype of "offer".
+"offer-for-purchase" is a subtype of "offer".
+"offer-item-condition" is a subtype of "enumeration".
+"offer-shipping-details" is a subtype of "structured-value".
+"office-equipment-store" is a subtype of "store".
+"on-demand-event" is a subtype of "publication-event".
+"oncologic" is a subtype of "medical-business".
+"online-business" is a subtype of "organization".
+"online-marketplace" is a subtype of "online-store".
+"online-store" is a subtype of "online-business".
+"opening-hours-specification" is a subtype of "structured-value".
+"operating-system" is a subtype of "software-application".
+"opinion-news-article" is a subtype of "news-article".
+"optician" is a subtype of "medical-business".
+"optometric" is a subtype of "medical-business".
+"order" is a subtype of "intangible".
+"order" is a subtype of "legal-document".
+"order-action" is a subtype of "trade-action".
+"order-item" is a subtype of "structured-value".
+"order-status" is a subtype of "status-enumeration".
+"organization" is a subtype of "thing".
+"organization-role" is a subtype of "role".
+"organize-action" is a subtype of "action".
+"otolaryngologic" is a subtype of "medical-business".
+"outlet-store" is a subtype of "store".
+"ownership-info" is a subtype of "structured-value".
+"paint-action" is a subtype of "create-action".
+"painting" is a subtype of "creative-work".
+"palliative-procedure" is a subtype of "medical-procedure".
+"palliative-procedure" is a subtype of "medical-therapy".
+"parcel-delivery" is a subtype of "intangible".
+"parent-audience" is a subtype of "people-audience".
+"park" is a subtype of "civic-structure".
+"parking-facility" is a subtype of "civic-structure".
+"pathology-test" is a subtype of "medical-test".
+"patient" is a subtype of "medical-audience".
+"patient" is a subtype of "person".
+"pawn-shop" is a subtype of "store".
+"pay-action" is a subtype of "trade-action".
+"payment-card" is a subtype of "financial-product".
+"payment-charge-specification" is a subtype of "price-specification".
+"payment-method-type" is a subtype of "enumeration".
+"payment-service" is a subtype of "financial-product".
+"payment-status-type" is a subtype of "status-enumeration".
+"pediatric" is a subtype of "medical-business".
+"people-audience" is a subtype of "audience".
+"perform-action" is a subtype of "play-action".
+"performance-role" is a subtype of "role".
+"performing-arts-event" is a subtype of "event".
+"performing-arts-theater" is a subtype of "civic-structure".
+"performing-group" is a subtype of "organization".
+"periodical" is a subtype of "creative-work-series".
+"permit" is a subtype of "intangible".
+"person" is a subtype of "thing".
+"pet-store" is a subtype of "store".
+"pharmacy" is a subtype of "medical-business".
+"pharmacy" is a subtype of "medical-organization".
+"photograph" is a subtype of "creative-work".
+"photograph-action" is a subtype of "create-action".
+"physical-activity" is a subtype of "lifestyle-modification".
+"physical-activity-category" is a subtype of "enumeration".
+"physical-exam" is a subtype of "medical-enumeration".
+"physical-exam" is a subtype of "medical-procedure".
+"physical-therapy" is a subtype of "medical-therapy".
+"physician" is a subtype of "medical-business".
+"physician" is a subtype of "medical-organization".
+"physicians-office" is a subtype of "physician".
+"physiotherapy" is a subtype of "medical-business".
+"place" is a subtype of "thing".
+"place-of-worship" is a subtype of "civic-structure".
+"plan-action" is a subtype of "organize-action".
+"plastic-surgery" is a subtype of "medical-business".
+"play" is a subtype of "creative-work".
+"play-action" is a subtype of "action".
+"play-game-action" is a subtype of "consume-action".
+"playground" is a subtype of "civic-structure".
+"plumber" is a subtype of "home-and-construction-business".
+"podcast-season" is a subtype of "creative-work-season".
+"podcast-series" is a subtype of "creative-work-series".
+"podiatric" is a subtype of "medical-business".
+"police-station" is a subtype of "civic-structure".
+"police-station" is a subtype of "emergency-service".
+"political-party" is a subtype of "organization".
+"pond" is a subtype of "body-of-water".
+"post-office" is a subtype of "government-office".
+"postal-address" is a subtype of "contact-point".
+"postal-address" is a subtype of "trade-address".
+"postal-code-range-specification" is a subtype of "structured-value".
+"poster" is a subtype of "creative-work".
+"pre-order-action" is a subtype of "trade-action".
+"prepend-action" is a subtype of "insert-action".
+"preschool" is a subtype of "educational-organization".
+"presentation-digital-document" is a subtype of "digital-document".
+"prevention-indication" is a subtype of "medical-indication".
+"price-component-type-enumeration" is a subtype of "enumeration".
+"price-specification" is a subtype of "structured-value".
+"price-type-enumeration" is a subtype of "enumeration".
+"primary-care" is a subtype of "medical-business".
+"product" is a subtype of "thing".
+"product" is a subtype of "trade-product".
+"product-collection" is a subtype of "product".
+"product-group" is a subtype of "classifier".
+"product-group" is a subtype of "product".
+"product-model" is a subtype of "product".
+"professional-service" is a subtype of "local-business".
+"profile-page" is a subtype of "web-page".
+"program-membership" is a subtype of "intangible".
+"project" is a subtype of "organization".
+"pronounceable-text" is a subtype of "text".
+"property-value" is a subtype of "structured-value".
+"property-value-specification" is a subtype of "intangible".
+"protein" is a subtype of "bio-chem-entity".
+"psychiatric" is a subtype of "medical-business".
+"psychological-treatment" is a subtype of "therapeutic-procedure".
+"public-health" is a subtype of "medical-business".
+"public-toilet" is a subtype of "civic-structure".
+"publication-event" is a subtype of "event".
+"publication-issue" is a subtype of "creative-work".
+"publication-volume" is a subtype of "creative-work".
+"purchase-type" is a subtype of "enumeration".
+"qa-page" is a subtype of "web-page".
+"qualitative-value" is a subtype of "enumeration".
+"quantitative-value" is a subtype of "structured-value".
+"quantitative-value-distribution" is a subtype of "structured-value".
+"quantity" is a subtype of "intangible".
+"quiz" is a subtype of "learning-resource".
+"quotation" is a subtype of "creative-work".
+"quote-action" is a subtype of "trade-action".
+"radiation-therapy" is a subtype of "medical-therapy".
+"radio-broadcast-service" is a subtype of "broadcast-service".
+"radio-channel" is a subtype of "broadcast-channel".
+"radio-clip" is a subtype of "clip".
+"radio-season" is a subtype of "creative-work-season".
+"radio-series" is a subtype of "creative-work-series".
+"radio-station" is a subtype of "local-business".
+"rating" is a subtype of "intangible".
+"react-action" is a subtype of "assess-action".
+"read-action" is a subtype of "consume-action".
+"real-estate-listing" is a subtype of "web-page".
+"receive-action" is a subtype of "transfer-action".
+"recommendation" is a subtype of "review".
+"recommended-dose-schedule" is a subtype of "dose-schedule".
+"recycling-center" is a subtype of "local-business".
+"refund-type-enumeration" is a subtype of "enumeration".
+"register-action" is a subtype of "interact-action".
+"reject-action" is a subtype of "allocate-action".
+"rent-action" is a subtype of "trade-action".
+"rental-car-reservation" is a subtype of "reservation".
+"repayment-specification" is a subtype of "structured-value".
+"replace-action" is a subtype of "update-action".
+"reply-action" is a subtype of "communicate-action".
+"report" is a subtype of "article".
+"reportage-news-article" is a subtype of "news-article".
+"reported-dose-schedule" is a subtype of "dose-schedule".
+"research-organization" is a subtype of "organization".
+"research-project" is a subtype of "project".
+"researcher" is a subtype of "audience".
+"reservation" is a subtype of "intangible".
+"reservation-package" is a subtype of "reservation".
+"reservation-status-type" is a subtype of "status-enumeration".
+"reserve-action" is a subtype of "plan-action".
+"reservoir" is a subtype of "body-of-water".
+"reset-password-action" is a subtype of "control-action".
+"residence" is a subtype of "place".
+"resort" is a subtype of "lodging-business".
+"respiratory-therapy" is a subtype of "medical-therapy".
+"restricted-diet" is a subtype of "enumeration".
+"resume-action" is a subtype of "control-action".
+"return-action" is a subtype of "transfer-action".
+"return-fees-enumeration" is a subtype of "enumeration".
+"return-label-source-enumeration" is a subtype of "enumeration".
+"return-method-enumeration" is a subtype of "enumeration".
+"review" is a subtype of "creative-work".
+"review-action" is a subtype of "assess-action".
+"review-news-article" is a subtype of "critic-review".
+"review-news-article" is a subtype of "news-article".
+"river-body-of-water" is a subtype of "body-of-water".
+"role" is a subtype of "intangible".
+"roofing-contractor" is a subtype of "home-and-construction-business".
+"room" is a subtype of "accommodation".
+"rsvp-action" is a subtype of "inform-action".
+"rsvp-response-type" is a subtype of "enumeration".
+"runtime-platform" is a subtype of "software-application".
+"rv-park" is a subtype of "civic-structure".
+"sale-event" is a subtype of "event".
+"satirical-article" is a subtype of "article".
+"schedule" is a subtype of "intangible".
+"schedule-action" is a subtype of "plan-action".
+"scholarly-article" is a subtype of "article".
+"school" is a subtype of "educational-organization".
+"school-district" is a subtype of "administrative-area".
+"screening-event" is a subtype of "event".
+"sculpture" is a subtype of "creative-work".
+"sea-body-of-water" is a subtype of "body-of-water".
+"search-action" is a subtype of "action".
+"search-rescue-organization" is a subtype of "organization".
+"search-results-page" is a subtype of "web-page".
+"seat" is a subtype of "intangible".
+"seek-to-action" is a subtype of "action".
+"self-storage" is a subtype of "local-business".
+"sell-action" is a subtype of "trade-action".
+"send-action" is a subtype of "transfer-action".
+"sequential-art" is a subtype of "book".
+"sequential-art" is a subtype of "visual-artwork".
+"series" is a subtype of "intangible".
+"service" is a subtype of "intangible".
+"service-channel" is a subtype of "intangible".
+"service-period" is a subtype of "structured-value".
+"share-action" is a subtype of "communicate-action".
+"sheet-music" is a subtype of "creative-work".
+"shipping-conditions" is a subtype of "structured-value".
+"shipping-delivery-time" is a subtype of "structured-value".
+"shipping-rate-settings" is a subtype of "structured-value".
+"shipping-service" is a subtype of "structured-value".
+"shoe-store" is a subtype of "store".
+"shopping-center" is a subtype of "local-business".
+"short-story" is a subtype of "creative-work".
+"single-family-residence" is a subtype of "house".
+"site-navigation-element" is a subtype of "web-page-element".
+"size-group-enumeration" is a subtype of "enumeration".
+"size-specification" is a subtype of "qualitative-value".
+"size-system-enumeration" is a subtype of "enumeration".
+"ski-resort" is a subtype of "resort".
+"social-event" is a subtype of "event".
+"social-media-posting" is a subtype of "article".
+"software-application" is a subtype of "creative-work".
+"software-source-code" is a subtype of "creative-work".
+"solve-math-action" is a subtype of "action".
+"some-products" is a subtype of "product".
+"speakable-specification" is a subtype of "intangible".
+"special-announcement" is a subtype of "creative-work".
+"specialty" is a subtype of "enumeration".
+"sporting-goods-store" is a subtype of "store".
+"sports-organization" is a subtype of "organization".
+"spreadsheet-digital-document" is a subtype of "digital-document".
+"stadium-or-arena" is a subtype of "civic-structure".
+"state" is a subtype of "administrative-area".
+"statement" is a subtype of "creative-work".
+"statistical-population" is a subtype of "intangible".
+"statistical-variable" is a subtype of "constraint-node".
+"status-enumeration" is a subtype of "enumeration".
+"steering-position-value" is a subtype of "qualitative-value".
+"store" is a subtype of "local-business".
+"structured-value" is a subtype of "intangible".
+"subscribe-action" is a subtype of "interact-action".
+"substance" is a subtype of "medical-entity".
+"subway-station" is a subtype of "civic-structure".
+"suite" is a subtype of "accommodation".
+"superficial-anatomy" is a subtype of "medical-entity".
+"surgical-procedure" is a subtype of "medical-procedure".
+"suspend-action" is a subtype of "control-action".
+"syllabus" is a subtype of "learning-resource".
+"synagogue" is a subtype of "place-of-worship".
+"table" is a subtype of "web-page-element".
+"take-action" is a subtype of "transfer-action".
+"tattoo-parlor" is a subtype of "health-and-beauty-business".
+"taxi" is a subtype of "service".
+"taxi-reservation" is a subtype of "reservation".
+"taxi-service" is a subtype of "service".
+"taxi-stand" is a subtype of "civic-structure".
+"taxon" is a subtype of "thing".
+"tech-article" is a subtype of "article".
+"television-channel" is a subtype of "broadcast-channel".
+"television-station" is a subtype of "local-business".
+"text" is a subtype of "text-object".
+"text-digital-document" is a subtype of "digital-document".
+"text-object" is a subtype of "media-object".
+"theater-event" is a subtype of "event".
+"theater-group" is a subtype of "performing-group".
+"therapeutic-procedure" is a subtype of "medical-procedure".
+"thesis" is a subtype of "creative-work".
+"ticket" is a subtype of "intangible".
+"tie-action" is a subtype of "achieve-action".
+"tier-benefit-enumeration" is a subtype of "enumeration".
+"tip-action" is a subtype of "trade-action".
+"tire-shop" is a subtype of "store".
+"tourist-attraction" is a subtype of "place".
+"tourist-destination" is a subtype of "place".
+"tourist-information-center" is a subtype of "local-business".
+"tourist-trip" is a subtype of "trip".
+"toy-store" is a subtype of "store".
+"track-action" is a subtype of "find-action".
+"trade-action" is a subtype of "action".
+"train-reservation" is a subtype of "reservation".
+"train-station" is a subtype of "civic-structure".
+"train-trip" is a subtype of "trip".
+"transfer-action" is a subtype of "action".
+"travel-action" is a subtype of "move-action".
+"travel-agency" is a subtype of "local-business".
+"treatment-indication" is a subtype of "medical-indication".
+"trip" is a subtype of "intangible".
+"tv-clip" is a subtype of "clip".
+"tv-season" is a subtype of "creative-work".
+"tv-season" is a subtype of "creative-work-season".
+"tv-series" is a subtype of "creative-work".
+"tv-series" is a subtype of "creative-work-series".
+"type-and-quantity-node" is a subtype of "structured-value".
+"uk-nonprofit-type" is a subtype of "nonprofit-type".
+"un-register-action" is a subtype of "interact-action".
+"unit-price-specification" is a subtype of "price-specification".
+"update-action" is a subtype of "action".
+"url" is a subtype of "text".
+"us-nonprofit-type" is a subtype of "nonprofit-type".
+"use-action" is a subtype of "consume-action".
+"user-blocks" is a subtype of "user-interaction".
+"user-checkins" is a subtype of "user-interaction".
+"user-comments" is a subtype of "user-interaction".
+"user-downloads" is a subtype of "user-interaction".
+"user-interaction" is a subtype of "event".
+"user-likes" is a subtype of "user-interaction".
+"user-page-visits" is a subtype of "user-interaction".
+"user-plays" is a subtype of "user-interaction".
+"user-plus-ones" is a subtype of "user-interaction".
+"user-review" is a subtype of "review".
+"user-tweets" is a subtype of "user-interaction".
+"vacation-rental" is a subtype of "lodging-business".
+"vehicle" is a subtype of "product".
+"vein" is a subtype of "vessel".
+"vessel" is a subtype of "anatomical-structure".
+"veterinary-care" is a subtype of "medical-organization".
+"video-gallery" is a subtype of "media-gallery".
+"video-game" is a subtype of "game".
+"video-game" is a subtype of "software-application".
+"video-game-clip" is a subtype of "clip".
+"video-game-series" is a subtype of "creative-work-series".
+"video-object" is a subtype of "media-object".
+"video-object-snapshot" is a subtype of "video-object".
+"view-action" is a subtype of "consume-action".
+"virtual-location" is a subtype of "intangible".
+"visual-arts-event" is a subtype of "event".
+"visual-artwork" is a subtype of "creative-work".
+"vital-sign" is a subtype of "medical-sign".
+"volcano" is a subtype of "landform".
+"vote-action" is a subtype of "choose-action".
+"want-action" is a subtype of "react-action".
+"warranty-promise" is a subtype of "mutual-contractual-agreement".
+"warranty-promise" is a subtype of "structured-value".
+"warranty-scope" is a subtype of "enumeration".
+"watch-action" is a subtype of "consume-action".
+"waterfall" is a subtype of "body-of-water".
+"wear-action" is a subtype of "use-action".
+"wearable-measurement-type-enumeration" is a subtype of "measurement-type-enumeration".
+"wearable-size-group-enumeration" is a subtype of "size-group-enumeration".
+"wearable-size-system-enumeration" is a subtype of "size-system-enumeration".
+"web-api" is a subtype of "service".
+"web-application" is a subtype of "software-application".
+"web-content" is a subtype of "creative-work".
+"web-page" is a subtype of "creative-work".
+"web-page-element" is a subtype of "creative-work".
+"web-site" is a subtype of "creative-work".
+"wholesale-store" is a subtype of "store".
+"win-action" is a subtype of "achieve-action".
+"work-based-program" is a subtype of "educational-occupational-program".
+"workers-union" is a subtype of "organization".
+"wp-ad-block" is a subtype of "web-page-element".
+"wp-footer" is a subtype of "web-page-element".
+"wp-header" is a subtype of "web-page-element".
+"wp-side-bar" is a subtype of "web-page-element".
+"write-action" is a subtype of "create-action".
+"x-path-type" is a subtype of "text".
+"zoo" is a subtype of "civic-structure".
