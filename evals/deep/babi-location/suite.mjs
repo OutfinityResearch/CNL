@@ -1,55 +1,48 @@
-import fs from "node:fs";
-import path from "node:path";
 import { readJsonl } from "../_lib/jsonl.mjs";
+import { ensureRowsCached } from "../_lib/hf-datasets-server.mjs";
 import { translateBabiLocation } from "./translate.mjs";
-
-function existingDataFiles(suiteDir) {
-  const dataDir = path.join(suiteDir, "data");
-  if (!fs.existsSync(dataDir)) return [];
-  const files = fs.readdirSync(dataDir).filter((f) => f.endsWith(".jsonl")).map((f) => path.join(dataDir, f));
-  return files;
-}
 
 export default {
   id: "babi-location",
-  title: "bAbI Task-1 (Location) — fixtures + cached jsonl",
+  title: "bAbI QA — Task 1 (Location)",
   description: "Location tracking with templated movement sentences and 'Where is X?' questions.",
-  homepage: "https://huggingface.co/datasets",
+  homepage: "https://huggingface.co/datasets/facebook/babi_qa",
   baseEntrypoint: "theories/base.cnl",
 
-  async loadCases({ suiteDir }) {
-    // NOTE: this suite currently runs from fixtures unless the user provides cached jsonl files in `data/`.
-    // (Suite-specific download URLs are intentionally not hard-coded until we agree on the exact HF dataset path.)
-    const files = existingDataFiles(suiteDir);
-    if (files.length > 0) {
-      // If multiple jsonl parts are present, concatenate in deterministic order.
-      return files.sort().flatMap((f) => readJsonl(f));
-    }
-    return readJsonl(path.join(suiteDir, "fixtures.jsonl"));
+  async loadCases({ suiteDir, options }) {
+    const dataset = "facebook/babi_qa";
+    const config = "en-10k-qa1";
+    const split = "test";
+    const cacheRows = 1000;
+    const cacheKey = `${dataset.replaceAll("/", "__")}__${config}__${split}`;
+
+    const { jsonlPath } = await ensureRowsCached({ suiteDir, cacheKey, dataset, config, split, maxRows: cacheRows });
+    return readJsonl(jsonlPath).map((row, index) => ({ ...row, __deepId: index }));
   },
 
   async translateExample(example) {
+    const baseId = `babi_${example.__deepId ?? "unknown"}`;
     const translated = translateBabiLocation(example);
-    if (translated.skip) {
-      return [
-        {
-          caseId: example.id || "unknown",
+
+    const items = Array.isArray(translated) ? translated : [translated];
+    return items.map((t, idx) => {
+      if (t.skip) {
+        return {
+          caseId: `${baseId}#${idx + 1}`,
           original: example,
           skip: true,
-          skipReason: translated.skipReason,
+          skipReason: t.skipReason,
           cnl: { theory: "", command: "" },
           expected: null,
-        },
-      ];
-    }
-    return [
-      {
-        caseId: example.id || "unknown",
+        };
+      }
+      return {
+        caseId: `${baseId}#${idx + 1}`,
         original: example,
         skip: false,
-        cnl: { theory: translated.cnlTheory, command: translated.cnlCommand },
-        expected: translated.expected,
-      },
-    ];
+        cnl: { theory: t.cnlTheory, command: t.cnlCommand },
+        expected: t.expected,
+      };
+    });
   },
 };

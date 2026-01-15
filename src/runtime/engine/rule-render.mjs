@@ -18,20 +18,35 @@ function displayEntityKey(key) {
 
 function displayUnaryKey(key) {
   if (!key) return "";
+  if (key.startsWith("U:not|")) return `not ${key.slice("U:not|".length)}`;
   if (key.startsWith("U:")) return key.slice(2);
   return key;
+}
+
+function describeUnary(unaryName) {
+  const name = String(unaryName || "").trim();
+  if (!name) return "something";
+  if (name.startsWith("not ")) return `something that is ${name}`;
+  return `something that is a ${name}`;
 }
 
 function displayPredPhrase(key) {
   if (!key) return "";
   let verb = key.startsWith("P:") ? key.slice(2) : key;
+  let negated = false;
+  if (verb.startsWith("not|")) {
+    negated = true;
+    verb = verb.slice("not|".length);
+  }
   let passive = false;
   if (verb.startsWith("passive:")) {
     passive = true;
     verb = verb.slice("passive:".length);
   }
   const phrase = verb.split("|").join(" ");
-  return passive ? `is ${phrase}` : phrase;
+  if (passive && negated) return `is not ${phrase}`;
+  if (passive) return `is ${phrase}`;
+  return negated ? `not ${phrase}` : phrase;
 }
 
 function displayAttrKey(key) {
@@ -50,7 +65,7 @@ function describeObjectSet(plan, state) {
     case SetOp.UnarySet: {
       const key = lookupKey(state, ConceptKind.UnaryPredicate, plan.unaryId);
       const name = displayUnaryKey(key) || `Unary_${plan.unaryId}`;
-      return `something that is a ${name}`;
+      return describeUnary(name);
     }
     default:
       return "something";
@@ -65,7 +80,7 @@ function describeBody(plan, state) {
     case SetOp.UnarySet: {
       const key = lookupKey(state, ConceptKind.UnaryPredicate, plan.unaryId);
       const name = displayUnaryKey(key) || `Unary_${plan.unaryId}`;
-      return `something that is a ${name}`;
+      return describeUnary(name);
     }
     case SetOp.Preimage: {
       const predKey = lookupKey(state, ConceptKind.Predicate, plan.predId);
@@ -108,6 +123,7 @@ function describeHead(head, state) {
   if (head.kind === "UnaryEmit") {
     const key = lookupKey(state, ConceptKind.UnaryPredicate, head.unaryId);
     const name = displayUnaryKey(key) || `Unary_${head.unaryId}`;
+    if (name.startsWith("not ")) return `something is ${name}`;
     return `something is a ${name}`;
   }
   if (head.kind === "BinaryEmit") {

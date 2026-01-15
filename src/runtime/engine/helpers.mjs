@@ -16,14 +16,18 @@ export function resolveEntityId(node, state) {
   return state.idStore.getDenseId(ConceptKind.Entity, conceptId);
 }
 
-export function resolveUnaryId(complement, state) {
+export function resolveUnaryId(complement, state, options = {}) {
   if (!complement) return null;
+  const negated = Boolean(options.negated);
   if (complement.kind === "Name") {
-    const conceptId = state.idStore.internConcept(ConceptKind.UnaryPredicate, `U:${complement.value}`);
+    const key = negated ? `U:not|${complement.value}` : `U:${complement.value}`;
+    const conceptId = state.idStore.internConcept(ConceptKind.UnaryPredicate, key);
     return state.idStore.getDenseId(ConceptKind.UnaryPredicate, conceptId);
   }
   if (complement.kind === "NounPhrase") {
-    const conceptId = state.idStore.internConcept(ConceptKind.UnaryPredicate, `U:${complement.core.join(" ")}`);
+    const core = complement.core.join(" ");
+    const key = negated ? `U:not|${core}` : `U:${core}`;
+    const conceptId = state.idStore.internConcept(ConceptKind.UnaryPredicate, key);
     return state.idStore.getDenseId(ConceptKind.UnaryPredicate, conceptId);
   }
   return null;
@@ -38,8 +42,10 @@ export function verbGroupKey(verbGroup) {
   return `P:${parts.join("|")}`;
 }
 
-export function passiveKey(verb, preposition) {
-  return `P:passive:${verb}|${preposition}`;
+export function passiveKey(verb, preposition, options = {}) {
+  const base = `P:passive:${verb}|${preposition}`;
+  if (!options?.negated) return base;
+  return base.replace(/^P:/, "P:not|");
 }
 
 export function resolvePredId(assertion, state) {
@@ -47,7 +53,7 @@ export function resolvePredId(assertion, state) {
   if (assertion.kind === "ActiveRelationAssertion") {
     key = verbGroupKey(assertion.verbGroup);
   } else if (assertion.kind === "PassiveRelationAssertion") {
-    key = passiveKey(assertion.verb, assertion.preposition);
+    key = passiveKey(assertion.verb, assertion.preposition, { negated: assertion.negated });
   }
   if (!key) return null;
   const conceptId = state.idStore.internConcept(ConceptKind.Predicate, key);

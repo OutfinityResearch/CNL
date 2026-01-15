@@ -21,6 +21,7 @@ export function renderDeepMarkdownReport({ timestamp, results, options = {} }) {
   lines.push(`# Deep Evaluation Report (${timestamp})`);
   lines.push("");
   lines.push(`- Suites: ${results.length}`);
+  lines.push(`- Dataset cache: evals/deep/cache/`);
   lines.push("");
 
   const totals = results.reduce(
@@ -83,4 +84,3 @@ export function renderDeepMarkdownReport({ timestamp, results, options = {} }) {
 
   return lines.join("\n");
 }
-

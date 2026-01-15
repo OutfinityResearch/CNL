@@ -19,7 +19,7 @@ Evaluation suites validate end-to-end parsing and reasoning behavior. They are l
 - `evals/reasoning/compiler.v1.json` is executed by `evals/runCompilerEval.mjs`.
  - `evals/runReasoning.mjs`, `evals/runQuery.mjs`, `evals/runProof.mjs`, `evals/runPlan.mjs`,
    `evals/runSolve.mjs`, `evals/runSimulate.mjs`, `evals/runExplain.mjs` execute the `.cases` suites.
- - `evals/runAll.mjs` runs all eval suites and prints a summary.
+ - `evals/runSmoke.mjs` runs the smoke eval suites and prints a summary.
 
 ## Reasoning Examples
 - `evals/reasoning/mini-theories.cases` contains compact CNL theories for common proof/query patterns.

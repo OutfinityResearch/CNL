@@ -177,7 +177,7 @@ function buildSolveConstraints(condition, state, allVariables) {
         errors.push(runtimeError("SES022", "Variable complement is not supported.", "complement"));
         continue;
       }
-      const unaryId = resolveUnaryId(assertion.complement, state);
+      const unaryId = resolveUnaryId(assertion.complement, state, { negated: assertion.negated });
       const kbState = state.kb.kb;
       const unarySet = unaryId === null ? emptySet(kbState) : kbState.unaryIndex[unaryId];
       const filterSet = isNegated ? fullSet(kbState).andNot(unarySet ?? emptySet(kbState)) : unarySet ?? emptySet(kbState);

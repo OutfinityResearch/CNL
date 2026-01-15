@@ -116,8 +116,10 @@ function verbGroupKey(verbGroup) {
   return `P:${parts.join("|")}`;
 }
 
-function passiveKey(verb, preposition) {
-  return `P:passive:${verb}|${preposition}`;
+function passiveKey(verb, preposition, { negated } = {}) {
+  const base = `P:passive:${verb}|${preposition}`;
+  if (!negated) return base;
+  return base.replace(/^P:/, "P:not|");
 }
 
 function unaryKeyFromComplement(complement) {
@@ -125,6 +127,13 @@ function unaryKeyFromComplement(complement) {
   if (complement.kind === "Name") return [complement.value];
   if (complement.kind === "NounPhrase") return complement.core;
   return null;
+}
+
+function resolveUnaryIdFromCoreWithNegation(coreWords, { negated } = {}, context) {
+  if (!coreWords || coreWords.length === 0) return null;
+  const key = negated ? `U:not|${coreWords.join(" ")}` : `U:${coreWords.join(" ")}`;
+  const conceptId = context.idStore.internConcept(ConceptKind.UnaryPredicate, key);
+  return context.idStore.getDenseId(ConceptKind.UnaryPredicate, conceptId);
 }
 
 function attributeKeyFromSelector(selector) {
@@ -163,14 +172,14 @@ function compileRelativeClause(node, context) {
       return Plans.preimage(predId, objectToSetPlan(body.object, context));
     }
     case "RelPassiveRelation": {
-      const predId = resolvePredicateId(passiveKey(body.verb, body.preposition), context);
+      const predId = resolvePredicateId(passiveKey(body.verb, body.preposition, { negated: body.negated }), context);
       if (predId === null) return Plans.allEntities();
       return Plans.preimage(predId, objectToSetPlan(body.object, context));
     }
     case "RelCopulaPredicate": {
       const unaryCore = unaryKeyFromComplement(body.complement);
       if (!unaryCore) return Plans.allEntities();
-      const unaryId = resolveUnaryIdFromCore(unaryCore, context);
+      const unaryId = resolveUnaryIdFromCoreWithNegation(unaryCore, { negated: body.negated }, context);
       return unaryId === null ? Plans.allEntities() : Plans.unarySet(unaryId);
     }
     case "RelAttributeLike": {
@@ -232,7 +241,10 @@ function compileAssertionToSetPlan(assertion, context) {
       return Plans.intersect([subjectPlan, Plans.preimage(predId, objectPlan)]);
     }
     case "PassiveRelationAssertion": {
-      const predId = resolvePredicateId(passiveKey(assertion.verb, assertion.preposition), context);
+      const predId = resolvePredicateId(
+        passiveKey(assertion.verb, assertion.preposition, { negated: assertion.negated }),
+        context,
+      );
       if (predId === null) return subjectPlan;
       const objectPlan = objectToSetPlan(assertion.object, context);
       return Plans.intersect([subjectPlan, Plans.preimage(predId, objectPlan)]);
@@ -240,7 +252,7 @@ function compileAssertionToSetPlan(assertion, context) {
     case "CopulaPredicateAssertion": {
       const unaryCore = unaryKeyFromComplement(assertion.complement);
       if (!unaryCore) return subjectPlan;
-      const unaryId = resolveUnaryIdFromCore(unaryCore, context);
+      const unaryId = resolveUnaryIdFromCoreWithNegation(unaryCore, { negated: assertion.negated }, context);
       if (unaryId === null) return subjectPlan;
       return Plans.intersect([subjectPlan, Plans.unarySet(unaryId)]);
     }
@@ -329,7 +341,7 @@ function compileEmitFromAssertion(assertion, context) {
     case "CopulaPredicateAssertion": {
       const unaryCore = unaryKeyFromComplement(assertion.complement);
       if (!unaryCore) return null;
-      const unaryId = resolveUnaryIdFromCore(unaryCore, context);
+      const unaryId = resolveUnaryIdFromCoreWithNegation(unaryCore, { negated: assertion.negated }, context);
       if (unaryId === null) return null;
       return { kind: "UnaryEmit", unaryId, subjectPlan };
     }
@@ -344,7 +356,10 @@ function compileEmitFromAssertion(assertion, context) {
       };
     }
     case "PassiveRelationAssertion": {
-      const predId = resolvePredicateId(passiveKey(assertion.verb, assertion.preposition), context);
+      const predId = resolvePredicateId(
+        passiveKey(assertion.verb, assertion.preposition, { negated: assertion.negated }),
+        context,
+      );
       if (predId === null) return null;
       return {
         kind: "BinaryEmit",

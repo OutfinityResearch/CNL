@@ -58,7 +58,7 @@ function printHelp() {
 ${colors.cyan}CNL Evaluation Runner${colors.reset}
 
 Usage:
-  node evals/runAll.mjs [options]
+  node evals/runSmoke.mjs [options]
 
 Options:
   --help, -h       Show this help message.

@@ -12,6 +12,7 @@ function displayEntityKey(key) {
 
 function displayUnaryKey(key) {
   if (!key) return "";
+  if (key.startsWith("U:not|")) return `not ${key.slice("U:not|".length)}`;
   if (key.startsWith("U:")) return key.slice(2);
   return key;
 }
@@ -19,13 +20,20 @@ function displayUnaryKey(key) {
 function displayPredKey(key) {
   if (!key) return "";
   let verb = key.startsWith("P:") ? key.slice(2) : key;
+  let negated = false;
+  if (verb.startsWith("not|")) {
+    negated = true;
+    verb = verb.slice("not|".length);
+  }
   let passive = false;
   if (verb.startsWith("passive:")) {
     passive = true;
     verb = verb.slice("passive:".length);
   }
   const phrase = verb.split("|").join(" ");
-  return passive ? `is ${phrase}` : phrase;
+  if (passive && negated) return `is not ${phrase}`;
+  if (passive) return `is ${phrase}`;
+  return negated ? `not ${phrase}` : phrase;
 }
 
 function displayAttrKey(key) {
@@ -45,6 +53,9 @@ export function formatUnaryFact(unaryId, subjectId, state) {
   if (!subjectKey || !unaryKey) return null;
   const subject = displayEntityKey(subjectKey);
   const predicate = displayUnaryKey(unaryKey);
+  if (predicate.startsWith("not ")) {
+    return `${subject} is ${predicate}.`;
+  }
   return `${subject} is a ${predicate}.`;
 }
 

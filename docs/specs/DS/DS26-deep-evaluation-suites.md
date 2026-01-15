@@ -12,7 +12,7 @@ Deep evals are distinct from unit tests (DS05) and from the internal eval suites
 
 ## Goals
 - Keep evaluation deterministic and fully reproducible from repository state.
-- Cache datasets under `evals/deep/<suite>/data/` so CI and local runs do not depend on runtime network access.
+- Cache datasets under `evals/deep/cache/<suite-id>/` so CI and local runs do not depend on runtime network access.
 - Provide a transparent, auditable translation layer per dataset suite.
 - Generate a detailed markdown report of failures, including:
   - the original dataset snippet,
@@ -29,8 +29,10 @@ Deep evals live under:
 - `evals/deep/<suite-id>/`
   - `suite.mjs` - suite metadata + loader + translator
   - `translate.mjs` - suite-specific translation logic
-  - `fixtures.jsonl` - small in-repo fallback examples (must be deterministic)
-  - `data/` - downloaded dataset files (not required to be checked into git, but supported)
+  - `fixtures.jsonl` - small in-repo examples for translator/unit testing (must be deterministic)
+
+Downloaded datasets are cached under:
+- `evals/deep/cache/<suite-id>/` (not committed)
 
 Results:
 - `evals/results/<timestamp>_deepcheck.md`
@@ -47,6 +49,9 @@ The runner records:
 - `FAIL` if the session returns an error or outputs do not match
 - `SKIP` if the dataset example cannot be represented under current translation constraints
   (example: tri-valued answers like `unknown` when the engine is currently bi-valued)
+
+**Note on counting:** some datasets store multiple question steps in a single “row”.
+In that case, one cached JSONL row may translate into multiple deep test cases.
 
 ## Benchmark Selection Criteria
 Prefer datasets that:
@@ -82,6 +87,8 @@ Translation strategy:
   - `yes` → expected `ProofResult true`
   - `no` → expected `ProofResult false`
   - `unknown` → SKIP until tri-valued semantics are defined in DS04/DS11
+  - conditional rules that depend on true variables/existentials not representable in the current rule IR → SKIP with a clear reason
+  - explicit negation is supported via `is not` (DS04)
 
 ## Reporting
 `runDeep.mjs` produces a report in `evals/results/` containing:
@@ -97,15 +104,14 @@ Translation strategy:
 `runDeep.mjs` supports:
 - `--suite <id>` (repeatable): run only selected deep suites.
 - `--maxCases <n>`: limit translated test cases per suite (debugging).
-- `--download`: allow suites to download missing dataset files into `evals/deep/<suite>/data/` (when suite modules define download sources).
 
 ## Operational Notes (Network)
 Deep evals are designed to run offline once datasets are cached.
-If a suite’s `data/` folder is empty, the runner may:
-- fall back to `fixtures.jsonl`, and/or
-- mark the suite as skipped with a clear message.
+If a suite’s cache is missing and the network is unavailable, the suite should fail with a clear message indicating:
+- which dataset/config/split was required, and
+- which cache file was expected.
 
-Downloading datasets from Hugging Face is intentionally explicit and cached into `evals/deep/<suite>/data/`.
+Downloading datasets from Hugging Face is automatic and cached into `evals/deep/cache/<suite-id>/`.
 
 ## References
 - DS06 for internal evaluation suite structure.

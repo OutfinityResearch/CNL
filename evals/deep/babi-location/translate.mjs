@@ -6,12 +6,15 @@ function titleCase(word) {
 
 function normalizeRoom(word) {
   // bAbI answers are lowercase room nouns; CNL entities are Things (capitalized).
-  return titleCase(word.replace(/[^a-zA-Z0-9_-]/g, ""));
+  const w = String(word || "").trim();
+  return titleCase(w.replace(/[^a-zA-Z0-9_-]/g, ""));
 }
 
 function parseMoveSentence(line) {
   const text = String(line || "").trim();
-  const m = text.match(/^([A-Z][A-Za-z0-9_-]*)\s+(?:went to|moved to|journeyed to|travelled to)\s+the\s+([a-z][a-z0-9_-]*)\.\s*$/i);
+  const m = text.match(
+    /^([A-Z][A-Za-z0-9_-]*)\s+(?:went|moved|journeyed|travelled)\s+(?:back\s+)?to\s+(?:the\s+)?([a-z][a-z0-9_-]*)\.\s*$/i,
+  );
   if (!m) return null;
   return { who: titleCase(m[1]), where: normalizeRoom(m[2]) };
 }
@@ -23,7 +26,7 @@ function parseWhereQuestion(question) {
   return { who: titleCase(m[1]) };
 }
 
-export function translateBabiLocation(example) {
+function translateBabiLocationStep(example) {
   const story = Array.isArray(example.story) ? example.story : [];
   const moves = story.map(parseMoveSentence).filter(Boolean);
   const q = parseWhereQuestion(example.question);
@@ -55,4 +58,49 @@ export function translateBabiLocation(example) {
     cnlCommand,
     expected: { kind: "query", values: [answer] },
   };
+}
+
+function isDatasetRow(example) {
+  const story = example?.story;
+  return (
+    story &&
+    typeof story === "object" &&
+    Array.isArray(story.text) &&
+    Array.isArray(story.type)
+  );
+}
+
+function extractDatasetQuestions(example) {
+  const story = example.story;
+  const texts = story.text || [];
+  const types = story.type || [];
+  const answers = story.answer || [];
+
+  const context = [];
+  const steps = [];
+  for (let i = 0; i < texts.length; i += 1) {
+    const type = types[i];
+    const text = texts[i];
+    if (type === 0) {
+      context.push(text);
+      continue;
+    }
+    if (type === 1) {
+      const answer = Array.isArray(answers) ? answers[i] : null;
+      steps.push({ story: [...context], question: text, answer });
+      continue;
+    }
+  }
+  return steps;
+}
+
+export function translateBabiLocation(example) {
+  if (isDatasetRow(example)) {
+    const steps = extractDatasetQuestions(example);
+    if (steps.length === 0) {
+      return [{ skip: true, skipReason: "no question steps found in dataset row" }];
+    }
+    return steps.map((step) => translateBabiLocationStep(step));
+  }
+  return translateBabiLocationStep(example);
 }

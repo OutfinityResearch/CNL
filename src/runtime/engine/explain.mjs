@@ -23,7 +23,7 @@ export function explainAssertion(assertion, state) {
 
   if (assertion.kind === "CopulaPredicateAssertion") {
     const subjectId = resolveEntityId(assertion.subject, state);
-    const unaryId = resolveUnaryId(assertion.complement, state);
+    const unaryId = resolveUnaryId(assertion.complement, state, { negated: assertion.negated });
     if (subjectId === null || unaryId === null) {
       return { error: "Explanation requires a ground unary assertion." };
     }

@@ -53,7 +53,31 @@ export async function runDeepSuite(suite, options = {}) {
   const baseEntrypoint = suite.baseEntrypoint ?? null;
   const maxCases = options.maxCases ?? null;
 
-  const cases = await suite.loadCases({ suiteDir, options });
+  let cases = null;
+  try {
+    cases = await suite.loadCases({ suiteDir, options });
+  } catch (err) {
+    const message = err?.message ?? String(err);
+    return {
+      id: suite.id,
+      title: suite.title,
+      total: 1,
+      passed: 0,
+      failed: 1,
+      skipped: 0,
+      failures: [
+        {
+          caseId: `${suite.id}::load`,
+          original: null,
+          cnl: { theory: "", command: "" },
+          expected: null,
+          actual: undefined,
+          error: message,
+          phase: "suiteLoad",
+        },
+      ],
+    };
+  }
   const translated = [];
   for (const ex of cases) {
     const tests = await suite.translateExample(ex, { suiteDir, options });

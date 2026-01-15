@@ -11,16 +11,11 @@ function parseArgs(argv) {
     help: false,
     suites: [],
     maxCases: null,
-    download: false,
   };
   for (let i = 2; i < argv.length; i += 1) {
     const raw = argv[i];
     if (raw === "--help" || raw === "-h") {
       options.help = true;
-      continue;
-    }
-    if (raw === "--download") {
-      options.download = true;
       continue;
     }
     if (raw === "--suite") {
@@ -61,7 +56,6 @@ Usage:
 Options:
   --suite <id>        Run only a specific suite (repeatable)
   --maxCases <n>      Limit number of translated tests per suite
-  --download          Allow suite modules to download missing datasets into evals/deep/<suite>/data/
   --help, -h          Show this help text
 
 Available suites:
@@ -93,7 +87,7 @@ async function main() {
   for (const suite of selected) {
     const suiteDir = path.join(__dirname, "evals", "deep", suite.id);
     console.log(`\n▶ Running deep suite: ${suite.id}`);
-    const result = await runDeepSuite(suite, { suiteDir, maxCases: options.maxCases, download: options.download });
+    const result = await runDeepSuite(suite, { suiteDir, maxCases: options.maxCases });
     console.log(`  Passed: ${result.passed} | Failed: ${result.failed} | Skipped: ${result.skipped}`);
     results.push(result);
   }

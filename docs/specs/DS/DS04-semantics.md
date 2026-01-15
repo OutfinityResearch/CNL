@@ -17,6 +17,39 @@ The runtime follows a deterministic pipeline:
 
 The semantic meaning of a program is the effect of these steps on a KB, along with any produced outputs.
 
+## Negation (v1)
+CNL-PL supports two distinct forms of negation with different semantics.
+
+### 1) Explicit Negation (`is not` / `are not`)
+Copula negation inside an assertion is treated as an **explicit negative fact** (or explicit negative rule head).
+
+Examples:
+```
+Alice is not active.
+Rule: Every user that is suspended is not active.
+```
+
+Semantics:
+- `X is P.` asserts membership in unary predicate `P`.
+- `X is not P.` asserts membership in a *separate* unary predicate `not|P`.
+- `Verify that X is not P.` checks whether `X` is a member of `not|P` (not “absence of proof”).
+
+The same encoding is used for passive relations:
+- `X is signed by Y.` uses predicate key `passive:signed|by`.
+- `X is not signed by Y.` uses predicate key `not|passive:signed|by`.
+
+This allows representing theories that use explicit negated facts/rules without collapsing them into “not provable”.
+
+### 2) Negation-as-Failure (`it is not the case that ...`)
+The scoped form:
+```
+it is not the case that <condition>
+```
+is interpreted as **negation-as-failure**:
+- it evaluates to `true` exactly when `<condition>` is not derivable in the current KB state.
+
+This form is used for control-style reasoning (planning preconditions, solve constraints, etc.) and does not require an explicit negative fact.
+
 ## Semantic Entities
 - Entity: a named item or noun phrase bound to a domain object.
 - Predicate: a typed verb phrase that relates subject and object.

@@ -1,39 +1,123 @@
-# TODO Next — aliniere implementare ↔ specificații
+# TODO Next — Implementation ↔ Specs Alignment
 
-## Status curent (după fixuri)
-- `npm run checkTheories -e theories/base.formal.cnl`: `0` erori, `643` warning-uri.
-- Rezolvate complet:
-  - Subtipuri reflexive: `0`
-  - Cicluri în ierarhia de subtipuri: `0`
-  - Label-uri non-engleze importate: `0`
-- Importer-ul normalizează acum subtipurile (dedupe, cycle-break, filtrează metaclasele care “curg” în domeniu).
-- Parserul Turtle ignoră acum corect comentarii `#` și suportă `"""..."""` ca să nu pierdem `rdfs:label` după definiții multi-line.
-- Conflicte globale tip vs predicat: `0` (rezolvat prin redenumiri deterministe la generare, ex: `prov-entity`, `foaf-image`).
-- Termeni OBO fără label (ID-uri opace): scoși din output și scriși separat în `00-dictionary.unlabeled.generated.cnl` (audit-only; neload-uit).
-- Verificările sunt acum partajate: `src/theories/diagnostics.mjs` este folosit atât de `checkTheories` cât și la încărcarea base-ului în `CNLSession`; Explorer afișează direct issues din sesiune.
-- Redenumirile la load-time nu mai sunt “opțiuni ascunse”: sunt directive explicite în `.cnl` (`RenameType:` / `RenamePredicate:`) și produc issue-uri (`LoadTimeRenameApplied` / `LoadTimeRenameConflict`).
-- `npm run tests` și `npm run evals` trec.
+This file is intentionally written in English (repo rule) and focuses on concrete, actionable next steps.
 
-## TODO R1 — Duplicate între ontologii (cross-ontology)
+## Current Status (as of 2026-01-15)
 
-### Problema
-Mai rămân multe warning-uri `DUPLICATE_TYPE` și `DUPLICATE_PREDICATE` (aceleași cuvinte definite în mai multe ontologii).
-Unele sunt “legitime” (aceeași noțiune în mai multe ontologii), altele pot ascunde suprapuneri sau semnificații diferite.
+### Deep evals (Hugging Face official datasets)
+- `runDeep.mjs` runs deep suites and writes `evals/results/<timestamp>_deepcheck.md`.
+- Datasets are cached under `evals/deep/cache/<suite-id>/` as JSONL from `datasets-server.huggingface.co`.
+- **Important:** one dataset “row” may contain multiple questions/steps, so 20 cached rows can yield 100 executed deep tests (bAbI rows often contain 5 questions).
 
-### Solutie
- le acceptăm ca warning-uri  `checkTheories`, dar hai sa cautam o solutie sa difenretiem intre ce e legitim (si poate fi ignorat) si ce e conflict real si trebuie sa acceptam ca acelasi cuvint poate avea sensuri 
- diferite in teorii diferite
+### Explicit negation (core semantics)
+- Explicit negation is supported for:
+  - unary predicates: `X is not P.` → stored as `U:not|P`
+  - passive relations: `X is not <past-participle> by Y.` → stored as `P:not|passive:<verb>|<prep>`
+- Negation-as-failure remains separate: `it is not the case that ...` is evaluated as “not derivable”.
+- New unit tests exist: `tests/session/explicit-negation.test.mjs`.
 
-**Status (implementat parțial):**
-- `checkTheories` diferențiază acum între:
-  - duplicate benigne (`DuplicateTypeDeclaration`, `DuplicatePredicateDeclaration`)
-  - conflicte probabile (`DuplicateTypeDifferentParents`, `DuplicatePredicateDifferentConstraints`)
-- În sesiune/Explorer raportăm același set ca `checkTheories` (duplicate + conflicte), ca să fie consistent peste tot; UI-ul le grupează după `kind`.
+## Open Tasks
 
-## TODO R2 — Ce facem cu conflictele “probabile” (sensuri diferite)
+### R1 — Cross-ontology duplicates: classify “benign” vs “conflict”
+**Problem**
+Multiple ontologies define the same type/predicate surface form. Some duplicates are harmless synonyms; others are genuine semantic conflicts.
 
-### Problemă
-Pentru conflictele detectate (ex: același predicat cu domenii/range diferite între ontologii), acum doar le raportăm ca warning în sesiune.
+**Status**
+We already detect both:
+- `DuplicateTypeDeclaration` / `DuplicatePredicateDeclaration` (benign duplicates)
+- `DuplicateTypeDifferentParents` / `DuplicatePredicateDifferentConstraints` (probable conflicts)
 
-### Solutie
-- O2: Aplicăm redenumiri deterministe la generare pentru aceste chei (prefix ontologie doar pentru conflicte), ca la `prov-entity`. 
+**Decision needed**
+How should we treat benign duplicates by default in CLI/UI?
+
+**Option A (recommended): keep but de-noise**
+- Keep all duplicates recorded internally.
+- In default output/UI, only show “probable conflicts” as warnings.
+- Show benign duplicates only under a “Show benign duplicates” toggle or `--verbose`.
+Pros: less noise; keeps evidence for audits.
+Cons: some users may miss “silent” duplication.
+
+**Option B: always report all duplicates**
+- Always surface benign duplicates as warnings in both `checkTheories` and Explorer.
+Pros: fully transparent.
+Cons: warning fatigue (hundreds of warnings in `base.formal`).
+
+---
+
+### R2 — What to do with “probable conflicts”
+**Problem**
+For conflicts such as different domain/range constraints for the same predicate key, reporting as warnings may be insufficient.
+
+**Decision needed**
+Do we disambiguate automatically at generation-time?
+
+**Option A: warn-only, no automatic renames**
+Pros: preserves original vocabulary; avoids hidden rewrites.
+Cons: ambiguous keys remain ambiguous across bundles.
+
+**Option B (recommended): deterministic disambiguation at generation**
+- Only for “probable conflicts”, apply deterministic ontology-prefixed renames at generation-time.
+- Emit explicit `RenameType:` / `RenamePredicate:` directives so the rewrite stays transparent and debuggable.
+Pros: removes ambiguity; keeps traceability.
+Cons: introduces more vocabulary variants.
+
+---
+
+### N1 — Contradictions between explicit positive vs explicit negation
+**Problem**
+With explicit negation, the KB may contain both:
+```
+X is valid.
+X is not valid.
+```
+This should be detectable and visible as a warning/error, not silently ignored.
+
+**Decision needed**
+What is the enforcement policy?
+
+**Option A (recommended): paraconsistent warning-only**
+- Keep both facts.
+- Emit `ContradictoryAssertion` warning (load-time + check-theories + Explorer Warnings).
+Pros: preserves information; avoids “magic deletes”; supports inconsistent data ingestion.
+Cons: “Verify that X is valid.” and “Verify that X is not valid.” can both be true.
+
+**Option B: reject contradictions**
+- Treat as an error and fail the load (transactional learn), or ignore the later insertion.
+Pros: enforces consistency.
+Cons: breaks datasets/theories that include explicit negation patterns; may be too strict.
+
+---
+
+### N2 — Add contradiction analysis to `checkTheories` + session + Explorer
+Depends on decision in **N1**.
+
+**Proposed deliverable**
+- New issue kind: `ContradictoryAssertion` with details:
+  - entity key, positive key, negated key, source file/line if known
+  - for binary: `(subject, predicate, object)` vs its negated predicate
+- Same code path used by:
+  - `tools/check-theories.mjs`
+  - `CNLSession.learnText()` (load-time warnings)
+  - Explorer “Warnings” tree
+
+---
+
+### N3 — Deep eval coverage: ProofWriter “Unknown”
+**Problem**
+ProofWriter has tri-valued ground truth: `True` / `False` / `Unknown`.
+We currently skip `Unknown`.
+
+**Decision needed**
+
+**Option A: keep skipping `Unknown` in v1**
+Pros: avoids incorrect semantics.
+Cons: smaller coverage.
+
+**Option B: implement 3-valued semantics**
+- Extend DS04/DS11 and engine results to support `unknown`.
+Pros: faithful benchmark coverage.
+Cons: larger semantics/engine change; requires proof/explain policy for unknown.
+
+## Notes / Cleanups
+- If you want “1000 examples” in the cache: we should cache at least 1000 dataset rows per suite entrypoint (not 20), but remember that this can translate to several thousand executed tests depending on dataset structure.
+

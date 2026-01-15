@@ -10,7 +10,7 @@ export function applyAssertion(assertion, kbApi, state) {
 
   if (assertion.kind === "CopulaPredicateAssertion") {
     const subjectId = resolveEntityId(assertion.subject, state);
-    const unaryId = resolveUnaryId(assertion.complement, state);
+    const unaryId = resolveUnaryId(assertion.complement, state, { negated: assertion.negated });
     if (subjectId === null || unaryId === null) {
       return runtimeError("SES025", "Effect requires ground unary assertion.", "Effect");
     }

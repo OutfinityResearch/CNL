@@ -8,7 +8,7 @@
     "generateTheories": "node tools/ontology-import/generate-theories.mjs",
     "checkTheories": "node tools/check-theories.mjs",
     "tests": "node --test tests/**/*.test.mjs",
-    "evals": "node evals/runAll.mjs"
+    "evals": "node evals/runSmoke.mjs"
   },
   "author": "Axiologic Research",
   "license": "ISC",

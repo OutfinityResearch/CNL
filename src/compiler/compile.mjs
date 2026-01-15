@@ -27,6 +27,13 @@ function canonicalUnaryKey(node) {
   return null;
 }
 
+function canonicalUnaryKeyWithNegation(node, { negated } = {}) {
+  const base = canonicalUnaryKey(node);
+  if (!base) return null;
+  if (!negated) return base;
+  return base.replace(/^U:/, "U:not|");
+}
+
 function canonicalVerbKey(verbGroup) {
   if (!verbGroup) return null;
   const parts = [];
@@ -40,6 +47,12 @@ function canonicalVerbKey(verbGroup) {
 
 function canonicalPassiveKey(verb, preposition) {
   return `P:passive:${verb}|${preposition}`;
+}
+
+function canonicalPassiveKeyWithNegation(verb, preposition, { negated } = {}) {
+  const base = canonicalPassiveKey(verb, preposition);
+  if (!negated) return base;
+  return base.replace(/^P:/, "P:not|");
 }
 
 function dictionaryPredicateKeyFromVerb(key) {
@@ -200,6 +213,13 @@ function resolveUnaryId(node, state) {
   return state.idStore.getDenseId(ConceptKind.UnaryPredicate, conceptId);
 }
 
+function resolveUnaryIdWithNegation(node, state, { negated } = {}) {
+  const key = canonicalUnaryKeyWithNegation(node, { negated });
+  if (!key) return null;
+  const conceptId = state.idStore.internConcept(ConceptKind.UnaryPredicate, key);
+  return state.idStore.getDenseId(ConceptKind.UnaryPredicate, conceptId);
+}
+
 function resolvePredId(key, state) {
   if (!key) return null;
   const conceptId = state.idStore.internConcept(ConceptKind.Predicate, key);
@@ -302,10 +322,10 @@ function handleAssertion(assertion, state, options) {
         state.errors.push(createError("CMP007", "Non-ground relation assertion.", "assertion"));
         return;
       }
-      const predKey = canonicalPassiveKey(assertion.verb, assertion.preposition);
+      const predKey = canonicalPassiveKeyWithNegation(assertion.verb, assertion.preposition, { negated: assertion.negated });
       const predId = resolvePredId(predKey, state);
       if (state.validateDictionary) {
-        const dictKey = dictionaryPredicateKeyFromVerb(predKey);
+        const dictKey = dictionaryPredicateKeyFromVerb(canonicalPassiveKey(assertion.verb, assertion.preposition));
         const predDef = lookupPredicateDef(state.dictionary, dictKey);
         if (predDef && predDef.arity && predDef.arity !== "binary") {
           state.errors.push(createError("CMP015", "Predicate arity mismatch.", dictKey));
@@ -333,7 +353,7 @@ function handleAssertion(assertion, state, options) {
           }
         }
       }
-      const unaryId = resolveUnaryId(assertion.complement, state);
+      const unaryId = resolveUnaryIdWithNegation(assertion.complement, state, { negated: assertion.negated });
       if (unaryId === null) {
         state.errors.push(createError("CMP009", "Invalid copula complement.", "complement"));
         return;

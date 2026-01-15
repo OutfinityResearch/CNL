@@ -11,7 +11,7 @@ function factIdForAssertion(assertion, state, store) {
   if (!assertion || !store) return null;
   if (assertion.kind === "CopulaPredicateAssertion") {
     const subjectId = resolveEntityId(assertion.subject, state);
-    const unaryId = resolveUnaryId(assertion.complement, state);
+    const unaryId = resolveUnaryId(assertion.complement, state, { negated: assertion.negated });
     if (subjectId === null || unaryId === null) return null;
     return store.makeUnaryFactId(unaryId, subjectId);
   }
@@ -29,7 +29,7 @@ function formatAssertionSentence(assertion, state) {
   if (!assertion) return null;
   if (assertion.kind === "CopulaPredicateAssertion") {
     const subjectId = resolveEntityId(assertion.subject, state);
-    const unaryId = resolveUnaryId(assertion.complement, state);
+    const unaryId = resolveUnaryId(assertion.complement, state, { negated: assertion.negated });
     if (subjectId === null || unaryId === null) return null;
     return formatUnaryFact(unaryId, subjectId, state);
   }
@@ -141,7 +141,7 @@ export function buildProofTraceForVerify(command, state, ok) {
             .forEach((line) => proof.steps.push(`  ${String(line)}`));
         }
         if (assertion.kind === "CopulaPredicateAssertion") {
-          const unaryId = resolveUnaryId(assertion.complement, state);
+          const unaryId = resolveUnaryId(assertion.complement, state, { negated: assertion.negated });
           if (unaryId !== null) {
             const missing = formatUnaryFact(unaryId, counterexampleId, state);
             proof.steps.push(`Missing: no derivation for ${missing}`);
