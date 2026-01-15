@@ -22,7 +22,7 @@ test("dictionary declarations compile into dictionary state", () => {
     }
   }
 
-  const likes = state.predicates.get("likes");
+  const likes = state.predicates.get("like");
   assert.ok(likes);
   assert.equal(likes.arity, "binary");
   assert.deepEqual(likes.domain, ["Person"]);

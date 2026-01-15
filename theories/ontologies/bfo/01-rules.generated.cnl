@@ -4,5 +4,5 @@
 --- CONTEXT: Bfo ---
 
 // Generated from ontology import: Bfo
-Rule: If X bfo-clif-specification-label Y, then X label Y.
-Rule: If X bfo-owl-specification-label Y, then X label Y.
+Rule: If ?X bfo-clif-specification-label ?Y, then ?X label ?Y.
+Rule: If ?X bfo-owl-specification-label ?Y, then ?X label ?Y.

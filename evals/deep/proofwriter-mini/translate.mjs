@@ -528,10 +528,7 @@ function questionToCondition(questionRaw) {
 
 export function translateProofwriterMini(example) {
   const answer = normalizeAnswer(example.answer);
-  if (answer.kind === "unknown") {
-    return { skip: true, skipReason: "tri-valued 'unknown' not supported (skipped by DS26)" };
-  }
-  if (answer.kind !== "bool") {
+  if (answer.kind !== "bool" && answer.kind !== "unknown") {
     return { skip: true, skipReason: `unsupported answer: ${answer.value}` };
   }
 
@@ -554,6 +551,6 @@ export function translateProofwriterMini(example) {
 
   const cnlTheory = normalized.join("\n") + "\n";
   const cnlCommand = `Verify that ${condition}.`;
-  const expected = { kind: "proof", value: answer.value };
+  const expected = { kind: "proof", value: answer.kind === "unknown" ? "unknown" : answer.value };
   return { cnlTheory, cnlCommand, expected, skip: false };
 }

@@ -2,13 +2,15 @@ import { ConceptKind, NLG, bitsetPopcount, getName, json, safeHasBit, describeRu
 
 export function handleTree(req, res, url, context) {
   if (req.method !== "GET" || url.pathname !== "/api/tree") return false;
-  const tree = buildTree(context);
+  const includeBenign = String(url.searchParams.get("includeBenign") || "").toLowerCase() === "1";
+  const tree = buildTree(context, { includeBenign });
   json(res, 200, { tree });
   return true;
 }
 
-export function buildTree(context) {
+export function buildTree(context, options = {}) {
   const { rawKb, idStore, ruleStore, actionStore, session } = context;
+  const includeBenign = Boolean(options.includeBenign);
   const tree = [];
 
   function openOverview(kind, id = "") {
@@ -379,12 +381,22 @@ export function buildTree(context) {
   }
 
   const dictWarnings = session?.state?.dictionary?.warnings || [];
+  const dictErrors = session?.state?.dictionary?.errors || [];
   const dupRules = typeof ruleStore.getDuplicateRules === "function" ? ruleStore.getDuplicateRules() : [];
+
+  function isBenignDuplicate(issue) {
+    return issue && (issue.kind === "DuplicateTypeDeclaration" || issue.kind === "DuplicatePredicateDeclaration");
+  }
+
+  const visibleWarningsCount = dictWarnings.reduce((sum, w) => {
+    if (!includeBenign && isBenignDuplicate(w)) return sum;
+    return sum + 1;
+  }, 0);
   
-  if (dictWarnings.length > 0 || dupRules.length > 0) {
+  if (dictErrors.length > 0 || visibleWarningsCount > 0 || dupRules.length > 0) {
     tree.push({
       id: "warnings",
-      text: `⚠️ issues (${dictWarnings.length + dupRules.length})`,
+      text: `⚠️ issues (${dictErrors.length + visibleWarningsCount + dupRules.length})`,
       children: [],
       icon: "folder",
       expanded: true,
@@ -395,7 +407,19 @@ export function buildTree(context) {
     const warningNode = tree[tree.length - 1];
 
     const issues = [];
+    dictErrors.forEach((e, idx) => {
+      issues.push({
+        severity: "error",
+        kind: e.kind || e.code || "DictionaryError",
+        key: e.key || e.primaryToken || "general",
+        leafId: `w-issue-dict-err-${idx}`,
+        text: e.message || "(no message)",
+        tooltip: `Kind: ${e.kind || e.code} | Severity: error`,
+      });
+    });
+
     dictWarnings.forEach((w, idx) => {
+      if (!includeBenign && isBenignDuplicate(w)) return;
       issues.push({
         severity: w.severity || "warning",
         kind: w.kind || "DictionaryWarning",

@@ -5,6 +5,7 @@ import {
   canonicalAttributeKey,
   canonicalAttributeKeyFromSelector,
 } from "./canonical-keys.mjs";
+import { verbGroupKey, passiveKey } from "../utils/predicate-keys.mjs";
 
 function resolveEntityId(node, context) {
   if (!node || !context?.idStore) return null;
@@ -105,23 +106,6 @@ function checkAttributeEntity(attrKey, context) {
   if (attrDef.valueType && attrDef.valueType !== "entity") {
     recordError(context, "CMP017", "Entity filter requires entity-valued attribute.", key);
   }
-}
-
-function verbGroupKey(verbGroup, { negated } = {}) {
-  if (!verbGroup) return null;
-  const parts = [];
-  if (verbGroup.auxiliary) parts.push(`aux:${verbGroup.auxiliary}`);
-  parts.push(verbGroup.verb);
-  verbGroup.particles.forEach((particle) => parts.push(particle));
-  const base = `P:${parts.join("|")}`;
-  if (!negated) return base;
-  return base.replace(/^P:/, "P:not|");
-}
-
-function passiveKey(verb, preposition, { negated } = {}) {
-  const base = `P:passive:${verb}|${preposition}`;
-  if (!negated) return base;
-  return base.replace(/^P:/, "P:not|");
 }
 
 function unaryKeyFromComplement(complement) {

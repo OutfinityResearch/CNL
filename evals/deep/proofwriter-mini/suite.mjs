@@ -5,7 +5,7 @@ import { translateProofwriterMini } from "./translate.mjs";
 export default {
   id: "proofwriter-mini",
   title: "ProofWriter (sampled)",
-  description: "Logic-style facts/rules with yes/no/unknown answers (unknown is skipped in v1).",
+  description: "Logic-style facts/rules with yes/no/unknown answers (unknown is evaluated via tri-valued semantics).",
   homepage: "https://huggingface.co/datasets/tasksource/proofwriter",
   baseEntrypoint: "theories/base.cnl",
 

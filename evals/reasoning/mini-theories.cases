@@ -3,7 +3,6 @@
 - input: "Server1 is a machine.\nServer1 handles payments.\nEvery machine that handles payments is a server.\nEvery server that handles payments is critical.\nEvery server that is critical is encrypted.\nVerify that Server1 is encrypted."
   purpose: "Multi-step rule chain from relation to unary."
   expect: "true"
-  trace: "proof trace placeholder"
 - input: "Truck_A is a truck.\nTruck_A has a capacity of 1000.\nEvery truck whose capacity is greater than 500 is heavy.\nEvery truck that is heavy is insured.\nReturn the name of every truck that is insured."
   purpose: "Query with numeric filter feeding a rule chain."
   expect: "Truck_A"

@@ -1,4 +1,6 @@
 import { executeSet } from "../../plans/execute.mjs";
+import { applyDictionaryStatement } from "../../compiler/dictionary.mjs";
+import { compileProgram } from "../../compiler/compile.mjs";
 import { compileCommand, compileNP } from "../../compiler/ast-to-plan.mjs";
 import {
   collectEntities,
@@ -7,10 +9,11 @@ import {
   isNameProjection,
   runtimeError,
 } from "./helpers.mjs";
-import { evaluateCondition } from "./evaluate.mjs";
+import { evaluateCondition, evaluateConditionTri } from "./evaluate.mjs";
 import { solveWithVariables } from "./solver.mjs";
 import { planWithActions } from "./plan.mjs";
 import { simulateTransitions } from "./simulate.mjs";
+import { materializeRules } from "./materialize.mjs";
 import { evaluateAggregation } from "./optimize.mjs";
 import { explainAssertion } from "./explain.mjs";
 import { buildProofTraceForVerify } from "./proof-traces.mjs";
@@ -73,8 +76,9 @@ export function executeCommandAst(command, state) {
       return { kind: "SolveResult", entities, proof: buildWitnessTraceForSet(plan.set, entities, state) };
     }
     case "VerifyCommand": {
-      const ok = evaluateCondition(command.proposition, state);
-      return { kind: "ProofResult", value: ok, proof: buildProofTraceForVerify(command, state, ok) };
+      const tri = evaluateConditionTri(command.proposition, state);
+      const value = tri === "true" ? true : tri === "false" ? false : "unknown";
+      return { kind: "ProofResult", value, proof: buildProofTraceForVerify(command, state, value) };
     }
     case "ExplainCommand": {
       if (command.proposition?.kind !== "AtomicCondition") {
@@ -186,7 +190,62 @@ export function executeCommandAst(command, state) {
   }
 }
 
-export function executeProgram(program) {
-  void program;
-  throw new Error("Not implemented");
+export function executeProgram(program, state, options = {}) {
+  const projectEntityAttributes = options.projectEntityAttributes ?? state?.projectEntityAttributes ?? false;
+
+  if (!program || program.kind !== "Program") {
+    return { error: runtimeError("SES030", "executeProgram expects a Program AST.", "Program") };
+  }
+
+  if (!state) {
+    return { error: runtimeError("SES031", "executeProgram requires an existing compiler/runtime state.", "state") };
+  }
+
+  const results = [];
+  let currentContext = null;
+
+  for (const item of program.items || []) {
+    if (item.kind === "ContextDirective") {
+      currentContext = item.name;
+      continue;
+    }
+
+    if (currentContext === "BaseDictionary") {
+      applyDictionaryStatement(item, state.dictionary);
+      if (state.dictionary.errors.length > 0) {
+        state.errors.push(...state.dictionary.errors);
+        state.dictionary.errors.length = 0;
+      }
+      if (state.errors.length > 0) {
+        return { kind: "ProgramResult", results, errors: state.errors.slice() };
+      }
+      continue;
+    }
+
+    if (item.kind === "CommandStatement") {
+      if (options.deduce ?? true) {
+        materializeRules(state, { justificationStore: state.justificationStore });
+      }
+      const out = executeCommandAst(item.command, state);
+      results.push({ kind: "CommandResult", command: item.command, result: out });
+      if (out?.error) {
+        return { kind: "ProgramResult", results, errors: [out.error] };
+      }
+      continue;
+    }
+
+    // Compile non-command items incrementally by delegating to the compiler sentence handler.
+    // We keep this local to preserve sequential semantics (statements that appear after a command
+    // must not affect earlier command results).
+    const miniProgram = {
+      kind: "Program",
+      items: [item],
+    };
+    compileProgram(miniProgram, { state, projectEntityAttributes });
+    if (state.errors.length > 0) {
+      return { kind: "ProgramResult", results, errors: state.errors.slice() };
+    }
+  }
+
+  return { kind: "ProgramResult", results, errors: [] };
 }

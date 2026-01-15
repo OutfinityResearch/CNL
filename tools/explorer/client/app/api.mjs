@@ -1,5 +1,19 @@
 import { Session } from "./session.mjs";
 
+const BENIGN_PREF_KEY = "cnl.explorer.includeBenignDuplicates";
+
+function includeBenignDuplicates() {
+  try {
+    return localStorage.getItem(BENIGN_PREF_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function addBenignParam(params) {
+  if (includeBenignDuplicates()) params.append("includeBenign", "1");
+}
+
 async function apiFetch(path, options = {}) {
   await Session.ensure();
   const headers = { ...(options.headers || {}), ...Session.headers() };
@@ -27,7 +41,10 @@ export const API = {
     });
   },
   async getTree() {
-    return apiFetch("/api/tree");
+    const params = new URLSearchParams();
+    addBenignParam(params);
+    const qs = params.toString();
+    return apiFetch(qs ? `/api/tree?${qs}` : "/api/tree");
   },
   async getEntity(type, id) {
     const params = new URLSearchParams({ type, id: String(id) });
@@ -39,6 +56,7 @@ export const API = {
   async getOverview(kind, id) {
     const params = new URLSearchParams({ kind: String(kind || "") });
     if (id) params.append("id", String(id));
+    addBenignParam(params);
     return apiFetch(`/api/overview?${params.toString()}`);
   },
   async getExamples() {

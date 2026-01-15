@@ -1,6 +1,6 @@
 # Parsing Evaluation Cases
 
-- input: "A user who is active and who knows python."
-  expect: "AST hash placeholder"
+- input: "John is a user who is active and who knows Python."
+  purpose: "Parse a noun phrase with conjunction and an active relation inside a relative clause."
 - input: "Return the name of every user whose role is equal to admin."
-  expect: "AST hash placeholder"
+  purpose: "Parse a query with an entity-valued attribute filter."

@@ -8,16 +8,17 @@ import { createDictionaryState, applyDictionaryStatement } from "./dictionary.mj
 import { compileRuleBody, compileRuleHead, compileCommand, compileNP } from "./ast-to-plan.mjs";
 import { canonicalEntityKey, canonicalAttributeKey } from "./canonical-keys.mjs";
 import { tryCompilePlaceholderConditional } from "./placeholder-rules.mjs";
+import { createError } from "../validator/errors.mjs";
+import { tryCompileJoinRule } from "./join-rules.mjs";
+import { verbGroupKey, passiveKey } from "../utils/predicate-keys.mjs";
 
-function createError(code, message, primaryToken) {
-  return {
-    code,
+function compilerError(code, message, primaryToken, overrides = {}) {
+  return createError(code, primaryToken ?? "EOF", {
     name: "CompilerError",
     message,
-    severity: "error",
-    primaryToken: primaryToken ?? "EOF",
-    hint: "Check compiler contract and BaseDictionary declarations.",
-  };
+    hint: overrides.hint ?? "Check compiler contract and BaseDictionary declarations.",
+    offendingField: overrides.offendingField,
+  });
 }
 
 function canonicalUnaryKey(node) {
@@ -35,31 +36,19 @@ function canonicalUnaryKeyWithNegation(node, { negated } = {}) {
 }
 
 function canonicalVerbKey(verbGroup) {
-  if (!verbGroup) return null;
-  const parts = [];
-  if (verbGroup.auxiliary) {
-    parts.push(`aux:${verbGroup.auxiliary}`);
-  }
-  parts.push(verbGroup.verb);
-  verbGroup.particles.forEach((particle) => parts.push(particle));
-  return `P:${parts.join("|")}`;
+  return verbGroupKey(verbGroup, { negated: false });
 }
 
 function canonicalVerbKeyWithNegation(verbGroup, { negated } = {}) {
-  const base = canonicalVerbKey(verbGroup);
-  if (!base) return null;
-  if (!negated) return base;
-  return base.replace(/^P:/, "P:not|");
+  return verbGroupKey(verbGroup, { negated: Boolean(negated) });
 }
 
 function canonicalPassiveKey(verb, preposition) {
-  return `P:passive:${verb}|${preposition}`;
+  return passiveKey(verb, preposition, { negated: false });
 }
 
 function canonicalPassiveKeyWithNegation(verb, preposition, { negated } = {}) {
-  const base = canonicalPassiveKey(verb, preposition);
-  if (!negated) return base;
-  return base.replace(/^P:/, "P:not|");
+  return passiveKey(verb, preposition, { negated: Boolean(negated) });
 }
 
 function dictionaryPredicateKeyFromVerb(key) {
@@ -138,7 +127,7 @@ function checkDictionaryComparator(attrDef, comparator, state, attrKey) {
   const normalized = normalizeComparatorLiteral(comparator);
   if (!attrDef.comparators.has(normalized)) {
     state.errors.push(
-      createError("CMP012", "Comparator not allowed for attribute.", attrKey)
+      compilerError("CMP012", "Comparator not allowed for attribute.", attrKey)
     );
   }
 }
@@ -189,7 +178,7 @@ function validateDomainRange(state, predDef, subjectId, objectId) {
       return set && !set.isEmpty();
     });
     if (anyKnown && !domain.some((typeKey) => hasTypeMembership(state, subjectId, typeKey))) {
-      state.errors.push(createError("CMP013", "Domain constraint violated.", predDef.key));
+      state.errors.push(compilerError("CMP013", "Domain constraint violated.", predDef.key));
     }
   }
 
@@ -201,7 +190,7 @@ function validateDomainRange(state, predDef, subjectId, objectId) {
       return set && !set.isEmpty();
     });
     if (anyKnown && !range.some((typeKey) => hasTypeMembership(state, objectId, typeKey))) {
-      state.errors.push(createError("CMP014", "Range constraint violated.", predDef.key));
+      state.errors.push(compilerError("CMP014", "Range constraint violated.", predDef.key));
     }
   }
 }
@@ -242,14 +231,14 @@ function resolveAttrId(key, state) {
 function handleAttributeAssertion(assertion, state, options) {
   const subjectId = resolveEntityId(assertion.subject, state);
   if (subjectId === null) {
-    state.errors.push(createError("CMP001", "Non-ground attribute subject.", "subject"));
+    state.errors.push(compilerError("CMP001", "Non-ground attribute subject.", "subject"));
     return;
   }
 
   const attrKey = canonicalAttributeKey(assertion.attribute);
   const attrId = resolveAttrId(attrKey, state);
   if (attrId === null) {
-    state.errors.push(createError("CMP002", "Invalid attribute key.", "attribute"));
+    state.errors.push(compilerError("CMP002", "Invalid attribute key.", "attribute"));
     return;
   }
 
@@ -259,7 +248,7 @@ function handleAttributeAssertion(assertion, state, options) {
 
   if (value && value.kind === "NumberLiteral") {
     if (state.validateDictionary && attrDef && attrDef.valueType && attrDef.valueType !== "numeric") {
-      state.errors.push(createError("CMP003", "Attribute expects entity value.", attrKey));
+      state.errors.push(compilerError("CMP003", "Attribute expects entity value.", attrKey));
       return;
     }
     state.kb.setNumeric(attrId, subjectId, value.value);
@@ -268,23 +257,23 @@ function handleAttributeAssertion(assertion, state, options) {
   }
 
   if (!value) {
-    state.errors.push(createError("CMP004", "Attribute value is required.", attrKey));
+    state.errors.push(compilerError("CMP004", "Attribute value is required.", attrKey));
     return;
   }
 
   if (state.validateDictionary && attrDef && attrDef.valueType && attrDef.valueType !== "entity") {
-    state.errors.push(createError("CMP003", "Attribute expects numeric value.", attrKey));
+    state.errors.push(compilerError("CMP003", "Attribute expects numeric value.", attrKey));
     return;
   }
 
   if (state.validateDictionary && !attrDef && value.kind !== "NumberLiteral") {
-    state.errors.push(createError("CMP005", "Non-numeric attribute without dictionary.", attrKey));
+    state.errors.push(compilerError("CMP005", "Non-numeric attribute without dictionary.", attrKey));
     return;
   }
 
   const entityId = resolveEntityId(value, state);
   if (entityId === null) {
-    state.errors.push(createError("CMP006", "Non-ground attribute value.", attrKey));
+    state.errors.push(compilerError("CMP006", "Non-ground attribute value.", attrKey));
     return;
   }
 
@@ -304,7 +293,7 @@ function handleAssertion(assertion, state, options) {
       const subjectId = resolveEntityId(assertion.subject, state);
       const objectId = resolveEntityId(assertion.object, state);
       if (subjectId === null || objectId === null) {
-        state.errors.push(createError("CMP007", "Non-ground relation assertion.", "assertion"));
+        state.errors.push(compilerError("CMP007", "Non-ground relation assertion.", "assertion"));
         return;
       }
       const predKey = canonicalVerbKeyWithNegation(assertion.verbGroup, { negated: assertion.negated });
@@ -313,7 +302,7 @@ function handleAssertion(assertion, state, options) {
         const dictKey = dictionaryPredicateKeyFromVerb(canonicalVerbKey(assertion.verbGroup));
         const predDef = lookupPredicateDef(state.dictionary, dictKey);
         if (predDef && predDef.arity && predDef.arity !== "binary") {
-          state.errors.push(createError("CMP015", "Predicate arity mismatch.", dictKey));
+          state.errors.push(compilerError("CMP015", "Predicate arity mismatch.", dictKey));
           return;
         }
         validateDomainRange(state, predDef, subjectId, objectId);
@@ -326,7 +315,7 @@ function handleAssertion(assertion, state, options) {
       const subjectId = resolveEntityId(assertion.subject, state);
       const objectId = resolveEntityId(assertion.object, state);
       if (subjectId === null || objectId === null) {
-        state.errors.push(createError("CMP007", "Non-ground relation assertion.", "assertion"));
+        state.errors.push(compilerError("CMP007", "Non-ground relation assertion.", "assertion"));
         return;
       }
       const predKey = canonicalPassiveKeyWithNegation(assertion.verb, assertion.preposition, { negated: assertion.negated });
@@ -335,7 +324,7 @@ function handleAssertion(assertion, state, options) {
         const dictKey = dictionaryPredicateKeyFromVerb(canonicalPassiveKey(assertion.verb, assertion.preposition));
         const predDef = lookupPredicateDef(state.dictionary, dictKey);
         if (predDef && predDef.arity && predDef.arity !== "binary") {
-          state.errors.push(createError("CMP015", "Predicate arity mismatch.", dictKey));
+          state.errors.push(compilerError("CMP015", "Predicate arity mismatch.", dictKey));
           return;
         }
         validateDomainRange(state, predDef, subjectId, objectId);
@@ -347,7 +336,7 @@ function handleAssertion(assertion, state, options) {
     case "CopulaPredicateAssertion": {
       const subjectId = resolveEntityId(assertion.subject, state);
       if (subjectId === null) {
-        state.errors.push(createError("CMP008", "Non-ground copula subject.", "subject"));
+        state.errors.push(compilerError("CMP008", "Non-ground copula subject.", "subject"));
         return;
       }
       if (state.validateDictionary) {
@@ -355,14 +344,14 @@ function handleAssertion(assertion, state, options) {
         if (unaryKey) {
           const predDef = lookupPredicateDef(state.dictionary, unaryKey);
           if (predDef && predDef.arity && predDef.arity !== "unary") {
-            state.errors.push(createError("CMP015", "Predicate arity mismatch.", unaryKey));
+            state.errors.push(compilerError("CMP015", "Predicate arity mismatch.", unaryKey));
             return;
           }
         }
       }
       const unaryId = resolveUnaryIdWithNegation(assertion.complement, state, { negated: assertion.negated });
       if (unaryId === null) {
-        state.errors.push(createError("CMP009", "Invalid copula complement.", "complement"));
+        state.errors.push(compilerError("CMP009", "Invalid copula complement.", "complement"));
         return;
       }
       state.kb.insertUnary(unaryId, subjectId);
@@ -377,7 +366,7 @@ function handleAssertion(assertion, state, options) {
         const attrDef = state.dictionary.attributes.get(assertion.left.value);
         if (attrDef) {
           if (attrDef.valueType && attrDef.valueType !== "numeric") {
-            state.errors.push(createError("CMP016", "Comparator requires numeric attribute.", assertion.left.value));
+            state.errors.push(compilerError("CMP016", "Comparator requires numeric attribute.", assertion.left.value));
             return;
           }
           checkDictionaryComparator(attrDef, assertion.comparator.op, state, assertion.left.value);
@@ -387,7 +376,7 @@ function handleAssertion(assertion, state, options) {
       return;
     }
     default:
-      state.errors.push(createError("CMP000", "Unsupported assertion.", assertion.kind));
+      state.errors.push(compilerError("CMP000", "Unsupported assertion.", assertion.kind));
   }
 }
 
@@ -424,12 +413,12 @@ function findVariable(node) {
 
 function compileSentence(sentence, state, options) {
   if (!sentence) return;
-  const variableName = findVariable(sentence);
-  if (variableName) {
-    state.errors.push(createError("CMP019", "Variables are not allowed in learned statements.", `?${variableName}`));
-    return;
-  }
   if (sentence.kind === "AssertionSentence") {
+    const variableName = findVariable(sentence);
+    if (variableName) {
+      state.errors.push(compilerError("CMP019", "Variables are not allowed in learned statements.", `?${variableName}`));
+      return;
+    }
     if (isNonGroundSubject(sentence.assertion)) {
       if (isUniversalNounPhrase(sentence.assertion.subject)) {
         const body = compileNP(sentence.assertion.subject, state);
@@ -437,18 +426,23 @@ function compileSentence(sentence, state, options) {
         state.ruleStore.addRule({ kind: "RulePlan", body, head });
         return;
       }
-      state.errors.push(createError("CMP018", "Non-ground assertion requires a universal quantifier.", "subject"));
+      state.errors.push(compilerError("CMP018", "Non-ground assertion requires a universal quantifier.", "subject"));
       return;
     }
     handleAssertion(sentence.assertion, state, options);
     return;
   }
   if (sentence.kind === "BecauseSentence") {
-    // A) `X because C` ≈ regulă `If C then X` (derivare + justificare ca fapt derivat)
-    // Compilăm ca o regulă condițională: If C then X
+    const variableName = findVariable(sentence);
+    if (variableName) {
+      state.errors.push(compilerError("CMP019", "Variables are not allowed in learned statements.", `?${variableName}`));
+      return;
+    }
+    // `X because C` is compiled as a conditional rule: `If C then X`.
+    // This keeps the derivation explicit and supports proof justification.
     const condition = sentence.because;
     const thenSentence = { kind: "AssertionSentence", assertion: sentence.assertion };
-    
+
     if (isNonGroundSubject(sentence.assertion)) {
       if (isUniversalNounPhrase(sentence.assertion.subject)) {
         const body = compileRuleBody(condition, state);
@@ -456,11 +450,11 @@ function compileSentence(sentence, state, options) {
         state.ruleStore.addRule({ kind: "RulePlan", body, head });
         return;
       }
-      state.errors.push(createError("CMP018", "Non-ground assertion requires a universal quantifier.", "subject"));
+      state.errors.push(compilerError("CMP018", "Non-ground assertion requires a universal quantifier.", "subject"));
       return;
     }
-    
-    // Pentru ground facts cu because, compilăm ca regulă cu body-ul being condition
+
+    // Ground facts with `because` are also compiled as rules (condition → assertion).
     const body = compileRuleBody(condition, state);
     const head = compileRuleHead(thenSentence, state);
     state.ruleStore.addRule({ kind: "RulePlan", body, head });
@@ -470,6 +464,11 @@ function compileSentence(sentence, state, options) {
     const placeholderPlan = tryCompilePlaceholderConditional(sentence, state);
     if (placeholderPlan) {
       state.ruleStore.addRule(placeholderPlan);
+      return;
+    }
+    const joinPlan = tryCompileJoinRule(sentence, state);
+    if (joinPlan) {
+      state.ruleStore.addRule(joinPlan);
       return;
     }
     const plan = compileRuleBody(sentence.condition, state);
@@ -488,6 +487,7 @@ export function createCompilerState(options = {}) {
     formulaStore: options.formulaStore ?? createFormulaStore(),
     commandStore: options.commandStore ?? [],
     justificationStore: options.justificationStore ?? createJustificationStore(),
+    limits: options.limits ?? {},
     errors: [],
     validateDictionary: options.validateDictionary ?? true,
     projectEntityAttributes: options.projectEntityAttributes ?? false,
@@ -500,7 +500,7 @@ export function compileProgram(ast, options = {}) {
   let currentContext = null;
 
   if (!ast || ast.kind !== "Program") {
-    state.errors.push(createError("CMP010", "Expected Program AST.", "Program"));
+    state.errors.push(compilerError("CMP010", "Expected Program AST.", "Program"));
     return state;
   }
 
@@ -537,7 +537,7 @@ export function compileProgram(ast, options = {}) {
         state.ruleStore.addRule({ ...item, kind: "TransitionRule" });
         break;
       default:
-        state.errors.push(createError("CMP011", "Unsupported program item.", item.kind));
+        state.errors.push(compilerError("CMP011", "Unsupported program item.", item.kind));
     }
   }
 

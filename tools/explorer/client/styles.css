@@ -38,6 +38,19 @@ body {
   font-weight: 600;
 }
 
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+
+.toggle input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--accent);
+}
+
 .layout {
   flex: 1;
   display: flex;

@@ -16,6 +16,29 @@
 
 Load: "theories/base.formal.cnl".
 
+// Disambiguation for literature-domain imports.
+// Keep common type keys stable (e.g. "date", "revision", "supplement"), but rename colliding imported *binary* predicates.
+RenamePredicate: "date" -> "frbr-date".
+RenamePredicate: "revision" -> "frbr-revision".
+RenamePredicate: "supplement" -> "frbr-supplement".
+RenamePredicate: "label" -> "has-label".
+RenamePredicate: "line" -> "schema-line".
+RenamePredicate: "part" -> "has-part".
+RenamePredicate: "section" -> "has-section".
+RenamePredicate: "title" -> "has-title".
+RenamePredicate: "reference" -> "has-reference".
+RenamePredicate: "relation" -> "doco-relation".
+//
+// Additional plural surface-form disambiguation (verb canonicalization).
+// These avoid collisions where a predicate canonicalizes to an existing type key (DS25).
+RenamePredicate: "blog-posts" -> "schema-blog-post".
+RenamePredicate: "pages" -> "schema-page".
+RenamePredicate: "requirements" -> "schema-requirement".
+RenamePredicate: "permits" -> "frbr-permit".
+RenamePredicate: "stores" -> "fabio-store".
+RenamePredicate: "covers" -> "covers-rel".
+RenamePredicate: "permissions" -> "schema-permission".
+
 // Import FRBR ontology (Work-Expression-Manifestation-Item model)
 Load: "theories/ontologies/frbr/00-dictionary.generated.cnl".
 Load: "theories/ontologies/frbr/00-dictionary.extra.cnl".

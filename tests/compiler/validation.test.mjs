@@ -4,7 +4,7 @@ import { parseProgram } from "../../src/parser/grammar.mjs";
 import { compileProgram } from "../../src/compiler/compile.mjs";
 
 const aritySource = `--- CONTEXT: BaseDictionary ---
-"likes" is a "unary predicate".
+"like" is a "unary predicate".
 --- CONTEXT: Core ---
 Alice likes Bob.`;
 

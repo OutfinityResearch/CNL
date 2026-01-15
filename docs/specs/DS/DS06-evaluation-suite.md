@@ -15,7 +15,9 @@ Defines the evaluation suites for CNL-PL, including parsing benchmarks and reaso
 - Compiler suite: inputs mapped to KB summary counts (no inference).
 
 ## Output Expectations
-- Parsing: structured JSON match against an expected subset (extra AST fields such as spans are allowed).
+- Parsing:
+  - Canonical parsing corpora (`evals/parsing/*.json`) use structured JSON match against an expected subset (extra AST fields such as spans are allowed).
+  - Lightweight `.cases` files are treated as smoke-like inputs: they must parse (and in some runners, also compile), and may optionally assert a small computed summary (example: the negation suite asserts a deterministic “negation summary” rather than full AST equality).
 - Reasoning: boolean success with optional (and increasingly required) proof trace (DS18).
 - Planning: ordered action list when actions are available (empty list when already satisfied).
 - Solving: variable bindings that satisfy constraints.

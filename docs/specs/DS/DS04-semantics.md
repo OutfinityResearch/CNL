@@ -108,8 +108,17 @@ Each pragmatic mode reuses the same KB and reasoning primitives but produces dif
 
 ### Proof
 - Input: proposition to verify.
-- Output: boolean result and (optionally) a proof trace.
-- Semantics: membership checks against the materialized closure.
+- Output: a tri-valued result (`true` / `false` / `unknown`) and (optionally) a proof trace.
+- Semantics:
+  - `true` when the proposition is derivable in the current (materialized) KB.
+  - `false` when an **explicitly negated** counterpart is derivable (DS04 Explicit Negation).
+  - `unknown` when neither the proposition nor its explicit negation is derivable.
+
+Notes:
+- This tri-valued behavior applies to `Verify that ...` for atomic assertions and to compound conditions by lifting the
+  truth tables over `and`/`or`/grouping (DS11).
+- Negation-as-failure (`it is not the case that ...`) remains a control operator: it returns `true` exactly when its
+  operand is not derivable (and therefore does not produce `unknown` by itself).
 
 ### Explain
 - Input: derived fact or proposition.

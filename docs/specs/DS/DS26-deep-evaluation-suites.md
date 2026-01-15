@@ -33,6 +33,7 @@ Deep evals live under:
 
 Downloaded datasets are cached under:
 - `evals/deep/cache/<suite-id>/` (not committed)
+  - Cache files should be treated as authoritative when present. Debug/limited caches should use an explicit marker in the filename (example: `__limit-<n>`), so tooling can distinguish “canonical cache” from debug artifacts.
 
 Results:
 - `evals/results/<timestamp>_deepcheck.md`
@@ -48,7 +49,7 @@ The runner records:
 - `PASS` if actual output matches the expected output
 - `FAIL` if the session returns an error or outputs do not match
 - `SKIP` if the dataset example cannot be represented under current translation constraints
-  (example: tri-valued answers like `unknown` when the engine is currently bi-valued)
+  (example: unsupported rule templates or question forms)
 
 **Note on counting:** some datasets store multiple question steps in a single “row”.
 In that case, one cached JSONL row may translate into multiple deep test cases.
@@ -86,7 +87,7 @@ Translation strategy:
 - handle answers:
   - `yes` → expected `ProofResult true`
   - `no` → expected `ProofResult false`
-  - `unknown` → SKIP until tri-valued semantics are defined in DS04/DS11
+  - `unknown` → expected `ProofResult unknown` (tri-valued semantics; DS04/DS11)
   - conditional rules that depend on true variables/existentials not representable in the current rule IR → SKIP with a clear reason
   - explicit negation is supported via `is not` and `does not` (DS04)
 

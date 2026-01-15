@@ -9,7 +9,7 @@
   purpose: "Query with derived unary predicate from relation-based rules."
   expect: "Server1"
   proofMode: "Witness"
-  proofPremisesInclude: ["Server1 handles payments."]
+  proofPremisesInclude: ["Server1 handle payments."]
 - input: "--- CONTEXT: BaseDictionary ---\n\"capacity\" is a \"numeric attribute\".\n--- CONTEXT: Core ---\nTruck_A is a truck.\nTruck_A has a capacity of 1000.\nTruck_A is located at Warehouse_1.\nEvery truck whose capacity is greater than 500 and that is located at Warehouse_1 is eligible.\nEvery truck that is eligible is insured.\nReturn the name of every truck that is insured."
   purpose: "Query with numeric+relation filters feeding a derived predicate chain."
   expect: "Truck_A"

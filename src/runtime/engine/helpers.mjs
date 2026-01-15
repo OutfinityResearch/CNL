@@ -1,6 +1,8 @@
 import { canonicalEntityKey } from "../../compiler/canonical-keys.mjs";
 import { ConceptKind } from "../../ids/interners.mjs";
 import { createBitset } from "../../kb/bitset.mjs";
+import { createError } from "../../validator/errors.mjs";
+import { verbGroupKey as verbGroupKeyCore, passiveKey as passiveKeyCore } from "../../utils/predicate-keys.mjs";
 
 export function isUniversalNounPhrase(node) {
   if (!node || node.kind !== "NounPhrase") return false;
@@ -34,20 +36,11 @@ export function resolveUnaryId(complement, state, options = {}) {
 }
 
 export function verbGroupKey(verbGroup, options = {}) {
-  if (!verbGroup) return null;
-  const parts = [];
-  if (verbGroup.auxiliary) parts.push(`aux:${verbGroup.auxiliary}`);
-  parts.push(verbGroup.verb);
-  verbGroup.particles.forEach((particle) => parts.push(particle));
-  const base = `P:${parts.join("|")}`;
-  if (!options?.negated) return base;
-  return base.replace(/^P:/, "P:not|");
+  return verbGroupKeyCore(verbGroup, options);
 }
 
 export function passiveKey(verb, preposition, options = {}) {
-  const base = `P:passive:${verb}|${preposition}`;
-  if (!options?.negated) return base;
-  return base.replace(/^P:/, "P:not|");
+  return passiveKeyCore(verb, preposition, options);
 }
 
 export function resolvePredId(assertion, state) {
@@ -124,12 +117,9 @@ export function hasVariables(node) {
 }
 
 export function runtimeError(code, message, primaryToken = "EOF") {
-  return {
-    code,
+  return createError(code, primaryToken, {
     name: "RuntimeError",
     message,
-    severity: "error",
-    primaryToken,
     hint: "Check solve/optimize constraints.",
-  };
+  });
 }

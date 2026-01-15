@@ -23,3 +23,17 @@ test("bitset set/clear and logical ops", () => {
   assert.ok(diff.hasBit(1));
   assert.ok(!diff.hasBit(3));
 });
+
+test("bitset resize enables higher indices", () => {
+  const bits = createBitset(1);
+  bits.resize(3);
+  bits.setBit(2);
+  assert.ok(bits.hasBit(2));
+});
+
+test("bitset throws on out-of-range indices", () => {
+  const bits = createBitset(2);
+  assert.throws(() => bits.hasBit(2), /Bitset index out of range/);
+  assert.throws(() => bits.setBit(-1), /Bitset index out of range/);
+  assert.throws(() => bits.clearBit(999), /Bitset index out of range/);
+});

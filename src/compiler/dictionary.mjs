@@ -1,12 +1,12 @@
-function createError(code, message, primaryToken) {
-  return {
-    code,
+import { createError } from "../validator/errors.mjs";
+
+function dictionaryError(code, message, primaryToken, overrides = {}) {
+  return createError(code, primaryToken ?? "EOF", {
     name: "DictionaryError",
     message,
-    severity: "error",
-    primaryToken: primaryToken ?? "EOF",
-    hint: "Check BaseDictionary declaration syntax.",
-  };
+    hint: overrides.hint ?? "Check BaseDictionary declaration syntax.",
+    offendingField: overrides.offendingField,
+  });
 }
 
 export function createDictionaryState() {
@@ -92,6 +92,17 @@ function normalizeBinaryPredicateKey(key) {
   if (!normalized.includes("|")) {
     normalized = normalized.split(/\s+/).join("|");
   }
+  const parts = normalized.split("|").filter((p) => p.length > 0);
+  if (parts.length > 0) {
+    const v = parts[0].toLowerCase();
+    if (v.endsWith("ies") && v.length > 3) parts[0] = `${v.slice(0, -3)}y`;
+    else if (v.endsWith("oes") && v.length > 3) parts[0] = v.slice(0, -2); // "goes" -> "go"
+    else if (v.endsWith("ches") || v.endsWith("shes") || v.endsWith("xes")) parts[0] = v.slice(0, -2); // drop "es"
+    else if (v.endsWith("sses") || v.endsWith("zzes")) parts[0] = v.slice(0, -2); // "kisses" -> "kiss"
+    else if (v.endsWith("s") && !v.endsWith("ss") && v.length > 1) parts[0] = v.slice(0, -1);
+    else parts[0] = v;
+    normalized = parts.join("|");
+  }
   return normalized;
 }
 
@@ -123,7 +134,7 @@ function handlePredicateDeclaration(subjectKey, complement, state) {
     });
   }
   if (!def.arity && def.arities.size === 0) {
-    state.errors.push(createError("DICT010", "Predicate arity is required.", subjectKey));
+    state.errors.push(dictionaryError("DICT010", "Predicate arity is required.", subjectKey));
   }
   noteStatement(state, `pred:${normalizedKey}:${[...def.arities].sort().join(",")}`, `Predicate declared: ${normalizedKey}`);
 
@@ -171,7 +182,7 @@ function handleTypeDeclaration(subjectKey, complement, state) {
     const parentNode = extractOfObject(complement);
     const parentKey = extractStringLiteral(parentNode);
     if (!parentKey) {
-      state.errors.push(createError("DICT020", "Subtype declaration missing parent.", subjectKey));
+      state.errors.push(dictionaryError("DICT020", "Subtype declaration missing parent.", subjectKey));
       return true;
     }
     def.parents.add(parentKey);
@@ -201,14 +212,14 @@ function handleDomainRange(subject, complement, state) {
   const predicateNode = extractOfObject(subject);
   let predicateKey = extractStringLiteral(predicateNode);
   if (!predicateKey) {
-    state.errors.push(createError("DICT030", "Domain/range declaration missing predicate key.", "domain"));
+    state.errors.push(dictionaryError("DICT030", "Domain/range declaration missing predicate key.", "domain"));
     return true;
   }
   predicateKey = normalizeBinaryPredicateKey(predicateKey);
 
   const typeKey = extractStringLiteral(complement);
   if (!typeKey) {
-    state.errors.push(createError("DICT031", "Domain/range declaration missing type key.", predicateKey));
+    state.errors.push(dictionaryError("DICT031", "Domain/range declaration missing type key.", predicateKey));
     return true;
   }
 
@@ -227,13 +238,13 @@ function handleComparator(subject, complement, state) {
   const attrNode = extractOfObject(subject);
   const attrKey = extractStringLiteral(attrNode);
   if (!attrKey) {
-    state.errors.push(createError("DICT040", "Comparator declaration missing attribute key.", "comparator"));
+    state.errors.push(dictionaryError("DICT040", "Comparator declaration missing attribute key.", "comparator"));
     return true;
   }
 
   const comparatorText = extractStringLiteral(complement);
   if (!comparatorText) {
-    state.errors.push(createError("DICT041", "Comparator declaration missing comparator literal.", attrKey));
+    state.errors.push(dictionaryError("DICT041", "Comparator declaration missing comparator literal.", attrKey));
     return true;
   }
 
@@ -246,12 +257,12 @@ function handleComparator(subject, complement, state) {
 function handleCopulaDeclaration(assertion, state) {
   const subjectKey = extractStringLiteral(assertion.subject);
   if (!subjectKey) {
-    state.errors.push(createError("DICT001", "Dictionary key must be a string literal.", "subject"));
+    state.errors.push(dictionaryError("DICT001", "Dictionary key must be a string literal.", "subject"));
     return;
   }
 
   if (assertion.complement.kind !== "NounPhrase") {
-    state.errors.push(createError("DICT002", "Dictionary complement must be a noun phrase.", "complement"));
+    state.errors.push(dictionaryError("DICT002", "Dictionary complement must be a noun phrase.", "complement"));
     return;
   }
 
@@ -261,13 +272,13 @@ function handleCopulaDeclaration(assertion, state) {
     handleTypeDeclaration(subjectKey, assertion.complement, state);
 
   if (!handled) {
-    state.errors.push(createError("DICT003", "Unsupported dictionary declaration.", subjectKey));
+    state.errors.push(dictionaryError("DICT003", "Unsupported dictionary declaration.", subjectKey));
   }
 }
 
 function applyDictionaryAssertion(assertion, state) {
   if (!assertion || assertion.kind !== "CopulaPredicateAssertion") {
-    state.errors.push(createError("DICT000", "Dictionary statements must use copula forms.", "assertion"));
+    state.errors.push(dictionaryError("DICT000", "Dictionary statements must use copula forms.", "assertion"));
     return;
   }
 
@@ -280,12 +291,12 @@ function applyDictionaryAssertion(assertion, state) {
 export function applyDictionaryStatement(node, state) {
   if (!node) return;
   if (node.kind !== "Statement") {
-    state.errors.push(createError("DICT000", "Dictionary requires statements.", node.kind));
+    state.errors.push(dictionaryError("DICT000", "Dictionary requires statements.", node.kind));
     return;
   }
   const sentence = node.sentence;
   if (!sentence || sentence.kind !== "AssertionSentence") {
-    state.errors.push(createError("DICT000", "Dictionary statements must be assertions.", node.kind));
+    state.errors.push(dictionaryError("DICT000", "Dictionary statements must be assertions.", node.kind));
     return;
   }
   applyDictionaryAssertion(sentence.assertion, state);

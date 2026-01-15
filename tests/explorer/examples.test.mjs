@@ -127,7 +127,7 @@ function assertCommandResult(step, result, session) {
   const expected = step.expected;
   if (expected === undefined || expected === null) return;
 
-  if (expected === "true" || expected === "false") {
+  if (expected === "true" || expected === "false" || expected === "unknown") {
     assert.equal(result.kind, "ProofResult", `${step.command}: expected ProofResult`);
     assert.equal(String(result.value), expected, `${step.command}: unexpected proof result`);
     return;

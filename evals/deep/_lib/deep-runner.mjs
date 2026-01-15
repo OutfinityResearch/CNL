@@ -2,18 +2,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { parseProgram } from "../../../src/parser/grammar.mjs";
 import { CNLSession } from "../../../src/session/cnl-session.mjs";
+import { displayEntityKey } from "../../../src/utils/display-keys.mjs";
 import { summarizeResult } from "./result-format.mjs";
 
 function lastCommandItem(ast) {
   if (!ast || ast.kind !== "Program") return null;
   return [...ast.items].reverse().find((item) => item.kind === "CommandStatement") || null;
-}
-
-function displayEntityKey(key) {
-  if (!key) return "";
-  if (key.startsWith("E:")) return key.slice(2);
-  if (key.startsWith("L:")) return key.slice(2);
-  return key;
 }
 
 function normalizeQueryEntities(result) {
@@ -28,7 +22,10 @@ function compareExpected(expected, result) {
 
   if (expected.kind === "proof") {
     if (result.kind !== "ProofResult") return { ok: false, note: `expected ProofResult, got ${result.kind}` };
-    return { ok: Boolean(result.value) === Boolean(expected.value), note: String(result.value) };
+    if (expected.value === "unknown") {
+      return { ok: result.value === "unknown", note: String(result.value) };
+    }
+    return { ok: result.value === Boolean(expected.value), note: String(result.value) };
   }
 
   if (expected.kind === "query") {

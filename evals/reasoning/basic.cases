@@ -3,4 +3,3 @@
 - input: "Server1 is a machine.\nServer1 handles payments.\nEvery machine that handles payments is a server.\nEvery server that handles payments is encrypted.\nVerify that every machine that handles payments is encrypted."
   purpose: "Universal proof over a rule chain with non-empty domain."
   expect: "true"
-  trace: "proof trace placeholder"

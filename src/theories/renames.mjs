@@ -1,19 +1,13 @@
+/**
+ * Load-time vocabulary renames (RenameType/RenamePredicate directives).
+ *
+ * This module rewrites a parsed AST in-place before compilation so that legacy/external
+ * theory bundles can be loaded deterministically (DS25).
+ */
+import { verbGroupKey, passiveKey } from "../utils/predicate-keys.mjs";
+
 function normalizeKey(key) {
   return String(key || "").trim();
-}
-
-function verbGroupKey(verbGroup) {
-  if (!verbGroup || verbGroup.kind !== "VerbGroup") return null;
-  const parts = [];
-  if (verbGroup.auxiliary) parts.push(`aux:${verbGroup.auxiliary}`);
-  parts.push(verbGroup.verb);
-  (verbGroup.particles || []).forEach((p) => parts.push(p));
-  return `P:${parts.join("|")}`;
-}
-
-function passiveKey(verb, preposition) {
-  if (!verb || !preposition) return null;
-  return `P:passive:${verb}|${preposition}`;
 }
 
 function verbGroupSurfaceKeys(verbGroup) {
@@ -22,7 +16,7 @@ function verbGroupSurfaceKeys(verbGroup) {
   if (parts.length === 0) return [];
   const space = parts.join(" ");
   const pipe = parts.join("|");
-  return [space, pipe, verbGroupKey(verbGroup)].filter(Boolean);
+  return [space, pipe, verbGroupKey(verbGroup, { negated: false })].filter(Boolean);
 }
 
 function passiveSurfaceKeys(assertion) {
@@ -32,7 +26,7 @@ function passiveSurfaceKeys(assertion) {
   if (!verb || !preposition) return [];
   const space = `${verb} ${preposition}`;
   const pipe = `${verb}|${preposition}`;
-  return [space, pipe, `passive:${pipe}`, passiveKey(verb, preposition)].filter(Boolean);
+  return [space, pipe, `passive:${pipe}`, passiveKey(verb, preposition, { negated: false })].filter(Boolean);
 }
 
 function parseVerbPhrase(value) {

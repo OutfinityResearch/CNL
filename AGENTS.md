@@ -13,9 +13,33 @@ Stored in `docs/specs/DS` with the naming pattern `DS01-short-name.md`:
 - DS01: Vision
 - DS02: Implementation plan and file mapping
 - DS03: Syntax (grammar, lexical rules, AST)
-- DS04: Semantics
+- DS04: Semantics and pragmatics
 - DS05: Automated testing plan
-- DS06: Evaluation suite (parsing and reasoning)
+- DS06: Evaluation suite (smoke suites in-repo)
+- DS07: Error handling
+- DS08: Conceptual IDs
+- DS09: Compiled Knowledge Base
+- DS10: AST to KB compilation
+- DS11: Reasoning primitives
+- DS12: CNL session API
+- DS13: Base dictionary
+- DS14: Base theories
+- DS15: Compiler contract
+- DS16: Plan IR
+- DS17: Knowledge Base Explorer
+- DS18: Proof traces
+- DS19: Planning
+- DS20: Simulation
+- DS21: Constraint solving
+- DS22: Ontology import (RDF/RDFS/OWL subset)
+- DS23: Optimization
+- DS24: Theory consistency checks
+- DS25: Vocabulary renames
+- DS26: Deep evaluation suites (external NLP/LLM benchmarks)
+- DS27: KB Explorer UI
+- DS28: KB Explorer API
+- DS29: KB Explorer graph visualization
+- DS30: KB Explorer knowledge tree
 
 ## Mirrored Specs
 - `docs/specs/src` mirrors `src` with file-level documentation using the same path plus `.md`.

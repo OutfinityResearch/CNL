@@ -8,6 +8,7 @@ import { bindTabs } from "./app/tabs.mjs";
 import { updateStats } from "./app/stats.mjs";
 
 const BASE_PREF_KEY = "cnl.explorer.base";
+const BENIGN_PREF_KEY = "cnl.explorer.includeBenignDuplicates";
 
 function normalizeBasePref(value) {
   const v = String(value || "").trim().toLowerCase();
@@ -33,6 +34,23 @@ function setBasePref(mode) {
     // ignore
   }
   return normalized;
+}
+
+function getBenignPref() {
+  try {
+    return localStorage.getItem(BENIGN_PREF_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function setBenignPref(enabled) {
+  try {
+    localStorage.setItem(BENIGN_PREF_KEY, enabled ? "1" : "0");
+  } catch {
+    // ignore
+  }
+  return Boolean(enabled);
 }
 
 async function restartSession(base, reason) {
@@ -74,6 +92,15 @@ function bindGlobalEvents() {
     };
   }
 
+  const benignToggle = document.getElementById("includeBenignToggle");
+  if (benignToggle) {
+    benignToggle.checked = getBenignPref();
+    benignToggle.onchange = async () => {
+      setBenignPref(Boolean(benignToggle.checked));
+      await refreshTree();
+    };
+  }
+
   document.getElementById("resetBtn").onclick = async () => {
     if (confirm("Reset session?")) {
       const base = getBasePref();
@@ -89,6 +116,8 @@ function bindGlobalEvents() {
   const base = getBasePref();
   const baseSelect = document.getElementById("baseSelect");
   if (baseSelect) baseSelect.value = base;
+  const benignToggle = document.getElementById("includeBenignToggle");
+  if (benignToggle) benignToggle.checked = getBenignPref();
 
   Session.setBase(base);
   await Session.startNew({ base });

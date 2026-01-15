@@ -1,5 +1,6 @@
 import { executeSet, executeRelation } from "../plans/execute.mjs";
 import { RelationOp, SetOp } from "../plans/ir.mjs";
+import { createBitset } from "../kb/bitset.mjs";
 
 function stableStringify(value) {
   const seen = new WeakSet();
@@ -79,6 +80,9 @@ function signatureForRule(plan) {
   }
   if (plan.kind === "RelationRulePlan") {
     return `relrule:${signatureForRelationPlan(plan.relation)}->${plan.headPredId}`;
+  }
+  if (plan.kind === "JoinRulePlan") {
+    return `joinrule:${stableStringify(plan.atoms)}->${stableStringify(plan.head)}`;
   }
   if (plan.kind === "TransitionRule") {
     const event = stableStringify(plan.event);
@@ -206,6 +210,9 @@ function applyRule(rule, kbApi, options) {
   if (rule.kind === "RelationRulePlan") {
     return applyRelationRule(rule, kbApi, options);
   }
+  if (rule.kind === "JoinRulePlan") {
+    return applyJoinRule(rule, kbApi, options);
+  }
   if (rule.kind !== "RulePlan") return 0;
   const bodySet = executeSet(rule.body, kbApi.kb);
   if (!rule.head) return 0;
@@ -226,6 +233,230 @@ function applyRule(rule, kbApi, options) {
     default:
       return 0;
   }
+}
+
+function emptyBitsetFor(kbState) {
+  const factory = kbState?.bitsetFactory ?? createBitset;
+  return factory(kbState.entitiesCount);
+}
+
+function fullBitsetFor(kbState) {
+  const set = emptyBitsetFor(kbState);
+  for (let i = 0; i < kbState.entitiesCount; i += 1) {
+    set.setBit(i);
+  }
+  return set;
+}
+
+function bitsetFromRow(row, kbState) {
+  if (!row) return emptyBitsetFor(kbState);
+  return row.clone ? row.clone() : row;
+}
+
+function applyJoinRule(rule, kbApi, options) {
+  const kbState = kbApi?.kb;
+  if (!kbState) return 0;
+  const atoms = rule.atoms ?? [];
+  const varCount = Array.isArray(rule.vars) ? rule.vars.length : 0;
+  if (varCount <= 0) return 0;
+
+  const domains = [];
+  for (let i = 0; i < varCount; i += 1) {
+    domains.push(fullBitsetFor(kbState));
+  }
+
+  // Initial unary restrictions.
+  for (const atom of atoms) {
+    if (atom?.kind !== "UnaryAtom") continue;
+    const base = kbState.unaryIndex[atom.unaryId];
+    const filter = base ? base : emptyBitsetFor(kbState);
+    domains[atom.subjectVar] = domains[atom.subjectVar].and(filter);
+    if (domains[atom.subjectVar].isEmpty()) return 0;
+  }
+
+  // Initial binary restrictions for const terms.
+  for (const atom of atoms) {
+    if (atom?.kind !== "BinaryAtom") continue;
+    const predId = atom.predId;
+    if (!Number.isInteger(predId) || predId < 0 || predId >= kbState.predicatesCount) continue;
+    if (atom.subject?.kind === "var" && atom.object?.kind === "const") {
+      const inv = kbState.invRelations[predId]?.rows?.[atom.object.entityId];
+      domains[atom.subject.varId] = domains[atom.subject.varId].and(bitsetFromRow(inv, kbState));
+    }
+    if (atom.subject?.kind === "const" && atom.object?.kind === "var") {
+      const row = kbState.relations[predId]?.rows?.[atom.subject.entityId];
+      domains[atom.object.varId] = domains[atom.object.varId].and(bitsetFromRow(row, kbState));
+    }
+  }
+
+  const assignment = new Array(varCount).fill(null);
+  const assigned = new Array(varCount).fill(false);
+
+  function checkAtomsFor(varId) {
+    for (const atom of atoms) {
+      if (!atom) continue;
+      if (atom.kind === "UnaryAtom") {
+        if (atom.subjectVar !== varId) continue;
+        const subjectId = assignment[varId];
+        const set = kbState.unaryIndex[atom.unaryId];
+        if (!set || !set.hasBit(subjectId)) return false;
+        continue;
+      }
+      if (atom.kind === "BinaryAtom") {
+        const predId = atom.predId;
+        if (!Number.isInteger(predId) || predId < 0 || predId >= kbState.predicatesCount) return false;
+
+        const subject =
+          atom.subject.kind === "const"
+            ? atom.subject.entityId
+            : assigned[atom.subject.varId]
+              ? assignment[atom.subject.varId]
+              : null;
+        const object =
+          atom.object.kind === "const"
+            ? atom.object.entityId
+            : assigned[atom.object.varId]
+              ? assignment[atom.object.varId]
+              : null;
+
+        if (subject === null || object === null) continue;
+        if (!kbApi.hasBinary(subject, predId, object)) return false;
+      }
+    }
+    return true;
+  }
+
+  function propagateFrom(varId, stack) {
+    let changedAny = false;
+    for (const atom of atoms) {
+      if (!atom || atom.kind !== "BinaryAtom") continue;
+      const predId = atom.predId;
+      if (!Number.isInteger(predId) || predId < 0 || predId >= kbState.predicatesCount) continue;
+
+      if (atom.subject.kind === "var" && atom.subject.varId === varId && assigned[varId]) {
+        const subjectId = assignment[varId];
+        const row = kbState.relations[predId]?.rows?.[subjectId];
+        if (atom.object.kind === "var" && !assigned[atom.object.varId]) {
+          const next = domains[atom.object.varId].and(bitsetFromRow(row, kbState));
+          if (next.isEmpty()) return { ok: false };
+          if (next.popcount() !== domains[atom.object.varId].popcount()) {
+            domains[atom.object.varId] = next;
+            stack.push(atom.object.varId);
+            changedAny = true;
+          }
+        }
+      }
+
+      if (atom.object.kind === "var" && atom.object.varId === varId && assigned[varId]) {
+        const objectId = assignment[varId];
+        const row = kbState.invRelations[predId]?.rows?.[objectId];
+        if (atom.subject.kind === "var" && !assigned[atom.subject.varId]) {
+          const next = domains[atom.subject.varId].and(bitsetFromRow(row, kbState));
+          if (next.isEmpty()) return { ok: false };
+          if (next.popcount() !== domains[atom.subject.varId].popcount()) {
+            domains[atom.subject.varId] = next;
+            stack.push(atom.subject.varId);
+            changedAny = true;
+          }
+        }
+      }
+    }
+    return { ok: true, changed: changedAny };
+  }
+
+  function chooseNextVar() {
+    let best = null;
+    let bestCount = Infinity;
+    for (let i = 0; i < varCount; i += 1) {
+      if (assigned[i]) continue;
+      const count = domains[i].popcount();
+      if (count < bestCount) {
+        bestCount = count;
+        best = i;
+      }
+    }
+    return best;
+  }
+
+  let added = 0;
+
+  function emitHead() {
+    const store = options?.justificationStore;
+    const ruleId = options?.ruleId;
+
+    const head = rule.head;
+    if (!head) return;
+    if (head.kind === "UnaryEmitVar") {
+      const subjectId = assignment[head.subjectVar];
+      if (kbApi.insertUnary(head.unaryId, subjectId)) {
+        added += 1;
+        if (store && Number.isInteger(ruleId)) {
+          const factId = store.makeUnaryFactId(head.unaryId, subjectId);
+          store.addDerivedFact(factId, ruleId, []);
+        }
+        if (options?.deltaUnary instanceof Set) options.deltaUnary.add(head.unaryId);
+      }
+      return;
+    }
+    if (head.kind === "BinaryEmitVar") {
+      const subjectId = assignment[head.subjectVar];
+      const objectId =
+        head.object.kind === "const" ? head.object.entityId : assignment[head.object.varId];
+      if (kbApi.insertBinary(subjectId, head.predId, objectId)) {
+        added += 1;
+        if (store && Number.isInteger(ruleId)) {
+          const factId = store.makeFactId(head.predId, subjectId, objectId);
+          store.addDerivedFact(factId, ruleId, []);
+        }
+        if (options?.deltaPred instanceof Set) options.deltaPred.add(head.predId);
+      }
+    }
+  }
+
+  function backtrack() {
+    const nextVar = chooseNextVar();
+    if (nextVar === null) {
+      emitHead();
+      return;
+    }
+
+    const domainSnapshot = domains.map((d) => d.clone());
+    const candidates = [];
+    domains[nextVar].iterateSetBits((id) => candidates.push(id));
+    for (const candidate of candidates) {
+      assignment[nextVar] = candidate;
+      assigned[nextVar] = true;
+
+      if (!checkAtomsFor(nextVar)) {
+        assigned[nextVar] = false;
+        assignment[nextVar] = null;
+        continue;
+      }
+
+      const queue = [nextVar];
+      let ok = true;
+      while (queue.length) {
+        const v = queue.pop();
+        const res = propagateFrom(v, queue);
+        if (!res.ok) {
+          ok = false;
+          break;
+        }
+      }
+
+      if (ok) backtrack();
+
+      // restore domains + assignment for next candidate
+      for (let i = 0; i < varCount; i += 1) {
+        domains[i] = domainSnapshot[i].clone();
+      }
+      assigned[nextVar] = false;
+      assignment[nextVar] = null;
+    }
+  }
+
+  backtrack();
+  return added;
 }
 
 function iterRelationEdges(plan, kbState, callback) {
@@ -405,6 +636,16 @@ function computeRuleDeps(rule) {
   if (rule.kind === "RelationRulePlan") {
     collectDepsFromRelationPlan(rule.relation, deps);
     if (Number.isInteger(rule.headPredId)) deps.predIds.add(rule.headPredId);
+    return deps;
+  }
+  if (rule.kind === "JoinRulePlan") {
+    for (const atom of rule.atoms ?? []) {
+      if (atom?.kind === "UnaryAtom") deps.unaryIds.add(atom.unaryId);
+      if (atom?.kind === "BinaryAtom") deps.predIds.add(atom.predId);
+    }
+    const head = rule.head;
+    if (head?.kind === "UnaryEmitVar") deps.unaryIds.add(head.unaryId);
+    if (head?.kind === "BinaryEmitVar") deps.predIds.add(head.predId);
     return deps;
   }
 

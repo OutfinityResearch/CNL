@@ -13,4 +13,29 @@ test("numeric index filters by comparator", () => {
   assert.ok(gt.hasBit(0));
   assert.ok(gt.hasBit(1));
   assert.ok(!gt.hasBit(2));
+
+  const gte = index.filter("greater than or equal to", 10);
+  assert.ok(gte.hasBit(0));
+  assert.ok(gte.hasBit(1));
+  assert.ok(!gte.hasBit(2));
+
+  const lt = index.filter("less than", 10);
+  assert.ok(!lt.hasBit(0));
+  assert.ok(!lt.hasBit(1));
+  assert.ok(lt.hasBit(2));
+
+  const lte = index.filter("less than or equal to", 10);
+  assert.ok(lte.hasBit(0));
+  assert.ok(!lte.hasBit(1));
+  assert.ok(lte.hasBit(2));
+
+  const eq = index.filter("equal to", 20);
+  assert.ok(!eq.hasBit(0));
+  assert.ok(eq.hasBit(1));
+  assert.ok(!eq.hasBit(2));
+
+  const neq = index.filter("not equal to", 10);
+  assert.ok(!neq.hasBit(0));
+  assert.ok(neq.hasBit(1));
+  assert.ok(neq.hasBit(2));
 });

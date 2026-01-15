@@ -11,6 +11,17 @@ RenamePredicate: "agent" -> "schema-agent".
 RenamePredicate: "object" -> "schema-object".
 RenamePredicate: "type" -> "schema-type".
 RenamePredicate: "day-of-week" -> "schema-day-of-week".
+RenamePredicate: "page" -> "foaf-page".
+//
+// Verb canonicalization note:
+// The compiler canonicalizes the first verb token (e.g. "offers" -> "offer").
+// Imported predicates that would canonicalize to an existing type key must be renamed
+// to keep the BaseDictionary unambiguous (DS25).
+RenamePredicate: "events" -> "schema-event".
+RenamePredicate: "maps" -> "schema-map".
+RenamePredicate: "offers" -> "schema-offer".
+RenamePredicate: "reviews" -> "schema-review".
+RenamePredicate: "contact-points" -> "schema-contact-point".
 
 --- CONTEXT: BaseDictionary ---
 
@@ -99,48 +110,48 @@ the range of "subsequent to" is "time-point".
 
 --- CONTEXT: CoreTypes ---
 
-Rule: If X is a person, then X is an agent.
-Rule: If X is an agent, then X is an entity.
-Rule: If X is an object, then X is an entity.
-Rule: If X is a place, then X is an entity.
-Rule: If X is an organization, then X is an entity.
-Rule: If X is an event, then X is an entity.
-Rule: If X is a time-point, then X is an entity.
-Rule: If X is a claim, then X is an entity.
+Rule: If ?X is a person, then ?X is an agent.
+Rule: If ?X is an agent, then ?X is an entity.
+Rule: If ?X is an object, then ?X is an entity.
+Rule: If ?X is a place, then ?X is an entity.
+Rule: If ?X is an organization, then ?X is an entity.
+Rule: If ?X is an event, then ?X is an entity.
+Rule: If ?X is a time-point, then ?X is an entity.
+Rule: If ?X is a claim, then ?X is an entity.
 
 --- CONTEXT: CoreRelations ---
 
-Rule: If X is part of Y and Y is part of Z, then X is part of Z.
-Rule: If X is inside of Y, then X is located in Y.
+Rule: If ?X is part of ?Y and ?Y is part of ?Z, then ?X is part of ?Z.
+Rule: If ?X is inside of ?Y, then ?X is located in ?Y.
 
 --- CONTEXT: Time ---
 
-Rule: If X is prior to Y, then Y is subsequent to X.
-Rule: If X is subsequent to Y, then Y is prior to X.
-Rule: If X is prior to Y and Y is prior to Z, then X is prior to Z.
-Rule: If X is subsequent to Y and Y is subsequent to Z, then X is subsequent to Z.
-Rule: If X overlaps with Y, then Y overlaps with X.
+Rule: If ?X is prior to ?Y, then ?Y is subsequent to ?X.
+Rule: If ?X is subsequent to ?Y, then ?Y is prior to ?X.
+Rule: If ?X is prior to ?Y and ?Y is prior to ?Z, then ?X is prior to ?Z.
+Rule: If ?X is subsequent to ?Y and ?Y is subsequent to ?Z, then ?X is subsequent to ?Z.
+Rule: If ?X overlaps with ?Y, then ?Y overlaps with ?X.
 
 --- CONTEXT: Space ---
 
-Rule: If X is inside of Y and Y is inside of Z, then X is inside of Z.
-Rule: If X is adjacent to Y, then Y is adjacent to X.
+Rule: If ?X is inside of ?Y and ?Y is inside of ?Z, then ?X is inside of ?Z.
+Rule: If ?X is adjacent to ?Y, then ?Y is adjacent to ?X.
 
 --- CONTEXT: Agency ---
 
-Rule: If X performs Y, then X is an agent.
-Rule: If X performs Y, then Y is an event.
-Rule: If X intends Y, then X is an agent.
-Rule: If X intends Y, then Y is an event.
-Rule: If X causes Y, then X is an event.
-Rule: If X causes Y, then Y is an event.
-Rule: If X affects Y, then X is an event.
-Rule: If X affects Y, then Y is an entity.
+Rule: If ?X performs ?Y, then ?X is an agent.
+Rule: If ?X performs ?Y, then ?Y is an event.
+Rule: If ?X intends ?Y, then ?X is an agent.
+Rule: If ?X intends ?Y, then ?Y is an event.
+Rule: If ?X causes ?Y, then ?X is an event.
+Rule: If ?X causes ?Y, then ?Y is an event.
+Rule: If ?X affects ?Y, then ?X is an event.
+Rule: If ?X affects ?Y, then ?Y is an entity.
 
 --- CONTEXT: Epistemic ---
 
-Rule: If X believes Y, then X is an agent.
-Rule: If X asserts Y, then X is a claim.
+Rule: If ?X believes ?Y, then ?X is an agent.
+Rule: If ?X asserts ?Y, then ?X is a claim.
 
 // Vendored, imported ontologies (generated from `ontologies/*/*.ttl`)
 Load: "theories/ontologies/foaf/00-dictionary.generated.cnl".

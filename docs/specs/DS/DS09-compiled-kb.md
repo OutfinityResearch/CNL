@@ -101,12 +101,12 @@ Entity-valued attributes may optionally be projected into a derived binary predi
 
 ## FactID Strategy
 FactID is derived from the tuple (PredID, SubjectID, ObjectID) to avoid storing a FactID per bit:
-- If ranges allow, pack into 64-bit: `(PredID << a) | (SubjectID << b) | ObjectID`.
-- Otherwise use a stable 128-bit hash.
+- We use stable **128-bit BigInt packing** (not hashing) with u32 fields.
+  - Binary fact: `(PredID << 64) | (SubjectID << 32) | ObjectID` (all u32).
+  - Unary fact: `(1 << 127) | (UnaryID << 32) | SubjectID` (all u32, with a kind bit).
 
 Collision handling is explicit:
-- If a hash collision is detected, store a small collision list keyed by the hash.
-- FactID equality checks must consult the collision list when present.
+- There are no hash collisions in the packed form (range checks are enforced at construction).
 
 FactID is required for provenance and explain traces, not for membership checks.
 

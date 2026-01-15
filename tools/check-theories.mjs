@@ -49,6 +49,7 @@ function parseArgs(argv) {
     outputFile: null,
     help: false,
     verbose: false,
+    includeBenignDuplicates: false,
   };
   for (let i = 2; i < argv.length; i += 1) {
     const raw = argv[i];
@@ -74,6 +75,10 @@ function parseArgs(argv) {
       args.verbose = true;
       continue;
     }
+    if (raw === "--includeBenignDuplicates") {
+      args.includeBenignDuplicates = true;
+      continue;
+    }
     if (raw === "--help" || raw === "-h") {
       args.help = true;
       continue;
@@ -92,6 +97,7 @@ Options:
   --entrypoint, -e <file>   Entrypoint file (repeatable). Default: 4 main entrypoints.
   --output, -f <file>       Write report to file instead of stdout
   --verbose, -v             Verbose output (loaded files + sample issues)
+  --includeBenignDuplicates Include benign duplicate declarations (default: off)
   --help, -h                Show this help message
 
 Examples:
@@ -173,10 +179,34 @@ function selectEntrypoints(args, rootDir) {
   return { requested, existing, missing };
 }
 
+function missingEntrypointResult(entrypoint) {
+  return {
+    entrypoint,
+    success: false,
+    summary: {
+      filesLoaded: 0,
+      totalErrors: 1,
+      totalWarnings: 0,
+    },
+    errors: [
+      {
+        kind: "FILE_NOT_FOUND",
+        severity: "error",
+        message: `Entrypoint file not found: ${entrypoint}`,
+        file: entrypoint,
+      },
+    ],
+    warnings: [],
+    counts: [{ kind: "FILE_NOT_FOUND", errors: 1, warnings: 0 }],
+    loadedFiles: [],
+  };
+}
+
 class TheoryChecker {
   constructor(options = {}) {
     this.rootDir = options.rootDir ?? process.cwd();
     this.verbose = options.verbose ?? false;
+    this.includeBenignDuplicates = options.includeBenignDuplicates ?? false;
     this.loadedFiles = new Map(); // absPath -> { text, relPath, ast?, parseSuccess? }
     this.loadOrder = [];
     this.errors = [];
@@ -331,7 +361,10 @@ class TheoryChecker {
       text: entry.text,
     }));
 
-    const issues = analyzeCrossOntologyDuplicates(files, { includeBenign: true, renames: this.loadTimeRenames });
+    const issues = analyzeCrossOntologyDuplicates(files, {
+      includeBenign: this.includeBenignDuplicates,
+      renames: this.loadTimeRenames,
+    });
     for (const issue of issues) {
       this.warnings.push({
         kind: issue.kind,
@@ -399,7 +432,7 @@ function renderFinalReport(runResults, meta = {}) {
   lines.push("");
 
   if (meta.missing?.length) {
-    lines.push(color.yellow("NOTE: Some default entrypoints were missing and were skipped:"));
+    lines.push(color.yellow("NOTE: Some entrypoints were missing and are reported as FILE_NOT_FOUND:"));
     meta.missing.forEach((m) => lines.push(`- ${m}`));
     lines.push("");
   }
@@ -515,13 +548,24 @@ if (process.argv[1].endsWith("check-theories.mjs")) {
 
   const rootDir = process.cwd();
   const selection = selectEntrypoints(args, rootDir);
-  const entrypoints = selection.existing;
+  const entrypoints = selection.requested;
 
   const progressColor = createColor({ enabled: !args.outputFile });
   const runResults = [];
   for (const entrypoint of entrypoints) {
+    if (!selection.existing.includes(entrypoint)) {
+      console.log(`\n${progressColor.cyan("▶")} ${progressColor.bold("Checking")} ${entrypoint}`);
+      console.log(`  ${progressColor.red("Missing")}: FILE_NOT_FOUND`);
+      runResults.push(missingEntrypointResult(entrypoint));
+      continue;
+    }
+
     console.log(`\n${progressColor.cyan("▶")} ${progressColor.bold("Checking")} ${entrypoint}`);
-    const checker = new TheoryChecker({ rootDir, verbose: args.verbose });
+    const checker = new TheoryChecker({
+      rootDir,
+      verbose: args.verbose,
+      includeBenignDuplicates: args.includeBenignDuplicates,
+    });
     const res = checker.check(entrypoint);
     const errText = res.summary.totalErrors === 0 ? progressColor.green(res.summary.totalErrors) : progressColor.red(res.summary.totalErrors);
     const warnText =

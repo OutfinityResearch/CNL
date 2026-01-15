@@ -214,9 +214,7 @@ export async function runCaseSuite({ fileUrl, title, evaluate, compare, formatOu
     }
 
     passed += 1;
-    const note = testCase.expect && !String(testCase.expect).includes("placeholder")
-      ? "pending expectation"
-      : "";
+    const note = testCase.expect && String(testCase.expect).includes("placeholder") ? "pending expectation" : "";
     rows.push({
       status: "PASS",
       purpose: testCase.purpose,

@@ -91,6 +91,9 @@ Conflict kinds (warning):
 
 Note: duplicates are *idempotent at runtime* (the dictionary is deterministic), but they still indicate vocabulary overlap that can hide ontology mismatches. For consistency across tools, sessions and `checkTheories` report both duplicates and conflicts; Explorer groups them by issue kind (DS17).
 
+### De-noising (UI/CLI)
+Some tools may hide **benign duplicates** by default to reduce noise (for example, identical duplicate declarations with no conflicting constraints). This must never delete diagnostics: it is only a presentation filter, and the full issue set must remain available via an explicit toggle/flag.
+
 ## KB Explorer Grouping Rules
 KB Explorer shows issues under the `⚠️ issues` folder (last in the Knowledge Tree).
 
@@ -119,6 +122,11 @@ Additionally, the renderer resolves **key-level collisions**:
 ## Tooling Guide: `tools/check-theories.mjs`
 
 The `check-theories.mjs` script is the primary CI/CD gatekeeper for theory bundle integrity. It expands the load graph, compiles the resulting program, and performs cross-ontology consistency checks.
+
+Output contract:
+- It prints a **Legend** table first (issue kinds + likely consequences).
+- Then, for each entrypoint, it prints a **2-column table** (`Kind`, `Count`) listing all issue kinds (including `0` counts).
+- Missing entrypoints are included in the report as `FILE_NOT_FOUND` (`severity: "error"`).
 
 ### Usage
 ```bash

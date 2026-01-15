@@ -87,8 +87,9 @@ export function planWithActions(command, state) {
     };
   }
 
-  const maxDepth = 6;
-  const maxNodes = 200;
+  const planLimits = state?.limits?.plan ?? {};
+  const maxDepth = planLimits.maxDepth ?? 6;
+  const maxNodes = planLimits.maxNodes ?? 200;
   const queue = [{ kbApi: state.kb, steps: [] }];
   let expanded = 0;
 

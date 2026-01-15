@@ -366,7 +366,7 @@ export function renderOntologyCnl(schema, options = {}) {
   ruleLines.push("");
   ruleLines.push(`// Generated from ontology import: ${context}`);
 
-  function renderBinaryFactTemplate(propIri, sName = "X", oName = "Y") {
+  function renderBinaryFactTemplate(propIri, sName = "?X", oName = "?Y") {
     const info = propInfos.get(propIri);
     const phrase = propKeys.get(propIri);
     if (!info || !phrase) return null;
@@ -383,13 +383,13 @@ export function renderOntologyCnl(schema, options = {}) {
   const subpropRules = [];
   const subpropSeen = new Set();
   for (const [child, parents] of schema.subPropertyOf.entries()) {
-    const childKey = propKeys.get(child);
-    if (droppedPropKeys.has(childKey)) continue;
-    for (const parent of parents) {
-      const parentKey = propKeys.get(parent);
-      if (droppedPropKeys.has(parentKey)) continue;
-      const a = renderBinaryFactTemplate(child, "X", "Y");
-      const b = renderBinaryFactTemplate(parent, "X", "Y");
+      const childKey = propKeys.get(child);
+      if (droppedPropKeys.has(childKey)) continue;
+      for (const parent of parents) {
+        const parentKey = propKeys.get(parent);
+        if (droppedPropKeys.has(parentKey)) continue;
+      const a = renderBinaryFactTemplate(child, "?X", "?Y");
+      const b = renderBinaryFactTemplate(parent, "?X", "?Y");
       if (!a || !b) continue;
       pushUniqueLine(subpropRules, subpropSeen, `Rule: If ${a}, then ${b}.`);
     }
@@ -400,8 +400,8 @@ export function renderOntologyCnl(schema, options = {}) {
     for (const bIri of bs) {
       const bKey = propKeys.get(bIri);
       if (droppedPropKeys.has(bKey)) continue;
-      const aFact = renderBinaryFactTemplate(a, "X", "Y");
-      const bFact = renderBinaryFactTemplate(bIri, "X", "Y");
+      const aFact = renderBinaryFactTemplate(a, "?X", "?Y");
+      const bFact = renderBinaryFactTemplate(bIri, "?X", "?Y");
       if (!aFact || !bFact) continue;
       pushUniqueLine(subpropRules, subpropSeen, `Rule: If ${aFact}, then ${bFact}.`);
     }
@@ -416,8 +416,8 @@ export function renderOntologyCnl(schema, options = {}) {
     for (const q of qs) {
       const qKey = propKeys.get(q);
       if (droppedPropKeys.has(qKey)) continue;
-      const a = renderBinaryFactTemplate(p, "X", "Y");
-      const b = renderBinaryFactTemplate(q, "Y", "X");
+      const a = renderBinaryFactTemplate(p, "?X", "?Y");
+      const b = renderBinaryFactTemplate(q, "?Y", "?X");
       if (!a || !b) continue;
       pushUniqueLine(inverseRules, inverseSeen, `Rule: If ${a}, then ${b}.`);
     }
@@ -429,8 +429,8 @@ export function renderOntologyCnl(schema, options = {}) {
   for (const p of schema.symmetric) {
     const pKey = propKeys.get(p);
     if (droppedPropKeys.has(pKey)) continue;
-    const a = renderBinaryFactTemplate(p, "X", "Y");
-    const b = renderBinaryFactTemplate(p, "Y", "X");
+    const a = renderBinaryFactTemplate(p, "?X", "?Y");
+    const b = renderBinaryFactTemplate(p, "?Y", "?X");
     if (!a || !b) continue;
     pushUniqueLine(symmetricRules, symmetricSeen, `Rule: If ${a}, then ${b}.`);
   }
@@ -441,9 +441,9 @@ export function renderOntologyCnl(schema, options = {}) {
   for (const p of schema.transitive) {
     const pKey = propKeys.get(p);
     if (droppedPropKeys.has(pKey)) continue;
-    const a = renderBinaryFactTemplate(p, "X", "Y");
-    const b = renderBinaryFactTemplate(p, "Y", "Z");
-    const c = renderBinaryFactTemplate(p, "X", "Z");
+    const a = renderBinaryFactTemplate(p, "?X", "?Y");
+    const b = renderBinaryFactTemplate(p, "?Y", "?Z");
+    const c = renderBinaryFactTemplate(p, "?X", "?Z");
     if (!a || !b || !c) continue;
     pushUniqueLine(transitiveRules, transitiveSeen, `Rule: If ${a} and ${b}, then ${c}.`);
   }

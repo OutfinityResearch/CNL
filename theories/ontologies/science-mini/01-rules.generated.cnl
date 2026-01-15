@@ -4,8 +4,8 @@
 --- CONTEXT: ScienceMini ---
 
 // Generated from ontology import: ScienceMini
-Rule: If X interacts with Y, then Y interacts with X.
-Rule: If X is composed of Y, then X rel-contains Y.
-Rule: If X is part of Y and Y is part of Z, then X is part of Z.
-Rule: If X is part of Y, then Y rel-contains X.
-Rule: If X rel-contains Y, then Y is part of X.
+Rule: If ?X interacts with ?Y, then ?Y interacts with ?X.
+Rule: If ?X is composed of ?Y, then ?X rel-contains ?Y.
+Rule: If ?X is part of ?Y and ?Y is part of ?Z, then ?X is part of ?Z.
+Rule: If ?X is part of ?Y, then ?Y rel-contains ?X.
+Rule: If ?X rel-contains ?Y, then ?Y is part of ?X.

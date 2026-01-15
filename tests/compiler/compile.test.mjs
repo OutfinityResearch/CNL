@@ -41,7 +41,7 @@ If Truck_A likes "Pizza", then Truck_A is happy.`;
   const pizzaKey = canonicalEntityKey({ kind: "StringLiteral", value: "Pizza" });
   const truckConcept = state.idStore.internConcept(ConceptKind.Entity, truckKey);
   const pizzaConcept = state.idStore.internConcept(ConceptKind.Entity, pizzaKey);
-  const predConcept = state.idStore.internConcept(ConceptKind.Predicate, "P:likes");
+  const predConcept = state.idStore.internConcept(ConceptKind.Predicate, "P:like");
 
   const truckId = state.idStore.getDenseId(ConceptKind.Entity, truckConcept);
   const pizzaId = state.idStore.getDenseId(ConceptKind.Entity, pizzaConcept);

@@ -1,10 +1,28 @@
 import fs from "node:fs";
 import path from "node:path";
 import { ConceptKind } from "../ids/interners.mjs";
+import { displayEntityKey } from "../utils/display-keys.mjs";
 
+/**
+ * Shared theory diagnostics and preprocessor expansion logic.
+ *
+ * Used by:
+ * - `tools/check-theories.mjs` (static checking)
+ * - `CNLSession.learnText()` (load-time renames + issues)
+ * - KB Explorer server routes (issues, dedupe, warnings)
+ */
 const LOAD_DIRECTIVE_RE = /^\s*Load\s*:\s*"([^"]+)"\s*\.\s*$/i;
 const RENAME_TYPE_DIRECTIVE_RE = /^\s*RenameType\s*:\s*"([^"]+)"\s*->\s*"([^"]+)"\s*\.\s*$/i;
 const RENAME_PREDICATE_DIRECTIVE_RE = /^\s*RenamePredicate\s*:\s*"([^"]+)"\s*->\s*"([^"]+)"\s*\.\s*$/i;
+
+function readTextFile(filePath) {
+  try {
+    return fs.readFileSync(filePath, "utf8");
+  } catch (error) {
+    const message = error?.message ? `: ${error.message}` : "";
+    throw new Error(`Failed to read theory file "${filePath}"${message}`, { cause: error });
+  }
+}
 
 function issue(kind, severity, message, extra = {}) {
   return {
@@ -17,16 +35,6 @@ function issue(kind, severity, message, extra = {}) {
     ...(Number.isInteger(extra.line) ? { line: extra.line } : {}),
     ...(extra.hint ? { hint: extra.hint } : {}),
   };
-}
-
-function displayEntityKey(key) {
-  if (!key) return "";
-  if (key.startsWith("E:lit:num:")) return key.slice("E:lit:num:".length);
-  if (key.startsWith("E:lit:str:")) return key.slice("E:lit:str:".length);
-  if (key.startsWith("E:lit:bool:")) return key.slice("E:lit:bool:".length);
-  if (key.startsWith("E:")) return key.slice(2);
-  if (key.startsWith("L:")) return key.slice(2);
-  return key;
 }
 
 function lookupKey(idStore, kind, denseId) {
@@ -274,7 +282,7 @@ function expandTextToSegments(text, options = {}) {
     if (visited.has(abs)) throw new Error(`Cyclic/repeated Load detected: ${abs}`);
     visited.add(abs);
 
-    const loaded = fs.readFileSync(abs, "utf8");
+    const loaded = readTextFile(abs);
     const rel = path.relative(rootDir, abs).replace(/\\/g, "/");
     if (!files.has(abs)) {
       files.set(abs, { absPath: abs, relPath: rel, text: loaded });
@@ -290,7 +298,7 @@ function expandTextToSegments(text, options = {}) {
 export function expandTheoryEntrypoint(entrypoint, options = {}) {
   const rootDir = options.rootDir ?? process.cwd();
   const entryAbs = path.resolve(rootDir, entrypoint);
-  const entryText = fs.readFileSync(entryAbs, "utf8");
+  const entryText = readTextFile(entryAbs);
   const files = new Map();
   files.set(entryAbs, {
     absPath: entryAbs,

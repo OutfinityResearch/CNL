@@ -34,8 +34,8 @@ test("ontology import writes generated files and dedupes extras", (t) => {
 
   const rules = read(result.files.rulesGeneratedPath);
   assert.ok(rules.includes('--- CONTEXT: MiniOntology ---'));
-  assert.ok(rules.includes("Rule: If X believes in Y and Y believes in Z, then X believes in Z."));
-  assert.ok(rules.includes("Rule: If X is prior to Y, then Y is subsequent to X."));
+  assert.ok(rules.includes("Rule: If ?X believes in ?Y and ?Y believes in ?Z, then ?X believes in ?Z."));
+  assert.ok(rules.includes("Rule: If ?X is prior to ?Y, then ?Y is subsequent to ?X."));
 
   // Add a duplicate statement to dictionary extra and ensure the next import removes it.
   fs.appendFileSync(result.files.dictExtraPath, '\n"person" is a type.\n', "utf8");

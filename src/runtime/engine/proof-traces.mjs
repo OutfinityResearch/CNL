@@ -47,12 +47,15 @@ export function buildProofTraceForVerify(command, state, ok) {
   const proposition = command?.proposition;
   const store = state.justificationStore;
   const answerSummary = String(ok);
+  const isUnknown = ok === "unknown";
+  const isTrue = ok === true;
+  const isFalse = ok === false;
 
   if (proposition?.kind === "CaseScope" && proposition.mode === "negative") {
     const operand = proposition.operand;
     if (operand?.kind === "AtomicCondition") {
       const sentence = formatAssertionSentence(operand.assertion, state) || "atomic claim";
-      if (ok) {
+      if (isTrue || (!isFalse && !isUnknown && ok)) {
         return {
           kind: "ProofTrace",
           mode: "Negation",
@@ -90,7 +93,7 @@ export function buildProofTraceForVerify(command, state, ok) {
       mode: "Negation",
       conclusion: "negated proposition",
       answerSummary,
-      steps: [ok ? "Negated condition holds." : "Negated condition does not hold."],
+      steps: [isTrue ? "Negated condition holds." : "Negated condition does not hold."],
       premises: [],
     };
   }
@@ -110,7 +113,7 @@ export function buildProofTraceForVerify(command, state, ok) {
         if (counterexampleId === null) counterexampleId = entityId;
       });
       const steps = [];
-      if (ok) {
+      if (isTrue) {
         steps.push(`Domain size: ${domainSize}.`);
         steps.push("No counterexample found in the quantified domain.");
       } else {
@@ -124,7 +127,7 @@ export function buildProofTraceForVerify(command, state, ok) {
         answerSummary,
         steps,
       };
-      if (!ok && Number.isInteger(counterexampleId)) {
+      if (!isTrue && Number.isInteger(counterexampleId)) {
         const conceptId = state.idStore.getConceptualId(ConceptKind.Entity, counterexampleId);
         const key = conceptId ? state.idStore.lookupKey(conceptId) : null;
         const fallback = `Entity_${counterexampleId}`;
@@ -155,7 +158,7 @@ export function buildProofTraceForVerify(command, state, ok) {
     }
 
     const sentence = formatAssertionSentence(assertion, state);
-    if (ok && store) {
+    if (isTrue && store) {
       const factId = factIdForAssertion(assertion, state, store);
       if (factId !== null) {
         const { steps, premises } = renderDerivation(factId, state, store);
@@ -170,12 +173,47 @@ export function buildProofTraceForVerify(command, state, ok) {
       }
     }
 
+    if (isFalse && store && assertion && typeof assertion === "object") {
+      // Best-effort counter-proof: show derivation for the explicit opposite assertion.
+      const opposite = { ...assertion, negated: !assertion.negated };
+      const factId = factIdForAssertion(opposite, state, store);
+      if (factId !== null) {
+        const formatted = formatAssertionSentence(opposite, state) || "opposite claim";
+        const { steps, premises } = renderDerivation(factId, state, store);
+        return {
+          kind: "ProofTrace",
+          mode: "Derivation",
+          conclusion: sentence || "atomic claim",
+          answerSummary,
+          steps: [`Counter-proof: derived ${formatted}`, ...steps],
+          premises,
+        };
+      }
+    }
+
+    if (isUnknown) {
+      const opposite = assertion && typeof assertion === "object" ? { ...assertion, negated: !assertion.negated } : null;
+      const oppositeSentence = opposite ? formatAssertionSentence(opposite, state) : null;
+      return {
+        kind: "ProofTrace",
+        mode: "Derivation",
+        conclusion: sentence || "atomic claim",
+        answerSummary,
+        steps: [
+          `No derivation found for: ${sentence || "the claim"}`,
+          `No derivation found for: ${oppositeSentence || "the explicit opposite"}`,
+          "Therefore: unknown.",
+        ],
+        premises: [],
+      };
+    }
+
     return {
       kind: "ProofTrace",
       mode: "Derivation",
       conclusion: sentence || "atomic claim",
       answerSummary,
-      steps: [ok ? "Condition holds." : "Condition is not derivable from the current knowledge base."],
+      steps: [isTrue ? "Condition holds." : "Condition is not derivable from the current knowledge base."],
     };
   }
 
@@ -184,6 +222,6 @@ export function buildProofTraceForVerify(command, state, ok) {
     mode: "Derivation",
     conclusion: "proposition",
     answerSummary,
-    steps: [ok ? "Condition holds." : "Condition does not hold."],
+    steps: [isTrue ? "Condition holds." : "Condition does not hold."],
   };
 }

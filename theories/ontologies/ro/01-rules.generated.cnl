@@ -4,1160 +4,1160 @@
 --- CONTEXT: Ro ---
 
 // Generated from ontology import: Ro
-Rule: If X acquires-nutrients-from Y, then X biotically-interacts-with Y.
-Rule: If X acquires-nutrients-from Y, then Y provides-nutrients-for X.
-Rule: If X active in Y, then X functionally-related-to Y.
-Rule: If X active in Y, then X overlaps Y.
-Rule: If X active-ingredient-in Y, then X is part of Y.
-Rule: If X active-ingredient-in Y, then Y has-active-ingredient X.
-Rule: If X acts-on-population-of Y, then X has-participant Y.
-Rule: If X acts-upstream-of Y, then X acts-upstream-of-or-within Y.
-Rule: If X acts-upstream-of-negative-effect Y, then X acts-upstream-of Y.
-Rule: If X acts-upstream-of-negative-effect Y, then X acts-upstream-of-or-within-negative-effect Y.
-Rule: If X acts-upstream-of-or-within Y, then X causal-agent-in-process Y.
-Rule: If X acts-upstream-of-or-within-negative-effect Y, then X acts-upstream-of-or-within Y.
-Rule: If X acts-upstream-of-or-within-positive-effect Y, then X acts-upstream-of-or-within Y.
-Rule: If X acts-upstream-of-positive-effect Y, then X acts-upstream-of Y.
-Rule: If X acts-upstream-of-positive-effect Y, then X acts-upstream-of-or-within-positive-effect Y.
-Rule: If X agonist of Y, then X directly-positively-regulates-activity-of Y.
-Rule: If X allelopath of Y, then X participates-in-a-biotic-biotic-interaction-with Y.
-Rule: If X allelopath of Y, then Y has-allelopath X.
-Rule: If X allergic-trigger-for Y, then X causes-or-contributes-to-condition Y.
-Rule: If X allergic-trigger-for Y, then Y has-allergic-trigger X.
-Rule: If X always-present-in-taxon Y, then X present-in-taxon Y.
-Rule: If X ambiguous-for-taxon Y, then X taxonomic-class-assertion Y.
-Rule: If X ameliorates-condition Y, then X contributes-to-severity-of-condition Y.
-Rule: If X anabranch of Y, then X distributary of Y.
-Rule: If X anabranch of Y, then X inverse of Y.
-Rule: If X anabranch of Y, then X related-to Y.
-Rule: If X anabranch of Y, then X tributary of Y.
-Rule: If X annotation-property-cardinality Y, then X logical-macro-assertion-on-an-annotation-property Y.
-Rule: If X antagonist of Y, then X directly-negatively-regulates-activity-of Y.
-Rule: If X approximately-equivalent-to Y, then X in-approximate-one-to-one-relationship-with Y.
-Rule: If X assay-measures-characteristic Y, then Y characteristic-measured-by-assay X.
-Rule: If X assesses-toxicity-of Y, then X indicates-clinical-effect-of Y.
-Rule: If X asymmetric-relational-form-of-process-class Y, then X relational-form-of-process-class Y.
-Rule: If X attached-to-part-of Y, then X biomechanically-related-to Y.
-Rule: If X attached-to-part-of Y, then X mereotopologically-related-to Y.
-Rule: If X autoimmune-trigger-for Y, then X causes-or-contributes-to-condition Y.
-Rule: If X autoimmune-trigger-for Y, then Y has-autoimmune-trigger X.
-Rule: If X axiom-contradicted-by-evidence Y, then X evidential-logical-macro-assertion-on-an-axiom Y.
-Rule: If X axiom-has-evidence Y, then X evidential-logical-macro-assertion-on-an-axiom Y.
-Rule: If X axon-synapses-in Y, then X has-presynaptic-terminal-in Y.
-Rule: If X basis-for-realizable Y, then X causally-related-to Y.
-Rule: If X basis-for-realizable Y, then Y realizable-has-basis-in X.
-Rule: If X before Y and Y before Z, then X before Z.
-Rule: If X before Y, then X before-or-simultaneous-with Y.
-Rule: If X before-or-simultaneous-with Y, then X temporally-related-to Y.
-Rule: If X biomechanically-related-to Y, then X functionally-related-to Y.
-Rule: If X biotically-interacts-with Y, then X ecologically-related-to Y.
-Rule: If X biotically-interacts-with Y, then X interacts with Y.
-Rule: If X biotically-interacts-with Y, then Y biotically-interacts-with X.
-Rule: If X bound-by-sequence-of Y and Y bound-by-sequence-of Z, then X bound-by-sequence-of Z.
-Rule: If X bound-by-sequence-of Y, then X sequentially-related-to Y.
-Rule: If X bound-by-sequence-of Y, then Y bounds-sequence-of X.
-Rule: If X bounding-layer-of Y, then X is part of Y.
-Rule: If X bounds-sequence-of Y and Y bounds-sequence-of Z, then X bounds-sequence-of Z.
-Rule: If X bounds-sequence-of Y, then X sequentially-related-to Y.
-Rule: If X bounds-sequence-of Y, then Y bound-by-sequence-of X.
-Rule: If X branching-part-of Y, then X in-branching-relationship-with Y.
-Rule: If X branching-part-of Y, then X is part of Y.
-Rule: If X branching-part-of Y, then Y has-branching-part X.
-Rule: If X capable of Y, then X capable-of-part-of Y.
-Rule: If X capable-of-inhibiting-or-preventing-pathological-process Y, then X capable-of-negatively-regulating Y.
-Rule: If X capable-of-negatively-regulating Y, then X capable-of-regulating Y.
-Rule: If X capable-of-part-of Y, then X causal-agent-in-process Y.
-Rule: If X capable-of-part-of Y, then X functionally-related-to Y.
-Rule: If X capable-of-positively-regulating Y, then X capable-of-regulating Y.
-Rule: If X capable-of-regulating Y, then X causal-agent-in-process Y.
-Rule: If X capable-of-upregulating-or-causing-pathological-process Y, then X capable-of-positively-regulating Y.
-Rule: If X carrier of Y, then Y generically-depends-on X.
-Rule: If X causal-agent-in-process Y, then X causal-relation-between-material-entity-and-a-process Y.
-Rule: If X causal-agent-in-process Y, then Y process-has-causal-agent X.
-Rule: If X causal-gain-of-function-germline-mutation-of-in Y, then X genetic-basis-for-condition Y.
-Rule: If X causal-gain-of-function-germline-mutation-of-in Y, then Y has-material-basis-in-gain-of-function-germline-mutation-in X.
-Rule: If X causal-germline-mutation-in Y, then X causes-condition Y.
-Rule: If X causal-germline-mutation-in Y, then X genetic-basis-for-condition Y.
-Rule: If X causal-germline-mutation-in Y, then Y has-material-basis-in-germline-mutation-in X.
-Rule: If X causal-germline-mutation-partially-giving-rise-to Y, then X contributes-to-condition Y.
-Rule: If X causal-germline-mutation-partially-giving-rise-to Y, then X genetic-basis-for-condition Y.
-Rule: If X causal-germline-mutation-partially-giving-rise-to Y, then Y has-partial-material-basis-in-germline-mutation-in X.
-Rule: If X causal-loss-of-function-germline-mutation-of-in Y, then X genetic-basis-for-condition Y.
-Rule: If X causal-loss-of-function-germline-mutation-of-in Y, then Y has-material-basis-in-loss-of-function-germline-mutation-in X.
-Rule: If X causal-relation-between-entities Y, then X causally-related-to Y.
-Rule: If X causal-relation-between-material-entity-and-a-process Y, then X causally-related-to Y.
-Rule: If X causal-relation-between-processes Y, then X causally-related-to Y.
-Rule: If X causal-relationship-with-disease-as-subject Y, then X causally-related-to Y.
-Rule: If X causal-relationship-with-disease-as-subject Y, then X disease-relationship Y.
-Rule: If X causal-somatic-mutation-in Y, then X causes-condition Y.
-Rule: If X causal-somatic-mutation-in Y, then X genetic-basis-for-condition Y.
-Rule: If X causal-somatic-mutation-in Y, then Y has-material-basis-in-somatic-mutation-in X.
-Rule: If X causal-susceptibility-factor-for Y, then X genetic-basis-for-condition Y.
-Rule: If X causal-susceptibility-factor-for Y, then Y has-major-susceptibility-factor X.
-Rule: If X causally-downstream-of Y, then X causally-downstream-of-or-within Y.
-Rule: If X causally-downstream-of Y, then X is preceded by Y.
-Rule: If X causally-downstream-of Y, then Y causally-upstream-of X.
-Rule: If X causally-downstream-of-or-within Y and Y causally-downstream-of-or-within Z, then X causally-downstream-of-or-within Z.
-Rule: If X causally-downstream-of-or-within Y, then X causal-relation-between-processes Y.
-Rule: If X causally-downstream-of-or-within Y, then Y causally-upstream-of-or-within X.
-Rule: If X causally-influenced-by Y, then X causal-relation-between-entities Y.
-Rule: If X causally-influenced-by Y, then Y causally-influences X.
-Rule: If X causally-influences Y, then X causal-relation-between-entities Y.
-Rule: If X causally-influences Y, then Y causally-influenced-by X.
-Rule: If X causally-upstream-of Y and Y causally-upstream-of Z, then X causally-upstream-of Z.
-Rule: If X causally-upstream-of Y, then X causally-upstream-of-or-within Y.
-Rule: If X causally-upstream-of Y, then X precedes Y.
-Rule: If X causally-upstream-of Y, then Y causally-downstream-of X.
-Rule: If X causally-upstream-of-negative-effect Y, then X causally-upstream-of Y.
-Rule: If X causally-upstream-of-negative-effect Y, then X causally-upstream-of-or-within-negative-effect Y.
-Rule: If X causally-upstream-of-or-within Y and Y causally-upstream-of-or-within Z, then X causally-upstream-of-or-within Z.
-Rule: If X causally-upstream-of-or-within Y, then X causal-relation-between-processes Y.
-Rule: If X causally-upstream-of-or-within Y, then Y causally-downstream-of-or-within X.
-Rule: If X causally-upstream-of-or-within-negative-effect Y, then X causally-upstream-of-or-within Y.
-Rule: If X causally-upstream-of-or-within-positive-effect Y, then X causally-upstream-of-or-within Y.
-Rule: If X causally-upstream-of-positive-effect Y, then X causally-upstream-of Y.
-Rule: If X causally-upstream-of-positive-effect Y, then X causally-upstream-of-or-within-positive-effect Y.
-Rule: If X causes-condition Y, then X causes-or-contributes-to-condition Y.
-Rule: If X causes-or-contributes-to-condition Y, then X causally-related-to Y.
-Rule: If X cell-expresses Y, then X expresses Y.
-Rule: If X characteristic of Y, then X characteristic-of-part-of Y.
-Rule: If X characteristic of Y, then Y has-characteristic X.
-Rule: If X characteristic-measured-by-assay Y, then Y assay-measures-characteristic X.
-Rule: If X characteristic-of-part-of Y, then X depends on Y.
-Rule: If X child-nucleus-of Y, then X developmentally-preceded-by Y.
-Rule: If X child-nucleus-of-in-hermaphrodite Y, then X child-nucleus-of Y.
-Rule: If X child-nucleus-of-in-male Y, then X child-nucleus-of Y.
-Rule: If X co-roosts-with Y, then X ecologically-co-occurs-with Y.
-Rule: If X co-roosts-with Y, then Y co-roosts-with X.
-Rule: If X coincident with Y, then X mereotopologically-related-to Y.
-Rule: If X colocalizes with Y, then X mereotopologically-related-to Y.
-Rule: If X commensalism Y, then X symbiosis Y.
-Rule: If X commensually-interacts-with Y, then X symbiotically-interacts-with Y.
-Rule: If X common-anatomy Y, then X subset-property Y.
-Rule: If X composed-primarily-of Y, then X has-part Y.
-Rule: If X concretized-as Y, then Y concretizes X.
-Rule: If X concretizes Y, then Y concretized-as X.
-Rule: If X condition-ameliorated-by Y, then X causally-related-to Y.
-Rule: If X condition-exacerbated-by Y, then X causally-related-to Y.
-Rule: If X condition-has-genetic-basis-in Y, then X causally-related-to Y.
-Rule: If X condition-has-genetic-basis-in Y, then Y genetic-basis-for-condition X.
-Rule: If X conduit for Y, then X overlaps Y.
-Rule: If X confers-advantage-in Y, then X ecologically-related-to Y.
-Rule: If X confers-susceptibility-to-condition Y, then X contributes-to-condition Y.
-Rule: If X connecting-branch-of Y, then X in-branching-relationship-with Y.
-Rule: If X connecting-branch-of Y, then X is connected to Y.
-Rule: If X connecting-branch-of Y, then Y has-connecting-branch X.
-Rule: If X connects Y, then X mereotopologically-related-to Y.
-Rule: If X consecutive-sequence-of Y, then X has-subsequence Y.
-Rule: If X constitutively-upstream-of Y, then X causally-upstream-of-positive-effect Y.
-Rule: If X continuous with Y, then X mereotopologically-related-to Y.
-Rule: If X continuous with Y, then Y continuous with X.
-Rule: If X contributes to Y, then X capable-of-part-of Y.
-Rule: If X contributes to Y, then X part-of-structure-that-is-capable-of Y.
-Rule: If X contributes-to-condition Y, then X causes-or-contributes-to-condition Y.
-Rule: If X contributes-to-frequency-of-condition Y, then X contributes-to-condition Y.
-Rule: If X contributes-to-morphology-of Y, then X overlaps Y.
-Rule: If X contributes-to-severity-of-condition Y, then X contributes-to-condition Y.
-Rule: If X correlated-with-condition Y, then X is correlated with Y.
-Rule: If X creates-habitat-for Y, then X ecologically-related-to Y.
-Rule: If X curator-guidance-link Y, then X inherited-annotation-property Y.
-Rule: If X decreased-in-magnitude-relative-to Y, then X different-in-magnitude-relative-to Y.
-Rule: If X decreases-by-repression-quantity-of Y, then X indirectly-negatively-regulates-quantity-of Y.
-Rule: If X defined-by-inverse Y, then X subset-property Y.
-Rule: If X dendrite-synapsed-in Y, then X has-postsynaptic-terminal-in Y.
-Rule: If X deprotonated-form-of Y and Y deprotonated-form-of Z, then X deprotonated-form-of Z.
-Rule: If X deprotonated-form-of Y, then X chemical-relationship Y.
-Rule: If X deprotonated-form-of Y, then Y protonated-form-of X.
-Rule: If X derived-by-descent-from Y and Y derived-by-descent-from Z, then X derived-by-descent-from Z.
-Rule: If X derived-by-descent-from Y, then X evolutionarily-related-to Y.
-Rule: If X derived-by-descent-from Y, then Y has-derived-by-descendant X.
-Rule: If X derived-from-ancestral-fusion-of Y, then X derived-by-descent-from Y.
-Rule: If X derives from Y, then Y derives into X.
-Rule: If X derives into Y, then Y derives from X.
-Rule: If X destabilizes-quantity-of Y, then X directly-negatively-regulates-quantity-of Y.
-Rule: If X determined-by-part-of Y, then X causal-relation-between-entities Y.
-Rule: If X determined-by-part-of Y, then X overlaps Y.
-Rule: If X determines Y, then X causally-influences Y.
-Rule: If X determines Y, then Y is determined by X.
-Rule: If X developmentally-contributes-to Y, then X developmentally-succeeded-by Y.
-Rule: If X developmentally-contributes-to Y, then X has-potential-to-developmentally-contribute-to Y.
-Rule: If X developmentally-contributes-to Y, then Y has-developmental-contribution-from X.
-Rule: If X developmentally-induced-by Y, then X developmentally-preceded-by Y.
-Rule: If X developmentally-induced-by Y, then Y developmentally-induces X.
-Rule: If X developmentally-induces Y, then X developmentally-succeeded-by Y.
-Rule: If X developmentally-induces Y, then X has-potential-to-developmentally-induce Y.
-Rule: If X developmentally-induces Y, then Y developmentally-induced-by X.
-Rule: If X developmentally-preceded-by Y, then X developmentally-related-to Y.
-Rule: If X developmentally-preceded-by Y, then Y developmentally-succeeded-by X.
-Rule: If X developmentally-replaces Y, then X developmentally-preceded-by Y.
-Rule: If X developmentally-succeeded-by Y, then X has-developmental-potential-involving Y.
-Rule: If X developmentally-succeeded-by Y, then Y developmentally-preceded-by X.
-Rule: If X develops from Y and Y develops from Z, then X develops from Z.
-Rule: If X develops from Y, then X developmentally-preceded-by Y.
-Rule: If X develops from Y, then X has-developmental-contribution-from Y.
-Rule: If X develops from Y, then Y develops into X.
-Rule: If X develops in Y, then X developmentally-preceded-by Y.
-Rule: If X develops into Y and Y develops into Z, then X develops into Z.
-Rule: If X develops into Y, then X developmentally-succeeded-by Y.
-Rule: If X develops into Y, then X has-potential-to-develop-into Y.
-Rule: If X develops into Y, then X has-potential-to-directly-develop-into Y.
-Rule: If X develops into Y, then Y develops from X.
-Rule: If X develops-from-part-of Y, then X develops from Y.
-Rule: If X diagnostic for Y, then X provides-clinical-information-for Y.
-Rule: If X differs-in-attribute Y, then X differs in Y.
-Rule: If X differs-in-attribute-of Y, then X differs in Y.
-Rule: If X direct-conjugate-acid-of Y, then X protonated-form-of Y.
-Rule: If X direct-conjugate-acid-of Y, then Y direct-conjugate-base-of X.
-Rule: If X direct-conjugate-base-of Y, then X deprotonated-form-of Y.
-Rule: If X direct-conjugate-base-of Y, then Y direct-conjugate-acid-of X.
-Rule: If X direct-form-of Y, then X logical-macro-assertion-on-an-object-property Y.
-Rule: If X directional-form-of Y, then X logical-macro-assertion-on-an-object-property Y.
-Rule: If X directly-develops-from Y, then X develops from Y.
-Rule: If X directly-develops-from Y, then Y directly-develops-into X.
-Rule: If X directly-develops-into Y, then X develops into Y.
-Rule: If X directly-develops-into Y, then Y directly-develops-from X.
-Rule: If X directly-negatively-regulated-by Y, then X directly-regulated-by Y.
-Rule: If X directly-negatively-regulated-by Y, then Y directly-negatively-regulates X.
-Rule: If X directly-negatively-regulates Y, then X directly-regulates Y.
-Rule: If X directly-negatively-regulates Y, then X negatively-regulates Y.
-Rule: If X directly-negatively-regulates Y, then Y directly-negatively-regulated-by X.
-Rule: If X directly-negatively-regulates-activity-of Y, then X directly-regulates-activity-of Y.
-Rule: If X directly-negatively-regulates-quantity-of Y, then X directly-regulates-quantity-of Y.
-Rule: If X directly-positively-regulated-by Y, then X directly-regulated-by Y.
-Rule: If X directly-positively-regulated-by Y, then Y directly-positively-regulates X.
-Rule: If X directly-positively-regulates Y, then X directly-regulates Y.
-Rule: If X directly-positively-regulates Y, then X positively-regulates Y.
-Rule: If X directly-positively-regulates Y, then Y directly-positively-regulated-by X.
-Rule: If X directly-positively-regulates-activity-of Y, then X directly-regulates-activity-of Y.
-Rule: If X directly-positively-regulates-quantity-of Y, then X directly-regulates-quantity-of Y.
-Rule: If X directly-regulated-by Y, then X is regulated by Y.
-Rule: If X directly-regulated-by Y, then Y directly-regulates X.
-Rule: If X directly-regulates Y, then X immediately-causally-upstream-of Y.
-Rule: If X directly-regulates Y, then X regulates Y.
-Rule: If X directly-regulates Y, then Y directly-regulated-by X.
-Rule: If X directly-regulates-activity-of Y, then X molecularly-interacts-with Y.
-Rule: If X directly-regulates-activity-of Y, then X regulates-activity-of Y.
-Rule: If X directly-regulates-quantity-of Y, then X regulates-quantity-of Y.
-Rule: If X directly-supplies-and-drains Y, then X drains Y.
-Rule: If X directly-supplies-and-drains Y, then X supplies Y.
-Rule: If X disease-arises-from-alteration-in-structure Y, then X disease-has-basis-in Y.
-Rule: If X disease-causes-disruption-of Y, then X causal-relationship-with-disease-as-subject Y.
-Rule: If X disease-causes-dysfunction-of Y, then X causal-relationship-with-disease-as-subject Y.
-Rule: If X disease-has-basis-in Y, then X causal-relationship-with-disease-as-subject Y.
-Rule: If X disease-has-basis-in Y, then X realizable-has-basis-in Y.
-Rule: If X disease-has-basis-in-disruption-of Y, then X disease-has-basis-in Y.
-Rule: If X disease-has-basis-in-dysfunction-of Y, then X disease-has-basis-in Y.
-Rule: If X disease-has-basis-in-feature Y, then X disease-has-basis-in Y.
-Rule: If X disease-has-basis-in-feature Y, then X has-phenotype Y.
-Rule: If X disease-has-feature Y, then X disease-relationship Y.
-Rule: If X disease-has-infectious-agent Y, then X disease-has-basis-in Y.
-Rule: If X disease-has-inflammation-site Y, then X disease-has-location Y.
-Rule: If X disease-has-location Y, then X disease-relationship Y.
-Rule: If X disposition of Y, then X characteristic of Y.
-Rule: If X disposition of Y, then Y has-disposition X.
-Rule: If X dispositional-interpretation Y, then X logical-macro-assertion-on-an-object-property Y.
-Rule: If X distributary of Y, then X in-branching-relationship-with Y.
-Rule: If X distributary of Y, then X is connected to Y.
-Rule: If X downstream-of-sequence-of Y and Y downstream-of-sequence-of Z, then X downstream-of-sequence-of Z.
-Rule: If X downstream-of-sequence-of Y, then X rel-does-not-overlap-sequence-of Y.
-Rule: If X downstream-of-sequence-of Y, then Y downstream-of-sequence-of X.
-Rule: If X drains Y, then X is connected to Y.
-Rule: If X dubious-for-taxon Y, then X taxonomic-class-assertion Y.
-Rule: If X during-which-ends Y, then X temporally-related-to Y.
-Rule: If X during-which-ends Y, then Y ends during X.
-Rule: If X during-which-starts Y, then X temporally-related-to Y.
-Rule: If X during-which-starts Y, then Y starts during X.
-Rule: If X eaten by Y, then X biotically-interacts-with Y.
-Rule: If X eats Y, then X biotically-interacts-with Y.
-Rule: If X eco-subset Y, then X subset-property Y.
-Rule: If X ecologically-co-occurs-with Y, then X ecologically-related-to Y.
-Rule: If X ecologically-co-occurs-with Y, then Y ecologically-co-occurs-with X.
-Rule: If X ectoparasite of Y, then X parasite of Y.
-Rule: If X ectoparasite of Y, then Y has-ectoparasite X.
-Rule: If X efo-slim Y, then X subset-property Y.
-Rule: If X electrically-synapsed-to Y, then X is connected to Y.
-Rule: If X enables Y, then X capable of Y.
-Rule: If X enables Y, then Y is enabled by X.
-Rule: If X enables-subfunction Y, then X functionally-related-to Y.
-Rule: If X enantiomer of Y, then X chemical-relationship Y.
-Rule: If X enantiomer of Y, then Y enantiomer of X.
-Rule: If X encompasses Y and Y encompasses Z, then X encompasses Z.
-Rule: If X encompasses Y, then X during-which-starts Y.
-Rule: If X encompasses Y, then Y happens during X.
-Rule: If X end-days-post-coitum Y, then X has-end-time-value Y.
-Rule: If X end-days-post-fertilization Y, then X has-end-time-value Y.
-Rule: If X end-months-post-birth Y, then X has-end-time-value Y.
-Rule: If X end-sequence-of Y and Y end-sequence-of Z, then X end-sequence-of Z.
-Rule: If X end-sequence-of Y, then X subsequence of Y.
-Rule: If X end-sequence-of Y, then Y has-end-sequence X.
-Rule: If X end-weeks-post-birth Y, then X has-end-time-value Y.
-Rule: If X end-years-post-birth Y, then X has-end-time-value Y.
-Rule: If X endoparasite of Y, then X parasite of Y.
-Rule: If X endoparasite of Y, then Y has-endoparasite X.
-Rule: If X ends Y, then X is part of Y.
-Rule: If X ends Y, then X temporally-related-to Y.
-Rule: If X ends Y, then Y ends with X.
-Rule: If X ends after Y and Y ends after Z, then X ends after Z.
-Rule: If X ends after Y, then X temporally-related-to Y.
-Rule: If X ends during Y, then X temporally-related-to Y.
-Rule: If X ends during Y, then Y during-which-ends X.
-Rule: If X ends with Y and Y ends with Z, then X ends with Z.
-Rule: If X ends with Y, then X has-part Y.
-Rule: If X ends with Y, then X temporally-related-to Y.
-Rule: If X ends with Y, then Y ends X.
-Rule: If X epiphyte of Y, then X symbiotically-interacts-with Y.
-Rule: If X epiphyte of Y, then Y has-epiphyte X.
-Rule: If X evidence for Y, then X related-via-evidence-or-inference-to Y.
-Rule: If X evidence for Y, then Y has-evidence X.
-Rule: If X evidence-with-support-from Y, then X related-via-evidence-or-inference-to Y.
-Rule: If X evidential-logical-macro-assertion-on-an-axiom Y, then X logical-macro-assertion-on-an-axiom Y.
-Rule: If X evolutionary-variant-of Y, then X evolutionarily-related-to Y.
-Rule: If X exacerbates-condition Y, then X contributes-to-severity-of-condition Y.
-Rule: If X exemplar-data-of Y, then X top-object-property Y.
-Rule: If X exemplar-data-of Y, then Y has-exemplar-data X.
-Rule: If X existence-ends-at-start-of Y, then X existence-ends-during-or-before Y.
-Rule: If X existence-ends-during Y, then X existence-ends-during-or-before Y.
-Rule: If X existence-ends-during Y, then X existence-overlaps Y.
-Rule: If X existence-ends-during-or-before Y, then X relation-between-physical-entity-and-a-process-or-stage Y.
-Rule: If X existence-ends-with Y, then X existence-ends-during Y.
-Rule: If X existence-overlaps Y, then X relation-between-physical-entity-and-a-process-or-stage Y.
-Rule: If X existence-starts-and-ends-during Y, then X existence-ends-during Y.
-Rule: If X existence-starts-and-ends-during Y, then X existence-starts-during Y.
-Rule: If X existence-starts-at-end-of Y, then X existence-starts-during-or-after Y.
-Rule: If X existence-starts-during Y, then X existence-overlaps Y.
-Rule: If X existence-starts-during Y, then X existence-starts-during-or-after Y.
-Rule: If X existence-starts-during-or-after Y, then X relation-between-physical-entity-and-a-process-or-stage Y.
-Rule: If X existence-starts-with Y, then X existence-starts-during Y.
-Rule: If X exports Y, then X transports Y.
-Rule: If X expresses Y, then X genomically-related-to Y.
-Rule: If X expresses Y, then Y is expressed in X.
-Rule: If X facultative-parasite-of Y, then X parasite of Y.
-Rule: If X fasciculates with Y, then X overlaps Y.
-Rule: If X fasciculates with Y, then Y has-fasciculating-neuron-projection X.
-Rule: If X first-order-logic-expression Y, then X logical-macro-assertion-on-an-object-property Y.
-Rule: If X formed-as-result-of Y, then X output of Y.
-Rule: If X formed-as-result-of Y, then Y results-in-formation-of-anatomical-entity X.
-Rule: If X function of Y, then X characteristic of Y.
-Rule: If X function of Y, then Y has-function X.
-Rule: If X gene-product-of Y, then X genomically-related-to Y.
-Rule: If X gene-product-of Y, then Y has-gene-product X.
-Rule: If X generically-depends-on Y, then Y carrier of X.
-Rule: If X genetic-basis-for-condition Y, then X basis-for-realizable Y.
-Rule: If X genetic-basis-for-condition Y, then Y condition-has-genetic-basis-in X.
-Rule: If X genetically-interacts-with Y, then X interacts with Y.
-Rule: If X genetically-interacts-with Y, then Y genetically-interacts-with X.
-Rule: If X happens during Y and Y happens during Z, then X happens during Z.
-Rule: If X happens during Y, then X ends during Y.
-Rule: If X happens during Y, then X starts during Y.
-Rule: If X happens during Y, then Y encompasses X.
-Rule: If X has-2-d-boundary Y, then X mereotopologically-related-to Y.
-Rule: If X has-2-d-boundary Y, then Y rel-2-d-boundary-of X.
-Rule: If X has-active-ingredient Y, then X has-part Y.
-Rule: If X has-active-ingredient Y, then Y active-ingredient-in X.
-Rule: If X has-allelopath Y, then X participates-in-a-biotic-biotic-interaction-with Y.
-Rule: If X has-allelopath Y, then Y allelopath of X.
-Rule: If X has-allergic-trigger Y, then X causes-or-contributes-to-condition Y.
-Rule: If X has-allergic-trigger Y, then Y allergic-trigger-for X.
-Rule: If X has-application-role Y, then X has-role Y.
-Rule: If X has-autoimmune-trigger Y, then X causes-or-contributes-to-condition Y.
-Rule: If X has-autoimmune-trigger Y, then Y autoimmune-trigger-for X.
-Rule: If X has-biological-role Y, then X has-role Y.
-Rule: If X has-branching-part Y and Y has-branching-part Z, then X has-branching-part Z.
-Rule: If X has-branching-part Y, then X has-part Y.
-Rule: If X has-branching-part Y, then X in-branching-relationship-with Y.
-Rule: If X has-branching-part Y, then Y branching-part-of X.
-Rule: If X has-broad-synonym Y, then X alternative-label Y.
-Rule: If X has-characteristic Y, then Y characteristic of X.
-Rule: If X has-chemical-role Y, then X has-role Y.
-Rule: If X has-component Y, then X has-part Y.
-Rule: If X has-component-activity Y, then X has-component-process Y.
-Rule: If X has-component-participant Y, then X has-participant Y.
-Rule: If X has-component-process Y, then X has-component Y.
-Rule: If X has-connecting-branch Y, then X in-branching-relationship-with Y.
-Rule: If X has-connecting-branch Y, then Y connecting-branch-of X.
-Rule: If X has-dendrite-location Y, then X overlaps Y.
-Rule: If X has-denominator Y, then X has-part Y.
-Rule: If X has-derived-by-descendant Y and Y has-derived-by-descendant Z, then X has-derived-by-descendant Z.
-Rule: If X has-derived-by-descendant Y, then X evolutionarily-related-to Y.
-Rule: If X has-derived-by-descendant Y, then Y derived-by-descent-from X.
-Rule: If X has-developmental-contribution-from Y, then X developmentally-preceded-by Y.
-Rule: If X has-developmental-contribution-from Y, then Y developmentally-contributes-to X.
-Rule: If X has-developmental-potential-involving Y, then X developmentally-related-to Y.
-Rule: If X has-developmental-stage-marker Y, then X temporal-logical-macro-assertion-on-a-class Y.
-Rule: If X has-direct-input Y, then X has-input Y.
-Rule: If X has-disease Y, then X has-phenotype-or-disease Y.
-Rule: If X has-disease-driver Y, then X has-driver Y.
-Rule: If X has-disposition Y, then X has-characteristic Y.
-Rule: If X has-disposition Y, then Y disposition of X.
-Rule: If X has-ectoparasite Y, then X is parasitized by Y.
-Rule: If X has-ectoparasite Y, then Y ectoparasite of X.
-Rule: If X has-effector-activity Y, then X has-component-activity Y.
-Rule: If X has-eggs-laid-in-by Y, then X is parasitized by Y.
-Rule: If X has-eggs-laid-in-by Y, then X is visited by Y.
-Rule: If X has-eggs-laid-in-by Y, then Y lays-eggs-in X.
-Rule: If X has-eggs-laid-on-by Y, then X is visited by Y.
-Rule: If X has-eggs-laid-on-by Y, then Y lays-eggs-on X.
-Rule: If X has-end-location Y, then X has-part-that-occurs-in Y.
-Rule: If X has-end-sequence Y and Y has-end-sequence Z, then X has-end-sequence Z.
-Rule: If X has-end-sequence Y, then X has-subsequence Y.
-Rule: If X has-end-sequence Y, then Y end-sequence-of X.
-Rule: If X has-end-time-value Y, then X temporal-logical-macro-assertion-on-a-class Y.
-Rule: If X has-endoparasite Y, then X is parasitized by Y.
-Rule: If X has-endoparasite Y, then Y endoparasite of X.
-Rule: If X has-epiphyte Y, then X symbiotically-interacts-with Y.
-Rule: If X has-epiphyte Y, then Y epiphyte of X.
-Rule: If X has-evidence Y, then X related-via-evidence-or-inference-to Y.
-Rule: If X has-evidence Y, then Y evidence for X.
-Rule: If X has-exact-synonym Y, then X alternative-label Y.
-Rule: If X has-exemplar-data Y, then X top-object-property Y.
-Rule: If X has-exemplar-data Y, then Y exemplar-data-of X.
-Rule: If X has-exposure-medium Y, then X related-via-exposure-to Y.
-Rule: If X has-exposure-receptor Y, then X related-via-exposure-to Y.
-Rule: If X has-exposure-route Y, then X related-via-exposure-to Y.
-Rule: If X has-exposure-stimulus Y, then X related-via-exposure-to Y.
-Rule: If X has-exposure-stressor Y, then X has-exposure-stimulus Y.
-Rule: If X has-exposure-transport-path Y, then X related-via-exposure-to Y.
-Rule: If X has-fasciculating-neuron-projection Y, then X overlaps Y.
-Rule: If X has-fasciculating-neuron-projection Y, then Y fasciculates with X.
-Rule: If X has-flowers-visited-by Y, then X is visited by Y.
-Rule: If X has-flowers-visited-by Y, then Y visits-flowers-of X.
-Rule: If X has-function Y, then X has-characteristic Y.
-Rule: If X has-function Y, then Y function of X.
-Rule: If X has-functional-parent Y, then X chemical-relationship Y.
-Rule: If X has-gene-product Y, then X genomically-related-to Y.
-Rule: If X has-gene-product Y, then Y gene-product-of X.
-Rule: If X has-habitat Y, then X ecologically-related-to Y.
-Rule: If X has-high-plasma-membrane-amount Y, then X has-plasma-membrane-part Y.
-Rule: If X has-host Y, then X symbiotically-interacts-with Y.
-Rule: If X has-increased-levels-of Y, then X has-component Y.
-Rule: If X has-input Y, then X has-participant Y.
-Rule: If X has-input Y, then Y input of X.
-Rule: If X has-intercellular-endoparasite Y, then X has-endoparasite Y.
-Rule: If X has-intercellular-endoparasite Y, then Y intercellular-endoparasite-of X.
-Rule: If X has-intermediate Y, then X has-participant Y.
-Rule: If X has-intracellular-endoparasite Y, then X has-endoparasite Y.
-Rule: If X has-intracellular-endoparasite Y, then Y intracellular-endoparasite-of X.
-Rule: If X has-ligand Y, then X has-input Y.
-Rule: If X has-low-plasma-membrane-amount Y, then X has-plasma-membrane-part Y.
-Rule: If X has-major-susceptibility-factor Y, then X condition-has-genetic-basis-in Y.
-Rule: If X has-major-susceptibility-factor Y, then Y causal-susceptibility-factor-for X.
-Rule: If X has-material-basis-in-gain-of-function-germline-mutation-in Y, then X condition-has-genetic-basis-in Y.
-Rule: If X has-material-basis-in-gain-of-function-germline-mutation-in Y, then Y causal-gain-of-function-germline-mutation-of-in X.
-Rule: If X has-material-basis-in-germline-mutation-in Y, then X condition-has-genetic-basis-in Y.
-Rule: If X has-material-basis-in-germline-mutation-in Y, then Y causal-germline-mutation-in X.
-Rule: If X has-material-basis-in-loss-of-function-germline-mutation-in Y, then X condition-has-genetic-basis-in Y.
-Rule: If X has-material-basis-in-loss-of-function-germline-mutation-in Y, then Y causal-loss-of-function-germline-mutation-of-in X.
-Rule: If X has-material-basis-in-somatic-mutation-in Y, then X condition-has-genetic-basis-in Y.
-Rule: If X has-material-basis-in-somatic-mutation-in Y, then Y causal-somatic-mutation-in X.
-Rule: If X has-member Y, then X has-part Y.
-Rule: If X has-member Y, then Y is member of X.
-Rule: If X has-mesoparasite Y, then X is parasitized by Y.
-Rule: If X has-mesoparasite Y, then Y mesoparasite of X.
-Rule: If X has-model Y, then Y has-role-in-modeling X.
-Rule: If X has-muscle-antagonist Y, then X biomechanically-related-to Y.
-Rule: If X has-muscle-insertion Y, then X biomechanically-related-to Y.
-Rule: If X has-muscle-insertion Y, then X is attached to Y.
-Rule: If X has-muscle-origin Y, then X biomechanically-related-to Y.
-Rule: If X has-muscle-origin Y, then X is attached to Y.
-Rule: If X has-narrow-synonym Y, then X alternative-label Y.
-Rule: If X has-necessary-component-activity Y, then X has-component-activity Y.
-Rule: If X has-necessary-component-activity Y, then X positively-regulated-by Y.
-Rule: If X has-negative-regulatory-component-activity Y, then X has-regulatory-component-activity Y.
-Rule: If X has-negative-regulatory-component-activity Y, then X negatively-regulated-by Y.
-Rule: If X has-no-connections-with Y, then X logical-macro-assertion-on-a-class Y.
-Rule: If X has-numerator Y, then X has-part Y.
-Rule: If X has-output Y, then X has-participant Y.
-Rule: If X has-output Y, then Y output of X.
-Rule: If X has-parasitoid Y, then X is parasitized by Y.
-Rule: If X has-parasitoid Y, then Y parasitoid of X.
-Rule: If X has-parent-hydride Y, then X chemical-relationship Y.
-Rule: If X has-part Y and Y has-part Z, then X has-part Z.
-Rule: If X has-part Y, then X overlaps Y.
-Rule: If X has-part Y, then Y is part of X.
-Rule: If X has-part-structure-that-is-capable-of Y, then X causal-relation-between-material-entity-and-a-process Y.
-Rule: If X has-part-structure-that-is-capable-of Y, then X functionally-related-to Y.
-Rule: If X has-partial-material-basis-in-germline-mutation-in Y, then X condition-has-genetic-basis-in Y.
-Rule: If X has-partial-material-basis-in-germline-mutation-in Y, then Y causal-germline-mutation-partially-giving-rise-to X.
-Rule: If X has-participant Y, then Y participates in X.
-Rule: If X has-pathogen Y, then X host of Y.
-Rule: If X has-pathogen Y, then Y pathogen of X.
-Rule: If X has-phenotype Y, then X has-phenotype-or-disease Y.
-Rule: If X has-phenotype Y, then Y phenotype of X.
-Rule: If X has-plasma-membrane-part Y, then X has-part Y.
-Rule: If X has-positive-regulatory-component-activity Y, then X has-regulatory-component-activity Y.
-Rule: If X has-positive-regulatory-component-activity Y, then X positively-regulated-by Y.
-Rule: If X has-postsynaptic-terminal-in Y, then X has-synaptic-terminal-in Y.
-Rule: If X has-postsynaptic-terminal-in Y, then Y has-presynaptic-terminal-in X.
-Rule: If X has-potential-to-develop-into Y, then X has-developmental-potential-involving Y.
-Rule: If X has-potential-to-developmentally-contribute-to Y, then X has-developmental-potential-involving Y.
-Rule: If X has-potential-to-developmentally-induce Y, then X has-developmental-potential-involving Y.
-Rule: If X has-potential-to-directly-develop-into Y, then X has-potential-to-develop-into Y.
-Rule: If X has-presynaptic-terminal-in Y, then X has-synaptic-terminal-in Y.
-Rule: If X has-presynaptic-terminal-in Y, then Y has-postsynaptic-terminal-in X.
-Rule: If X has-primary-input Y, then X has-input Y.
-Rule: If X has-primary-input Y, then X has-primary-input-or-output Y.
-Rule: If X has-primary-input-or-output Y, then X has-participant Y.
-Rule: If X has-primary-output Y, then X has-output Y.
-Rule: If X has-primary-output Y, then X has-primary-input-or-output Y.
-Rule: If X has-primary-substance-added Y, then X has-substance-added Y.
-Rule: If X has-quality Y, then X has-characteristic Y.
-Rule: If X has-quality Y, then Y quality of X.
-Rule: If X has-regulatory-component-activity Y, then X has-component-activity Y.
-Rule: If X has-regulatory-component-activity Y, then X is regulated by Y.
-Rule: If X has-related-synonym Y, then X alternative-label Y.
-Rule: If X has-reservoir-host Y, then X has-host Y.
-Rule: If X has-reservoir-host Y, then Y reservoir-host-of X.
-Rule: If X has-role Y, then X has-characteristic Y.
-Rule: If X has-role Y, then Y role of X.
-Rule: If X has-role-in-modeling Y, then Y has-model X.
-Rule: If X has-roost Y, then X has-habitat Y.
-Rule: If X has-sensory-dendrite-in Y, then X has-dendrite-location Y.
-Rule: If X has-skeleton Y, then X has-part Y.
-Rule: If X has-skeleton Y, then Y skeleton of X.
-Rule: If X has-small-molecule-activator Y, then X has-small-molecule-regulator Y.
-Rule: If X has-small-molecule-activator Y, then Y small-molecule-activator-of X.
-Rule: If X has-small-molecule-inhibitor Y, then X has-small-molecule-regulator Y.
-Rule: If X has-small-molecule-inhibitor Y, then Y small-molecule-inhibitor-of X.
-Rule: If X has-small-molecule-regulator Y, then X has-participant Y.
-Rule: If X has-small-molecule-regulator Y, then Y small-molecule-regulator-of X.
-Rule: If X has-soma-location Y, then X overlaps Y.
-Rule: If X has-start-location Y, then X has-part-that-occurs-in Y.
-Rule: If X has-start-sequence Y and Y has-start-sequence Z, then X has-start-sequence Z.
-Rule: If X has-start-sequence Y, then X has-subsequence Y.
-Rule: If X has-start-sequence Y, then Y start-sequence-of X.
-Rule: If X has-start-time-value Y, then X temporal-logical-macro-assertion-on-a-class Y.
-Rule: If X has-subsequence Y and Y has-subsequence Z, then X has-subsequence Z.
-Rule: If X has-subsequence Y, then X bounds-sequence-of Y.
-Rule: If X has-subsequence Y, then X has-part Y.
-Rule: If X has-subsequence Y, then X overlaps-sequence-of Y.
-Rule: If X has-subsequence Y, then Y subsequence of X.
-Rule: If X has-symptom Y, then X has-phenotype Y.
-Rule: If X has-synaptic-io-in-region Y, then X has-synaptic-terminal-in Y.
-Rule: If X has-synaptic-io-throughout Y, then X has-synaptic-io-in-region Y.
-Rule: If X has-synaptic-terminal-in Y, then X overlaps Y.
-Rule: If X has-synaptic-terminal-in Y, then Y has-synaptic-terminal-of X.
-Rule: If X has-synaptic-terminal-of Y, then X overlaps Y.
-Rule: If X has-synaptic-terminal-of Y, then Y has-synaptic-terminal-in X.
-Rule: If X has-target-end-location Y, then X results-in-transport-to-from-or-in Y.
-Rule: If X has-target-start-location Y, then X results-in-transport-to-from-or-in Y.
-Rule: If X has-vector Y, then X participates-in-a-biotic-biotic-interaction-with Y.
-Rule: If X has-vector Y, then Y vector for X.
-Rule: If X hemiparasite of Y, then X parasite of Y.
-Rule: If X homeomorphic for Y, then X logical-macro-assertion-on-an-object-property Y.
-Rule: If X host of Y, then X symbiotically-interacts-with Y.
-Rule: If X human-reference-atlas Y, then X subset-property Y.
-Rule: If X human-subset Y, then X subset-property Y.
-Rule: If X hyperparasite of Y, then X has-host Y.
-Rule: If X hyperparasite of Y, then Y is hyperparasitized by X.
-Rule: If X immediate-transformation-of Y, then X directly-develops-from Y.
-Rule: If X immediate-transformation-of Y, then X transformation of Y.
-Rule: If X immediately-causally-downstream-of Y, then X causally-downstream-of Y.
-Rule: If X immediately-causally-downstream-of Y, then X immediately-preceded-by Y.
-Rule: If X immediately-causally-downstream-of Y, then Y immediately-causally-upstream-of X.
-Rule: If X immediately-causally-upstream-of Y, then X causally-upstream-of Y.
-Rule: If X immediately-causally-upstream-of Y, then X immediately-precedes Y.
-Rule: If X immediately-causally-upstream-of Y, then Y immediately-causally-downstream-of X.
-Rule: If X immediately-downstream-of-sequence-of Y, then X downstream-of-sequence-of Y.
-Rule: If X immediately-downstream-of-sequence-of Y, then X sequentially-adjacent-to Y.
-Rule: If X immediately-preceded-by Y, then X is preceded by Y.
-Rule: If X immediately-preceded-by Y, then Y immediately-precedes X.
-Rule: If X immediately-precedes Y, then X precedes Y.
-Rule: If X immediately-precedes Y, then Y immediately-preceded-by X.
-Rule: If X immediately-upstream-of-sequence-of Y, then X sequentially-adjacent-to Y.
-Rule: If X immediately-upstream-of-sequence-of Y, then X upstream-of-sequence-of Y.
-Rule: If X imports Y, then X transports Y.
-Rule: If X in-1-to-1-homology-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-1-to-1-homology-relationship-with Y, then Y in-1-to-1-homology-relationship-with X.
-Rule: If X in-1-to-1-orthology-relationship-with Y, then X in-1-to-1-homology-relationship-with Y.
-Rule: If X in-1-to-1-orthology-relationship-with Y, then X in-orthology-relationship-with Y.
-Rule: If X in-1-to-1-orthology-relationship-with Y, then Y in-1-to-1-orthology-relationship-with X.
-Rule: If X in-1-to-many-homology-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-1-to-many-homology-relationship-with Y, then Y in-1-to-many-homology-relationship-with X.
-Rule: If X in-1-to-many-orthology-relationship-with Y, then X in-1-to-many-homology-relationship-with Y.
-Rule: If X in-1-to-many-orthology-relationship-with Y, then X in-orthology-relationship-with Y.
-Rule: If X in-1-to-many-orthology-relationship-with Y, then Y in-1-to-many-orthology-relationship-with X.
-Rule: If X in-apomorphy-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-apomorphy-relationship-with Y, then Y in-apomorphy-relationship-with X.
-Rule: If X in-apparent-orthology-relationship-with Y, then X in-1-to-1-homology-relationship-with Y.
-Rule: If X in-apparent-orthology-relationship-with Y, then X in-between-species-paralogy-relationship-with Y.
-Rule: If X in-apparent-orthology-relationship-with Y, then Y in-apparent-orthology-relationship-with X.
-Rule: If X in-approximate-one-to-one-relationship-with Y, then X logical-macro-assertion-involving-identity Y.
-Rule: If X in-between-species-paralogy-relationship-with Y, then X in-paralogy-relationship-with Y.
-Rule: If X in-between-species-paralogy-relationship-with Y, then Y in-between-species-paralogy-relationship-with X.
-Rule: If X in-biological-homology-relationship-with Y, then X in-homology-relationship-with Y.
-Rule: If X in-biological-homology-relationship-with Y, then Y in-biological-homology-relationship-with X.
-Rule: If X in-branching-relationship-with Y, then X mereotopologically-related-to Y.
-Rule: If X in-chromosomal-homology-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-chromosomal-homology-relationship-with Y, then Y in-chromosomal-homology-relationship-with X.
-Rule: If X in-convergence-relationship-with Y, then X in-homoplasy-relationship-with Y.
-Rule: If X in-convergence-relationship-with Y, then Y in-convergence-relationship-with X.
-Rule: If X in-deep-homology-relationship-with Y, then X in-homocracy-relationship-with Y.
-Rule: If X in-deep-homology-relationship-with Y, then X in-parallelism-relationship-with Y.
-Rule: If X in-deep-homology-relationship-with Y, then Y in-deep-homology-relationship-with X.
-Rule: If X in-equivalogy-relationship-with Y, then X in-functional-equivalence-relationship-with Y.
-Rule: If X in-equivalogy-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-equivalogy-relationship-with Y, then Y in-equivalogy-relationship-with X.
-Rule: If X in-functional-equivalence-relationship-with Y, then X in-similarity-relationship-with Y.
-Rule: If X in-functional-equivalence-relationship-with Y, then Y in-functional-equivalence-relationship-with X.
-Rule: If X in-gametology-relationship-with Y, then X in-chromosomal-homology-relationship-with Y.
-Rule: If X in-gametology-relationship-with Y, then Y in-gametology-relationship-with X.
-Rule: If X in-hemiplasy-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-hemiplasy-relationship-with Y, then Y in-hemiplasy-relationship-with X.
-Rule: If X in-heterochronous-homology-relationship-with Y, then X in-biological-homology-relationship-with Y.
-Rule: If X in-heterochronous-homology-relationship-with Y, then Y in-heterochronous-homology-relationship-with X.
-Rule: If X in-historical-homology-relationship-with Y, then X in-homology-relationship-with Y.
-Rule: If X in-historical-homology-relationship-with Y, then Y in-historical-homology-relationship-with X.
-Rule: If X in-homeosis-relationship-with Y, then X in-biological-homology-relationship-with Y.
-Rule: If X in-homeosis-relationship-with Y, then Y in-homeosis-relationship-with X.
-Rule: If X in-homocracy-relationship-with Y, then X evolutionarily-related-to Y.
-Rule: If X in-homocracy-relationship-with Y, then X in-similarity-relationship-with Y.
-Rule: If X in-homocracy-relationship-with Y, then Y in-homocracy-relationship-with X.
-Rule: If X in-homoeology-relationship-with Y, then X in-ohnology-relationship-with Y.
-Rule: If X in-homoeology-relationship-with Y, then X in-synology-relationship-with Y.
-Rule: If X in-homoeology-relationship-with Y, then Y in-homoeology-relationship-with X.
-Rule: If X in-homology-relationship-with Y, then X in-similarity-relationship-with Y.
-Rule: If X in-homology-relationship-with Y, then X shares-ancestor-with Y.
-Rule: If X in-homology-relationship-with Y, then Y in-homology-relationship-with X.
-Rule: If X in-homoplasy-relationship-with Y, then X in-similarity-relationship-with Y.
-Rule: If X in-homoplasy-relationship-with Y, then Y in-homoplasy-relationship-with X.
-Rule: If X in-homotopy-relationship-with Y, then X in-structural-homology-relationship-with Y.
-Rule: If X in-homotopy-relationship-with Y, then Y in-homotopy-relationship-with X.
-Rule: If X in-hypermorphosis-relationship-with Y, then X in-peramorphosis-relationship-with Y.
-Rule: If X in-hypermorphosis-relationship-with Y, then Y in-hypermorphosis-relationship-with X.
-Rule: If X in-in-paralogy-relationship-with Y, then X in-paralogy-relationship-with Y.
-Rule: If X in-in-paralogy-relationship-with Y, then Y in-in-paralogy-relationship-with X.
-Rule: If X in-interology-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-interology-relationship-with Y, then Y in-interology-relationship-with X.
-Rule: If X in-isoorthology-relationship-with Y, then X in-equivalogy-relationship-with Y.
-Rule: If X in-isoorthology-relationship-with Y, then X in-orthology-relationship-with Y.
-Rule: If X in-isoorthology-relationship-with Y, then Y in-isoorthology-relationship-with X.
-Rule: If X in-iterative-homology-relationship-with Y, then X in-biological-homology-relationship-with Y.
-Rule: If X in-iterative-homology-relationship-with Y, then Y in-iterative-homology-relationship-with X.
-Rule: If X in-latent-homology-relationship-with Y, then X in-parallelism-relationship-with Y.
-Rule: If X in-latent-homology-relationship-with Y, then X in-syngeny-relationship-with Y.
-Rule: If X in-latent-homology-relationship-with Y, then Y in-latent-homology-relationship-with X.
-Rule: If X in-many-to-many-homology-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-many-to-many-homology-relationship-with Y, then Y in-many-to-many-homology-relationship-with X.
-Rule: If X in-many-to-many-orthology-relationship-with Y, then X in-many-to-many-homology-relationship-with Y.
-Rule: If X in-many-to-many-orthology-relationship-with Y, then X in-orthology-relationship-with Y.
-Rule: If X in-many-to-many-orthology-relationship-with Y, then Y in-many-to-many-orthology-relationship-with X.
-Rule: If X in-mimicry-relationship-with Y, then X in-convergence-relationship-with Y.
-Rule: If X in-mimicry-relationship-with Y, then Y in-mimicry-relationship-with X.
-Rule: If X in-neoteny-relationship-with Y, then X in-paedomorphorsis-relationship-with Y.
-Rule: If X in-neoteny-relationship-with Y, then Y in-neoteny-relationship-with X.
-Rule: If X in-non-functional-homology-relationship-with Y, then X in-structural-homology-relationship-with Y.
-Rule: If X in-non-functional-homology-relationship-with Y, then Y in-non-functional-homology-relationship-with X.
-Rule: If X in-ohnology-relationship-with Y, then X in-paralogy-relationship-with Y.
-Rule: If X in-ohnology-relationship-with Y, then Y in-ohnology-relationship-with X.
-Rule: If X in-orthology-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-orthology-relationship-with Y, then Y in-orthology-relationship-with X.
-Rule: If X in-out-paralogy-relationship-with Y, then X in-paralogy-relationship-with Y.
-Rule: If X in-out-paralogy-relationship-with Y, then Y in-out-paralogy-relationship-with X.
-Rule: If X in-paedomorphorsis-relationship-with Y, then X in-heterochronous-homology-relationship-with Y.
-Rule: If X in-paedomorphorsis-relationship-with Y, then Y in-paedomorphorsis-relationship-with X.
-Rule: If X in-parallelism-relationship-with Y, then X in-homoplasy-relationship-with Y.
-Rule: If X in-parallelism-relationship-with Y, then Y in-parallelism-relationship-with X.
-Rule: If X in-paralogy-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-paralogy-relationship-with Y, then Y in-paralogy-relationship-with X.
-Rule: If X in-paramorphism-relationship-with Y, then X in-homocracy-relationship-with Y.
-Rule: If X in-paramorphism-relationship-with Y, then X in-iterative-homology-relationship-with Y.
-Rule: If X in-paramorphism-relationship-with Y, then Y in-paramorphism-relationship-with X.
-Rule: If X in-paraxenology-relationship-with Y, then X in-xenology-relationship-with Y.
-Rule: If X in-paraxenology-relationship-with Y, then Y in-paraxenology-relationship-with X.
-Rule: If X in-partial-homology-relationship-with Y, then X in-structural-homology-relationship-with Y.
-Rule: If X in-partial-homology-relationship-with Y, then Y in-partial-homology-relationship-with X.
-Rule: If X in-peramorphosis-relationship-with Y, then X in-heterochronous-homology-relationship-with Y.
-Rule: If X in-peramorphosis-relationship-with Y, then Y in-peramorphosis-relationship-with X.
-Rule: If X in-plerology-relationship-with Y, then X in-paralogy-relationship-with Y.
-Rule: If X in-plerology-relationship-with Y, then Y in-plerology-relationship-with X.
-Rule: If X in-plesiomorphy-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-plesiomorphy-relationship-with Y, then Y in-plesiomorphy-relationship-with X.
-Rule: If X in-postdisplacement-relationship-with Y, then X in-paedomorphorsis-relationship-with Y.
-Rule: If X in-postdisplacement-relationship-with Y, then Y in-postdisplacement-relationship-with X.
-Rule: If X in-pro-orthology-relationship-with Y, then X in-1-to-many-orthology-relationship-with Y.
-Rule: If X in-pro-orthology-relationship-with Y, then Y in-pro-orthology-relationship-with X.
-Rule: If X in-progenesis-relationship-with Y, then X in-paedomorphorsis-relationship-with Y.
-Rule: If X in-progenesis-relationship-with Y, then Y in-progenesis-relationship-with X.
-Rule: If X in-protein-structural-homology-relationship-with Y, then X in-structural-homology-relationship-with Y.
-Rule: If X in-protein-structural-homology-relationship-with Y, then Y in-protein-structural-homology-relationship-with X.
-Rule: If X in-pseudoparalogy-relationship-with Y, then X in-xenology-relationship-with Y.
-Rule: If X in-pseudoparalogy-relationship-with Y, then Y in-pseudoparalogy-relationship-with X.
-Rule: If X in-register-with Y, then X mereotopologically-related-to Y.
-Rule: If X in-regulogy-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-regulogy-relationship-with Y, then Y in-regulogy-relationship-with X.
-Rule: If X in-reversal-relationship-with Y, then X in-homoplasy-relationship-with Y.
-Rule: If X in-reversal-relationship-with Y, then Y in-reversal-relationship-with X.
-Rule: If X in-semi-orthology-relationship-with Y, then X in-1-to-many-orthology-relationship-with Y.
-Rule: If X in-semi-orthology-relationship-with Y, then Y in-semi-orthology-relationship-with X.
-Rule: If X in-serial-homology-relationship-with Y, then X in-iterative-homology-relationship-with Y.
-Rule: If X in-serial-homology-relationship-with Y, then Y in-serial-homology-relationship-with X.
-Rule: If X in-similarity-relationship-with Y, then Y in-similarity-relationship-with X.
-Rule: If X in-structural-homology-relationship-with Y, then X in-homology-relationship-with Y.
-Rule: If X in-structural-homology-relationship-with Y, then Y in-structural-homology-relationship-with X.
-Rule: If X in-syngeny-relationship-with Y, then X in-homocracy-relationship-with Y.
-Rule: If X in-syngeny-relationship-with Y, then Y in-syngeny-relationship-with X.
-Rule: If X in-synology-relationship-with Y, then X in-xenology-relationship-with Y.
-Rule: If X in-synology-relationship-with Y, then Y in-synology-relationship-with X.
-Rule: If X in-syntenic-homology-relationship-with Y, then X in-structural-homology-relationship-with Y.
-Rule: If X in-syntenic-homology-relationship-with Y, then Y in-syntenic-homology-relationship-with X.
-Rule: If X in-syntenic-orthology-relationship-with Y, then X in-syntenic-homology-relationship-with Y.
-Rule: If X in-syntenic-orthology-relationship-with Y, then Y in-syntenic-orthology-relationship-with X.
-Rule: If X in-syntenic-paralogy-relationship-with Y, then X in-paralogy-relationship-with Y.
-Rule: If X in-syntenic-paralogy-relationship-with Y, then X in-syntenic-homology-relationship-with Y.
-Rule: If X in-syntenic-paralogy-relationship-with Y, then Y in-syntenic-paralogy-relationship-with X.
-Rule: If X in-tandem-paralogy-relationship-with Y, then X in-paralogy-relationship-with Y.
-Rule: If X in-tandem-paralogy-relationship-with Y, then Y in-tandem-paralogy-relationship-with X.
-Rule: If X in-taxon Y, then X evolutionarily-related-to Y.
-Rule: If X in-within-species-paralogy-relationship-with Y, then X in-paralogy-relationship-with Y.
-Rule: If X in-within-species-paralogy-relationship-with Y, then Y in-within-species-paralogy-relationship-with X.
-Rule: If X in-xenology-relationship-with Y, then X in-historical-homology-relationship-with Y.
-Rule: If X in-xenology-relationship-with Y, then Y in-xenology-relationship-with X.
-Rule: If X increased-in-magnitude-relative-to Y, then X different-in-magnitude-relative-to Y.
-Rule: If X increases-by-expression-quantity-of Y, then X indirectly-positively-regulates-quantity-of Y.
-Rule: If X increases-expression-of Y, then X directly-positively-regulates-activity-of Y.
-Rule: If X indicates-clinical-effect-of Y, then X marker for Y.
-Rule: If X indicates-response-to Y, then X indicates-clinical-effect-of Y.
-Rule: If X indicates-risk-of-developing Y, then X provides-clinical-information-for Y.
-Rule: If X indirect-form-of Y, then X logical-macro-assertion-on-an-object-property Y.
-Rule: If X indirectly-causally-upstream-of Y, then X causally-upstream-of Y.
-Rule: If X indirectly-negatively-regulates Y and Y indirectly-negatively-regulates Z, then X indirectly-negatively-regulates Z.
-Rule: If X indirectly-negatively-regulates Y, then X indirectly-regulates Y.
-Rule: If X indirectly-negatively-regulates Y, then X negatively-regulates Y.
-Rule: If X indirectly-negatively-regulates-activity-of Y, then X indirectly-regulates-activity-of Y.
-Rule: If X indirectly-negatively-regulates-quantity-of Y, then X indirectly-regulates-quantity-of Y.
-Rule: If X indirectly-positively-regulates Y and Y indirectly-positively-regulates Z, then X indirectly-positively-regulates Z.
-Rule: If X indirectly-positively-regulates Y, then X indirectly-regulates Y.
-Rule: If X indirectly-positively-regulates Y, then X positively-regulates Y.
-Rule: If X indirectly-positively-regulates-activity-of Y, then X indirectly-regulates-activity-of Y.
-Rule: If X indirectly-positively-regulates-quantity-of Y, then X indirectly-regulates-quantity-of Y.
-Rule: If X indirectly-regulates Y, then X indirectly-causally-upstream-of Y.
-Rule: If X indirectly-regulates Y, then X regulates Y.
-Rule: If X indirectly-regulates-activity-of Y, then X regulates-activity-of Y.
-Rule: If X indirectly-regulates-quantity-of Y, then X regulates-quantity-of Y.
-Rule: If X indistinguishable from Y, then X approximately-equivalent-to Y.
-Rule: If X innervates Y, then Y is innervated by X.
-Rule: If X input of Y, then X functionally-related-to Y.
-Rule: If X input of Y, then X participates in Y.
-Rule: If X input of Y, then Y has-input X.
-Rule: If X interaction-relation-helper-property Y, then X helper-property-not-for-use-in-curation Y.
-Rule: If X interacts with Y, then Y interacts with X.
-Rule: If X interacts-with-via-parasite-host-interaction Y, then X symbiotically-interacts-with Y.
-Rule: If X intercellular-endoparasite-of Y, then X endoparasite of Y.
-Rule: If X intercellular-endoparasite-of Y, then Y has-intercellular-endoparasite X.
-Rule: If X intracellular-endoparasite-of Y, then X endoparasite of Y.
-Rule: If X intracellular-endoparasite-of Y, then Y has-intracellular-endoparasite X.
-Rule: If X inverse-agonist-of Y, then X directly-negatively-regulates-activity-of Y.
-Rule: If X involved-in-negative-regulation-of Y, then X involved-in-regulation-of Y.
-Rule: If X involved-in-or-involved-in-regulation-of Y, then X acts-upstream-of-or-within Y.
-Rule: If X involved-in-or-involved-in-regulation-of Y, then X causal-agent-in-process Y.
-Rule: If X involved-in-or-involved-in-regulation-of Y, then X functionally-related-to Y.
-Rule: If X involved-in-positive-regulation-of Y, then X involved-in-regulation-of Y.
-Rule: If X involved-in-regulation-of Y, then X acts-upstream-of Y.
-Rule: If X involved-in-regulation-of Y, then X involved-in-or-involved-in-regulation-of Y.
-Rule: If X is adjacent to Y, then X spatially-disjoint-from Y.
-Rule: If X is aligned with Y and Y is aligned with Z, then X is aligned with Z.
-Rule: If X is attached to Y, then X attached-to-part-of Y.
-Rule: If X is attached to Y, then X is connected to Y.
-Rule: If X is attached to Y, then Y is attached to X.
-Rule: If X is connected to Y, then X mereotopologically-related-to Y.
-Rule: If X is determined by Y, then X causally-influenced-by Y.
-Rule: If X is determined by Y, then X determined-by-part-of Y.
-Rule: If X is determined by Y, then X is part of Y.
-Rule: If X is determined by Y, then Y determines X.
-Rule: If X is enabled by Y, then X functionally-related-to Y.
-Rule: If X is enabled by Y, then X has-participant Y.
-Rule: If X is enabled by Y, then Y enables X.
-Rule: If X is expressed in Y, then X genomically-related-to Y.
-Rule: If X is expressed in Y, then Y expresses X.
-Rule: If X is hyperparasitized by Y, then X host of Y.
-Rule: If X is hyperparasitized by Y, then Y hyperparasite of X.
-Rule: If X is innervated by Y, then Y innervates X.
-Rule: If X is involved in Y, then X involved-in-or-involved-in-regulation-of Y.
-Rule: If X is involved in Y, then X participates in Y.
-Rule: If X is killed by Y, then X participates-in-a-biotic-biotic-interaction-with Y.
-Rule: If X is killed by Y, then Y kills X.
-Rule: If X is kleptoparasitized by Y, then X is parasitized by Y.
-Rule: If X is kleptoparasitized by Y, then Y kleptoparasite of X.
-Rule: If X is located in Y and Y is located in Z, then X is located in Z.
-Rule: If X is located in Y, then Y location of X.
-Rule: If X is member of Y, then X is part of Y.
-Rule: If X is member of Y, then Y has-member X.
-Rule: If X is myristoylated by Y, then Y myristoylates X.
-Rule: If X is owned by Y, then Y owns X.
-Rule: If X is parasitized by Y, then X host of Y.
-Rule: If X is parasitized by Y, then X interacts-with-via-parasite-host-interaction Y.
-Rule: If X is parasitized by Y, then Y parasite of X.
-Rule: If X is part of Y and Y is part of Z, then X is part of Z.
-Rule: If X is part of Y, then X overlaps Y.
-Rule: If X is part of Y, then Y has-part X.
-Rule: If X is pollinated by Y, then X mutualistically-interacts-with Y.
-Rule: If X is pollinated by Y, then Y pollinates X.
-Rule: If X is preceded by Y and Y is preceded by Z, then X is preceded by Z.
-Rule: If X is preceded by Y, then X ends after Y.
-Rule: If X is preceded by Y, then Y precedes X.
-Rule: If X is produced by Y, then Y produces X.
-Rule: If X is realized in Y, then Y realizes X.
-Rule: If X is regulated by Y and Y is regulated by Z, then X is regulated by Z.
-Rule: If X is regulated by Y, then X causally-downstream-of-or-within Y.
-Rule: If X is regulated by Y, then Y regulates X.
-Rule: If X is surrounded by Y, then X is adjacent to Y.
-Rule: If X is surrounded by Y, then Y surrounds X.
-Rule: If X is synapsed by Y, then X receives-input-from Y.
-Rule: If X is synapsed by Y, then Y is synapsed to X.
-Rule: If X is synapsed to Y, then X sends-output-to Y.
-Rule: If X is synapsed to Y, then Y is synapsed by X.
-Rule: If X is transcribed from Y, then X genomically-related-to Y.
-Rule: If X is transcribed from Y, then Y is transcribed to X.
-Rule: If X is transcribed to Y, then X genomically-related-to Y.
-Rule: If X is transcribed to Y, then Y is transcribed from X.
-Rule: If X is transmitted by Y, then X ecologically-related-to Y.
-Rule: If X is visited by Y, then X participates-in-a-biotic-biotic-interaction-with Y.
-Rule: If X is visited by Y, then Y visits X.
-Rule: If X kills Y, then X participates-in-a-biotic-biotic-interaction-with Y.
-Rule: If X kills Y, then Y is killed by X.
-Rule: If X kinase-activity Y, then X molecular-interaction-relation-helper-property Y.
-Rule: If X kleptoparasite of Y, then X parasite of Y.
-Rule: If X kleptoparasite of Y, then Y is kleptoparasitized by X.
-Rule: If X lays-eggs-in Y, then X parasite of Y.
-Rule: If X lays-eggs-in Y, then X visits Y.
-Rule: If X lays-eggs-in Y, then Y has-eggs-laid-in-by X.
-Rule: If X lays-eggs-on Y, then X visits Y.
-Rule: If X lays-eggs-on Y, then Y has-eggs-laid-on-by X.
-Rule: If X location of Y and Y location of Z, then X location of Z.
-Rule: If X location of Y, then Y is located in X.
-Rule: If X logical-macro-assertion-involving-identity Y, then X logical-macro-assertion Y.
-Rule: If X logical-macro-assertion-on-a-class Y, then X logical-macro-assertion Y.
-Rule: If X logical-macro-assertion-on-a-property Y, then X logical-macro-assertion Y.
-Rule: If X logical-macro-assertion-on-an-annotation-property Y, then X logical-macro-assertion-on-a-property Y.
-Rule: If X logical-macro-assertion-on-an-axiom Y, then X logical-macro-assertion Y.
-Rule: If X logical-macro-assertion-on-an-object-property Y, then X logical-macro-assertion-on-a-property Y.
-Rule: If X lumen of Y, then X is part of Y.
-Rule: If X luminal-space-of Y, then X lumen of Y.
-Rule: If X main-stem-of Y, then X in-branching-relationship-with Y.
-Rule: If X main-stem-of Y, then X is part of Y.
-Rule: If X marker for Y, then X is correlated with Y.
-Rule: If X matched-small-molecular-pair-with Y, then X chemical-relationship Y.
-Rule: If X matched-small-molecular-pair-with Y, then Y matched-small-molecular-pair-with X.
-Rule: If X measurement-property-has-unit Y, then X logical-macro-assertion-on-an-annotation-property Y.
-Rule: If X mesoparasite of Y, then X parasite of Y.
-Rule: If X mesoparasite of Y, then Y has-mesoparasite X.
-Rule: If X molecular-interaction-relation-helper-property Y, then X interaction-relation-helper-property Y.
-Rule: If X molecularly-interacts-with Y, then X interacts with Y.
-Rule: If X molecularly-interacts-with Y, then Y molecularly-interacts-with X.
-Rule: If X monitors-effect-of Y, then X indicates-clinical-effect-of Y.
-Rule: If X monitors-exposure-to Y, then X indicates-clinical-effect-of Y.
-Rule: If X monitors-status-of Y, then X provides-clinical-information-for Y.
-Rule: If X month-of-gestation Y, then X temporal-logical-macro-assertion-on-a-class Y.
-Rule: If X mouse-subset Y, then X subset-property Y.
-Rule: If X mutualism Y, then X symbiosis Y.
-Rule: If X mutualistically-interacts-with Y, then X symbiotically-interacts-with Y.
-Rule: If X mutually-spatially-disjoint-with Y, then X logical-macro-assertion-on-a-class Y.
-Rule: If X myristoylates Y, then X molecularly-interacts-with Y.
-Rule: If X myristoylates Y, then Y is myristoylated by X.
-Rule: If X myristoyltransferase-activity Y, then X molecular-interaction-relation-helper-property Y.
-Rule: If X negative-form-of Y, then X directional-form-of Y.
-Rule: If X negatively-correlated-with Y, then X is correlated with Y.
-Rule: If X negatively-correlated-with Y, then Y negatively-correlated-with X.
-Rule: If X negatively-regulated-by Y, then X is regulated by Y.
-Rule: If X negatively-regulated-by Y, then Y negatively-regulates X.
-Rule: If X negatively-regulates Y, then X causally-upstream-of-negative-effect Y.
-Rule: If X negatively-regulates Y, then X regulates Y.
-Rule: If X negatively-regulates Y, then Y negatively-regulated-by X.
-Rule: If X negatively-regulates-characteristic Y, then X regulates-characteristic Y.
-Rule: If X negatively-regulates-in-another-organism Y, then X regulates-in-another-organism Y.
-Rule: If X never-in-taxon Y, then X taxonomic-class-assertion Y.
-Rule: If X nominally-disjoint-with Y, then X logical-macro-assertion-on-an-object-property Y.
-Rule: If X obligate-parasite-of Y, then X parasite of Y.
-Rule: If X occurrent-part-of Y, then X causally-upstream-of-or-within Y.
-Rule: If X occurrent-part-of Y, then X is part of Y.
-Rule: If X only-in-taxon Y, then X in-taxon Y.
-Rule: If X opposite of Y, then X in-approximate-one-to-one-relationship-with Y.
-Rule: If X output of Y, then X functionally-related-to Y.
-Rule: If X output of Y, then X participates in Y.
-Rule: If X output of Y, then Y has-output X.
-Rule: If X over-expressed-in Y, then X is expressed in Y.
-Rule: If X overlaps Y, then X mereotopologically-related-to Y.
-Rule: If X overlaps Y, then Y overlaps X.
-Rule: If X overlaps-sequence-of Y, then X overlaps Y.
-Rule: If X overlaps-sequence-of Y, then X sequentially-related-to Y.
-Rule: If X overlaps-sequence-of Y, then Y overlaps-sequence-of X.
-Rule: If X owns Y, then Y is owned by X.
-Rule: If X parasite of Y, then X has-host Y.
-Rule: If X parasite of Y, then X interacts-with-via-parasite-host-interaction Y.
-Rule: If X parasite of Y, then Y is parasitized by X.
-Rule: If X parasitism Y, then X symbiosis Y.
-Rule: If X parasitoid of Y, then X parasite of Y.
-Rule: If X parasitoid of Y, then Y has-parasitoid X.
-Rule: If X part-of-developmental-precursor-of Y, then X developmentally-succeeded-by Y.
-Rule: If X part-of-structure-that-is-capable-of Y, then X functionally-related-to Y.
-Rule: If X partially-overlaps Y, then X overlaps Y.
-Rule: If X participates in Y, then Y has-participant X.
-Rule: If X participates-in-a-abiotic-biotic-interaction-with Y, then X biotically-interacts-with Y.
-Rule: If X participates-in-a-biotic-biotic-interaction-with Y, then X biotically-interacts-with Y.
-Rule: If X partner in Y, then X participates in Y.
-Rule: If X pathogen of Y, then X has-host Y.
-Rule: If X pathogen of Y, then Y has-pathogen X.
-Rule: If X pheno-slim Y, then X subset-property Y.
-Rule: If X phenotype of Y, then Y has-phenotype X.
-Rule: If X phosphorylates Y, then X molecularly-interacts-with Y.
-Rule: If X pollinates Y, then X mutualistically-interacts-with Y.
-Rule: If X pollinates Y, then Y is pollinated by X.
-Rule: If X positive-form-of Y, then X directional-form-of Y.
-Rule: If X positively-correlated-with Y, then X is correlated with Y.
-Rule: If X positively-correlated-with Y, then Y positively-correlated-with X.
-Rule: If X positively-regulated-by Y, then X is regulated by Y.
-Rule: If X positively-regulated-by Y, then Y positively-regulates X.
-Rule: If X positively-regulates Y and Y positively-regulates Z, then X positively-regulates Z.
-Rule: If X positively-regulates Y, then X causally-upstream-of-positive-effect Y.
-Rule: If X positively-regulates Y, then X regulates Y.
-Rule: If X positively-regulates Y, then Y positively-regulated-by X.
-Rule: If X positively-regulates-characteristic Y, then X regulates-characteristic Y.
-Rule: If X positively-regulates-in-another-organism Y, then X regulates-in-another-organism Y.
-Rule: If X precedes Y and Y precedes Z, then X precedes Z.
-Rule: If X precedes Y, then X temporally-related-to Y.
-Rule: If X precedes Y, then Y is preceded by X.
-Rule: If X predicts-effect-of Y, then X indicates-clinical-effect-of Y.
-Rule: If X present-in-taxon Y, then X taxonomic-class-assertion Y.
-Rule: If X preyed-upon-by Y, then X trophically-interacts-with Y.
-Rule: If X preyed-upon-by Y, then Y preys on X.
-Rule: If X preys on Y, then X trophically-interacts-with Y.
-Rule: If X preys on Y, then Y preyed-upon-by X.
-Rule: If X process-has-causal-agent Y, then X causally-related-to Y.
-Rule: If X process-has-causal-agent Y, then Y causal-agent-in-process X.
-Rule: If X produces Y, then Y is produced by X.
-Rule: If X prognostic for Y, then X provides-clinical-information-for Y.
-Rule: If X proper-distributary-of Y, then X distributary of Y.
-Rule: If X proper-tributary-of Y, then X tributary of Y.
-Rule: If X protonated-form-of Y and Y protonated-form-of Z, then X protonated-form-of Z.
-Rule: If X protonated-form-of Y, then X chemical-relationship Y.
-Rule: If X protonated-form-of Y, then Y deprotonated-form-of X.
-Rule: If X provides-clinical-information-for Y, then X marker for Y.
-Rule: If X provides-input-for Y, then X immediately-causally-upstream-of Y.
-Rule: If X provides-input-for Y, then X transitively-provides-input-for Y.
-Rule: If X provides-nutrients-for Y, then X biotically-interacts-with Y.
-Rule: If X provides-nutrients-for Y, then Y acquires-nutrients-from X.
-Rule: If X quality of Y, then X characteristic of Y.
-Rule: If X quality of Y, then Y has-quality X.
-Rule: If X realizable-has-basis-in Y, then X causally-related-to Y.
-Rule: If X realizable-has-basis-in Y, then Y basis-for-realizable X.
-Rule: If X realized-in-response-to Y, then X causally-related-to Y.
-Rule: If X realized-in-response-to-stimulus Y, then X causally-related-to Y.
-Rule: If X realizes Y, then Y is realized in X.
-Rule: If X receives-input-from Y, then X is connected to Y.
-Rule: If X receives-input-from Y, then Y sends-output-to X.
-Rule: If X receives-synaptic-input-from-neuron Y, then X is synapsed by Y.
-Rule: If X receives-synaptic-input-from-neuron Y, then Y sends-synaptic-output-to-cell X.
-Rule: If X receives-synaptic-input-in-region Y, then X has-postsynaptic-terminal-in Y.
-Rule: If X receives-synaptic-input-in-region Y, then X has-synaptic-io-in-region Y.
-Rule: If X receives-synaptic-input-throughout Y, then X has-synaptic-io-throughout Y.
-Rule: If X receives-synaptic-input-throughout Y, then X receives-synaptic-input-in-region Y.
-Rule: If X regulates Y and Y regulates Z, then X regulates Z.
-Rule: If X regulates Y, then X causally-upstream-of Y.
-Rule: If X regulates Y, then Y is regulated by X.
-Rule: If X regulates-activity-of Y, then X causally-influences Y.
-Rule: If X regulates-characteristic Y, then X causally-related-to Y.
-Rule: If X regulates-in-another-organism Y, then X causally-upstream-of-or-within Y.
-Rule: If X regulates-levels-of Y, then X functionally-related-to Y.
-Rule: If X regulates-quantity-of Y, then X causally-influences Y.
-Rule: If X rel-2-d-boundary-of Y, then X mereotopologically-related-to Y.
-Rule: If X rel-2-d-boundary-of Y, then Y has-2-d-boundary X.
-Rule: If X rel-a-defining-property-chain-axiom Y, then X logical-macro-assertion-on-an-axiom Y.
-Rule: If X rel-a-defining-property-chain-axiom-where-second-argument-is-reflexive Y, then X rel-a-defining-property-chain-axiom Y.
-Rule: If X rel-contains-process Y, then Y rel-occurs-in X.
-Rule: If X rel-does-not-overlap-sequence-of Y, then X sequentially-related-to Y.
-Rule: If X rel-does-not-overlap-sequence-of Y, then Y rel-does-not-overlap-sequence-of X.
-Rule: If X rel-occurs-across Y, then X has-part-that-occurs-in Y.
-Rule: If X rel-occurs-in Y, then Y rel-contains-process X.
-Rule: If X related-via-exposure-to Y, then X causally-related-to Y.
-Rule: If X relational-form-of-a-class Y, then X logical-macro-assertion-on-an-object-property Y.
-Rule: If X relational-form-of-process-class Y, then X relational-form-of-a-class Y.
-Rule: If X removes-input-for Y, then X causally-upstream-of-negative-effect Y.
-Rule: If X representative-iri-for-equivalence-set Y, then X logical-macro-assertion-involving-identity Y.
-Rule: If X represses-expression-of Y, then X directly-negatively-regulates-activity-of Y.
-Rule: If X reservoir-host-of Y, then X host of Y.
-Rule: If X reservoir-host-of Y, then Y has-reservoir-host X.
-Rule: If X results-in-acquisition-of-features-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X results-in-acquisition-of-features-of Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-adhesion-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X results-in-assembly-of Y, then X results-in-formation-of-anatomical-entity Y.
-Rule: If X results-in-assembly-of Y, then X results-in-organization-of Y.
-Rule: If X results-in-breakdown-of Y, then X has-input Y.
-Rule: If X results-in-catabolism-of Y, then X results-in-breakdown-of Y.
-Rule: If X results-in-changes-to-anatomical-or-cellular-structure Y, then X has-participant Y.
-Rule: If X results-in-closure-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X results-in-closure-of Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-commitment-to Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-determination-of Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-development-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X results-in-development-of Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-developmental-induction-of Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-developmental-progression-of Y, then X developmentally-related-to Y.
-Rule: If X results-in-developmental-regression-of Y, then X results-in-ending-of Y.
-Rule: If X results-in-disappearance-of Y, then X results-in-ending-of Y.
-Rule: If X results-in-disassembly-of Y, then X results-in-breakdown-of Y.
-Rule: If X results-in-disassembly-of Y, then X results-in-organization-of Y.
-Rule: If X results-in-ending-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X results-in-ending-of Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-formation-of-anatomical-entity Y, then X has-output Y.
-Rule: If X results-in-formation-of-anatomical-entity Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-formation-of-anatomical-entity Y, then Y formed-as-result-of X.
-Rule: If X results-in-fusion-of Y, then X results-in-organization-of Y.
-Rule: If X results-in-growth-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X results-in-growth-of Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-maturation-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X results-in-maturation-of Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-morphogenesis-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X results-in-morphogenesis-of Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-movement-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X results-in-organization-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X results-in-remodeling-of Y, then X has-input Y.
-Rule: If X results-in-remodeling-of Y, then X results-in-organization-of Y.
-Rule: If X results-in-specification-of Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-structural-organization-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X results-in-structural-organization-of Y, then X results-in-developmental-progression-of Y.
-Rule: If X results-in-synthesis-of Y, then X results-in-formation-of-anatomical-entity Y.
-Rule: If X results-in-transport-across Y, then X rel-occurs-across Y.
-Rule: If X results-in-transport-across Y, then X results-in-transport-to-from-or-in Y.
-Rule: If X results-in-transport-along Y, then X related-via-localization-to Y.
-Rule: If X results-in-transport-to-from-or-in Y, then X related-via-localization-to Y.
-Rule: If X ribosomal-translation-of Y, then X genomically-related-to Y.
-Rule: If X ribosomal-translation-of Y, then Y ribosomally-translates-to X.
-Rule: If X ribosomally-translates-to Y, then X genomically-related-to Y.
-Rule: If X ribosomally-translates-to Y, then Y ribosomal-translation-of X.
-Rule: If X role of Y, then X characteristic of Y.
-Rule: If X role of Y, then Y has-role X.
-Rule: If X root-parasite-of Y, then X parasite of Y.
-Rule: If X sends-output-to Y, then X is connected to Y.
-Rule: If X sends-output-to Y, then Y receives-input-from X.
-Rule: If X sends-synaptic-output-throughout Y, then X has-synaptic-io-throughout Y.
-Rule: If X sends-synaptic-output-throughout Y, then X sends-synaptic-output-to-region Y.
-Rule: If X sends-synaptic-output-to-cell Y, then X is synapsed to Y.
-Rule: If X sends-synaptic-output-to-cell Y, then Y receives-synaptic-input-from-neuron X.
-Rule: If X sends-synaptic-output-to-region Y, then X has-presynaptic-terminal-in Y.
-Rule: If X sends-synaptic-output-to-region Y, then X has-synaptic-io-in-region Y.
-Rule: If X sequentially-adjacent-to Y, then X rel-does-not-overlap-sequence-of Y.
-Rule: If X sequentially-aligned-with Y, then X sequentially-related-to Y.
-Rule: If X sequentially-aligned-with Y, then Y sequentially-aligned-with X.
-Rule: If X serially-homologous-to Y and Y serially-homologous-to Z, then X serially-homologous-to Z.
-Rule: If X serially-homologous-to Y, then X evolutionarily-related-to Y.
-Rule: If X serially-homologous-to Y, then Y serially-homologous-to X.
-Rule: If X shares-ancestor-with Y and Y shares-ancestor-with Z, then X shares-ancestor-with Z.
-Rule: If X shares-ancestor-with Y, then X evolutionarily-related-to Y.
-Rule: If X shares-ancestor-with Y, then Y shares-ancestor-with X.
-Rule: If X simultaneous with Y and Y simultaneous with Z, then X simultaneous with Z.
-Rule: If X simultaneous with Y, then X before-or-simultaneous-with Y.
-Rule: If X simultaneous with Y, then Y simultaneous with X.
-Rule: If X skeleton of Y, then X is part of Y.
-Rule: If X skeleton of Y, then Y has-skeleton X.
-Rule: If X small-molecule-activator-of Y, then X capable-of-positively-regulating Y.
-Rule: If X small-molecule-activator-of Y, then X small-molecule-regulator-of Y.
-Rule: If X small-molecule-activator-of Y, then Y has-small-molecule-activator X.
-Rule: If X small-molecule-inhibitor-of Y, then X capable-of-negatively-regulating Y.
-Rule: If X small-molecule-inhibitor-of Y, then X small-molecule-regulator-of Y.
-Rule: If X small-molecule-inhibitor-of Y, then Y has-small-molecule-inhibitor X.
-Rule: If X small-molecule-regulator-of Y, then X capable-of-regulating Y.
-Rule: If X small-molecule-regulator-of Y, then Y has-small-molecule-regulator X.
-Rule: If X spatially-coextensive-with Y, then X overlaps Y.
-Rule: If X spatially-disjoint-from Y, then X mereotopologically-related-to Y.
-Rule: If X stabilizes-quantity-of Y, then X directly-positively-regulates-quantity-of Y.
-Rule: If X start-days-post-coitum Y, then X has-start-time-value Y.
-Rule: If X start-days-post-fertilization Y, then X has-start-time-value Y.
-Rule: If X start-months-post-birth Y, then X has-start-time-value Y.
-Rule: If X start-sequence-of Y and Y start-sequence-of Z, then X start-sequence-of Z.
-Rule: If X start-sequence-of Y, then X subsequence of Y.
-Rule: If X start-sequence-of Y, then Y has-start-sequence X.
-Rule: If X start-weeks-post-birth Y, then X has-start-time-value Y.
-Rule: If X start-years-post-birth Y, then X has-start-time-value Y.
-Rule: If X starts Y, then X is part of Y.
-Rule: If X starts Y, then X temporally-related-to Y.
-Rule: If X starts Y, then Y starts with X.
-Rule: If X starts before Y and Y starts before Z, then X starts before Z.
-Rule: If X starts before Y, then X temporally-related-to Y.
-Rule: If X starts during Y, then X temporally-related-to Y.
-Rule: If X starts during Y, then Y during-which-starts X.
-Rule: If X starts with Y and Y starts with Z, then X starts with Z.
-Rule: If X starts with Y, then X has-part Y.
-Rule: If X starts with Y, then X temporally-related-to Y.
-Rule: If X starts with Y, then Y starts X.
-Rule: If X stem-parasite-of Y, then X parasite of Y.
-Rule: If X subcluster of Y and Y subcluster of Z, then X subcluster of Z.
-Rule: If X subcluster of Y, then X is part of Y.
-Rule: If X subject-participant-in Y, then X partner in Y.
-Rule: If X subsequence of Y and Y subsequence of Z, then X subsequence of Z.
-Rule: If X subsequence of Y, then X bound-by-sequence-of Y.
-Rule: If X subsequence of Y, then X is part of Y.
-Rule: If X subsequence of Y, then X overlaps-sequence-of Y.
-Rule: If X subsequence of Y, then Y has-subsequence X.
-Rule: If X substance-that-treats Y, then X capable-of-inhibiting-or-preventing-pathological-process Y.
-Rule: If X substance-that-treats Y, then Y treated-by-substance X.
-Rule: If X substitutent-group-from Y, then X chemical-relationship Y.
-Rule: If X supplies Y, then X is connected to Y.
-Rule: If X surrounds Y, then X is adjacent to Y.
-Rule: If X surrounds Y, then Y is surrounded by X.
-Rule: If X symbiosis Y, then X interaction-relation-helper-property Y.
-Rule: If X symbiotically-interacts-with Y, then X participates-in-a-biotic-biotic-interaction-with Y.
-Rule: If X symbiotically-interacts-with Y, then Y symbiotically-interacts-with X.
-Rule: If X symbiotrophically-interacts-with Y, then X trophically-interacts-with Y.
-Rule: If X symmetric-relational-form-of-process-class Y, then X relational-form-of-process-class Y.
-Rule: If X synapsed-by-via-type-ib-bouton Y, then X is synapsed by Y.
-Rule: If X synapsed-by-via-type-ib-bouton Y, then Y synapsed-via-type-ib-bouton-to X.
-Rule: If X synapsed-by-via-type-ii-bouton Y, then X is synapsed by Y.
-Rule: If X synapsed-by-via-type-ii-bouton Y, then Y synapsed-via-type-ii-bouton-to X.
-Rule: If X synapsed-by-via-type-iii-bouton Y, then X is synapsed by Y.
-Rule: If X synapsed-by-via-type-iii-bouton Y, then Y synapsed-via-type-iii-bouton-to X.
-Rule: If X synapsed-by-via-type-is-bouton Y, then X is synapsed by Y.
-Rule: If X synapsed-by-via-type-is-bouton Y, then Y synapsed-via-type-is-bouton-to X.
-Rule: If X synapsed-via-type-ib-bouton-to Y, then X is synapsed to Y.
-Rule: If X synapsed-via-type-ib-bouton-to Y, then Y synapsed-by-via-type-ib-bouton X.
-Rule: If X synapsed-via-type-ii-bouton-to Y, then X is synapsed to Y.
-Rule: If X synapsed-via-type-ii-bouton-to Y, then Y synapsed-by-via-type-ii-bouton X.
-Rule: If X synapsed-via-type-iii-bouton-to Y, then X is synapsed to Y.
-Rule: If X synapsed-via-type-iii-bouton-to Y, then Y synapsed-by-via-type-iii-bouton X.
-Rule: If X synapsed-via-type-is-bouton-to Y, then X is synapsed to Y.
-Rule: If X synapsed-via-type-is-bouton-to Y, then Y synapsed-by-via-type-is-bouton X.
-Rule: If X synapses-restricted-to-region Y, then X has-synaptic-io-in-region Y.
-Rule: If X target-participant-in Y, then X partner in Y.
-Rule: If X tautomer of Y, then X chemical-relationship Y.
-Rule: If X tautomer of Y, then Y tautomer of X.
-Rule: If X taxonomic-class-assertion Y, then X logical-macro-assertion-on-a-class Y.
-Rule: If X temporal-interpretation Y, then X logical-macro-assertion-on-an-object-property Y.
-Rule: If X temporal-logical-macro-assertion-on-a-class Y, then X logical-macro-assertion-on-a-class Y.
-Rule: If X towards Y, then X depends on Y.
-Rule: If X tracheates Y, then X is located in Y.
-Rule: If X transformation of Y and Y transformation of Z, then X transformation of Z.
-Rule: If X transformation of Y, then X develops from Y.
-Rule: If X transitively-provides-input-for Y and Y transitively-provides-input-for Z, then X transitively-provides-input-for Z.
-Rule: If X transitively-provides-input-for Y, then X causally-upstream-of-or-within-positive-effect Y.
-Rule: If X transports Y, then X transports-or-maintains-localization-of Y.
-Rule: If X transports-or-maintains-localization-of Y, then X related-via-localization-to Y.
-Rule: If X transports-or-maintains-localization-of Y, then X results-in-changes-to-anatomical-or-cellular-structure Y.
-Rule: If X treated-by-substance Y, then X causally-related-to Y.
-Rule: If X treated-by-substance Y, then Y substance-that-treats X.
-Rule: If X tributary of Y, then X in-branching-relationship-with Y.
-Rule: If X tributary of Y, then X is connected to Y.
-Rule: If X trophic-parasite-of Y, then X symbiotrophically-interacts-with Y.
-Rule: If X trophically-interacts-with Y, then X participates-in-a-biotic-biotic-interaction-with Y.
-Rule: If X uberon-slim Y, then X subset-property Y.
-Rule: If X ubiquitinates Y, then X molecularly-interacts-with Y.
-Rule: If X ubiquitination Y, then X molecular-interaction-relation-helper-property Y.
-Rule: If X ubiquitously-expressed-in Y, then X is expressed in Y.
-Rule: If X ubiquitously-expressed-in Y, then Y ubiquitously-expresses X.
-Rule: If X ubiquitously-expresses Y, then X expresses Y.
-Rule: If X ubiquitously-expresses Y, then Y ubiquitously-expressed-in X.
-Rule: If X under-expressed-in Y, then X is expressed in Y.
-Rule: If X upper-level Y, then X subset-property Y.
-Rule: If X upstream-of-sequence-of Y and Y upstream-of-sequence-of Z, then X upstream-of-sequence-of Z.
-Rule: If X upstream-of-sequence-of Y, then X rel-does-not-overlap-sequence-of Y.
-Rule: If X valid-for-go-annotation-extension Y, then X subset-property Y.
-Rule: If X valid-for-go-gp2term Y, then X subset-property Y.
-Rule: If X valid-for-go-ontology Y, then X subset-property Y.
-Rule: If X valid-for-gocam Y, then X subset-property Y.
-Rule: If X vector for Y, then X participates-in-a-biotic-biotic-interaction-with Y.
-Rule: If X vector for Y, then Y has-vector X.
-Rule: If X vertebrate-core Y, then X subset-property Y.
-Rule: If X vessel-drains-blood-from Y, then X drains Y.
-Rule: If X vessel-supplies-blood-to Y, then X supplies Y.
-Rule: If X visits Y, then X participates-in-a-biotic-biotic-interaction-with Y.
-Rule: If X visits Y, then Y is visited by X.
-Rule: If X visits-flowers-of Y, then X visits Y.
-Rule: If X visits-flowers-of Y, then Y has-flowers-visited-by X.
+Rule: If ?X acquires-nutrients-from ?Y, then ?X biotically-interacts-with ?Y.
+Rule: If ?X acquires-nutrients-from ?Y, then ?Y provides-nutrients-for ?X.
+Rule: If ?X active in ?Y, then ?X functionally-related-to ?Y.
+Rule: If ?X active in ?Y, then ?X overlaps ?Y.
+Rule: If ?X active-ingredient-in ?Y, then ?X is part of ?Y.
+Rule: If ?X active-ingredient-in ?Y, then ?Y has-active-ingredient ?X.
+Rule: If ?X acts-on-population-of ?Y, then ?X has-participant ?Y.
+Rule: If ?X acts-upstream-of ?Y, then ?X acts-upstream-of-or-within ?Y.
+Rule: If ?X acts-upstream-of-negative-effect ?Y, then ?X acts-upstream-of ?Y.
+Rule: If ?X acts-upstream-of-negative-effect ?Y, then ?X acts-upstream-of-or-within-negative-effect ?Y.
+Rule: If ?X acts-upstream-of-or-within ?Y, then ?X causal-agent-in-process ?Y.
+Rule: If ?X acts-upstream-of-or-within-negative-effect ?Y, then ?X acts-upstream-of-or-within ?Y.
+Rule: If ?X acts-upstream-of-or-within-positive-effect ?Y, then ?X acts-upstream-of-or-within ?Y.
+Rule: If ?X acts-upstream-of-positive-effect ?Y, then ?X acts-upstream-of ?Y.
+Rule: If ?X acts-upstream-of-positive-effect ?Y, then ?X acts-upstream-of-or-within-positive-effect ?Y.
+Rule: If ?X agonist of ?Y, then ?X directly-positively-regulates-activity-of ?Y.
+Rule: If ?X allelopath of ?Y, then ?X participates-in-a-biotic-biotic-interaction-with ?Y.
+Rule: If ?X allelopath of ?Y, then ?Y has-allelopath ?X.
+Rule: If ?X allergic-trigger-for ?Y, then ?X causes-or-contributes-to-condition ?Y.
+Rule: If ?X allergic-trigger-for ?Y, then ?Y has-allergic-trigger ?X.
+Rule: If ?X always-present-in-taxon ?Y, then ?X present-in-taxon ?Y.
+Rule: If ?X ambiguous-for-taxon ?Y, then ?X taxonomic-class-assertion ?Y.
+Rule: If ?X ameliorates-condition ?Y, then ?X contributes-to-severity-of-condition ?Y.
+Rule: If ?X anabranch of ?Y, then ?X distributary of ?Y.
+Rule: If ?X anabranch of ?Y, then ?X inverse of ?Y.
+Rule: If ?X anabranch of ?Y, then ?X related-to ?Y.
+Rule: If ?X anabranch of ?Y, then ?X tributary of ?Y.
+Rule: If ?X annotation-property-cardinality ?Y, then ?X logical-macro-assertion-on-an-annotation-property ?Y.
+Rule: If ?X antagonist of ?Y, then ?X directly-negatively-regulates-activity-of ?Y.
+Rule: If ?X approximately-equivalent-to ?Y, then ?X in-approximate-one-to-one-relationship-with ?Y.
+Rule: If ?X assay-measures-characteristic ?Y, then ?Y characteristic-measured-by-assay ?X.
+Rule: If ?X assesses-toxicity-of ?Y, then ?X indicates-clinical-effect-of ?Y.
+Rule: If ?X asymmetric-relational-form-of-process-class ?Y, then ?X relational-form-of-process-class ?Y.
+Rule: If ?X attached-to-part-of ?Y, then ?X biomechanically-related-to ?Y.
+Rule: If ?X attached-to-part-of ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X autoimmune-trigger-for ?Y, then ?X causes-or-contributes-to-condition ?Y.
+Rule: If ?X autoimmune-trigger-for ?Y, then ?Y has-autoimmune-trigger ?X.
+Rule: If ?X axiom-contradicted-by-evidence ?Y, then ?X evidential-logical-macro-assertion-on-an-axiom ?Y.
+Rule: If ?X axiom-has-evidence ?Y, then ?X evidential-logical-macro-assertion-on-an-axiom ?Y.
+Rule: If ?X axon-synapses-in ?Y, then ?X has-presynaptic-terminal-in ?Y.
+Rule: If ?X basis-for-realizable ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X basis-for-realizable ?Y, then ?Y realizable-has-basis-in ?X.
+Rule: If ?X before ?Y and ?Y before ?Z, then ?X before ?Z.
+Rule: If ?X before ?Y, then ?X before-or-simultaneous-with ?Y.
+Rule: If ?X before-or-simultaneous-with ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X biomechanically-related-to ?Y, then ?X functionally-related-to ?Y.
+Rule: If ?X biotically-interacts-with ?Y, then ?X ecologically-related-to ?Y.
+Rule: If ?X biotically-interacts-with ?Y, then ?X interacts with ?Y.
+Rule: If ?X biotically-interacts-with ?Y, then ?Y biotically-interacts-with ?X.
+Rule: If ?X bound-by-sequence-of ?Y and ?Y bound-by-sequence-of ?Z, then ?X bound-by-sequence-of ?Z.
+Rule: If ?X bound-by-sequence-of ?Y, then ?X sequentially-related-to ?Y.
+Rule: If ?X bound-by-sequence-of ?Y, then ?Y bounds-sequence-of ?X.
+Rule: If ?X bounding-layer-of ?Y, then ?X is part of ?Y.
+Rule: If ?X bounds-sequence-of ?Y and ?Y bounds-sequence-of ?Z, then ?X bounds-sequence-of ?Z.
+Rule: If ?X bounds-sequence-of ?Y, then ?X sequentially-related-to ?Y.
+Rule: If ?X bounds-sequence-of ?Y, then ?Y bound-by-sequence-of ?X.
+Rule: If ?X branching-part-of ?Y, then ?X in-branching-relationship-with ?Y.
+Rule: If ?X branching-part-of ?Y, then ?X is part of ?Y.
+Rule: If ?X branching-part-of ?Y, then ?Y has-branching-part ?X.
+Rule: If ?X capable of ?Y, then ?X capable-of-part-of ?Y.
+Rule: If ?X capable-of-inhibiting-or-preventing-pathological-process ?Y, then ?X capable-of-negatively-regulating ?Y.
+Rule: If ?X capable-of-negatively-regulating ?Y, then ?X capable-of-regulating ?Y.
+Rule: If ?X capable-of-part-of ?Y, then ?X causal-agent-in-process ?Y.
+Rule: If ?X capable-of-part-of ?Y, then ?X functionally-related-to ?Y.
+Rule: If ?X capable-of-positively-regulating ?Y, then ?X capable-of-regulating ?Y.
+Rule: If ?X capable-of-regulating ?Y, then ?X causal-agent-in-process ?Y.
+Rule: If ?X capable-of-upregulating-or-causing-pathological-process ?Y, then ?X capable-of-positively-regulating ?Y.
+Rule: If ?X carrier of ?Y, then ?Y generically-depends-on ?X.
+Rule: If ?X causal-agent-in-process ?Y, then ?X causal-relation-between-material-entity-and-a-process ?Y.
+Rule: If ?X causal-agent-in-process ?Y, then ?Y process-has-causal-agent ?X.
+Rule: If ?X causal-gain-of-function-germline-mutation-of-in ?Y, then ?X genetic-basis-for-condition ?Y.
+Rule: If ?X causal-gain-of-function-germline-mutation-of-in ?Y, then ?Y has-material-basis-in-gain-of-function-germline-mutation-in ?X.
+Rule: If ?X causal-germline-mutation-in ?Y, then ?X causes-condition ?Y.
+Rule: If ?X causal-germline-mutation-in ?Y, then ?X genetic-basis-for-condition ?Y.
+Rule: If ?X causal-germline-mutation-in ?Y, then ?Y has-material-basis-in-germline-mutation-in ?X.
+Rule: If ?X causal-germline-mutation-partially-giving-rise-to ?Y, then ?X contributes-to-condition ?Y.
+Rule: If ?X causal-germline-mutation-partially-giving-rise-to ?Y, then ?X genetic-basis-for-condition ?Y.
+Rule: If ?X causal-germline-mutation-partially-giving-rise-to ?Y, then ?Y has-partial-material-basis-in-germline-mutation-in ?X.
+Rule: If ?X causal-loss-of-function-germline-mutation-of-in ?Y, then ?X genetic-basis-for-condition ?Y.
+Rule: If ?X causal-loss-of-function-germline-mutation-of-in ?Y, then ?Y has-material-basis-in-loss-of-function-germline-mutation-in ?X.
+Rule: If ?X causal-relation-between-entities ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X causal-relation-between-material-entity-and-a-process ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X causal-relation-between-processes ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X causal-relationship-with-disease-as-subject ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X causal-relationship-with-disease-as-subject ?Y, then ?X disease-relationship ?Y.
+Rule: If ?X causal-somatic-mutation-in ?Y, then ?X causes-condition ?Y.
+Rule: If ?X causal-somatic-mutation-in ?Y, then ?X genetic-basis-for-condition ?Y.
+Rule: If ?X causal-somatic-mutation-in ?Y, then ?Y has-material-basis-in-somatic-mutation-in ?X.
+Rule: If ?X causal-susceptibility-factor-for ?Y, then ?X genetic-basis-for-condition ?Y.
+Rule: If ?X causal-susceptibility-factor-for ?Y, then ?Y has-major-susceptibility-factor ?X.
+Rule: If ?X causally-downstream-of ?Y, then ?X causally-downstream-of-or-within ?Y.
+Rule: If ?X causally-downstream-of ?Y, then ?X is preceded by ?Y.
+Rule: If ?X causally-downstream-of ?Y, then ?Y causally-upstream-of ?X.
+Rule: If ?X causally-downstream-of-or-within ?Y and ?Y causally-downstream-of-or-within ?Z, then ?X causally-downstream-of-or-within ?Z.
+Rule: If ?X causally-downstream-of-or-within ?Y, then ?X causal-relation-between-processes ?Y.
+Rule: If ?X causally-downstream-of-or-within ?Y, then ?Y causally-upstream-of-or-within ?X.
+Rule: If ?X causally-influenced-by ?Y, then ?X causal-relation-between-entities ?Y.
+Rule: If ?X causally-influenced-by ?Y, then ?Y causally-influences ?X.
+Rule: If ?X causally-influences ?Y, then ?X causal-relation-between-entities ?Y.
+Rule: If ?X causally-influences ?Y, then ?Y causally-influenced-by ?X.
+Rule: If ?X causally-upstream-of ?Y and ?Y causally-upstream-of ?Z, then ?X causally-upstream-of ?Z.
+Rule: If ?X causally-upstream-of ?Y, then ?X causally-upstream-of-or-within ?Y.
+Rule: If ?X causally-upstream-of ?Y, then ?X precedes ?Y.
+Rule: If ?X causally-upstream-of ?Y, then ?Y causally-downstream-of ?X.
+Rule: If ?X causally-upstream-of-negative-effect ?Y, then ?X causally-upstream-of ?Y.
+Rule: If ?X causally-upstream-of-negative-effect ?Y, then ?X causally-upstream-of-or-within-negative-effect ?Y.
+Rule: If ?X causally-upstream-of-or-within ?Y and ?Y causally-upstream-of-or-within ?Z, then ?X causally-upstream-of-or-within ?Z.
+Rule: If ?X causally-upstream-of-or-within ?Y, then ?X causal-relation-between-processes ?Y.
+Rule: If ?X causally-upstream-of-or-within ?Y, then ?Y causally-downstream-of-or-within ?X.
+Rule: If ?X causally-upstream-of-or-within-negative-effect ?Y, then ?X causally-upstream-of-or-within ?Y.
+Rule: If ?X causally-upstream-of-or-within-positive-effect ?Y, then ?X causally-upstream-of-or-within ?Y.
+Rule: If ?X causally-upstream-of-positive-effect ?Y, then ?X causally-upstream-of ?Y.
+Rule: If ?X causally-upstream-of-positive-effect ?Y, then ?X causally-upstream-of-or-within-positive-effect ?Y.
+Rule: If ?X causes-condition ?Y, then ?X causes-or-contributes-to-condition ?Y.
+Rule: If ?X causes-or-contributes-to-condition ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X cell-expresses ?Y, then ?X expresses ?Y.
+Rule: If ?X characteristic of ?Y, then ?X characteristic-of-part-of ?Y.
+Rule: If ?X characteristic of ?Y, then ?Y has-characteristic ?X.
+Rule: If ?X characteristic-measured-by-assay ?Y, then ?Y assay-measures-characteristic ?X.
+Rule: If ?X characteristic-of-part-of ?Y, then ?X depends on ?Y.
+Rule: If ?X child-nucleus-of ?Y, then ?X developmentally-preceded-by ?Y.
+Rule: If ?X child-nucleus-of-in-hermaphrodite ?Y, then ?X child-nucleus-of ?Y.
+Rule: If ?X child-nucleus-of-in-male ?Y, then ?X child-nucleus-of ?Y.
+Rule: If ?X co-roosts-with ?Y, then ?X ecologically-co-occurs-with ?Y.
+Rule: If ?X co-roosts-with ?Y, then ?Y co-roosts-with ?X.
+Rule: If ?X coincident with ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X colocalizes with ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X commensalism ?Y, then ?X symbiosis ?Y.
+Rule: If ?X commensually-interacts-with ?Y, then ?X symbiotically-interacts-with ?Y.
+Rule: If ?X common-anatomy ?Y, then ?X subset-property ?Y.
+Rule: If ?X composed-primarily-of ?Y, then ?X has-part ?Y.
+Rule: If ?X concretized-as ?Y, then ?Y concretizes ?X.
+Rule: If ?X concretizes ?Y, then ?Y concretized-as ?X.
+Rule: If ?X condition-ameliorated-by ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X condition-exacerbated-by ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X condition-has-genetic-basis-in ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X condition-has-genetic-basis-in ?Y, then ?Y genetic-basis-for-condition ?X.
+Rule: If ?X conduit for ?Y, then ?X overlaps ?Y.
+Rule: If ?X confers-advantage-in ?Y, then ?X ecologically-related-to ?Y.
+Rule: If ?X confers-susceptibility-to-condition ?Y, then ?X contributes-to-condition ?Y.
+Rule: If ?X connecting-branch-of ?Y, then ?X in-branching-relationship-with ?Y.
+Rule: If ?X connecting-branch-of ?Y, then ?X is connected to ?Y.
+Rule: If ?X connecting-branch-of ?Y, then ?Y has-connecting-branch ?X.
+Rule: If ?X connects ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X consecutive-sequence-of ?Y, then ?X has-subsequence ?Y.
+Rule: If ?X constitutively-upstream-of ?Y, then ?X causally-upstream-of-positive-effect ?Y.
+Rule: If ?X continuous with ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X continuous with ?Y, then ?Y continuous with ?X.
+Rule: If ?X contributes to ?Y, then ?X capable-of-part-of ?Y.
+Rule: If ?X contributes to ?Y, then ?X part-of-structure-that-is-capable-of ?Y.
+Rule: If ?X contributes-to-condition ?Y, then ?X causes-or-contributes-to-condition ?Y.
+Rule: If ?X contributes-to-frequency-of-condition ?Y, then ?X contributes-to-condition ?Y.
+Rule: If ?X contributes-to-morphology-of ?Y, then ?X overlaps ?Y.
+Rule: If ?X contributes-to-severity-of-condition ?Y, then ?X contributes-to-condition ?Y.
+Rule: If ?X correlated-with-condition ?Y, then ?X is correlated with ?Y.
+Rule: If ?X creates-habitat-for ?Y, then ?X ecologically-related-to ?Y.
+Rule: If ?X curator-guidance-link ?Y, then ?X inherited-annotation-property ?Y.
+Rule: If ?X decreased-in-magnitude-relative-to ?Y, then ?X different-in-magnitude-relative-to ?Y.
+Rule: If ?X decreases-by-repression-quantity-of ?Y, then ?X indirectly-negatively-regulates-quantity-of ?Y.
+Rule: If ?X defined-by-inverse ?Y, then ?X subset-property ?Y.
+Rule: If ?X dendrite-synapsed-in ?Y, then ?X has-postsynaptic-terminal-in ?Y.
+Rule: If ?X deprotonated-form-of ?Y and ?Y deprotonated-form-of ?Z, then ?X deprotonated-form-of ?Z.
+Rule: If ?X deprotonated-form-of ?Y, then ?X chemical-relationship ?Y.
+Rule: If ?X deprotonated-form-of ?Y, then ?Y protonated-form-of ?X.
+Rule: If ?X derived-by-descent-from ?Y and ?Y derived-by-descent-from ?Z, then ?X derived-by-descent-from ?Z.
+Rule: If ?X derived-by-descent-from ?Y, then ?X evolutionarily-related-to ?Y.
+Rule: If ?X derived-by-descent-from ?Y, then ?Y has-derived-by-descendant ?X.
+Rule: If ?X derived-from-ancestral-fusion-of ?Y, then ?X derived-by-descent-from ?Y.
+Rule: If ?X derives from ?Y, then ?Y derives into ?X.
+Rule: If ?X derives into ?Y, then ?Y derives from ?X.
+Rule: If ?X destabilizes-quantity-of ?Y, then ?X directly-negatively-regulates-quantity-of ?Y.
+Rule: If ?X determined-by-part-of ?Y, then ?X causal-relation-between-entities ?Y.
+Rule: If ?X determined-by-part-of ?Y, then ?X overlaps ?Y.
+Rule: If ?X determines ?Y, then ?X causally-influences ?Y.
+Rule: If ?X determines ?Y, then ?Y is determined by ?X.
+Rule: If ?X developmentally-contributes-to ?Y, then ?X developmentally-succeeded-by ?Y.
+Rule: If ?X developmentally-contributes-to ?Y, then ?X has-potential-to-developmentally-contribute-to ?Y.
+Rule: If ?X developmentally-contributes-to ?Y, then ?Y has-developmental-contribution-from ?X.
+Rule: If ?X developmentally-induced-by ?Y, then ?X developmentally-preceded-by ?Y.
+Rule: If ?X developmentally-induced-by ?Y, then ?Y developmentally-induces ?X.
+Rule: If ?X developmentally-induces ?Y, then ?X developmentally-succeeded-by ?Y.
+Rule: If ?X developmentally-induces ?Y, then ?X has-potential-to-developmentally-induce ?Y.
+Rule: If ?X developmentally-induces ?Y, then ?Y developmentally-induced-by ?X.
+Rule: If ?X developmentally-preceded-by ?Y, then ?X developmentally-related-to ?Y.
+Rule: If ?X developmentally-preceded-by ?Y, then ?Y developmentally-succeeded-by ?X.
+Rule: If ?X developmentally-replaces ?Y, then ?X developmentally-preceded-by ?Y.
+Rule: If ?X developmentally-succeeded-by ?Y, then ?X has-developmental-potential-involving ?Y.
+Rule: If ?X developmentally-succeeded-by ?Y, then ?Y developmentally-preceded-by ?X.
+Rule: If ?X develops from ?Y and ?Y develops from ?Z, then ?X develops from ?Z.
+Rule: If ?X develops from ?Y, then ?X developmentally-preceded-by ?Y.
+Rule: If ?X develops from ?Y, then ?X has-developmental-contribution-from ?Y.
+Rule: If ?X develops from ?Y, then ?Y develops into ?X.
+Rule: If ?X develops in ?Y, then ?X developmentally-preceded-by ?Y.
+Rule: If ?X develops into ?Y and ?Y develops into ?Z, then ?X develops into ?Z.
+Rule: If ?X develops into ?Y, then ?X developmentally-succeeded-by ?Y.
+Rule: If ?X develops into ?Y, then ?X has-potential-to-develop-into ?Y.
+Rule: If ?X develops into ?Y, then ?X has-potential-to-directly-develop-into ?Y.
+Rule: If ?X develops into ?Y, then ?Y develops from ?X.
+Rule: If ?X develops-from-part-of ?Y, then ?X develops from ?Y.
+Rule: If ?X diagnostic for ?Y, then ?X provides-clinical-information-for ?Y.
+Rule: If ?X differs-in-attribute ?Y, then ?X differs in ?Y.
+Rule: If ?X differs-in-attribute-of ?Y, then ?X differs in ?Y.
+Rule: If ?X direct-conjugate-acid-of ?Y, then ?X protonated-form-of ?Y.
+Rule: If ?X direct-conjugate-acid-of ?Y, then ?Y direct-conjugate-base-of ?X.
+Rule: If ?X direct-conjugate-base-of ?Y, then ?X deprotonated-form-of ?Y.
+Rule: If ?X direct-conjugate-base-of ?Y, then ?Y direct-conjugate-acid-of ?X.
+Rule: If ?X direct-form-of ?Y, then ?X logical-macro-assertion-on-an-object-property ?Y.
+Rule: If ?X directional-form-of ?Y, then ?X logical-macro-assertion-on-an-object-property ?Y.
+Rule: If ?X directly-develops-from ?Y, then ?X develops from ?Y.
+Rule: If ?X directly-develops-from ?Y, then ?Y directly-develops-into ?X.
+Rule: If ?X directly-develops-into ?Y, then ?X develops into ?Y.
+Rule: If ?X directly-develops-into ?Y, then ?Y directly-develops-from ?X.
+Rule: If ?X directly-negatively-regulated-by ?Y, then ?X directly-regulated-by ?Y.
+Rule: If ?X directly-negatively-regulated-by ?Y, then ?Y directly-negatively-regulates ?X.
+Rule: If ?X directly-negatively-regulates ?Y, then ?X directly-regulates ?Y.
+Rule: If ?X directly-negatively-regulates ?Y, then ?X negatively-regulates ?Y.
+Rule: If ?X directly-negatively-regulates ?Y, then ?Y directly-negatively-regulated-by ?X.
+Rule: If ?X directly-negatively-regulates-activity-of ?Y, then ?X directly-regulates-activity-of ?Y.
+Rule: If ?X directly-negatively-regulates-quantity-of ?Y, then ?X directly-regulates-quantity-of ?Y.
+Rule: If ?X directly-positively-regulated-by ?Y, then ?X directly-regulated-by ?Y.
+Rule: If ?X directly-positively-regulated-by ?Y, then ?Y directly-positively-regulates ?X.
+Rule: If ?X directly-positively-regulates ?Y, then ?X directly-regulates ?Y.
+Rule: If ?X directly-positively-regulates ?Y, then ?X positively-regulates ?Y.
+Rule: If ?X directly-positively-regulates ?Y, then ?Y directly-positively-regulated-by ?X.
+Rule: If ?X directly-positively-regulates-activity-of ?Y, then ?X directly-regulates-activity-of ?Y.
+Rule: If ?X directly-positively-regulates-quantity-of ?Y, then ?X directly-regulates-quantity-of ?Y.
+Rule: If ?X directly-regulated-by ?Y, then ?X is regulated by ?Y.
+Rule: If ?X directly-regulated-by ?Y, then ?Y directly-regulates ?X.
+Rule: If ?X directly-regulates ?Y, then ?X immediately-causally-upstream-of ?Y.
+Rule: If ?X directly-regulates ?Y, then ?X regulates ?Y.
+Rule: If ?X directly-regulates ?Y, then ?Y directly-regulated-by ?X.
+Rule: If ?X directly-regulates-activity-of ?Y, then ?X molecularly-interacts-with ?Y.
+Rule: If ?X directly-regulates-activity-of ?Y, then ?X regulates-activity-of ?Y.
+Rule: If ?X directly-regulates-quantity-of ?Y, then ?X regulates-quantity-of ?Y.
+Rule: If ?X directly-supplies-and-drains ?Y, then ?X drains ?Y.
+Rule: If ?X directly-supplies-and-drains ?Y, then ?X supplies ?Y.
+Rule: If ?X disease-arises-from-alteration-in-structure ?Y, then ?X disease-has-basis-in ?Y.
+Rule: If ?X disease-causes-disruption-of ?Y, then ?X causal-relationship-with-disease-as-subject ?Y.
+Rule: If ?X disease-causes-dysfunction-of ?Y, then ?X causal-relationship-with-disease-as-subject ?Y.
+Rule: If ?X disease-has-basis-in ?Y, then ?X causal-relationship-with-disease-as-subject ?Y.
+Rule: If ?X disease-has-basis-in ?Y, then ?X realizable-has-basis-in ?Y.
+Rule: If ?X disease-has-basis-in-disruption-of ?Y, then ?X disease-has-basis-in ?Y.
+Rule: If ?X disease-has-basis-in-dysfunction-of ?Y, then ?X disease-has-basis-in ?Y.
+Rule: If ?X disease-has-basis-in-feature ?Y, then ?X disease-has-basis-in ?Y.
+Rule: If ?X disease-has-basis-in-feature ?Y, then ?X has-phenotype ?Y.
+Rule: If ?X disease-has-feature ?Y, then ?X disease-relationship ?Y.
+Rule: If ?X disease-has-infectious-agent ?Y, then ?X disease-has-basis-in ?Y.
+Rule: If ?X disease-has-inflammation-site ?Y, then ?X disease-has-location ?Y.
+Rule: If ?X disease-has-location ?Y, then ?X disease-relationship ?Y.
+Rule: If ?X disposition of ?Y, then ?X characteristic of ?Y.
+Rule: If ?X disposition of ?Y, then ?Y has-disposition ?X.
+Rule: If ?X dispositional-interpretation ?Y, then ?X logical-macro-assertion-on-an-object-property ?Y.
+Rule: If ?X distributary of ?Y, then ?X in-branching-relationship-with ?Y.
+Rule: If ?X distributary of ?Y, then ?X is connected to ?Y.
+Rule: If ?X downstream-of-sequence-of ?Y and ?Y downstream-of-sequence-of ?Z, then ?X downstream-of-sequence-of ?Z.
+Rule: If ?X downstream-of-sequence-of ?Y, then ?X rel-does-not-overlap-sequence-of ?Y.
+Rule: If ?X downstream-of-sequence-of ?Y, then ?Y downstream-of-sequence-of ?X.
+Rule: If ?X drains ?Y, then ?X is connected to ?Y.
+Rule: If ?X dubious-for-taxon ?Y, then ?X taxonomic-class-assertion ?Y.
+Rule: If ?X during-which-ends ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X during-which-ends ?Y, then ?Y ends during ?X.
+Rule: If ?X during-which-starts ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X during-which-starts ?Y, then ?Y starts during ?X.
+Rule: If ?X eaten by ?Y, then ?X biotically-interacts-with ?Y.
+Rule: If ?X eats ?Y, then ?X biotically-interacts-with ?Y.
+Rule: If ?X eco-subset ?Y, then ?X subset-property ?Y.
+Rule: If ?X ecologically-co-occurs-with ?Y, then ?X ecologically-related-to ?Y.
+Rule: If ?X ecologically-co-occurs-with ?Y, then ?Y ecologically-co-occurs-with ?X.
+Rule: If ?X ectoparasite of ?Y, then ?X parasite of ?Y.
+Rule: If ?X ectoparasite of ?Y, then ?Y has-ectoparasite ?X.
+Rule: If ?X efo-slim ?Y, then ?X subset-property ?Y.
+Rule: If ?X electrically-synapsed-to ?Y, then ?X is connected to ?Y.
+Rule: If ?X enables ?Y, then ?X capable of ?Y.
+Rule: If ?X enables ?Y, then ?Y is enabled by ?X.
+Rule: If ?X enables-subfunction ?Y, then ?X functionally-related-to ?Y.
+Rule: If ?X enantiomer of ?Y, then ?X chemical-relationship ?Y.
+Rule: If ?X enantiomer of ?Y, then ?Y enantiomer of ?X.
+Rule: If ?X encompasses ?Y and ?Y encompasses ?Z, then ?X encompasses ?Z.
+Rule: If ?X encompasses ?Y, then ?X during-which-starts ?Y.
+Rule: If ?X encompasses ?Y, then ?Y happens during ?X.
+Rule: If ?X end-days-post-coitum ?Y, then ?X has-end-time-value ?Y.
+Rule: If ?X end-days-post-fertilization ?Y, then ?X has-end-time-value ?Y.
+Rule: If ?X end-months-post-birth ?Y, then ?X has-end-time-value ?Y.
+Rule: If ?X end-sequence-of ?Y and ?Y end-sequence-of ?Z, then ?X end-sequence-of ?Z.
+Rule: If ?X end-sequence-of ?Y, then ?X subsequence of ?Y.
+Rule: If ?X end-sequence-of ?Y, then ?Y has-end-sequence ?X.
+Rule: If ?X end-weeks-post-birth ?Y, then ?X has-end-time-value ?Y.
+Rule: If ?X end-years-post-birth ?Y, then ?X has-end-time-value ?Y.
+Rule: If ?X endoparasite of ?Y, then ?X parasite of ?Y.
+Rule: If ?X endoparasite of ?Y, then ?Y has-endoparasite ?X.
+Rule: If ?X ends ?Y, then ?X is part of ?Y.
+Rule: If ?X ends ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X ends ?Y, then ?Y ends with ?X.
+Rule: If ?X ends after ?Y and ?Y ends after ?Z, then ?X ends after ?Z.
+Rule: If ?X ends after ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X ends during ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X ends during ?Y, then ?Y during-which-ends ?X.
+Rule: If ?X ends with ?Y and ?Y ends with ?Z, then ?X ends with ?Z.
+Rule: If ?X ends with ?Y, then ?X has-part ?Y.
+Rule: If ?X ends with ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X ends with ?Y, then ?Y ends ?X.
+Rule: If ?X epiphyte of ?Y, then ?X symbiotically-interacts-with ?Y.
+Rule: If ?X epiphyte of ?Y, then ?Y has-epiphyte ?X.
+Rule: If ?X evidence for ?Y, then ?X related-via-evidence-or-inference-to ?Y.
+Rule: If ?X evidence for ?Y, then ?Y has-evidence ?X.
+Rule: If ?X evidence-with-support-from ?Y, then ?X related-via-evidence-or-inference-to ?Y.
+Rule: If ?X evidential-logical-macro-assertion-on-an-axiom ?Y, then ?X logical-macro-assertion-on-an-axiom ?Y.
+Rule: If ?X evolutionary-variant-of ?Y, then ?X evolutionarily-related-to ?Y.
+Rule: If ?X exacerbates-condition ?Y, then ?X contributes-to-severity-of-condition ?Y.
+Rule: If ?X exemplar-data-of ?Y, then ?X top-object-property ?Y.
+Rule: If ?X exemplar-data-of ?Y, then ?Y has-exemplar-data ?X.
+Rule: If ?X existence-ends-at-start-of ?Y, then ?X existence-ends-during-or-before ?Y.
+Rule: If ?X existence-ends-during ?Y, then ?X existence-ends-during-or-before ?Y.
+Rule: If ?X existence-ends-during ?Y, then ?X existence-overlaps ?Y.
+Rule: If ?X existence-ends-during-or-before ?Y, then ?X relation-between-physical-entity-and-a-process-or-stage ?Y.
+Rule: If ?X existence-ends-with ?Y, then ?X existence-ends-during ?Y.
+Rule: If ?X existence-overlaps ?Y, then ?X relation-between-physical-entity-and-a-process-or-stage ?Y.
+Rule: If ?X existence-starts-and-ends-during ?Y, then ?X existence-ends-during ?Y.
+Rule: If ?X existence-starts-and-ends-during ?Y, then ?X existence-starts-during ?Y.
+Rule: If ?X existence-starts-at-end-of ?Y, then ?X existence-starts-during-or-after ?Y.
+Rule: If ?X existence-starts-during ?Y, then ?X existence-overlaps ?Y.
+Rule: If ?X existence-starts-during ?Y, then ?X existence-starts-during-or-after ?Y.
+Rule: If ?X existence-starts-during-or-after ?Y, then ?X relation-between-physical-entity-and-a-process-or-stage ?Y.
+Rule: If ?X existence-starts-with ?Y, then ?X existence-starts-during ?Y.
+Rule: If ?X exports ?Y, then ?X transports ?Y.
+Rule: If ?X expresses ?Y, then ?X genomically-related-to ?Y.
+Rule: If ?X expresses ?Y, then ?Y is expressed in ?X.
+Rule: If ?X facultative-parasite-of ?Y, then ?X parasite of ?Y.
+Rule: If ?X fasciculates with ?Y, then ?X overlaps ?Y.
+Rule: If ?X fasciculates with ?Y, then ?Y has-fasciculating-neuron-projection ?X.
+Rule: If ?X first-order-logic-expression ?Y, then ?X logical-macro-assertion-on-an-object-property ?Y.
+Rule: If ?X formed-as-result-of ?Y, then ?X output of ?Y.
+Rule: If ?X formed-as-result-of ?Y, then ?Y results-in-formation-of-anatomical-entity ?X.
+Rule: If ?X function of ?Y, then ?X characteristic of ?Y.
+Rule: If ?X function of ?Y, then ?Y has-function ?X.
+Rule: If ?X gene-product-of ?Y, then ?X genomically-related-to ?Y.
+Rule: If ?X gene-product-of ?Y, then ?Y has-gene-product ?X.
+Rule: If ?X generically-depends-on ?Y, then ?Y carrier of ?X.
+Rule: If ?X genetic-basis-for-condition ?Y, then ?X basis-for-realizable ?Y.
+Rule: If ?X genetic-basis-for-condition ?Y, then ?Y condition-has-genetic-basis-in ?X.
+Rule: If ?X genetically-interacts-with ?Y, then ?X interacts with ?Y.
+Rule: If ?X genetically-interacts-with ?Y, then ?Y genetically-interacts-with ?X.
+Rule: If ?X happens during ?Y and ?Y happens during ?Z, then ?X happens during ?Z.
+Rule: If ?X happens during ?Y, then ?X ends during ?Y.
+Rule: If ?X happens during ?Y, then ?X starts during ?Y.
+Rule: If ?X happens during ?Y, then ?Y encompasses ?X.
+Rule: If ?X has-2-d-boundary ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X has-2-d-boundary ?Y, then ?Y rel-2-d-boundary-of ?X.
+Rule: If ?X has-active-ingredient ?Y, then ?X has-part ?Y.
+Rule: If ?X has-active-ingredient ?Y, then ?Y active-ingredient-in ?X.
+Rule: If ?X has-allelopath ?Y, then ?X participates-in-a-biotic-biotic-interaction-with ?Y.
+Rule: If ?X has-allelopath ?Y, then ?Y allelopath of ?X.
+Rule: If ?X has-allergic-trigger ?Y, then ?X causes-or-contributes-to-condition ?Y.
+Rule: If ?X has-allergic-trigger ?Y, then ?Y allergic-trigger-for ?X.
+Rule: If ?X has-application-role ?Y, then ?X has-role ?Y.
+Rule: If ?X has-autoimmune-trigger ?Y, then ?X causes-or-contributes-to-condition ?Y.
+Rule: If ?X has-autoimmune-trigger ?Y, then ?Y autoimmune-trigger-for ?X.
+Rule: If ?X has-biological-role ?Y, then ?X has-role ?Y.
+Rule: If ?X has-branching-part ?Y and ?Y has-branching-part ?Z, then ?X has-branching-part ?Z.
+Rule: If ?X has-branching-part ?Y, then ?X has-part ?Y.
+Rule: If ?X has-branching-part ?Y, then ?X in-branching-relationship-with ?Y.
+Rule: If ?X has-branching-part ?Y, then ?Y branching-part-of ?X.
+Rule: If ?X has-broad-synonym ?Y, then ?X alternative-label ?Y.
+Rule: If ?X has-characteristic ?Y, then ?Y characteristic of ?X.
+Rule: If ?X has-chemical-role ?Y, then ?X has-role ?Y.
+Rule: If ?X has-component ?Y, then ?X has-part ?Y.
+Rule: If ?X has-component-activity ?Y, then ?X has-component-process ?Y.
+Rule: If ?X has-component-participant ?Y, then ?X has-participant ?Y.
+Rule: If ?X has-component-process ?Y, then ?X has-component ?Y.
+Rule: If ?X has-connecting-branch ?Y, then ?X in-branching-relationship-with ?Y.
+Rule: If ?X has-connecting-branch ?Y, then ?Y connecting-branch-of ?X.
+Rule: If ?X has-dendrite-location ?Y, then ?X overlaps ?Y.
+Rule: If ?X has-denominator ?Y, then ?X has-part ?Y.
+Rule: If ?X has-derived-by-descendant ?Y and ?Y has-derived-by-descendant ?Z, then ?X has-derived-by-descendant ?Z.
+Rule: If ?X has-derived-by-descendant ?Y, then ?X evolutionarily-related-to ?Y.
+Rule: If ?X has-derived-by-descendant ?Y, then ?Y derived-by-descent-from ?X.
+Rule: If ?X has-developmental-contribution-from ?Y, then ?X developmentally-preceded-by ?Y.
+Rule: If ?X has-developmental-contribution-from ?Y, then ?Y developmentally-contributes-to ?X.
+Rule: If ?X has-developmental-potential-involving ?Y, then ?X developmentally-related-to ?Y.
+Rule: If ?X has-developmental-stage-marker ?Y, then ?X temporal-logical-macro-assertion-on-a-class ?Y.
+Rule: If ?X has-direct-input ?Y, then ?X has-input ?Y.
+Rule: If ?X has-disease ?Y, then ?X has-phenotype-or-disease ?Y.
+Rule: If ?X has-disease-driver ?Y, then ?X has-driver ?Y.
+Rule: If ?X has-disposition ?Y, then ?X has-characteristic ?Y.
+Rule: If ?X has-disposition ?Y, then ?Y disposition of ?X.
+Rule: If ?X has-ectoparasite ?Y, then ?X is parasitized by ?Y.
+Rule: If ?X has-ectoparasite ?Y, then ?Y ectoparasite of ?X.
+Rule: If ?X has-effector-activity ?Y, then ?X has-component-activity ?Y.
+Rule: If ?X has-eggs-laid-in-by ?Y, then ?X is parasitized by ?Y.
+Rule: If ?X has-eggs-laid-in-by ?Y, then ?X is visited by ?Y.
+Rule: If ?X has-eggs-laid-in-by ?Y, then ?Y lays-eggs-in ?X.
+Rule: If ?X has-eggs-laid-on-by ?Y, then ?X is visited by ?Y.
+Rule: If ?X has-eggs-laid-on-by ?Y, then ?Y lays-eggs-on ?X.
+Rule: If ?X has-end-location ?Y, then ?X has-part-that-occurs-in ?Y.
+Rule: If ?X has-end-sequence ?Y and ?Y has-end-sequence ?Z, then ?X has-end-sequence ?Z.
+Rule: If ?X has-end-sequence ?Y, then ?X has-subsequence ?Y.
+Rule: If ?X has-end-sequence ?Y, then ?Y end-sequence-of ?X.
+Rule: If ?X has-end-time-value ?Y, then ?X temporal-logical-macro-assertion-on-a-class ?Y.
+Rule: If ?X has-endoparasite ?Y, then ?X is parasitized by ?Y.
+Rule: If ?X has-endoparasite ?Y, then ?Y endoparasite of ?X.
+Rule: If ?X has-epiphyte ?Y, then ?X symbiotically-interacts-with ?Y.
+Rule: If ?X has-epiphyte ?Y, then ?Y epiphyte of ?X.
+Rule: If ?X has-evidence ?Y, then ?X related-via-evidence-or-inference-to ?Y.
+Rule: If ?X has-evidence ?Y, then ?Y evidence for ?X.
+Rule: If ?X has-exact-synonym ?Y, then ?X alternative-label ?Y.
+Rule: If ?X has-exemplar-data ?Y, then ?X top-object-property ?Y.
+Rule: If ?X has-exemplar-data ?Y, then ?Y exemplar-data-of ?X.
+Rule: If ?X has-exposure-medium ?Y, then ?X related-via-exposure-to ?Y.
+Rule: If ?X has-exposure-receptor ?Y, then ?X related-via-exposure-to ?Y.
+Rule: If ?X has-exposure-route ?Y, then ?X related-via-exposure-to ?Y.
+Rule: If ?X has-exposure-stimulus ?Y, then ?X related-via-exposure-to ?Y.
+Rule: If ?X has-exposure-stressor ?Y, then ?X has-exposure-stimulus ?Y.
+Rule: If ?X has-exposure-transport-path ?Y, then ?X related-via-exposure-to ?Y.
+Rule: If ?X has-fasciculating-neuron-projection ?Y, then ?X overlaps ?Y.
+Rule: If ?X has-fasciculating-neuron-projection ?Y, then ?Y fasciculates with ?X.
+Rule: If ?X has-flowers-visited-by ?Y, then ?X is visited by ?Y.
+Rule: If ?X has-flowers-visited-by ?Y, then ?Y visits-flowers-of ?X.
+Rule: If ?X has-function ?Y, then ?X has-characteristic ?Y.
+Rule: If ?X has-function ?Y, then ?Y function of ?X.
+Rule: If ?X has-functional-parent ?Y, then ?X chemical-relationship ?Y.
+Rule: If ?X has-gene-product ?Y, then ?X genomically-related-to ?Y.
+Rule: If ?X has-gene-product ?Y, then ?Y gene-product-of ?X.
+Rule: If ?X has-habitat ?Y, then ?X ecologically-related-to ?Y.
+Rule: If ?X has-high-plasma-membrane-amount ?Y, then ?X has-plasma-membrane-part ?Y.
+Rule: If ?X has-host ?Y, then ?X symbiotically-interacts-with ?Y.
+Rule: If ?X has-increased-levels-of ?Y, then ?X has-component ?Y.
+Rule: If ?X has-input ?Y, then ?X has-participant ?Y.
+Rule: If ?X has-input ?Y, then ?Y input of ?X.
+Rule: If ?X has-intercellular-endoparasite ?Y, then ?X has-endoparasite ?Y.
+Rule: If ?X has-intercellular-endoparasite ?Y, then ?Y intercellular-endoparasite-of ?X.
+Rule: If ?X has-intermediate ?Y, then ?X has-participant ?Y.
+Rule: If ?X has-intracellular-endoparasite ?Y, then ?X has-endoparasite ?Y.
+Rule: If ?X has-intracellular-endoparasite ?Y, then ?Y intracellular-endoparasite-of ?X.
+Rule: If ?X has-ligand ?Y, then ?X has-input ?Y.
+Rule: If ?X has-low-plasma-membrane-amount ?Y, then ?X has-plasma-membrane-part ?Y.
+Rule: If ?X has-major-susceptibility-factor ?Y, then ?X condition-has-genetic-basis-in ?Y.
+Rule: If ?X has-major-susceptibility-factor ?Y, then ?Y causal-susceptibility-factor-for ?X.
+Rule: If ?X has-material-basis-in-gain-of-function-germline-mutation-in ?Y, then ?X condition-has-genetic-basis-in ?Y.
+Rule: If ?X has-material-basis-in-gain-of-function-germline-mutation-in ?Y, then ?Y causal-gain-of-function-germline-mutation-of-in ?X.
+Rule: If ?X has-material-basis-in-germline-mutation-in ?Y, then ?X condition-has-genetic-basis-in ?Y.
+Rule: If ?X has-material-basis-in-germline-mutation-in ?Y, then ?Y causal-germline-mutation-in ?X.
+Rule: If ?X has-material-basis-in-loss-of-function-germline-mutation-in ?Y, then ?X condition-has-genetic-basis-in ?Y.
+Rule: If ?X has-material-basis-in-loss-of-function-germline-mutation-in ?Y, then ?Y causal-loss-of-function-germline-mutation-of-in ?X.
+Rule: If ?X has-material-basis-in-somatic-mutation-in ?Y, then ?X condition-has-genetic-basis-in ?Y.
+Rule: If ?X has-material-basis-in-somatic-mutation-in ?Y, then ?Y causal-somatic-mutation-in ?X.
+Rule: If ?X has-member ?Y, then ?X has-part ?Y.
+Rule: If ?X has-member ?Y, then ?Y is member of ?X.
+Rule: If ?X has-mesoparasite ?Y, then ?X is parasitized by ?Y.
+Rule: If ?X has-mesoparasite ?Y, then ?Y mesoparasite of ?X.
+Rule: If ?X has-model ?Y, then ?Y has-role-in-modeling ?X.
+Rule: If ?X has-muscle-antagonist ?Y, then ?X biomechanically-related-to ?Y.
+Rule: If ?X has-muscle-insertion ?Y, then ?X biomechanically-related-to ?Y.
+Rule: If ?X has-muscle-insertion ?Y, then ?X is attached to ?Y.
+Rule: If ?X has-muscle-origin ?Y, then ?X biomechanically-related-to ?Y.
+Rule: If ?X has-muscle-origin ?Y, then ?X is attached to ?Y.
+Rule: If ?X has-narrow-synonym ?Y, then ?X alternative-label ?Y.
+Rule: If ?X has-necessary-component-activity ?Y, then ?X has-component-activity ?Y.
+Rule: If ?X has-necessary-component-activity ?Y, then ?X positively-regulated-by ?Y.
+Rule: If ?X has-negative-regulatory-component-activity ?Y, then ?X has-regulatory-component-activity ?Y.
+Rule: If ?X has-negative-regulatory-component-activity ?Y, then ?X negatively-regulated-by ?Y.
+Rule: If ?X has-no-connections-with ?Y, then ?X logical-macro-assertion-on-a-class ?Y.
+Rule: If ?X has-numerator ?Y, then ?X has-part ?Y.
+Rule: If ?X has-output ?Y, then ?X has-participant ?Y.
+Rule: If ?X has-output ?Y, then ?Y output of ?X.
+Rule: If ?X has-parasitoid ?Y, then ?X is parasitized by ?Y.
+Rule: If ?X has-parasitoid ?Y, then ?Y parasitoid of ?X.
+Rule: If ?X has-parent-hydride ?Y, then ?X chemical-relationship ?Y.
+Rule: If ?X has-part ?Y and ?Y has-part ?Z, then ?X has-part ?Z.
+Rule: If ?X has-part ?Y, then ?X overlaps ?Y.
+Rule: If ?X has-part ?Y, then ?Y is part of ?X.
+Rule: If ?X has-part-structure-that-is-capable-of ?Y, then ?X causal-relation-between-material-entity-and-a-process ?Y.
+Rule: If ?X has-part-structure-that-is-capable-of ?Y, then ?X functionally-related-to ?Y.
+Rule: If ?X has-partial-material-basis-in-germline-mutation-in ?Y, then ?X condition-has-genetic-basis-in ?Y.
+Rule: If ?X has-partial-material-basis-in-germline-mutation-in ?Y, then ?Y causal-germline-mutation-partially-giving-rise-to ?X.
+Rule: If ?X has-participant ?Y, then ?Y participates in ?X.
+Rule: If ?X has-pathogen ?Y, then ?X host of ?Y.
+Rule: If ?X has-pathogen ?Y, then ?Y pathogen of ?X.
+Rule: If ?X has-phenotype ?Y, then ?X has-phenotype-or-disease ?Y.
+Rule: If ?X has-phenotype ?Y, then ?Y phenotype of ?X.
+Rule: If ?X has-plasma-membrane-part ?Y, then ?X has-part ?Y.
+Rule: If ?X has-positive-regulatory-component-activity ?Y, then ?X has-regulatory-component-activity ?Y.
+Rule: If ?X has-positive-regulatory-component-activity ?Y, then ?X positively-regulated-by ?Y.
+Rule: If ?X has-postsynaptic-terminal-in ?Y, then ?X has-synaptic-terminal-in ?Y.
+Rule: If ?X has-postsynaptic-terminal-in ?Y, then ?Y has-presynaptic-terminal-in ?X.
+Rule: If ?X has-potential-to-develop-into ?Y, then ?X has-developmental-potential-involving ?Y.
+Rule: If ?X has-potential-to-developmentally-contribute-to ?Y, then ?X has-developmental-potential-involving ?Y.
+Rule: If ?X has-potential-to-developmentally-induce ?Y, then ?X has-developmental-potential-involving ?Y.
+Rule: If ?X has-potential-to-directly-develop-into ?Y, then ?X has-potential-to-develop-into ?Y.
+Rule: If ?X has-presynaptic-terminal-in ?Y, then ?X has-synaptic-terminal-in ?Y.
+Rule: If ?X has-presynaptic-terminal-in ?Y, then ?Y has-postsynaptic-terminal-in ?X.
+Rule: If ?X has-primary-input ?Y, then ?X has-input ?Y.
+Rule: If ?X has-primary-input ?Y, then ?X has-primary-input-or-output ?Y.
+Rule: If ?X has-primary-input-or-output ?Y, then ?X has-participant ?Y.
+Rule: If ?X has-primary-output ?Y, then ?X has-output ?Y.
+Rule: If ?X has-primary-output ?Y, then ?X has-primary-input-or-output ?Y.
+Rule: If ?X has-primary-substance-added ?Y, then ?X has-substance-added ?Y.
+Rule: If ?X has-quality ?Y, then ?X has-characteristic ?Y.
+Rule: If ?X has-quality ?Y, then ?Y quality of ?X.
+Rule: If ?X has-regulatory-component-activity ?Y, then ?X has-component-activity ?Y.
+Rule: If ?X has-regulatory-component-activity ?Y, then ?X is regulated by ?Y.
+Rule: If ?X has-related-synonym ?Y, then ?X alternative-label ?Y.
+Rule: If ?X has-reservoir-host ?Y, then ?X has-host ?Y.
+Rule: If ?X has-reservoir-host ?Y, then ?Y reservoir-host-of ?X.
+Rule: If ?X has-role ?Y, then ?X has-characteristic ?Y.
+Rule: If ?X has-role ?Y, then ?Y role of ?X.
+Rule: If ?X has-role-in-modeling ?Y, then ?Y has-model ?X.
+Rule: If ?X has-roost ?Y, then ?X has-habitat ?Y.
+Rule: If ?X has-sensory-dendrite-in ?Y, then ?X has-dendrite-location ?Y.
+Rule: If ?X has-skeleton ?Y, then ?X has-part ?Y.
+Rule: If ?X has-skeleton ?Y, then ?Y skeleton of ?X.
+Rule: If ?X has-small-molecule-activator ?Y, then ?X has-small-molecule-regulator ?Y.
+Rule: If ?X has-small-molecule-activator ?Y, then ?Y small-molecule-activator-of ?X.
+Rule: If ?X has-small-molecule-inhibitor ?Y, then ?X has-small-molecule-regulator ?Y.
+Rule: If ?X has-small-molecule-inhibitor ?Y, then ?Y small-molecule-inhibitor-of ?X.
+Rule: If ?X has-small-molecule-regulator ?Y, then ?X has-participant ?Y.
+Rule: If ?X has-small-molecule-regulator ?Y, then ?Y small-molecule-regulator-of ?X.
+Rule: If ?X has-soma-location ?Y, then ?X overlaps ?Y.
+Rule: If ?X has-start-location ?Y, then ?X has-part-that-occurs-in ?Y.
+Rule: If ?X has-start-sequence ?Y and ?Y has-start-sequence ?Z, then ?X has-start-sequence ?Z.
+Rule: If ?X has-start-sequence ?Y, then ?X has-subsequence ?Y.
+Rule: If ?X has-start-sequence ?Y, then ?Y start-sequence-of ?X.
+Rule: If ?X has-start-time-value ?Y, then ?X temporal-logical-macro-assertion-on-a-class ?Y.
+Rule: If ?X has-subsequence ?Y and ?Y has-subsequence ?Z, then ?X has-subsequence ?Z.
+Rule: If ?X has-subsequence ?Y, then ?X bounds-sequence-of ?Y.
+Rule: If ?X has-subsequence ?Y, then ?X has-part ?Y.
+Rule: If ?X has-subsequence ?Y, then ?X overlaps-sequence-of ?Y.
+Rule: If ?X has-subsequence ?Y, then ?Y subsequence of ?X.
+Rule: If ?X has-symptom ?Y, then ?X has-phenotype ?Y.
+Rule: If ?X has-synaptic-io-in-region ?Y, then ?X has-synaptic-terminal-in ?Y.
+Rule: If ?X has-synaptic-io-throughout ?Y, then ?X has-synaptic-io-in-region ?Y.
+Rule: If ?X has-synaptic-terminal-in ?Y, then ?X overlaps ?Y.
+Rule: If ?X has-synaptic-terminal-in ?Y, then ?Y has-synaptic-terminal-of ?X.
+Rule: If ?X has-synaptic-terminal-of ?Y, then ?X overlaps ?Y.
+Rule: If ?X has-synaptic-terminal-of ?Y, then ?Y has-synaptic-terminal-in ?X.
+Rule: If ?X has-target-end-location ?Y, then ?X results-in-transport-to-from-or-in ?Y.
+Rule: If ?X has-target-start-location ?Y, then ?X results-in-transport-to-from-or-in ?Y.
+Rule: If ?X has-vector ?Y, then ?X participates-in-a-biotic-biotic-interaction-with ?Y.
+Rule: If ?X has-vector ?Y, then ?Y vector for ?X.
+Rule: If ?X hemiparasite of ?Y, then ?X parasite of ?Y.
+Rule: If ?X homeomorphic for ?Y, then ?X logical-macro-assertion-on-an-object-property ?Y.
+Rule: If ?X host of ?Y, then ?X symbiotically-interacts-with ?Y.
+Rule: If ?X human-reference-atlas ?Y, then ?X subset-property ?Y.
+Rule: If ?X human-subset ?Y, then ?X subset-property ?Y.
+Rule: If ?X hyperparasite of ?Y, then ?X has-host ?Y.
+Rule: If ?X hyperparasite of ?Y, then ?Y is hyperparasitized by ?X.
+Rule: If ?X immediate-transformation-of ?Y, then ?X directly-develops-from ?Y.
+Rule: If ?X immediate-transformation-of ?Y, then ?X transformation of ?Y.
+Rule: If ?X immediately-causally-downstream-of ?Y, then ?X causally-downstream-of ?Y.
+Rule: If ?X immediately-causally-downstream-of ?Y, then ?X immediately-preceded-by ?Y.
+Rule: If ?X immediately-causally-downstream-of ?Y, then ?Y immediately-causally-upstream-of ?X.
+Rule: If ?X immediately-causally-upstream-of ?Y, then ?X causally-upstream-of ?Y.
+Rule: If ?X immediately-causally-upstream-of ?Y, then ?X immediately-precedes ?Y.
+Rule: If ?X immediately-causally-upstream-of ?Y, then ?Y immediately-causally-downstream-of ?X.
+Rule: If ?X immediately-downstream-of-sequence-of ?Y, then ?X downstream-of-sequence-of ?Y.
+Rule: If ?X immediately-downstream-of-sequence-of ?Y, then ?X sequentially-adjacent-to ?Y.
+Rule: If ?X immediately-preceded-by ?Y, then ?X is preceded by ?Y.
+Rule: If ?X immediately-preceded-by ?Y, then ?Y immediately-precedes ?X.
+Rule: If ?X immediately-precedes ?Y, then ?X precedes ?Y.
+Rule: If ?X immediately-precedes ?Y, then ?Y immediately-preceded-by ?X.
+Rule: If ?X immediately-upstream-of-sequence-of ?Y, then ?X sequentially-adjacent-to ?Y.
+Rule: If ?X immediately-upstream-of-sequence-of ?Y, then ?X upstream-of-sequence-of ?Y.
+Rule: If ?X imports ?Y, then ?X transports ?Y.
+Rule: If ?X in-1-to-1-homology-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-1-to-1-homology-relationship-with ?Y, then ?Y in-1-to-1-homology-relationship-with ?X.
+Rule: If ?X in-1-to-1-orthology-relationship-with ?Y, then ?X in-1-to-1-homology-relationship-with ?Y.
+Rule: If ?X in-1-to-1-orthology-relationship-with ?Y, then ?X in-orthology-relationship-with ?Y.
+Rule: If ?X in-1-to-1-orthology-relationship-with ?Y, then ?Y in-1-to-1-orthology-relationship-with ?X.
+Rule: If ?X in-1-to-many-homology-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-1-to-many-homology-relationship-with ?Y, then ?Y in-1-to-many-homology-relationship-with ?X.
+Rule: If ?X in-1-to-many-orthology-relationship-with ?Y, then ?X in-1-to-many-homology-relationship-with ?Y.
+Rule: If ?X in-1-to-many-orthology-relationship-with ?Y, then ?X in-orthology-relationship-with ?Y.
+Rule: If ?X in-1-to-many-orthology-relationship-with ?Y, then ?Y in-1-to-many-orthology-relationship-with ?X.
+Rule: If ?X in-apomorphy-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-apomorphy-relationship-with ?Y, then ?Y in-apomorphy-relationship-with ?X.
+Rule: If ?X in-apparent-orthology-relationship-with ?Y, then ?X in-1-to-1-homology-relationship-with ?Y.
+Rule: If ?X in-apparent-orthology-relationship-with ?Y, then ?X in-between-species-paralogy-relationship-with ?Y.
+Rule: If ?X in-apparent-orthology-relationship-with ?Y, then ?Y in-apparent-orthology-relationship-with ?X.
+Rule: If ?X in-approximate-one-to-one-relationship-with ?Y, then ?X logical-macro-assertion-involving-identity ?Y.
+Rule: If ?X in-between-species-paralogy-relationship-with ?Y, then ?X in-paralogy-relationship-with ?Y.
+Rule: If ?X in-between-species-paralogy-relationship-with ?Y, then ?Y in-between-species-paralogy-relationship-with ?X.
+Rule: If ?X in-biological-homology-relationship-with ?Y, then ?X in-homology-relationship-with ?Y.
+Rule: If ?X in-biological-homology-relationship-with ?Y, then ?Y in-biological-homology-relationship-with ?X.
+Rule: If ?X in-branching-relationship-with ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X in-chromosomal-homology-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-chromosomal-homology-relationship-with ?Y, then ?Y in-chromosomal-homology-relationship-with ?X.
+Rule: If ?X in-convergence-relationship-with ?Y, then ?X in-homoplasy-relationship-with ?Y.
+Rule: If ?X in-convergence-relationship-with ?Y, then ?Y in-convergence-relationship-with ?X.
+Rule: If ?X in-deep-homology-relationship-with ?Y, then ?X in-homocracy-relationship-with ?Y.
+Rule: If ?X in-deep-homology-relationship-with ?Y, then ?X in-parallelism-relationship-with ?Y.
+Rule: If ?X in-deep-homology-relationship-with ?Y, then ?Y in-deep-homology-relationship-with ?X.
+Rule: If ?X in-equivalogy-relationship-with ?Y, then ?X in-functional-equivalence-relationship-with ?Y.
+Rule: If ?X in-equivalogy-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-equivalogy-relationship-with ?Y, then ?Y in-equivalogy-relationship-with ?X.
+Rule: If ?X in-functional-equivalence-relationship-with ?Y, then ?X in-similarity-relationship-with ?Y.
+Rule: If ?X in-functional-equivalence-relationship-with ?Y, then ?Y in-functional-equivalence-relationship-with ?X.
+Rule: If ?X in-gametology-relationship-with ?Y, then ?X in-chromosomal-homology-relationship-with ?Y.
+Rule: If ?X in-gametology-relationship-with ?Y, then ?Y in-gametology-relationship-with ?X.
+Rule: If ?X in-hemiplasy-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-hemiplasy-relationship-with ?Y, then ?Y in-hemiplasy-relationship-with ?X.
+Rule: If ?X in-heterochronous-homology-relationship-with ?Y, then ?X in-biological-homology-relationship-with ?Y.
+Rule: If ?X in-heterochronous-homology-relationship-with ?Y, then ?Y in-heterochronous-homology-relationship-with ?X.
+Rule: If ?X in-historical-homology-relationship-with ?Y, then ?X in-homology-relationship-with ?Y.
+Rule: If ?X in-historical-homology-relationship-with ?Y, then ?Y in-historical-homology-relationship-with ?X.
+Rule: If ?X in-homeosis-relationship-with ?Y, then ?X in-biological-homology-relationship-with ?Y.
+Rule: If ?X in-homeosis-relationship-with ?Y, then ?Y in-homeosis-relationship-with ?X.
+Rule: If ?X in-homocracy-relationship-with ?Y, then ?X evolutionarily-related-to ?Y.
+Rule: If ?X in-homocracy-relationship-with ?Y, then ?X in-similarity-relationship-with ?Y.
+Rule: If ?X in-homocracy-relationship-with ?Y, then ?Y in-homocracy-relationship-with ?X.
+Rule: If ?X in-homoeology-relationship-with ?Y, then ?X in-ohnology-relationship-with ?Y.
+Rule: If ?X in-homoeology-relationship-with ?Y, then ?X in-synology-relationship-with ?Y.
+Rule: If ?X in-homoeology-relationship-with ?Y, then ?Y in-homoeology-relationship-with ?X.
+Rule: If ?X in-homology-relationship-with ?Y, then ?X in-similarity-relationship-with ?Y.
+Rule: If ?X in-homology-relationship-with ?Y, then ?X shares-ancestor-with ?Y.
+Rule: If ?X in-homology-relationship-with ?Y, then ?Y in-homology-relationship-with ?X.
+Rule: If ?X in-homoplasy-relationship-with ?Y, then ?X in-similarity-relationship-with ?Y.
+Rule: If ?X in-homoplasy-relationship-with ?Y, then ?Y in-homoplasy-relationship-with ?X.
+Rule: If ?X in-homotopy-relationship-with ?Y, then ?X in-structural-homology-relationship-with ?Y.
+Rule: If ?X in-homotopy-relationship-with ?Y, then ?Y in-homotopy-relationship-with ?X.
+Rule: If ?X in-hypermorphosis-relationship-with ?Y, then ?X in-peramorphosis-relationship-with ?Y.
+Rule: If ?X in-hypermorphosis-relationship-with ?Y, then ?Y in-hypermorphosis-relationship-with ?X.
+Rule: If ?X in-in-paralogy-relationship-with ?Y, then ?X in-paralogy-relationship-with ?Y.
+Rule: If ?X in-in-paralogy-relationship-with ?Y, then ?Y in-in-paralogy-relationship-with ?X.
+Rule: If ?X in-interology-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-interology-relationship-with ?Y, then ?Y in-interology-relationship-with ?X.
+Rule: If ?X in-isoorthology-relationship-with ?Y, then ?X in-equivalogy-relationship-with ?Y.
+Rule: If ?X in-isoorthology-relationship-with ?Y, then ?X in-orthology-relationship-with ?Y.
+Rule: If ?X in-isoorthology-relationship-with ?Y, then ?Y in-isoorthology-relationship-with ?X.
+Rule: If ?X in-iterative-homology-relationship-with ?Y, then ?X in-biological-homology-relationship-with ?Y.
+Rule: If ?X in-iterative-homology-relationship-with ?Y, then ?Y in-iterative-homology-relationship-with ?X.
+Rule: If ?X in-latent-homology-relationship-with ?Y, then ?X in-parallelism-relationship-with ?Y.
+Rule: If ?X in-latent-homology-relationship-with ?Y, then ?X in-syngeny-relationship-with ?Y.
+Rule: If ?X in-latent-homology-relationship-with ?Y, then ?Y in-latent-homology-relationship-with ?X.
+Rule: If ?X in-many-to-many-homology-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-many-to-many-homology-relationship-with ?Y, then ?Y in-many-to-many-homology-relationship-with ?X.
+Rule: If ?X in-many-to-many-orthology-relationship-with ?Y, then ?X in-many-to-many-homology-relationship-with ?Y.
+Rule: If ?X in-many-to-many-orthology-relationship-with ?Y, then ?X in-orthology-relationship-with ?Y.
+Rule: If ?X in-many-to-many-orthology-relationship-with ?Y, then ?Y in-many-to-many-orthology-relationship-with ?X.
+Rule: If ?X in-mimicry-relationship-with ?Y, then ?X in-convergence-relationship-with ?Y.
+Rule: If ?X in-mimicry-relationship-with ?Y, then ?Y in-mimicry-relationship-with ?X.
+Rule: If ?X in-neoteny-relationship-with ?Y, then ?X in-paedomorphorsis-relationship-with ?Y.
+Rule: If ?X in-neoteny-relationship-with ?Y, then ?Y in-neoteny-relationship-with ?X.
+Rule: If ?X in-non-functional-homology-relationship-with ?Y, then ?X in-structural-homology-relationship-with ?Y.
+Rule: If ?X in-non-functional-homology-relationship-with ?Y, then ?Y in-non-functional-homology-relationship-with ?X.
+Rule: If ?X in-ohnology-relationship-with ?Y, then ?X in-paralogy-relationship-with ?Y.
+Rule: If ?X in-ohnology-relationship-with ?Y, then ?Y in-ohnology-relationship-with ?X.
+Rule: If ?X in-orthology-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-orthology-relationship-with ?Y, then ?Y in-orthology-relationship-with ?X.
+Rule: If ?X in-out-paralogy-relationship-with ?Y, then ?X in-paralogy-relationship-with ?Y.
+Rule: If ?X in-out-paralogy-relationship-with ?Y, then ?Y in-out-paralogy-relationship-with ?X.
+Rule: If ?X in-paedomorphorsis-relationship-with ?Y, then ?X in-heterochronous-homology-relationship-with ?Y.
+Rule: If ?X in-paedomorphorsis-relationship-with ?Y, then ?Y in-paedomorphorsis-relationship-with ?X.
+Rule: If ?X in-parallelism-relationship-with ?Y, then ?X in-homoplasy-relationship-with ?Y.
+Rule: If ?X in-parallelism-relationship-with ?Y, then ?Y in-parallelism-relationship-with ?X.
+Rule: If ?X in-paralogy-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-paralogy-relationship-with ?Y, then ?Y in-paralogy-relationship-with ?X.
+Rule: If ?X in-paramorphism-relationship-with ?Y, then ?X in-homocracy-relationship-with ?Y.
+Rule: If ?X in-paramorphism-relationship-with ?Y, then ?X in-iterative-homology-relationship-with ?Y.
+Rule: If ?X in-paramorphism-relationship-with ?Y, then ?Y in-paramorphism-relationship-with ?X.
+Rule: If ?X in-paraxenology-relationship-with ?Y, then ?X in-xenology-relationship-with ?Y.
+Rule: If ?X in-paraxenology-relationship-with ?Y, then ?Y in-paraxenology-relationship-with ?X.
+Rule: If ?X in-partial-homology-relationship-with ?Y, then ?X in-structural-homology-relationship-with ?Y.
+Rule: If ?X in-partial-homology-relationship-with ?Y, then ?Y in-partial-homology-relationship-with ?X.
+Rule: If ?X in-peramorphosis-relationship-with ?Y, then ?X in-heterochronous-homology-relationship-with ?Y.
+Rule: If ?X in-peramorphosis-relationship-with ?Y, then ?Y in-peramorphosis-relationship-with ?X.
+Rule: If ?X in-plerology-relationship-with ?Y, then ?X in-paralogy-relationship-with ?Y.
+Rule: If ?X in-plerology-relationship-with ?Y, then ?Y in-plerology-relationship-with ?X.
+Rule: If ?X in-plesiomorphy-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-plesiomorphy-relationship-with ?Y, then ?Y in-plesiomorphy-relationship-with ?X.
+Rule: If ?X in-postdisplacement-relationship-with ?Y, then ?X in-paedomorphorsis-relationship-with ?Y.
+Rule: If ?X in-postdisplacement-relationship-with ?Y, then ?Y in-postdisplacement-relationship-with ?X.
+Rule: If ?X in-pro-orthology-relationship-with ?Y, then ?X in-1-to-many-orthology-relationship-with ?Y.
+Rule: If ?X in-pro-orthology-relationship-with ?Y, then ?Y in-pro-orthology-relationship-with ?X.
+Rule: If ?X in-progenesis-relationship-with ?Y, then ?X in-paedomorphorsis-relationship-with ?Y.
+Rule: If ?X in-progenesis-relationship-with ?Y, then ?Y in-progenesis-relationship-with ?X.
+Rule: If ?X in-protein-structural-homology-relationship-with ?Y, then ?X in-structural-homology-relationship-with ?Y.
+Rule: If ?X in-protein-structural-homology-relationship-with ?Y, then ?Y in-protein-structural-homology-relationship-with ?X.
+Rule: If ?X in-pseudoparalogy-relationship-with ?Y, then ?X in-xenology-relationship-with ?Y.
+Rule: If ?X in-pseudoparalogy-relationship-with ?Y, then ?Y in-pseudoparalogy-relationship-with ?X.
+Rule: If ?X in-register-with ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X in-regulogy-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-regulogy-relationship-with ?Y, then ?Y in-regulogy-relationship-with ?X.
+Rule: If ?X in-reversal-relationship-with ?Y, then ?X in-homoplasy-relationship-with ?Y.
+Rule: If ?X in-reversal-relationship-with ?Y, then ?Y in-reversal-relationship-with ?X.
+Rule: If ?X in-semi-orthology-relationship-with ?Y, then ?X in-1-to-many-orthology-relationship-with ?Y.
+Rule: If ?X in-semi-orthology-relationship-with ?Y, then ?Y in-semi-orthology-relationship-with ?X.
+Rule: If ?X in-serial-homology-relationship-with ?Y, then ?X in-iterative-homology-relationship-with ?Y.
+Rule: If ?X in-serial-homology-relationship-with ?Y, then ?Y in-serial-homology-relationship-with ?X.
+Rule: If ?X in-similarity-relationship-with ?Y, then ?Y in-similarity-relationship-with ?X.
+Rule: If ?X in-structural-homology-relationship-with ?Y, then ?X in-homology-relationship-with ?Y.
+Rule: If ?X in-structural-homology-relationship-with ?Y, then ?Y in-structural-homology-relationship-with ?X.
+Rule: If ?X in-syngeny-relationship-with ?Y, then ?X in-homocracy-relationship-with ?Y.
+Rule: If ?X in-syngeny-relationship-with ?Y, then ?Y in-syngeny-relationship-with ?X.
+Rule: If ?X in-synology-relationship-with ?Y, then ?X in-xenology-relationship-with ?Y.
+Rule: If ?X in-synology-relationship-with ?Y, then ?Y in-synology-relationship-with ?X.
+Rule: If ?X in-syntenic-homology-relationship-with ?Y, then ?X in-structural-homology-relationship-with ?Y.
+Rule: If ?X in-syntenic-homology-relationship-with ?Y, then ?Y in-syntenic-homology-relationship-with ?X.
+Rule: If ?X in-syntenic-orthology-relationship-with ?Y, then ?X in-syntenic-homology-relationship-with ?Y.
+Rule: If ?X in-syntenic-orthology-relationship-with ?Y, then ?Y in-syntenic-orthology-relationship-with ?X.
+Rule: If ?X in-syntenic-paralogy-relationship-with ?Y, then ?X in-paralogy-relationship-with ?Y.
+Rule: If ?X in-syntenic-paralogy-relationship-with ?Y, then ?X in-syntenic-homology-relationship-with ?Y.
+Rule: If ?X in-syntenic-paralogy-relationship-with ?Y, then ?Y in-syntenic-paralogy-relationship-with ?X.
+Rule: If ?X in-tandem-paralogy-relationship-with ?Y, then ?X in-paralogy-relationship-with ?Y.
+Rule: If ?X in-tandem-paralogy-relationship-with ?Y, then ?Y in-tandem-paralogy-relationship-with ?X.
+Rule: If ?X in-taxon ?Y, then ?X evolutionarily-related-to ?Y.
+Rule: If ?X in-within-species-paralogy-relationship-with ?Y, then ?X in-paralogy-relationship-with ?Y.
+Rule: If ?X in-within-species-paralogy-relationship-with ?Y, then ?Y in-within-species-paralogy-relationship-with ?X.
+Rule: If ?X in-xenology-relationship-with ?Y, then ?X in-historical-homology-relationship-with ?Y.
+Rule: If ?X in-xenology-relationship-with ?Y, then ?Y in-xenology-relationship-with ?X.
+Rule: If ?X increased-in-magnitude-relative-to ?Y, then ?X different-in-magnitude-relative-to ?Y.
+Rule: If ?X increases-by-expression-quantity-of ?Y, then ?X indirectly-positively-regulates-quantity-of ?Y.
+Rule: If ?X increases-expression-of ?Y, then ?X directly-positively-regulates-activity-of ?Y.
+Rule: If ?X indicates-clinical-effect-of ?Y, then ?X marker for ?Y.
+Rule: If ?X indicates-response-to ?Y, then ?X indicates-clinical-effect-of ?Y.
+Rule: If ?X indicates-risk-of-developing ?Y, then ?X provides-clinical-information-for ?Y.
+Rule: If ?X indirect-form-of ?Y, then ?X logical-macro-assertion-on-an-object-property ?Y.
+Rule: If ?X indirectly-causally-upstream-of ?Y, then ?X causally-upstream-of ?Y.
+Rule: If ?X indirectly-negatively-regulates ?Y and ?Y indirectly-negatively-regulates ?Z, then ?X indirectly-negatively-regulates ?Z.
+Rule: If ?X indirectly-negatively-regulates ?Y, then ?X indirectly-regulates ?Y.
+Rule: If ?X indirectly-negatively-regulates ?Y, then ?X negatively-regulates ?Y.
+Rule: If ?X indirectly-negatively-regulates-activity-of ?Y, then ?X indirectly-regulates-activity-of ?Y.
+Rule: If ?X indirectly-negatively-regulates-quantity-of ?Y, then ?X indirectly-regulates-quantity-of ?Y.
+Rule: If ?X indirectly-positively-regulates ?Y and ?Y indirectly-positively-regulates ?Z, then ?X indirectly-positively-regulates ?Z.
+Rule: If ?X indirectly-positively-regulates ?Y, then ?X indirectly-regulates ?Y.
+Rule: If ?X indirectly-positively-regulates ?Y, then ?X positively-regulates ?Y.
+Rule: If ?X indirectly-positively-regulates-activity-of ?Y, then ?X indirectly-regulates-activity-of ?Y.
+Rule: If ?X indirectly-positively-regulates-quantity-of ?Y, then ?X indirectly-regulates-quantity-of ?Y.
+Rule: If ?X indirectly-regulates ?Y, then ?X indirectly-causally-upstream-of ?Y.
+Rule: If ?X indirectly-regulates ?Y, then ?X regulates ?Y.
+Rule: If ?X indirectly-regulates-activity-of ?Y, then ?X regulates-activity-of ?Y.
+Rule: If ?X indirectly-regulates-quantity-of ?Y, then ?X regulates-quantity-of ?Y.
+Rule: If ?X indistinguishable from ?Y, then ?X approximately-equivalent-to ?Y.
+Rule: If ?X innervates ?Y, then ?Y is innervated by ?X.
+Rule: If ?X input of ?Y, then ?X functionally-related-to ?Y.
+Rule: If ?X input of ?Y, then ?X participates in ?Y.
+Rule: If ?X input of ?Y, then ?Y has-input ?X.
+Rule: If ?X interaction-relation-helper-property ?Y, then ?X helper-property-not-for-use-in-curation ?Y.
+Rule: If ?X interacts with ?Y, then ?Y interacts with ?X.
+Rule: If ?X interacts-with-via-parasite-host-interaction ?Y, then ?X symbiotically-interacts-with ?Y.
+Rule: If ?X intercellular-endoparasite-of ?Y, then ?X endoparasite of ?Y.
+Rule: If ?X intercellular-endoparasite-of ?Y, then ?Y has-intercellular-endoparasite ?X.
+Rule: If ?X intracellular-endoparasite-of ?Y, then ?X endoparasite of ?Y.
+Rule: If ?X intracellular-endoparasite-of ?Y, then ?Y has-intracellular-endoparasite ?X.
+Rule: If ?X inverse-agonist-of ?Y, then ?X directly-negatively-regulates-activity-of ?Y.
+Rule: If ?X involved-in-negative-regulation-of ?Y, then ?X involved-in-regulation-of ?Y.
+Rule: If ?X involved-in-or-involved-in-regulation-of ?Y, then ?X acts-upstream-of-or-within ?Y.
+Rule: If ?X involved-in-or-involved-in-regulation-of ?Y, then ?X causal-agent-in-process ?Y.
+Rule: If ?X involved-in-or-involved-in-regulation-of ?Y, then ?X functionally-related-to ?Y.
+Rule: If ?X involved-in-positive-regulation-of ?Y, then ?X involved-in-regulation-of ?Y.
+Rule: If ?X involved-in-regulation-of ?Y, then ?X acts-upstream-of ?Y.
+Rule: If ?X involved-in-regulation-of ?Y, then ?X involved-in-or-involved-in-regulation-of ?Y.
+Rule: If ?X is adjacent to ?Y, then ?X spatially-disjoint-from ?Y.
+Rule: If ?X is aligned with ?Y and ?Y is aligned with ?Z, then ?X is aligned with ?Z.
+Rule: If ?X is attached to ?Y, then ?X attached-to-part-of ?Y.
+Rule: If ?X is attached to ?Y, then ?X is connected to ?Y.
+Rule: If ?X is attached to ?Y, then ?Y is attached to ?X.
+Rule: If ?X is connected to ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X is determined by ?Y, then ?X causally-influenced-by ?Y.
+Rule: If ?X is determined by ?Y, then ?X determined-by-part-of ?Y.
+Rule: If ?X is determined by ?Y, then ?X is part of ?Y.
+Rule: If ?X is determined by ?Y, then ?Y determines ?X.
+Rule: If ?X is enabled by ?Y, then ?X functionally-related-to ?Y.
+Rule: If ?X is enabled by ?Y, then ?X has-participant ?Y.
+Rule: If ?X is enabled by ?Y, then ?Y enables ?X.
+Rule: If ?X is expressed in ?Y, then ?X genomically-related-to ?Y.
+Rule: If ?X is expressed in ?Y, then ?Y expresses ?X.
+Rule: If ?X is hyperparasitized by ?Y, then ?X host of ?Y.
+Rule: If ?X is hyperparasitized by ?Y, then ?Y hyperparasite of ?X.
+Rule: If ?X is innervated by ?Y, then ?Y innervates ?X.
+Rule: If ?X is involved in ?Y, then ?X involved-in-or-involved-in-regulation-of ?Y.
+Rule: If ?X is involved in ?Y, then ?X participates in ?Y.
+Rule: If ?X is killed by ?Y, then ?X participates-in-a-biotic-biotic-interaction-with ?Y.
+Rule: If ?X is killed by ?Y, then ?Y kills ?X.
+Rule: If ?X is kleptoparasitized by ?Y, then ?X is parasitized by ?Y.
+Rule: If ?X is kleptoparasitized by ?Y, then ?Y kleptoparasite of ?X.
+Rule: If ?X is located in ?Y and ?Y is located in ?Z, then ?X is located in ?Z.
+Rule: If ?X is located in ?Y, then ?Y location of ?X.
+Rule: If ?X is member of ?Y, then ?X is part of ?Y.
+Rule: If ?X is member of ?Y, then ?Y has-member ?X.
+Rule: If ?X is myristoylated by ?Y, then ?Y myristoylates ?X.
+Rule: If ?X is owned by ?Y, then ?Y owns ?X.
+Rule: If ?X is parasitized by ?Y, then ?X host of ?Y.
+Rule: If ?X is parasitized by ?Y, then ?X interacts-with-via-parasite-host-interaction ?Y.
+Rule: If ?X is parasitized by ?Y, then ?Y parasite of ?X.
+Rule: If ?X is part of ?Y and ?Y is part of ?Z, then ?X is part of ?Z.
+Rule: If ?X is part of ?Y, then ?X overlaps ?Y.
+Rule: If ?X is part of ?Y, then ?Y has-part ?X.
+Rule: If ?X is pollinated by ?Y, then ?X mutualistically-interacts-with ?Y.
+Rule: If ?X is pollinated by ?Y, then ?Y pollinates ?X.
+Rule: If ?X is preceded by ?Y and ?Y is preceded by ?Z, then ?X is preceded by ?Z.
+Rule: If ?X is preceded by ?Y, then ?X ends after ?Y.
+Rule: If ?X is preceded by ?Y, then ?Y precedes ?X.
+Rule: If ?X is produced by ?Y, then ?Y produces ?X.
+Rule: If ?X is realized in ?Y, then ?Y realizes ?X.
+Rule: If ?X is regulated by ?Y and ?Y is regulated by ?Z, then ?X is regulated by ?Z.
+Rule: If ?X is regulated by ?Y, then ?X causally-downstream-of-or-within ?Y.
+Rule: If ?X is regulated by ?Y, then ?Y regulates ?X.
+Rule: If ?X is surrounded by ?Y, then ?X is adjacent to ?Y.
+Rule: If ?X is surrounded by ?Y, then ?Y surrounds ?X.
+Rule: If ?X is synapsed by ?Y, then ?X receives-input-from ?Y.
+Rule: If ?X is synapsed by ?Y, then ?Y is synapsed to ?X.
+Rule: If ?X is synapsed to ?Y, then ?X sends-output-to ?Y.
+Rule: If ?X is synapsed to ?Y, then ?Y is synapsed by ?X.
+Rule: If ?X is transcribed from ?Y, then ?X genomically-related-to ?Y.
+Rule: If ?X is transcribed from ?Y, then ?Y is transcribed to ?X.
+Rule: If ?X is transcribed to ?Y, then ?X genomically-related-to ?Y.
+Rule: If ?X is transcribed to ?Y, then ?Y is transcribed from ?X.
+Rule: If ?X is transmitted by ?Y, then ?X ecologically-related-to ?Y.
+Rule: If ?X is visited by ?Y, then ?X participates-in-a-biotic-biotic-interaction-with ?Y.
+Rule: If ?X is visited by ?Y, then ?Y visits ?X.
+Rule: If ?X kills ?Y, then ?X participates-in-a-biotic-biotic-interaction-with ?Y.
+Rule: If ?X kills ?Y, then ?Y is killed by ?X.
+Rule: If ?X kinase-activity ?Y, then ?X molecular-interaction-relation-helper-property ?Y.
+Rule: If ?X kleptoparasite of ?Y, then ?X parasite of ?Y.
+Rule: If ?X kleptoparasite of ?Y, then ?Y is kleptoparasitized by ?X.
+Rule: If ?X lays-eggs-in ?Y, then ?X parasite of ?Y.
+Rule: If ?X lays-eggs-in ?Y, then ?X visits ?Y.
+Rule: If ?X lays-eggs-in ?Y, then ?Y has-eggs-laid-in-by ?X.
+Rule: If ?X lays-eggs-on ?Y, then ?X visits ?Y.
+Rule: If ?X lays-eggs-on ?Y, then ?Y has-eggs-laid-on-by ?X.
+Rule: If ?X location of ?Y and ?Y location of ?Z, then ?X location of ?Z.
+Rule: If ?X location of ?Y, then ?Y is located in ?X.
+Rule: If ?X logical-macro-assertion-involving-identity ?Y, then ?X logical-macro-assertion ?Y.
+Rule: If ?X logical-macro-assertion-on-a-class ?Y, then ?X logical-macro-assertion ?Y.
+Rule: If ?X logical-macro-assertion-on-a-property ?Y, then ?X logical-macro-assertion ?Y.
+Rule: If ?X logical-macro-assertion-on-an-annotation-property ?Y, then ?X logical-macro-assertion-on-a-property ?Y.
+Rule: If ?X logical-macro-assertion-on-an-axiom ?Y, then ?X logical-macro-assertion ?Y.
+Rule: If ?X logical-macro-assertion-on-an-object-property ?Y, then ?X logical-macro-assertion-on-a-property ?Y.
+Rule: If ?X lumen of ?Y, then ?X is part of ?Y.
+Rule: If ?X luminal-space-of ?Y, then ?X lumen of ?Y.
+Rule: If ?X main-stem-of ?Y, then ?X in-branching-relationship-with ?Y.
+Rule: If ?X main-stem-of ?Y, then ?X is part of ?Y.
+Rule: If ?X marker for ?Y, then ?X is correlated with ?Y.
+Rule: If ?X matched-small-molecular-pair-with ?Y, then ?X chemical-relationship ?Y.
+Rule: If ?X matched-small-molecular-pair-with ?Y, then ?Y matched-small-molecular-pair-with ?X.
+Rule: If ?X measurement-property-has-unit ?Y, then ?X logical-macro-assertion-on-an-annotation-property ?Y.
+Rule: If ?X mesoparasite of ?Y, then ?X parasite of ?Y.
+Rule: If ?X mesoparasite of ?Y, then ?Y has-mesoparasite ?X.
+Rule: If ?X molecular-interaction-relation-helper-property ?Y, then ?X interaction-relation-helper-property ?Y.
+Rule: If ?X molecularly-interacts-with ?Y, then ?X interacts with ?Y.
+Rule: If ?X molecularly-interacts-with ?Y, then ?Y molecularly-interacts-with ?X.
+Rule: If ?X monitors-effect-of ?Y, then ?X indicates-clinical-effect-of ?Y.
+Rule: If ?X monitors-exposure-to ?Y, then ?X indicates-clinical-effect-of ?Y.
+Rule: If ?X monitors-status-of ?Y, then ?X provides-clinical-information-for ?Y.
+Rule: If ?X month-of-gestation ?Y, then ?X temporal-logical-macro-assertion-on-a-class ?Y.
+Rule: If ?X mouse-subset ?Y, then ?X subset-property ?Y.
+Rule: If ?X mutualism ?Y, then ?X symbiosis ?Y.
+Rule: If ?X mutualistically-interacts-with ?Y, then ?X symbiotically-interacts-with ?Y.
+Rule: If ?X mutually-spatially-disjoint-with ?Y, then ?X logical-macro-assertion-on-a-class ?Y.
+Rule: If ?X myristoylates ?Y, then ?X molecularly-interacts-with ?Y.
+Rule: If ?X myristoylates ?Y, then ?Y is myristoylated by ?X.
+Rule: If ?X myristoyltransferase-activity ?Y, then ?X molecular-interaction-relation-helper-property ?Y.
+Rule: If ?X negative-form-of ?Y, then ?X directional-form-of ?Y.
+Rule: If ?X negatively-correlated-with ?Y, then ?X is correlated with ?Y.
+Rule: If ?X negatively-correlated-with ?Y, then ?Y negatively-correlated-with ?X.
+Rule: If ?X negatively-regulated-by ?Y, then ?X is regulated by ?Y.
+Rule: If ?X negatively-regulated-by ?Y, then ?Y negatively-regulates ?X.
+Rule: If ?X negatively-regulates ?Y, then ?X causally-upstream-of-negative-effect ?Y.
+Rule: If ?X negatively-regulates ?Y, then ?X regulates ?Y.
+Rule: If ?X negatively-regulates ?Y, then ?Y negatively-regulated-by ?X.
+Rule: If ?X negatively-regulates-characteristic ?Y, then ?X regulates-characteristic ?Y.
+Rule: If ?X negatively-regulates-in-another-organism ?Y, then ?X regulates-in-another-organism ?Y.
+Rule: If ?X never-in-taxon ?Y, then ?X taxonomic-class-assertion ?Y.
+Rule: If ?X nominally-disjoint-with ?Y, then ?X logical-macro-assertion-on-an-object-property ?Y.
+Rule: If ?X obligate-parasite-of ?Y, then ?X parasite of ?Y.
+Rule: If ?X occurrent-part-of ?Y, then ?X causally-upstream-of-or-within ?Y.
+Rule: If ?X occurrent-part-of ?Y, then ?X is part of ?Y.
+Rule: If ?X only-in-taxon ?Y, then ?X in-taxon ?Y.
+Rule: If ?X opposite of ?Y, then ?X in-approximate-one-to-one-relationship-with ?Y.
+Rule: If ?X output of ?Y, then ?X functionally-related-to ?Y.
+Rule: If ?X output of ?Y, then ?X participates in ?Y.
+Rule: If ?X output of ?Y, then ?Y has-output ?X.
+Rule: If ?X over-expressed-in ?Y, then ?X is expressed in ?Y.
+Rule: If ?X overlaps ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X overlaps ?Y, then ?Y overlaps ?X.
+Rule: If ?X overlaps-sequence-of ?Y, then ?X overlaps ?Y.
+Rule: If ?X overlaps-sequence-of ?Y, then ?X sequentially-related-to ?Y.
+Rule: If ?X overlaps-sequence-of ?Y, then ?Y overlaps-sequence-of ?X.
+Rule: If ?X owns ?Y, then ?Y is owned by ?X.
+Rule: If ?X parasite of ?Y, then ?X has-host ?Y.
+Rule: If ?X parasite of ?Y, then ?X interacts-with-via-parasite-host-interaction ?Y.
+Rule: If ?X parasite of ?Y, then ?Y is parasitized by ?X.
+Rule: If ?X parasitism ?Y, then ?X symbiosis ?Y.
+Rule: If ?X parasitoid of ?Y, then ?X parasite of ?Y.
+Rule: If ?X parasitoid of ?Y, then ?Y has-parasitoid ?X.
+Rule: If ?X part-of-developmental-precursor-of ?Y, then ?X developmentally-succeeded-by ?Y.
+Rule: If ?X part-of-structure-that-is-capable-of ?Y, then ?X functionally-related-to ?Y.
+Rule: If ?X partially-overlaps ?Y, then ?X overlaps ?Y.
+Rule: If ?X participates in ?Y, then ?Y has-participant ?X.
+Rule: If ?X participates-in-a-abiotic-biotic-interaction-with ?Y, then ?X biotically-interacts-with ?Y.
+Rule: If ?X participates-in-a-biotic-biotic-interaction-with ?Y, then ?X biotically-interacts-with ?Y.
+Rule: If ?X partner in ?Y, then ?X participates in ?Y.
+Rule: If ?X pathogen of ?Y, then ?X has-host ?Y.
+Rule: If ?X pathogen of ?Y, then ?Y has-pathogen ?X.
+Rule: If ?X pheno-slim ?Y, then ?X subset-property ?Y.
+Rule: If ?X phenotype of ?Y, then ?Y has-phenotype ?X.
+Rule: If ?X phosphorylates ?Y, then ?X molecularly-interacts-with ?Y.
+Rule: If ?X pollinates ?Y, then ?X mutualistically-interacts-with ?Y.
+Rule: If ?X pollinates ?Y, then ?Y is pollinated by ?X.
+Rule: If ?X positive-form-of ?Y, then ?X directional-form-of ?Y.
+Rule: If ?X positively-correlated-with ?Y, then ?X is correlated with ?Y.
+Rule: If ?X positively-correlated-with ?Y, then ?Y positively-correlated-with ?X.
+Rule: If ?X positively-regulated-by ?Y, then ?X is regulated by ?Y.
+Rule: If ?X positively-regulated-by ?Y, then ?Y positively-regulates ?X.
+Rule: If ?X positively-regulates ?Y and ?Y positively-regulates ?Z, then ?X positively-regulates ?Z.
+Rule: If ?X positively-regulates ?Y, then ?X causally-upstream-of-positive-effect ?Y.
+Rule: If ?X positively-regulates ?Y, then ?X regulates ?Y.
+Rule: If ?X positively-regulates ?Y, then ?Y positively-regulated-by ?X.
+Rule: If ?X positively-regulates-characteristic ?Y, then ?X regulates-characteristic ?Y.
+Rule: If ?X positively-regulates-in-another-organism ?Y, then ?X regulates-in-another-organism ?Y.
+Rule: If ?X precedes ?Y and ?Y precedes ?Z, then ?X precedes ?Z.
+Rule: If ?X precedes ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X precedes ?Y, then ?Y is preceded by ?X.
+Rule: If ?X predicts-effect-of ?Y, then ?X indicates-clinical-effect-of ?Y.
+Rule: If ?X present-in-taxon ?Y, then ?X taxonomic-class-assertion ?Y.
+Rule: If ?X preyed-upon-by ?Y, then ?X trophically-interacts-with ?Y.
+Rule: If ?X preyed-upon-by ?Y, then ?Y preys on ?X.
+Rule: If ?X preys on ?Y, then ?X trophically-interacts-with ?Y.
+Rule: If ?X preys on ?Y, then ?Y preyed-upon-by ?X.
+Rule: If ?X process-has-causal-agent ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X process-has-causal-agent ?Y, then ?Y causal-agent-in-process ?X.
+Rule: If ?X produces ?Y, then ?Y is produced by ?X.
+Rule: If ?X prognostic for ?Y, then ?X provides-clinical-information-for ?Y.
+Rule: If ?X proper-distributary-of ?Y, then ?X distributary of ?Y.
+Rule: If ?X proper-tributary-of ?Y, then ?X tributary of ?Y.
+Rule: If ?X protonated-form-of ?Y and ?Y protonated-form-of ?Z, then ?X protonated-form-of ?Z.
+Rule: If ?X protonated-form-of ?Y, then ?X chemical-relationship ?Y.
+Rule: If ?X protonated-form-of ?Y, then ?Y deprotonated-form-of ?X.
+Rule: If ?X provides-clinical-information-for ?Y, then ?X marker for ?Y.
+Rule: If ?X provides-input-for ?Y, then ?X immediately-causally-upstream-of ?Y.
+Rule: If ?X provides-input-for ?Y, then ?X transitively-provides-input-for ?Y.
+Rule: If ?X provides-nutrients-for ?Y, then ?X biotically-interacts-with ?Y.
+Rule: If ?X provides-nutrients-for ?Y, then ?Y acquires-nutrients-from ?X.
+Rule: If ?X quality of ?Y, then ?X characteristic of ?Y.
+Rule: If ?X quality of ?Y, then ?Y has-quality ?X.
+Rule: If ?X realizable-has-basis-in ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X realizable-has-basis-in ?Y, then ?Y basis-for-realizable ?X.
+Rule: If ?X realized-in-response-to ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X realized-in-response-to-stimulus ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X realizes ?Y, then ?Y is realized in ?X.
+Rule: If ?X receives-input-from ?Y, then ?X is connected to ?Y.
+Rule: If ?X receives-input-from ?Y, then ?Y sends-output-to ?X.
+Rule: If ?X receives-synaptic-input-from-neuron ?Y, then ?X is synapsed by ?Y.
+Rule: If ?X receives-synaptic-input-from-neuron ?Y, then ?Y sends-synaptic-output-to-cell ?X.
+Rule: If ?X receives-synaptic-input-in-region ?Y, then ?X has-postsynaptic-terminal-in ?Y.
+Rule: If ?X receives-synaptic-input-in-region ?Y, then ?X has-synaptic-io-in-region ?Y.
+Rule: If ?X receives-synaptic-input-throughout ?Y, then ?X has-synaptic-io-throughout ?Y.
+Rule: If ?X receives-synaptic-input-throughout ?Y, then ?X receives-synaptic-input-in-region ?Y.
+Rule: If ?X regulates ?Y and ?Y regulates ?Z, then ?X regulates ?Z.
+Rule: If ?X regulates ?Y, then ?X causally-upstream-of ?Y.
+Rule: If ?X regulates ?Y, then ?Y is regulated by ?X.
+Rule: If ?X regulates-activity-of ?Y, then ?X causally-influences ?Y.
+Rule: If ?X regulates-characteristic ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X regulates-in-another-organism ?Y, then ?X causally-upstream-of-or-within ?Y.
+Rule: If ?X regulates-levels-of ?Y, then ?X functionally-related-to ?Y.
+Rule: If ?X regulates-quantity-of ?Y, then ?X causally-influences ?Y.
+Rule: If ?X rel-2-d-boundary-of ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X rel-2-d-boundary-of ?Y, then ?Y has-2-d-boundary ?X.
+Rule: If ?X rel-a-defining-property-chain-axiom ?Y, then ?X logical-macro-assertion-on-an-axiom ?Y.
+Rule: If ?X rel-a-defining-property-chain-axiom-where-second-argument-is-reflexive ?Y, then ?X rel-a-defining-property-chain-axiom ?Y.
+Rule: If ?X rel-contains-process ?Y, then ?Y rel-occurs-in ?X.
+Rule: If ?X rel-does-not-overlap-sequence-of ?Y, then ?X sequentially-related-to ?Y.
+Rule: If ?X rel-does-not-overlap-sequence-of ?Y, then ?Y rel-does-not-overlap-sequence-of ?X.
+Rule: If ?X rel-occurs-across ?Y, then ?X has-part-that-occurs-in ?Y.
+Rule: If ?X rel-occurs-in ?Y, then ?Y rel-contains-process ?X.
+Rule: If ?X related-via-exposure-to ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X relational-form-of-a-class ?Y, then ?X logical-macro-assertion-on-an-object-property ?Y.
+Rule: If ?X relational-form-of-process-class ?Y, then ?X relational-form-of-a-class ?Y.
+Rule: If ?X removes-input-for ?Y, then ?X causally-upstream-of-negative-effect ?Y.
+Rule: If ?X representative-iri-for-equivalence-set ?Y, then ?X logical-macro-assertion-involving-identity ?Y.
+Rule: If ?X represses-expression-of ?Y, then ?X directly-negatively-regulates-activity-of ?Y.
+Rule: If ?X reservoir-host-of ?Y, then ?X host of ?Y.
+Rule: If ?X reservoir-host-of ?Y, then ?Y has-reservoir-host ?X.
+Rule: If ?X results-in-acquisition-of-features-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X results-in-acquisition-of-features-of ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-adhesion-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X results-in-assembly-of ?Y, then ?X results-in-formation-of-anatomical-entity ?Y.
+Rule: If ?X results-in-assembly-of ?Y, then ?X results-in-organization-of ?Y.
+Rule: If ?X results-in-breakdown-of ?Y, then ?X has-input ?Y.
+Rule: If ?X results-in-catabolism-of ?Y, then ?X results-in-breakdown-of ?Y.
+Rule: If ?X results-in-changes-to-anatomical-or-cellular-structure ?Y, then ?X has-participant ?Y.
+Rule: If ?X results-in-closure-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X results-in-closure-of ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-commitment-to ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-determination-of ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-development-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X results-in-development-of ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-developmental-induction-of ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-developmental-progression-of ?Y, then ?X developmentally-related-to ?Y.
+Rule: If ?X results-in-developmental-regression-of ?Y, then ?X results-in-ending-of ?Y.
+Rule: If ?X results-in-disappearance-of ?Y, then ?X results-in-ending-of ?Y.
+Rule: If ?X results-in-disassembly-of ?Y, then ?X results-in-breakdown-of ?Y.
+Rule: If ?X results-in-disassembly-of ?Y, then ?X results-in-organization-of ?Y.
+Rule: If ?X results-in-ending-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X results-in-ending-of ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-formation-of-anatomical-entity ?Y, then ?X has-output ?Y.
+Rule: If ?X results-in-formation-of-anatomical-entity ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-formation-of-anatomical-entity ?Y, then ?Y formed-as-result-of ?X.
+Rule: If ?X results-in-fusion-of ?Y, then ?X results-in-organization-of ?Y.
+Rule: If ?X results-in-growth-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X results-in-growth-of ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-maturation-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X results-in-maturation-of ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-morphogenesis-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X results-in-morphogenesis-of ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-movement-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X results-in-organization-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X results-in-remodeling-of ?Y, then ?X has-input ?Y.
+Rule: If ?X results-in-remodeling-of ?Y, then ?X results-in-organization-of ?Y.
+Rule: If ?X results-in-specification-of ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-structural-organization-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X results-in-structural-organization-of ?Y, then ?X results-in-developmental-progression-of ?Y.
+Rule: If ?X results-in-synthesis-of ?Y, then ?X results-in-formation-of-anatomical-entity ?Y.
+Rule: If ?X results-in-transport-across ?Y, then ?X rel-occurs-across ?Y.
+Rule: If ?X results-in-transport-across ?Y, then ?X results-in-transport-to-from-or-in ?Y.
+Rule: If ?X results-in-transport-along ?Y, then ?X related-via-localization-to ?Y.
+Rule: If ?X results-in-transport-to-from-or-in ?Y, then ?X related-via-localization-to ?Y.
+Rule: If ?X ribosomal-translation-of ?Y, then ?X genomically-related-to ?Y.
+Rule: If ?X ribosomal-translation-of ?Y, then ?Y ribosomally-translates-to ?X.
+Rule: If ?X ribosomally-translates-to ?Y, then ?X genomically-related-to ?Y.
+Rule: If ?X ribosomally-translates-to ?Y, then ?Y ribosomal-translation-of ?X.
+Rule: If ?X role of ?Y, then ?X characteristic of ?Y.
+Rule: If ?X role of ?Y, then ?Y has-role ?X.
+Rule: If ?X root-parasite-of ?Y, then ?X parasite of ?Y.
+Rule: If ?X sends-output-to ?Y, then ?X is connected to ?Y.
+Rule: If ?X sends-output-to ?Y, then ?Y receives-input-from ?X.
+Rule: If ?X sends-synaptic-output-throughout ?Y, then ?X has-synaptic-io-throughout ?Y.
+Rule: If ?X sends-synaptic-output-throughout ?Y, then ?X sends-synaptic-output-to-region ?Y.
+Rule: If ?X sends-synaptic-output-to-cell ?Y, then ?X is synapsed to ?Y.
+Rule: If ?X sends-synaptic-output-to-cell ?Y, then ?Y receives-synaptic-input-from-neuron ?X.
+Rule: If ?X sends-synaptic-output-to-region ?Y, then ?X has-presynaptic-terminal-in ?Y.
+Rule: If ?X sends-synaptic-output-to-region ?Y, then ?X has-synaptic-io-in-region ?Y.
+Rule: If ?X sequentially-adjacent-to ?Y, then ?X rel-does-not-overlap-sequence-of ?Y.
+Rule: If ?X sequentially-aligned-with ?Y, then ?X sequentially-related-to ?Y.
+Rule: If ?X sequentially-aligned-with ?Y, then ?Y sequentially-aligned-with ?X.
+Rule: If ?X serially-homologous-to ?Y and ?Y serially-homologous-to ?Z, then ?X serially-homologous-to ?Z.
+Rule: If ?X serially-homologous-to ?Y, then ?X evolutionarily-related-to ?Y.
+Rule: If ?X serially-homologous-to ?Y, then ?Y serially-homologous-to ?X.
+Rule: If ?X shares-ancestor-with ?Y and ?Y shares-ancestor-with ?Z, then ?X shares-ancestor-with ?Z.
+Rule: If ?X shares-ancestor-with ?Y, then ?X evolutionarily-related-to ?Y.
+Rule: If ?X shares-ancestor-with ?Y, then ?Y shares-ancestor-with ?X.
+Rule: If ?X simultaneous with ?Y and ?Y simultaneous with ?Z, then ?X simultaneous with ?Z.
+Rule: If ?X simultaneous with ?Y, then ?X before-or-simultaneous-with ?Y.
+Rule: If ?X simultaneous with ?Y, then ?Y simultaneous with ?X.
+Rule: If ?X skeleton of ?Y, then ?X is part of ?Y.
+Rule: If ?X skeleton of ?Y, then ?Y has-skeleton ?X.
+Rule: If ?X small-molecule-activator-of ?Y, then ?X capable-of-positively-regulating ?Y.
+Rule: If ?X small-molecule-activator-of ?Y, then ?X small-molecule-regulator-of ?Y.
+Rule: If ?X small-molecule-activator-of ?Y, then ?Y has-small-molecule-activator ?X.
+Rule: If ?X small-molecule-inhibitor-of ?Y, then ?X capable-of-negatively-regulating ?Y.
+Rule: If ?X small-molecule-inhibitor-of ?Y, then ?X small-molecule-regulator-of ?Y.
+Rule: If ?X small-molecule-inhibitor-of ?Y, then ?Y has-small-molecule-inhibitor ?X.
+Rule: If ?X small-molecule-regulator-of ?Y, then ?X capable-of-regulating ?Y.
+Rule: If ?X small-molecule-regulator-of ?Y, then ?Y has-small-molecule-regulator ?X.
+Rule: If ?X spatially-coextensive-with ?Y, then ?X overlaps ?Y.
+Rule: If ?X spatially-disjoint-from ?Y, then ?X mereotopologically-related-to ?Y.
+Rule: If ?X stabilizes-quantity-of ?Y, then ?X directly-positively-regulates-quantity-of ?Y.
+Rule: If ?X start-days-post-coitum ?Y, then ?X has-start-time-value ?Y.
+Rule: If ?X start-days-post-fertilization ?Y, then ?X has-start-time-value ?Y.
+Rule: If ?X start-months-post-birth ?Y, then ?X has-start-time-value ?Y.
+Rule: If ?X start-sequence-of ?Y and ?Y start-sequence-of ?Z, then ?X start-sequence-of ?Z.
+Rule: If ?X start-sequence-of ?Y, then ?X subsequence of ?Y.
+Rule: If ?X start-sequence-of ?Y, then ?Y has-start-sequence ?X.
+Rule: If ?X start-weeks-post-birth ?Y, then ?X has-start-time-value ?Y.
+Rule: If ?X start-years-post-birth ?Y, then ?X has-start-time-value ?Y.
+Rule: If ?X starts ?Y, then ?X is part of ?Y.
+Rule: If ?X starts ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X starts ?Y, then ?Y starts with ?X.
+Rule: If ?X starts before ?Y and ?Y starts before ?Z, then ?X starts before ?Z.
+Rule: If ?X starts before ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X starts during ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X starts during ?Y, then ?Y during-which-starts ?X.
+Rule: If ?X starts with ?Y and ?Y starts with ?Z, then ?X starts with ?Z.
+Rule: If ?X starts with ?Y, then ?X has-part ?Y.
+Rule: If ?X starts with ?Y, then ?X temporally-related-to ?Y.
+Rule: If ?X starts with ?Y, then ?Y starts ?X.
+Rule: If ?X stem-parasite-of ?Y, then ?X parasite of ?Y.
+Rule: If ?X subcluster of ?Y and ?Y subcluster of ?Z, then ?X subcluster of ?Z.
+Rule: If ?X subcluster of ?Y, then ?X is part of ?Y.
+Rule: If ?X subject-participant-in ?Y, then ?X partner in ?Y.
+Rule: If ?X subsequence of ?Y and ?Y subsequence of ?Z, then ?X subsequence of ?Z.
+Rule: If ?X subsequence of ?Y, then ?X bound-by-sequence-of ?Y.
+Rule: If ?X subsequence of ?Y, then ?X is part of ?Y.
+Rule: If ?X subsequence of ?Y, then ?X overlaps-sequence-of ?Y.
+Rule: If ?X subsequence of ?Y, then ?Y has-subsequence ?X.
+Rule: If ?X substance-that-treats ?Y, then ?X capable-of-inhibiting-or-preventing-pathological-process ?Y.
+Rule: If ?X substance-that-treats ?Y, then ?Y treated-by-substance ?X.
+Rule: If ?X substitutent-group-from ?Y, then ?X chemical-relationship ?Y.
+Rule: If ?X supplies ?Y, then ?X is connected to ?Y.
+Rule: If ?X surrounds ?Y, then ?X is adjacent to ?Y.
+Rule: If ?X surrounds ?Y, then ?Y is surrounded by ?X.
+Rule: If ?X symbiosis ?Y, then ?X interaction-relation-helper-property ?Y.
+Rule: If ?X symbiotically-interacts-with ?Y, then ?X participates-in-a-biotic-biotic-interaction-with ?Y.
+Rule: If ?X symbiotically-interacts-with ?Y, then ?Y symbiotically-interacts-with ?X.
+Rule: If ?X symbiotrophically-interacts-with ?Y, then ?X trophically-interacts-with ?Y.
+Rule: If ?X symmetric-relational-form-of-process-class ?Y, then ?X relational-form-of-process-class ?Y.
+Rule: If ?X synapsed-by-via-type-ib-bouton ?Y, then ?X is synapsed by ?Y.
+Rule: If ?X synapsed-by-via-type-ib-bouton ?Y, then ?Y synapsed-via-type-ib-bouton-to ?X.
+Rule: If ?X synapsed-by-via-type-ii-bouton ?Y, then ?X is synapsed by ?Y.
+Rule: If ?X synapsed-by-via-type-ii-bouton ?Y, then ?Y synapsed-via-type-ii-bouton-to ?X.
+Rule: If ?X synapsed-by-via-type-iii-bouton ?Y, then ?X is synapsed by ?Y.
+Rule: If ?X synapsed-by-via-type-iii-bouton ?Y, then ?Y synapsed-via-type-iii-bouton-to ?X.
+Rule: If ?X synapsed-by-via-type-is-bouton ?Y, then ?X is synapsed by ?Y.
+Rule: If ?X synapsed-by-via-type-is-bouton ?Y, then ?Y synapsed-via-type-is-bouton-to ?X.
+Rule: If ?X synapsed-via-type-ib-bouton-to ?Y, then ?X is synapsed to ?Y.
+Rule: If ?X synapsed-via-type-ib-bouton-to ?Y, then ?Y synapsed-by-via-type-ib-bouton ?X.
+Rule: If ?X synapsed-via-type-ii-bouton-to ?Y, then ?X is synapsed to ?Y.
+Rule: If ?X synapsed-via-type-ii-bouton-to ?Y, then ?Y synapsed-by-via-type-ii-bouton ?X.
+Rule: If ?X synapsed-via-type-iii-bouton-to ?Y, then ?X is synapsed to ?Y.
+Rule: If ?X synapsed-via-type-iii-bouton-to ?Y, then ?Y synapsed-by-via-type-iii-bouton ?X.
+Rule: If ?X synapsed-via-type-is-bouton-to ?Y, then ?X is synapsed to ?Y.
+Rule: If ?X synapsed-via-type-is-bouton-to ?Y, then ?Y synapsed-by-via-type-is-bouton ?X.
+Rule: If ?X synapses-restricted-to-region ?Y, then ?X has-synaptic-io-in-region ?Y.
+Rule: If ?X target-participant-in ?Y, then ?X partner in ?Y.
+Rule: If ?X tautomer of ?Y, then ?X chemical-relationship ?Y.
+Rule: If ?X tautomer of ?Y, then ?Y tautomer of ?X.
+Rule: If ?X taxonomic-class-assertion ?Y, then ?X logical-macro-assertion-on-a-class ?Y.
+Rule: If ?X temporal-interpretation ?Y, then ?X logical-macro-assertion-on-an-object-property ?Y.
+Rule: If ?X temporal-logical-macro-assertion-on-a-class ?Y, then ?X logical-macro-assertion-on-a-class ?Y.
+Rule: If ?X towards ?Y, then ?X depends on ?Y.
+Rule: If ?X tracheates ?Y, then ?X is located in ?Y.
+Rule: If ?X transformation of ?Y and ?Y transformation of ?Z, then ?X transformation of ?Z.
+Rule: If ?X transformation of ?Y, then ?X develops from ?Y.
+Rule: If ?X transitively-provides-input-for ?Y and ?Y transitively-provides-input-for ?Z, then ?X transitively-provides-input-for ?Z.
+Rule: If ?X transitively-provides-input-for ?Y, then ?X causally-upstream-of-or-within-positive-effect ?Y.
+Rule: If ?X transports ?Y, then ?X transports-or-maintains-localization-of ?Y.
+Rule: If ?X transports-or-maintains-localization-of ?Y, then ?X related-via-localization-to ?Y.
+Rule: If ?X transports-or-maintains-localization-of ?Y, then ?X results-in-changes-to-anatomical-or-cellular-structure ?Y.
+Rule: If ?X treated-by-substance ?Y, then ?X causally-related-to ?Y.
+Rule: If ?X treated-by-substance ?Y, then ?Y substance-that-treats ?X.
+Rule: If ?X tributary of ?Y, then ?X in-branching-relationship-with ?Y.
+Rule: If ?X tributary of ?Y, then ?X is connected to ?Y.
+Rule: If ?X trophic-parasite-of ?Y, then ?X symbiotrophically-interacts-with ?Y.
+Rule: If ?X trophically-interacts-with ?Y, then ?X participates-in-a-biotic-biotic-interaction-with ?Y.
+Rule: If ?X uberon-slim ?Y, then ?X subset-property ?Y.
+Rule: If ?X ubiquitinates ?Y, then ?X molecularly-interacts-with ?Y.
+Rule: If ?X ubiquitination ?Y, then ?X molecular-interaction-relation-helper-property ?Y.
+Rule: If ?X ubiquitously-expressed-in ?Y, then ?X is expressed in ?Y.
+Rule: If ?X ubiquitously-expressed-in ?Y, then ?Y ubiquitously-expresses ?X.
+Rule: If ?X ubiquitously-expresses ?Y, then ?X expresses ?Y.
+Rule: If ?X ubiquitously-expresses ?Y, then ?Y ubiquitously-expressed-in ?X.
+Rule: If ?X under-expressed-in ?Y, then ?X is expressed in ?Y.
+Rule: If ?X upper-level ?Y, then ?X subset-property ?Y.
+Rule: If ?X upstream-of-sequence-of ?Y and ?Y upstream-of-sequence-of ?Z, then ?X upstream-of-sequence-of ?Z.
+Rule: If ?X upstream-of-sequence-of ?Y, then ?X rel-does-not-overlap-sequence-of ?Y.
+Rule: If ?X valid-for-go-annotation-extension ?Y, then ?X subset-property ?Y.
+Rule: If ?X valid-for-go-gp2term ?Y, then ?X subset-property ?Y.
+Rule: If ?X valid-for-go-ontology ?Y, then ?X subset-property ?Y.
+Rule: If ?X valid-for-gocam ?Y, then ?X subset-property ?Y.
+Rule: If ?X vector for ?Y, then ?X participates-in-a-biotic-biotic-interaction-with ?Y.
+Rule: If ?X vector for ?Y, then ?Y has-vector ?X.
+Rule: If ?X vertebrate-core ?Y, then ?X subset-property ?Y.
+Rule: If ?X vessel-drains-blood-from ?Y, then ?X drains ?Y.
+Rule: If ?X vessel-supplies-blood-to ?Y, then ?X supplies ?Y.
+Rule: If ?X visits ?Y, then ?X participates-in-a-biotic-biotic-interaction-with ?Y.
+Rule: If ?X visits ?Y, then ?Y is visited by ?X.
+Rule: If ?X visits-flowers-of ?Y, then ?X visits ?Y.
+Rule: If ?X visits-flowers-of ?Y, then ?Y has-flowers-visited-by ?X.

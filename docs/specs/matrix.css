@@ -1,0 +1,37 @@
+/* Custom styles for the matrix tables */
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+.matrix-table th,
+.matrix-table td {
+  border: 1px solid #d6d0c6;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.matrix-table th {
+  background-color: #efe7da;
+  font-weight: 600;
+}
+
+.matrix-table tr:nth-child(even) {
+  background-color: #fbfaf7;
+}
+
+.matrix-table tr:hover {
+  background-color: #f0f0eb;
+}
+
+.status-done {
+  color: #2f5d50;
+  font-weight: bold;
+}
+
+.path-col {
+  font-family: "IBM Plex Mono", monospace;
+  color: #5a534b;
+}

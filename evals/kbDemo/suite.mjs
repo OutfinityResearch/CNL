@@ -83,11 +83,11 @@ Every user that is active is a concept.
 	Every admin is a non-guest.
 	Alice is an admin.
 	Bob is a guest.
-	    `,
+    `,
     steps: [
       { command: "Verify that Alice is a non-guest.", expected: "true" },
       { command: "Verify that it is not the case that Bob is an admin.", expected: "true" },
-      { command: "Verify that Bob is an admin.", expected: "false" }
+      { command: "Verify that Bob is an admin.", expected: "unknown" }
     ]
   },
   {
@@ -97,7 +97,7 @@ Every user that is active is a concept.
     theory: `
 Bob believes Claim_1.
 Claim_1 asserts flat-earth.
-Rule: If X believes Y and Y asserts Z, then X believes Z.
+Rule: If ?X believes ?Y and ?Y asserts ?Z, then ?X believes ?Z.
     `,
     steps: [
       { command: "Verify that Bob believes Claim_1.", expected: "true" },

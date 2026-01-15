@@ -130,12 +130,24 @@ The heavy-truck is assigned to Depot_7.
 ```
 
 ### Variables
-Variables are written with a leading `?` and represent entity slots in Solve/Optimize constraints:
+Variables are written with a leading `?` and represent entity slots in:
+- Solve/Optimize constraints, and
+- Rule templates (conditional rules) where a rule is intended to quantify over entity bindings.
+
+Examples:
 ```
 Solve for ?X such that ?X is a user.
 Solve for ?X and ?Y such that ?X manages ?Y.
+Rule: If ?X is a person, then ?X is an agent.
+Rule: If ?X parent-of ?Y and ?Y parent-of ?Z, then ?X grandparent-of ?Z.
 ```
-Variables are not permitted in learned statements; they are only allowed in Solve and Optimize commands.
+
+Variables are **not** permitted in *ground facts* (learned assertions like `Alice likes Bob.`). They are only permitted in:
+- `Solve` / `Maximize` / `Minimize` commands, and
+- `Rule:` sentences that define general constraints/propagation.
+
+Legacy note:
+- Single-letter placeholder Names (`X`, `Y`, `Z`) in rules are deprecated; prefer explicit variables (`?X`, `?Y`, `?Z`) for determinism.
 
 ## Relative Clauses
 Relative clauses must be explicit and cannot omit the pronoun. Each clause in a chain repeats the pronoun.
@@ -199,6 +211,7 @@ X does not manage Y.
 every user that does not manage Server_A is active.
 ```
 This is distinct from negation-as-failure (`it is not the case that ...`).
+Semantics for both forms are defined in DS04.
 
 ## Atomic Sentence and Triplet Mapping
 Every atomic sentence maps deterministically to a structured SVO triplet:

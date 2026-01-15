@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Architecture: The Compiler</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Architecture</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Architecture Part 3</span>
+        <h1>The Compiler & Plan IR</h1>
+        <p>Translating intention into instruction: The immutable contract of the compiler.</p>
+      </section>
+
+      <section class="section">
+        <h2>The Compiler Contract</h2>
+        <p>
+          The Compiler is the bridge between the static AST and the dynamic Runtime. It adheres to a strict <strong>Determinism Contract</strong>:
+        </p>
+        <p>
+          <em>"For any given AST input and Dictionary state, the output Plan IR is bit-for-bit identical."</em>
+        </p>
+        <p>
+          There are no heuristics, no randomness, and no side effects during compilation. This allows Plans to be cached, hashed, and distributed safely.
+        </p>
+
+        <h2>Plan Intermediate Representation (IR)</h2>
+        <p>
+          The <strong>Plan IR</strong> is a tree of typed instructions. It resembles a Query Execution Plan in a database.
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h3>SetPlan</h3>
+            <p><strong>Instructions:</strong> <code>Scan(PredID)</code>, <code>Intersect(A, B)</code>, <code>Union(A, B)</code>, <code>Difference(A, B)</code>.</p>
+            <p><strong>Output:</strong> Always a Bitset.</p>
+          </div>
+          <div class="card">
+            <h3>BoolPlan</h3>
+            <p><strong>Instructions:</strong> <code>IsEmpty(SetPlan)</code>, <code>Check(FactID)</code>.</p>
+            <p><strong>Output:</strong> True/False.</p>
+          </div>
+          <div class="card">
+            <h3>RelationPlan</h3>
+            <p><strong>Instructions:</strong> <code>Join(SetPlan, PredID)</code>, <code>Compose(RelA, RelB)</code>.</p>
+            <p><strong>Output:</strong> A RelationMatrix (rows of bitsets).</p>
+          </div>
+        </div>
+
+        <h2>Optimization Passes</h2>
+        <p>
+          Because the Plan is an explicit data structure, we can run optimization passes on it <em>before</em> execution.
+        </p>
+        <p>
+          <strong>Example:</strong> <code>Intersect(HugeSet, SmallSet)</code>.
+          <br/>The optimizer can reorder this to <code>Intersect(SmallSet, HugeSet)</code>. When intersecting bitsets, iterating over the smaller set (the one with fewer set bits) is significantly faster. The Compiler can inspect the metadata of the sets (if available) or use static heuristics to optimize the Plan structure.
+        </p>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Architecture</div></footer>
+  </div>
+</body>
+</html>

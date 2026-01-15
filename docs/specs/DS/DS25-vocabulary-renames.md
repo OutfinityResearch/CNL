@@ -102,6 +102,17 @@ The ontology prefix is preferred because it scales and remains human-readable.
 - Explorer shows issues from the session state (DS17/DS24).
 - `checkTheories` applies the same directive-based renames as the session, so issues are consistent across tools (DS24).
 
+## Verb Canonicalization and Plural Surface Forms
+Binary predicates are canonicalized by lemmatizing the first verb-like token (example: `offers` → `offer`).
+
+Implication:
+- A binary predicate declared as `"offers"` will internally behave like `"offer"` for dictionary keys.
+- This can introduce a `TypeBinaryPredicateConflict` when there is also a type key `"offer"`.
+
+Recommended practice:
+- Use `RenamePredicate` directives to rename the *plural surface form* to a disambiguated key, typically an ontology-prefixed token:
+  - `RenamePredicate: "offers" -> "schema-offer".`
+
 ## References
 - DS03 for identifier constraints.
 - DS12 for session base loading.

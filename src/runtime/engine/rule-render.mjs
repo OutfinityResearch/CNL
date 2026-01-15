@@ -1,19 +1,10 @@
 import { ConceptKind } from "../../ids/interners.mjs";
 import { RelationOp, SetOp } from "../../plans/ir.mjs";
+import { displayEntityKey } from "../../utils/display-keys.mjs";
 
 function lookupKey(state, kind, denseId) {
   const conceptId = state.idStore.getConceptualId(kind, denseId);
   return conceptId ? state.idStore.lookupKey(conceptId) : null;
-}
-
-function displayEntityKey(key) {
-  if (!key) return "";
-  if (key.startsWith("E:lit:num:")) return key.slice("E:lit:num:".length);
-  if (key.startsWith("E:lit:str:")) return key.slice("E:lit:str:".length);
-  if (key.startsWith("E:lit:bool:")) return key.slice("E:lit:bool:".length);
-  if (key.startsWith("E:")) return key.slice(2);
-  if (key.startsWith("L:")) return key.slice(2);
-  return key;
 }
 
 function displayUnaryKey(key) {

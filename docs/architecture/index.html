@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CNL-PL Architecture</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Programming Language</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Architecture</span>
+        <h1>System Architecture</h1>
+        <p>
+          From plain text to executable meaning. The CNL-PL stack follows a deterministic pipeline: lexical analysis, parsing, validation, AST normalization, and pragmatic execution.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="grid">
+          <a class="card" href="01-pipeline.html">
+            <span class="tag">Part 1</span>
+            <h3>The Unidirectional Pipeline</h3>
+            <p>From Lexer to Compiler: a strict one-way flow without backtracking or feedback loops.</p>
+          </a>
+          <a class="card" href="02-storage-model.html">
+            <span class="tag">Part 2</span>
+            <h3>The Storage Model</h3>
+            <p>Why we don't use SQL. The in-memory Bitset Store and Relation Matrices.</p>
+          </a>
+          <a class="card" href="03-compiler.html">
+            <span class="tag">Part 3</span>
+            <h3>The Compiler & Plan IR</h3>
+            <p>The contract of determinism and the intermediate representation that bridges AST and Runtime.</p>
+          </a>
+          <a class="card" href="04-runtime.html">
+            <span class="tag">Part 4</span>
+            <h3>Runtime Engines</h3>
+            <p>Different execution strategies for Queries (Fast Path), Proofs (Trace Path), and Planning (Search Path).</p>
+          </a>
+          <a class="card" href="05-identity.html">
+            <span class="tag">Part 5</span>
+            <h3>Identity System</h3>
+            <p>Managing the duality of stable ConceptualIDs and fast DenseIDs via Interning.</p>
+          </a>
+          <a class="card" href="06-proof-traces.html">
+            <span class="tag">Part 6</span>
+            <h3>Proof Traces</h3>
+            <p>The standard contract for explaining answers, used by Explain, Proof, and Planning.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Runtime snapshots</h2>
+        <div class="code-block">
+<pre>Explain why Socrates is Mortal.
+- Socrates is a man.</pre>
+        </div>
+        <div class="code-block">
+<pre>Solve for ?X such that ?X touches Region_B.
+["Region_A"]</pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>CNL Programming Language</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

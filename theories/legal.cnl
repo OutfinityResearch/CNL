@@ -5,6 +5,12 @@
 
 Load: "theories/base.formal.cnl".
 
+// Disambiguation for schema-derived plural predicates that canonicalize to LKIF/FIBO type keys.
+// Example: "permissions" canonicalizes to "permission" and would collide with the type "permission".
+RenamePredicate: "permissions" -> "schema-permission".
+RenamePredicate: "qualifications" -> "schema-qualification".
+RenamePredicate: "changes" -> "schema-change".
+
 // Import LKIF-Core legal ontology
 Load: "theories/ontologies/lkif-core/00-dictionary.generated.cnl".
 Load: "theories/ontologies/lkif-core/00-dictionary.extra.cnl".

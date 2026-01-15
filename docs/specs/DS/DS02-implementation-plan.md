@@ -59,6 +59,9 @@ Design specs in `docs/specs/DS/` define the normative behavior for each subsyste
 - Deterministic parsing: no heuristic rewrites, no synonym expansion.
 
 ## Open Questions
-- Which reasoning backend to prioritize (custom forward chaining vs external).
-- Long-term persistence format for ConceptualID and dense ID maps.
-- Standard output format for proof and explain traces.
+### Resolved (v1)
+- Reasoning backend: custom in-repo engines (compiled KB + rule materialization), not an external backend.
+- Proof/explain output format: standardized proof traces (see DS18).
+
+### Still open
+- Long-term persistence format for ConceptualID and dense ID maps (v1 is in-memory; persistence is deferred).

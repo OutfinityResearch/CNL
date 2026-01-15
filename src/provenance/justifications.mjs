@@ -2,18 +2,39 @@ export function createJustificationStore() {
   const baseFacts = new Map();
   const derivedFacts = new Map();
 
+  const FACTID_KIND_UNARY = 1n << 127n;
+  const MASK32 = (1n << 32n) - 1n;
+
+  function assertU32(value, label) {
+    const n = Number(value);
+    if (!Number.isInteger(n) || n < 0 || n > 0xffffffff) {
+      throw new RangeError(`${label} out of range for FactID packing (u32): ${String(value)}`);
+    }
+    return n;
+  }
+
   function makeFactId(predId, subjectId, objectId) {
-    // Pack into BigInt: (predId << 32) | (subjectId << 16) | objectId
-    // Using BigInt to avoid overflow issues
-    const packed = (BigInt(predId) << 32n) | (BigInt(subjectId) << 16n) | BigInt(objectId);
-    return packed;
+    // 128-bit BigInt packing (u32/u32/u32 + kind bit).
+    // Layout (low → high):
+    // - bits [0..31]   : objectId
+    // - bits [32..63]  : subjectId
+    // - bits [64..95]  : predId
+    // - bit  [127]     : kind=0 (binary)
+    assertU32(predId, "predId");
+    assertU32(subjectId, "subjectId");
+    assertU32(objectId, "objectId");
+    return (BigInt(predId) << 64n) | (BigInt(subjectId) << 32n) | BigInt(objectId);
   }
 
   function makeUnaryFactId(unaryId, subjectId) {
-    // Pack unary facts with a different pattern: (1n << 63n) | (unaryId << 16n) | subjectId
-    // High bit set to distinguish from binary facts
-    const packed = (1n << 63n) | (BigInt(unaryId) << 16n) | BigInt(subjectId);
-    return packed;
+    // 128-bit BigInt packing (u32/u32 + kind bit).
+    // Layout (low → high):
+    // - bits [0..31]   : subjectId
+    // - bits [32..63]  : unaryId
+    // - bit  [127]     : kind=1 (unary)
+    assertU32(unaryId, "unaryId");
+    assertU32(subjectId, "subjectId");
+    return FACTID_KIND_UNARY | (BigInt(unaryId) << 32n) | BigInt(subjectId);
   }
 
   function makeNumericFactId(attrId, subjectId, value) {
@@ -70,16 +91,16 @@ export function createJustificationStore() {
       return null;
     }
     const id = BigInt(factId);
-    if (id & (1n << 63n)) {
+    if (id & FACTID_KIND_UNARY) {
       // Unary fact
-      const unaryId = Number((id >> 16n) & 0x7FFFFFFFn);
-      const subjectId = Number(id & 0xFFFFn);
+      const unaryId = Number((id >> 32n) & MASK32);
+      const subjectId = Number(id & MASK32);
       return { type: "unary", unaryId, subjectId };
     } else {
       // Binary fact
-      const predId = Number(id >> 32n);
-      const subjectId = Number((id >> 16n) & 0xFFFFn);
-      const objectId = Number(id & 0xFFFFn);
+      const predId = Number((id >> 64n) & MASK32);
+      const subjectId = Number((id >> 32n) & MASK32);
+      const objectId = Number(id & MASK32);
       return { type: "binary", predId, subjectId, objectId };
     }
   }

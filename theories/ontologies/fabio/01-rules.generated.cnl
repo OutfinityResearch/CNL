@@ -4,95 +4,95 @@
 --- CONTEXT: Fabio ---
 
 // Generated from ontology import: Fabio
-Rule: If X alternate-title Y, then X has-title Y.
-Rule: If X date-last-updated Y, then X has-date Y.
-Rule: If X discipline of Y, then X top-object-property Y.
-Rule: If X discipline of Y, then Y has-discipline X.
-Rule: If X has-acceptance-date Y, then X has-date Y.
-Rule: If X has-access-date Y, then X has-date Y.
-Rule: If X has-ar-xiv-identifier Y, then X has-identifier Y.
-Rule: If X has-character-count Y, then X top-data-property Y.
-Rule: If X has-coden Y, then X has-identifier Y.
-Rule: If X has-copyright-date Y, then X has-date Y.
-Rule: If X has-copyright-year Y, then X has-date Y.
-Rule: If X has-correction-date Y, then X has-date Y.
-Rule: If X has-creation-date Y, then X has-date Y.
-Rule: If X has-creator Y, then X top-object-property Y.
-Rule: If X has-date-collected Y, then X has-date Y.
-Rule: If X has-date-received Y, then X has-date Y.
-Rule: If X has-deadline Y, then X has-date Y.
-Rule: If X has-decision-date Y, then X has-date Y.
-Rule: If X has-deposit-date Y, then X has-date Y.
-Rule: If X has-discipline Y, then X top-object-property Y.
-Rule: If X has-discipline Y, then Y discipline of X.
-Rule: If X has-doi Y, then X has-identifier Y.
-Rule: If X has-e-issn Y, then X has-identifier Y.
-Rule: If X has-electronic-article-identifier Y, then X top-data-property Y.
-Rule: If X has-embargo-date Y, then X has-date Y.
-Rule: If X has-embargo-period Y, then X has-date Y.
-Rule: If X has-ending-page Y, then X top-data-property Y.
-Rule: If X has-format Y, then X top-object-property Y.
-Rule: If X has-handle Y, then X has-identifier Y.
-Rule: If X has-isbn Y, then X has-identifier Y.
-Rule: If X has-issn Y, then X has-identifier Y.
-Rule: If X has-issn-l Y, then X has-identifier Y.
-Rule: If X has-issue-date Y, then X has-date Y.
-Rule: If X has-keyword Y, then X top-data-property Y.
-Rule: If X has-language Y, then X top-object-property Y.
-Rule: If X has-license Y, then X top-object-property Y.
-Rule: If X has-manifestation Y, then X related-endeavour Y.
-Rule: If X has-manifestation Y, then Y manifestation of X.
-Rule: If X has-modification-date Y, then X has-date Y.
-Rule: If X has-national-library-of-medicine-journal-identifier Y, then X has-identifier Y.
-Rule: If X has-national-library-of-medicine-journal-title-abbreviation Y, then X has-identifier Y.
-Rule: If X has-national-library-of-medicine-journal-title-abbreviation Y, then X has-short-title Y.
-Rule: If X has-number Y, then X top-data-property Y.
-Rule: If X has-page-count Y, then X top-data-property Y.
-Rule: If X has-page-range Y, then X top-data-property Y.
-Rule: If X has-patent-number Y, then X has-identifier Y.
-Rule: If X has-pii Y, then X has-identifier Y.
-Rule: If X has-portrayal Y, then X related-endeavour Y.
-Rule: If X has-portrayal Y, then Y portrayal of X.
-Rule: If X has-preprint-dissemination-date Y, then X has-date Y.
-Rule: If X has-primary-subject-term Y, then X has-subject-term Y.
-Rule: If X has-pub-med-central-identifier Y, then X has-identifier Y.
-Rule: If X has-pub-med-identifier Y, then X has-identifier Y.
-Rule: If X has-publication-date Y, then X has-issue-date Y.
-Rule: If X has-publication-year Y, then X has-issue-date Y.
-Rule: If X has-publisher Y, then X top-object-property Y.
-Rule: If X has-representation Y, then X related-endeavour Y.
-Rule: If X has-representation Y, then Y representation of X.
-Rule: If X has-request-date Y, then X has-date Y.
-Rule: If X has-retraction-date Y, then X has-date Y.
-Rule: If X has-rights Y, then X top-object-property Y.
-Rule: If X has-season Y, then X top-data-property Y.
-Rule: If X has-short-title Y, then X has-title Y.
-Rule: If X has-sici Y, then X has-identifier Y.
-Rule: If X has-standard-number Y, then X has-identifier Y.
-Rule: If X has-starting-page Y, then X top-data-property Y.
-Rule: If X has-subject-term Y, then X top-object-property Y.
-Rule: If X has-submission-date Y, then X has-date Y.
-Rule: If X has-subtitle Y, then X has-title Y.
-Rule: If X has-translated-subtitle Y, then X has-title Y.
-Rule: If X has-translated-title Y, then X has-title Y.
-Rule: If X has-url Y, then X has-identifier Y.
-Rule: If X has-validity-date Y, then X has-date Y.
-Rule: If X has-version-identifier Y, then X top-data-property Y.
-Rule: If X has-volume-count Y, then X top-data-property Y.
-Rule: If X has-word-count Y, then X top-data-property Y.
-Rule: If X in-scheme Y, then X top-object-property Y.
-Rule: If X in-scheme Y, then Y scheme of X.
-Rule: If X is stored on Y, then X top-object-property Y.
-Rule: If X is stored on Y, then Y stores X.
-Rule: If X manifestation of Y, then X related-endeavour Y.
-Rule: If X manifestation of Y, then Y has-manifestation X.
-Rule: If X portrayal of Y, then X related-endeavour Y.
-Rule: If X portrayal of Y, then Y has-portrayal X.
-Rule: If X representation of Y, then X related-endeavour Y.
-Rule: If X representation of Y, then Y has-representation X.
-Rule: If X scheme of Y, then X top-object-property Y.
-Rule: If X scheme of Y, then Y in-scheme X.
-Rule: If X section Y, then X top-data-property Y.
-Rule: If X stores Y, then X top-object-property Y.
-Rule: If X stores Y, then Y is stored on X.
-Rule: If X uses-calendar Y, then X top-data-property Y.
+Rule: If ?X alternate-title ?Y, then ?X has-title ?Y.
+Rule: If ?X date-last-updated ?Y, then ?X has-date ?Y.
+Rule: If ?X discipline of ?Y, then ?X top-object-property ?Y.
+Rule: If ?X discipline of ?Y, then ?Y has-discipline ?X.
+Rule: If ?X has-acceptance-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-access-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-ar-xiv-identifier ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-character-count ?Y, then ?X top-data-property ?Y.
+Rule: If ?X has-coden ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-copyright-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-copyright-year ?Y, then ?X has-date ?Y.
+Rule: If ?X has-correction-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-creation-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-creator ?Y, then ?X top-object-property ?Y.
+Rule: If ?X has-date-collected ?Y, then ?X has-date ?Y.
+Rule: If ?X has-date-received ?Y, then ?X has-date ?Y.
+Rule: If ?X has-deadline ?Y, then ?X has-date ?Y.
+Rule: If ?X has-decision-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-deposit-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-discipline ?Y, then ?X top-object-property ?Y.
+Rule: If ?X has-discipline ?Y, then ?Y discipline of ?X.
+Rule: If ?X has-doi ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-e-issn ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-electronic-article-identifier ?Y, then ?X top-data-property ?Y.
+Rule: If ?X has-embargo-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-embargo-period ?Y, then ?X has-date ?Y.
+Rule: If ?X has-ending-page ?Y, then ?X top-data-property ?Y.
+Rule: If ?X has-format ?Y, then ?X top-object-property ?Y.
+Rule: If ?X has-handle ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-isbn ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-issn ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-issn-l ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-issue-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-keyword ?Y, then ?X top-data-property ?Y.
+Rule: If ?X has-language ?Y, then ?X top-object-property ?Y.
+Rule: If ?X has-license ?Y, then ?X top-object-property ?Y.
+Rule: If ?X has-manifestation ?Y, then ?X related-endeavour ?Y.
+Rule: If ?X has-manifestation ?Y, then ?Y manifestation of ?X.
+Rule: If ?X has-modification-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-national-library-of-medicine-journal-identifier ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-national-library-of-medicine-journal-title-abbreviation ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-national-library-of-medicine-journal-title-abbreviation ?Y, then ?X has-short-title ?Y.
+Rule: If ?X has-number ?Y, then ?X top-data-property ?Y.
+Rule: If ?X has-page-count ?Y, then ?X top-data-property ?Y.
+Rule: If ?X has-page-range ?Y, then ?X top-data-property ?Y.
+Rule: If ?X has-patent-number ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-pii ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-portrayal ?Y, then ?X related-endeavour ?Y.
+Rule: If ?X has-portrayal ?Y, then ?Y portrayal of ?X.
+Rule: If ?X has-preprint-dissemination-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-primary-subject-term ?Y, then ?X has-subject-term ?Y.
+Rule: If ?X has-pub-med-central-identifier ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-pub-med-identifier ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-publication-date ?Y, then ?X has-issue-date ?Y.
+Rule: If ?X has-publication-year ?Y, then ?X has-issue-date ?Y.
+Rule: If ?X has-publisher ?Y, then ?X top-object-property ?Y.
+Rule: If ?X has-representation ?Y, then ?X related-endeavour ?Y.
+Rule: If ?X has-representation ?Y, then ?Y representation of ?X.
+Rule: If ?X has-request-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-retraction-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-rights ?Y, then ?X top-object-property ?Y.
+Rule: If ?X has-season ?Y, then ?X top-data-property ?Y.
+Rule: If ?X has-short-title ?Y, then ?X has-title ?Y.
+Rule: If ?X has-sici ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-standard-number ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-starting-page ?Y, then ?X top-data-property ?Y.
+Rule: If ?X has-subject-term ?Y, then ?X top-object-property ?Y.
+Rule: If ?X has-submission-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-subtitle ?Y, then ?X has-title ?Y.
+Rule: If ?X has-translated-subtitle ?Y, then ?X has-title ?Y.
+Rule: If ?X has-translated-title ?Y, then ?X has-title ?Y.
+Rule: If ?X has-url ?Y, then ?X has-identifier ?Y.
+Rule: If ?X has-validity-date ?Y, then ?X has-date ?Y.
+Rule: If ?X has-version-identifier ?Y, then ?X top-data-property ?Y.
+Rule: If ?X has-volume-count ?Y, then ?X top-data-property ?Y.
+Rule: If ?X has-word-count ?Y, then ?X top-data-property ?Y.
+Rule: If ?X in-scheme ?Y, then ?X top-object-property ?Y.
+Rule: If ?X in-scheme ?Y, then ?Y scheme of ?X.
+Rule: If ?X is stored on ?Y, then ?X top-object-property ?Y.
+Rule: If ?X is stored on ?Y, then ?Y stores ?X.
+Rule: If ?X manifestation of ?Y, then ?X related-endeavour ?Y.
+Rule: If ?X manifestation of ?Y, then ?Y has-manifestation ?X.
+Rule: If ?X portrayal of ?Y, then ?X related-endeavour ?Y.
+Rule: If ?X portrayal of ?Y, then ?Y has-portrayal ?X.
+Rule: If ?X representation of ?Y, then ?X related-endeavour ?Y.
+Rule: If ?X representation of ?Y, then ?Y has-representation ?X.
+Rule: If ?X scheme of ?Y, then ?X top-object-property ?Y.
+Rule: If ?X scheme of ?Y, then ?Y in-scheme ?X.
+Rule: If ?X section ?Y, then ?X top-data-property ?Y.
+Rule: If ?X stores ?Y, then ?X top-object-property ?Y.
+Rule: If ?X stores ?Y, then ?Y is stored on ?X.
+Rule: If ?X uses-calendar ?Y, then ?X top-data-property ?Y.

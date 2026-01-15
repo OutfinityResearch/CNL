@@ -52,5 +52,5 @@ ex:relatedTo a owl:ObjectProperty ; rdf:type owl:SymmetricProperty .
   assert.ok(dictText.includes('"a" is a subtype of "b".'));
 
   const rulesText = fs.readFileSync(produced.rulesGeneratedPath, "utf8");
-  assert.ok(rulesText.includes("Rule: If X is related to Y, then Y is related to X."));
+  assert.ok(rulesText.includes("Rule: If ?X is related to ?Y, then ?Y is related to ?X."));
 });

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Architecture: The Pipeline</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../site-nav.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>CNL Architecture</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <span class="tag">Architecture Part 1</span>
+        <h1>The Unidirectional Pipeline</h1>
+        <p>From UTF-8 strings to executable bytecode without backtracking.</p>
+      </section>
+
+      <section class="section">
+        <h2>The Linear Flow</h2>
+        <p>
+          The CNL architecture is built on a strictly linear, one-way data pipeline. This is a deliberate design choice to ensure predictability and performance. There are no feedback loops where the runtime state influences the parser (context-free parsing).
+        </p>
+        
+        <h3>Stage 1: Lexical Analysis (Tokenizer)</h3>
+        <p>
+          The input is a raw string. The <strong>Lexer</strong> breaks this into a stream of tokens (<code>IDENT</code>, <code>NUMBER</code>, <code>STRING</code>, <code>KEYWORD</code>).
+        </p>
+        <p>
+          <strong>Key Mechanism: Longest Match.</strong> Ambiguity often arises when keywords overlap (e.g., "in" vs "in order to"). The lexer always greedily consumes the longest possible keyword. This resolves ambiguity locally without needing parser lookahead.
+        </p>
+
+        <h3>Stage 2: Syntactic Analysis (Parser)</h3>
+        <p>
+          The <strong>Parser</strong> consumes tokens and produces an <strong>Abstract Syntax Tree (AST)</strong>. It follows the EBNF grammar strictly.
+        </p>
+        <p>
+          <strong>Key Mechanism: Fail Fast.</strong> If the input deviates from the grammar (e.g. missing a determiner in a noun phrase), the parser halts immediately with a specific error. It does not attempt error recovery or fuzzy matching. This ensures that only valid, unambiguous structures proceed down the pipeline.
+        </p>
+
+        <h3>Stage 3: Validation & Normalization</h3>
+        <p>
+          The <strong>Validator</strong> walks the AST to check semantic rules that the grammar cannot capture (e.g., "The variable X must be defined before use").
+        </p>
+        <p>
+          Simultaneously, the AST is <strong>Normalized</strong>. Syntactic sugar is desugared. For instance, "A > B" might be converted into the canonical "A is greater than B". This simplifies the compiler's job by reducing the number of node types it needs to handle.
+        </p>
+
+        <h3>Stage 4: Compilation</h3>
+        <p>
+          The <strong>Compiler</strong> takes the validated AST and the current <strong>Dictionary</strong> (symbol table) and emits two things:
+        </p>
+        <ul class="list">
+          <li><strong>KB Updates:</strong> Direct instructions to insert facts (ground assertions) into the Knowledge Base.</li>
+          <li><strong>Plan IR:</strong> Executable plan objects (RulePlans, ActionPlans) for dynamic behavior.</li>
+        </ul>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="footer-inner">CNL-PL Architecture</div></footer>
+  </div>
+</body>
+</html>

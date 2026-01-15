@@ -58,6 +58,7 @@ session.learn(theoryFile, options)
 session.learnText(cnlText, options)
 
 session.execute(cnlText, options)
+session.runProgram(cnlText, options)
 session.query(cnlQuery, options)
 session.proof(cnlStatement, options)
 session.explain(cnlStatement, options)
@@ -92,6 +93,7 @@ session.reset()
 
 ## Pragmatic Methods
 - `execute`: routes text to learning or command execution (exclusive).
+- `runProgram`: executes a mixed program (statements + commands) sequentially in-order.
 - `query`: returns a list of entity bindings with display keys.
 - `proof`: returns boolean plus optional justification trace.
 - `explain`: returns a justification DAG and optional base fact summaries.

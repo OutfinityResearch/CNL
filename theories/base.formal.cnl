@@ -38,6 +38,22 @@ RenamePredicate: "serial-number" -> "schema-serial-number".
 RenamePredicate: "study-design" -> "schema-study-design".
 RenamePredicate: "symbol" -> "schema-symbol".
 RenamePredicate: "url" -> "schema-url".
+RenamePredicate: "blog-post" -> "schema-blog-post".
+RenamePredicate: "correction" -> "schema-correction".
+RenamePredicate: "currency" -> "schema-currency".
+RenamePredicate: "item" -> "schema-item".
+RenamePredicate: "license" -> "schema-license".
+RenamePredicate: "model" -> "schema-model".
+RenamePredicate: "figure-label" -> "qudt-figure-label".
+//
+// Verb canonicalization note:
+// The compiler canonicalizes the first verb token (e.g. "rights" -> "right").
+// Rename plural surface forms that would canonicalize to an existing type key (DS25).
+RenamePredicate: "encodings" -> "schema-encoding".
+RenamePredicate: "publications" -> "foaf-publication".
+RenamePredicate: "rights" -> "has-right".
+RenamePredicate: "starts" -> "ro-start".
+RenamePredicate: "ends" -> "ro-end".
 
 // Provenance and spatial semantics (formal, science-friendly)
 Load: "theories/ontologies/w3c-prov-o/00-dictionary.generated.cnl".

@@ -37,9 +37,14 @@ Derived facts carry justifications as `RuleID + premise FactIDs` (DS09/DS15). Fa
 numeric attributes, and entity-valued attributes (DS18).
 
 ## Proof
-Proof reduces to membership checks in the materialized closure:
-- Atomic fact: check bit presence or unary membership.
-- Universal form: compute counterexamples via set difference and test emptiness.
+Proof reduces to membership checks in the materialized closure, but produces a tri-valued answer:
+- `true` when the proposition is derivable.
+- `false` when an explicit negated counterpart is derivable (DS04 Explicit Negation).
+- `unknown` when neither side is derivable.
+
+Operationally:
+- Atomic fact: check bit presence or unary membership for the positive key; check the explicit-negated key as the counter-proof.
+- Universal form: compute counterexamples via set difference and test emptiness (universal proofs remain bi-valued unless an explicit counter-proof exists).
 - Aggregations: compute numeric values from Bitset projections.
 
 Example:

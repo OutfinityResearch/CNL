@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { parseProgram, parseProgramIncremental } from "../parser/grammar.mjs";
 import { createCompilerState, compileProgram } from "../compiler/compile.mjs";
-import { executeCommandAst, materializeRules } from "../runtime/engine.mjs";
+import { executeCommandAst, executeProgram, materializeRules } from "../runtime/engine.mjs";
 import { loadDefaultBaseBundle } from "../theories/loader.mjs";
 import {
   analyzeCrossOntologyDuplicates,
@@ -14,19 +14,30 @@ import {
   mergeIssuesIntoDictionaryWarnings,
 } from "../theories/diagnostics.mjs";
 import { applyLoadTimeRenames } from "../theories/renames.mjs";
+import { createError } from "../validator/errors.mjs";
 
-function createError(code, message) {
-  return {
-    code,
+function sessionError(code, message, primaryToken = "EOF", overrides = {}) {
+  return createError(code, primaryToken, {
     name: "SessionError",
     message,
-    severity: "error",
-    primaryToken: "EOF",
-    hint: "Adjust session options or input content.",
-  };
+    hint: overrides.hint ?? "Adjust session options or input content.",
+    offendingField: overrides.offendingField,
+  });
 }
 
 export class CNLSession {
+  /**
+   * Creates a new in-memory CNL session (per-tab, per-run instance).
+   *
+   * The session owns a compiler/runtime state and can (re)load theory bundles
+   * transactionally or incrementally.
+   *
+   * @param {object} [options]
+   * @param {boolean} [options.autoloadBase=true] Whether to automatically load the base bundle.
+   * @param {string|null} [options.baseEntrypoint=null] Bundle entrypoint (relative to `rootDir`).
+   * @param {string} [options.rootDir=process.cwd()] Root used to resolve `Load:` directives.
+   * @param {boolean} [options.projectEntityAttributes=false] Whether to project entity attributes into binary facts.
+   */
   constructor(options = {}) {
     this.options = {
       projectEntityAttributes: false,
@@ -34,6 +45,20 @@ export class CNLSession {
       autoloadBase: true,
       baseEntrypoint: null,
       rootDir: process.cwd(),
+      limits: {
+        plan: {
+          maxDepth: 6,
+          maxNodes: 200,
+        },
+        solve: {
+          maxPropagationIterationsFactor: 6,
+          minPropagationIterations: 12,
+          maxSolutions: 25,
+          maxTraceSteps: 250,
+          maxSolutionSummary: 5,
+          maxPremiseSolutions: 10,
+        },
+      },
       ...options,
     };
     this.state = createCompilerState(this.options);
@@ -67,7 +92,7 @@ export class CNLSession {
         const extracted = extractLoadTimeRenames(expandedFiles);
         if (extracted.issues.some((i) => i.severity === "error")) {
           return {
-            errors: [createError("SES022", extracted.issues[0].message)],
+            errors: [sessionError("SES022", extracted.issues[0].message)],
             applied: false,
           };
         }
@@ -78,14 +103,14 @@ export class CNLSession {
         };
       } catch (error) {
         return {
-          errors: [createError("SES021", `Failed to expand Load directives: ${error.message || error}`)],
+          errors: [sessionError("SES021", `Failed to expand Load directives: ${error.message || error}`)],
           applied: false,
         };
       }
     }
 
     if (transactional && incremental) {
-      return { errors: [createError("SES001", "Transactional and incremental are exclusive.")] };
+      return { errors: [sessionError("SES001", "Transactional and incremental are exclusive.")] };
     }
 
     if (transactional) {
@@ -107,7 +132,7 @@ export class CNLSession {
     for (const text of expandedTexts) {
       const parsed = parseProgramIncremental(text);
       if (!parsed.program) {
-        parseErrors.push(...(parsed.errors.length ? parsed.errors : [createError("SES009", "Parser error.")]));
+        parseErrors.push(...(parsed.errors.length ? parsed.errors : [sessionError("SES009", "Parser error.")]));
         break;
       }
       if (parsed.errors.length) {
@@ -189,18 +214,62 @@ export class CNLSession {
 
     // If mixed, return an error.
     if (commandItems.length > 0 && statementItems.length > 0) {
-      return { error: createError("SES019", "Cannot mix commands and statements in execute().") };
+      return { error: sessionError("SES019", "Cannot mix commands and statements in execute().") };
     }
 
     // If there are no commands or statements.
-    return { error: createError("SES020", "No valid commands or statements found.") };
+    return { error: sessionError("SES020", "No valid commands or statements found.") };
+  }
+
+  runProgram(cnlText, options = {}) {
+    if (hasPreprocessorDirectives(cnlText)) {
+      return { error: sessionError("SES023", "Program execution does not support Load/Rename directives yet.") };
+    }
+
+    let ast = null;
+    try {
+      ast = parseProgram(cnlText);
+    } catch (error) {
+      return { error: this.#toErrorObject(error) };
+    }
+
+    const transactional = options.transactional ?? true;
+    if (!transactional) {
+      const out = executeProgram(ast, this.state, {
+        deduce: options.deduce ?? true,
+        projectEntityAttributes: this.options.projectEntityAttributes,
+      });
+      if (out?.kind === "ProgramResult" && out.errors?.length === 0) {
+        this.sources.push(cnlText);
+      }
+      return out;
+    }
+
+    // Transactional: rebuild from prior sources, then apply the program sequentially.
+    const baseState = this.#compileSources([...this.sources], { loadTimeRenames: null, expandedFiles: null });
+    if (baseState.errors.length > 0) {
+      return { errors: baseState.errors, applied: false };
+    }
+
+    const out = executeProgram(ast, baseState, {
+      deduce: options.deduce ?? true,
+      projectEntityAttributes: this.options.projectEntityAttributes,
+    });
+
+    if (!out || out.kind !== "ProgramResult" || (out.errors && out.errors.length > 0)) {
+      return { errors: out?.errors || [sessionError("SES024", "Program execution failed.")], applied: false };
+    }
+
+    this.state = baseState;
+    this.sources.push(cnlText);
+    return { ...out, applied: true, errors: [] };
   }
 
   query(cnlText, options = {}) {
     const { command, error } = this.#parseCommand(cnlText);
     if (error) return { error };
     if (command.kind !== "ReturnCommand" && command.kind !== "FindCommand") {
-      return { error: createError("SES010", "Query requires a return or find command.") };
+      return { error: sessionError("SES010", "Query requires a return or find command.") };
     }
     if (options.deduce ?? false) {
       materializeRules(this.state, { justificationStore: this.state.justificationStore });
@@ -212,7 +281,7 @@ export class CNLSession {
     const { command, error } = this.#parseCommand(cnlText);
     if (error) return { error };
     if (command.kind !== "VerifyCommand") {
-      return { error: createError("SES011", "Proof requires a verify command.") };
+      return { error: sessionError("SES011", "Proof requires a verify command.") };
     }
     if (options.deduce ?? true) {
       materializeRules(this.state, { justificationStore: this.state.justificationStore });
@@ -224,7 +293,7 @@ export class CNLSession {
     const { command, error } = this.#parseCommand(cnlText);
     if (error) return { error };
     if (command.kind !== "ExplainCommand") {
-      return { error: createError("SES012", "Explain requires an explain command.") };
+      return { error: sessionError("SES012", "Explain requires an explain command.") };
     }
     if (options.deduce ?? true) {
       materializeRules(this.state, { justificationStore: this.state.justificationStore });
@@ -236,7 +305,7 @@ export class CNLSession {
     const { command, error } = this.#parseCommand(cnlText);
     if (error) return { error };
     if (command.kind !== "PlanCommand") {
-      return { error: createError("SES013", "Plan requires a plan command.") };
+      return { error: sessionError("SES013", "Plan requires a plan command.") };
     }
     if (options.deduce ?? true) {
       materializeRules(this.state, { justificationStore: this.state.justificationStore });
@@ -248,7 +317,7 @@ export class CNLSession {
     const { command, error } = this.#parseCommand(cnlText);
     if (error) return { error };
     if (command.kind !== "SimulateCommand") {
-      return { error: createError("SES014", "Simulate requires a simulate command.") };
+      return { error: sessionError("SES014", "Simulate requires a simulate command.") };
     }
     if (options.deduce ?? true) {
       materializeRules(this.state, { justificationStore: this.state.justificationStore });
@@ -260,7 +329,7 @@ export class CNLSession {
     const { command, error } = this.#parseCommand(cnlText);
     if (error) return { error };
     if (command.kind !== "MaximizeCommand" && command.kind !== "MinimizeCommand") {
-      return { error: createError("SES015", "Optimize requires a maximize or minimize command.") };
+      return { error: sessionError("SES015", "Optimize requires a maximize or minimize command.") };
     }
     if (options.deduce ?? true) {
       materializeRules(this.state, { justificationStore: this.state.justificationStore });
@@ -272,7 +341,7 @@ export class CNLSession {
     const { command, error } = this.#parseCommand(cnlText);
     if (error) return { error };
     if (command.kind !== "SolveCommand") {
-      return { error: createError("SES018", "Solve requires a solve command.") };
+      return { error: sessionError("SES018", "Solve requires a solve command.") };
     }
     if (options.deduce ?? true) {
       materializeRules(this.state, { justificationStore: this.state.justificationStore });
@@ -382,7 +451,7 @@ export class CNLSession {
     if (error && typeof error === "object" && error.code) {
       return error;
     }
-    return createError("SES009", error?.message ?? "Parser error.");
+    return sessionError("SES009", error?.message ?? "Parser error.");
   }
 
   #parseCommand(cnlText) {
@@ -394,10 +463,10 @@ export class CNLSession {
     }
     const commandItems = ast.items.filter((item) => item.kind === "CommandStatement");
     if (commandItems.length === 0) {
-      return { command: null, error: createError("SES016", "No command found in input.") };
+      return { command: null, error: sessionError("SES016", "No command found in input.") };
     }
     if (ast.items.length !== commandItems.length) {
-      return { command: null, error: createError("SES017", "Command input must not include statements.") };
+      return { command: null, error: sessionError("SES017", "Command input must not include statements.") };
     }
     return { command: commandItems[0].command, error: null };
   }

@@ -3,9 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Architecture: Identity System</title>
+  <title>CNL-PL Architecture: Identity (Moved)</title>
+  <meta http-equiv="refresh" content="0; url=../architecture/05-identity.html" />
   <link rel="stylesheet" href="../assets/style.css" />
   <script src="../site-nav.js"></script>
+  <script>
+    window.location.replace("../architecture/05-identity.html");
+  </script>
 </head>
 <body>
   <div class="page">
@@ -13,54 +17,17 @@
       <div class="header-inner">
         <div class="brand">
           <div class="brand-mark" aria-hidden="true"></div>
-          <div>CNL Architecture</div>
+          <div>CNL Programming Language</div>
         </div>
       </div>
     </header>
-
     <main>
       <section class="hero">
-        <span class="tag">Architecture Part 5</span>
-        <h1>Identity and Interning</h1>
-        <p>The machinery that converts human-readable strings into machine-optimizable integers.</p>
-      </section>
-
-      <section class="section">
-        <h2>The Dual Identity Problem</h2>
-        <p>
-          A reasoning engine faces two conflicting requirements:
-        </p>
-        <ul class="list">
-          <li><strong>Stability:</strong> An identifier must not change between sessions. "User X" today must be "User X" tomorrow.</li>
-          <li><strong>Performance:</strong> Array access is fast; Hash map access is slow. We want to use small, dense integers (0..N) as indices.</li>
-        </ul>
-        <p>
-          Stable IDs (hashes) are large and sparse. Dense IDs are small but transient. CNL-PL solves this with a two-tier system.
-        </p>
-
-        <h2>Tier 1: ConceptualID (Stable)</h2>
-        <p>
-          A <strong>ConceptualID</strong> is a 64-bit integer derived from the content.
-          <br/><code>ID = Hash(Kind, CanonicalString)</code>.
-        </p>
-        <p>
-          This ID is computed deterministically. If you load the same theory on two different machines, the Concept "user" will have the exact same ConceptualID. This allows for safe serialization and distributed computing.
-        </p>
-
-        <h2>Tier 2: DenseID (Runtime)</h2>
-        <p>
-          When a session starts, we load ConceptualIDs into an <strong>Interner</strong>. The Interner assigns a sequential <strong>DenseID</strong> (0, 1, 2...) to each unique Concept it encounters.
-        </p>
-        <p>
-          The Runtime Engine <em>only</em> speaks DenseIDs (EntityID, PredID).
-          <br/><code>KB.relations[PredID].rows[EntityID]</code>
-        </p>
-        <p>
-          The <strong>SymbolTable</strong> maintains the mapping: <code>DenseID <-> ConceptualID <-> String</code>. This allows the system to be incredibly fast internally, while still being able to print readable error messages and export portable data.
-        </p>
+        <span class="tag">Moved</span>
+        <h1>Identity</h1>
+        <p>This page moved to <a href="../architecture/05-identity.html">docs/architecture/05-identity.html</a>.</p>
       </section>
     </main>
-    <footer class="site-footer"><div class="footer-inner">CNL-PL Architecture</div></footer>
   </div>
 </body>
 </html>

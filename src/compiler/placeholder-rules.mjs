@@ -1,13 +1,17 @@
 import { ConceptKind } from "../ids/interners.mjs";
 import { Plans } from "../plans/ir.mjs";
 import { canonicalEntityKey } from "./canonical-keys.mjs";
+import { verbGroupKey, passiveKey } from "../utils/predicate-keys.mjs";
 
 function isPlaceholderName(value) {
   return typeof value === "string" && /^[A-Z]$/.test(value);
 }
 
-function nameValue(node) {
-  return node && node.kind === "Name" ? node.value : null;
+function termToken(node) {
+  if (!node) return null;
+  if (node.kind === "Variable") return node.name;
+  if (node.kind === "Name") return node.value;
+  return null;
 }
 
 function resolveEntityId(node, state) {
@@ -34,17 +38,14 @@ function resolveUnaryIdFromComplement(complement, state) {
 function predIdFromRelationAssertion(assertion, state) {
   if (!assertion) return null;
   if (assertion.kind === "ActiveRelationAssertion") {
-    const parts = [];
-    const vg = assertion.verbGroup;
-    if (vg?.auxiliary) parts.push(`aux:${vg.auxiliary}`);
-    parts.push(vg?.verb ?? "");
-    (vg?.particles ?? []).forEach((p) => parts.push(p));
-    const key = `P:${parts.join("|")}`;
+    const key = verbGroupKey(assertion.verbGroup, { negated: assertion.negated });
+    if (!key) return null;
     const conceptId = state.idStore.internConcept(ConceptKind.Predicate, key);
     return state.idStore.getDenseId(ConceptKind.Predicate, conceptId);
   }
   if (assertion.kind === "PassiveRelationAssertion") {
-    const key = `P:passive:${assertion.verb}|${assertion.preposition}`;
+    const key = passiveKey(assertion.verb, assertion.preposition, { negated: assertion.negated });
+    if (!key) return null;
     const conceptId = state.idStore.internConcept(ConceptKind.Predicate, key);
     return state.idStore.getDenseId(ConceptKind.Predicate, conceptId);
   }
@@ -75,15 +76,15 @@ function isUnaryAssertion(assertion) {
 
 function asRelationTriple(assertion) {
   if (!isRelationAssertion(assertion)) return null;
-  const s = nameValue(assertion.subject);
-  const o = nameValue(assertion.object);
+  const s = termToken(assertion.subject);
+  const o = termToken(assertion.object);
   if (!s || !o) return null;
   return { s, o };
 }
 
 function asUnaryPair(assertion) {
   if (!isUnaryAssertion(assertion)) return null;
-  const s = nameValue(assertion.subject);
+  const s = termToken(assertion.subject);
   if (!s) return null;
   return { s, complement: assertion.complement };
 }
@@ -171,8 +172,8 @@ export function tryCompilePlaceholderConditional(sentence, state) {
   // D) Binary -> unary typing (subject side): X R Y -> X is a c
   if (bodyAssertions.length === 1 && isRelationAssertion(bodyAssertions[0]) && isUnaryAssertion(headAssertion)) {
     const rel = bodyAssertions[0];
-    const relS = nameValue(rel.subject);
-    const relO = nameValue(rel.object);
+    const relS = termToken(rel.subject);
+    const relO = termToken(rel.object);
     const h = asUnaryPair(headAssertion);
     if (!relS || !relO || !h) return null;
     if (!isPlaceholderName(h.s)) return null;

@@ -6,6 +6,7 @@ import {
   COPULAS,
 } from "./constants.mjs";
 import { TokenStream, ensureBalancedParentheses } from "./token-stream.mjs";
+import { parseConditionTokensPratt } from "./conditions/pratt.mjs";
 import {
   parseAttributeRef,
   parseExpr,
@@ -207,178 +208,10 @@ function splitOnKeyword(tokens, keyword) {
   return null;
 }
 
-function splitByOperator(tokens, operator) {
-  const parts = [];
-  let start = 0;
-  let depth = 0;
-  for (let i = 0; i < tokens.length; i += 1) {
-    const token = tokens[i];
-    if (token.type === "punct" && token.value === "(") depth += 1;
-    if (token.type === "punct" && token.value === ")") depth -= 1;
-    if (depth === 0 && token.type === "word" && token.lower === operator) {
-      if (operator === "or" && isComparatorOrToken(tokens, i)) continue;
-      parts.push(tokens.slice(start, i));
-      start = i + 1;
-    }
-  }
-  parts.push(tokens.slice(start));
-  return parts;
-}
-
-function tokensAreWrapped(tokens) {
-  if (tokens.length < 2) return false;
-  if (!(tokens[0].type === "punct" && tokens[0].value === "(")) return false;
-  if (!(tokens[tokens.length - 1].type === "punct" && tokens[tokens.length - 1].value === ")")) return false;
-  let depth = 0;
-  for (let i = 0; i < tokens.length; i += 1) {
-    const token = tokens[i];
-    if (token.type === "punct" && token.value === "(") depth += 1;
-    if (token.type === "punct" && token.value === ")") depth -= 1;
-    if (depth === 0 && i < tokens.length - 1) return false;
-  }
-  return depth === 0;
-}
-
 export function parseConditionTokens(tokens) {
   const filtered = stripCommas(tokens);
   ensureBalancedParentheses(filtered);
-
-  if (tokensAreWrapped(filtered)) {
-    const inner = filtered.slice(1, -1);
-    const startToken = filtered[0];
-    const endToken = filtered[filtered.length - 1];
-    return {
-      kind: "GroupCondition",
-      inner: parseConditionTokens(inner),
-      span: { start: startToken.start, end: endToken.end },
-    };
-  }
-
-  if (
-    filtered.length >= 7 &&
-    filtered[0].lower === "it" &&
-    filtered[1].lower === "is" &&
-    filtered[2].lower === "not" &&
-    filtered[3].lower === "the" &&
-    filtered[4].lower === "case" &&
-    filtered[5].lower === "that"
-  ) {
-    const rest = filtered.slice(6);
-    const startToken = filtered[0];
-    const endToken = filtered[filtered.length - 1];
-    return {
-      kind: "CaseScope",
-      mode: "negative",
-      operand: parseConditionTokens(rest),
-      span: { start: startToken.start, end: endToken.end },
-    };
-  }
-
-  if (
-    filtered.length >= 6 &&
-    filtered[0].lower === "it" &&
-    filtered[1].lower === "is" &&
-    filtered[2].lower === "the" &&
-    filtered[3].lower === "case" &&
-    filtered[4].lower === "that"
-  ) {
-    const rest = filtered.slice(5);
-    const startToken = filtered[0];
-    const endToken = filtered[filtered.length - 1];
-    return {
-      kind: "CaseScope",
-      mode: "positive",
-      operand: parseConditionTokens(rest),
-      span: { start: startToken.start, end: endToken.end },
-    };
-  }
-
-  if (filtered[0].lower === "either") {
-    const split = splitOnKeyword(filtered.slice(1), "or");
-    if (!split) {
-      throw createError("SYN001", filtered[0].raw);
-    }
-    const startToken = filtered[0];
-    const endToken = filtered[filtered.length - 1];
-    return {
-      kind: "EitherOr",
-      left: parseConditionTokens(split.left),
-      right: parseConditionTokens(split.right),
-      span: { start: startToken.start, end: endToken.end },
-    };
-  }
-
-  if (filtered[0].lower === "both") {
-    const split = splitOnKeyword(filtered.slice(1), "and");
-    if (!split) {
-      throw createError("SYN001", filtered[0].raw);
-    }
-    const startToken = filtered[0];
-    const endToken = filtered[filtered.length - 1];
-    return {
-      kind: "BothAnd",
-      left: parseConditionTokens(split.left),
-      right: parseConditionTokens(split.right),
-      span: { start: startToken.start, end: endToken.end },
-    };
-  }
-
-  let hasAnd = false;
-  let hasOr = false;
-  let offendingToken = null;
-  let seen = null;
-  let depth = 0;
-  for (let i = 0; i < filtered.length; i += 1) {
-    const token = filtered[i];
-    if (token.type === "punct" && token.value === "(") depth += 1;
-    if (token.type === "punct" && token.value === ")") depth -= 1;
-    if (depth !== 0) continue;
-    if (token.type === "word" && token.lower === "and") {
-      hasAnd = true;
-      if (!seen) seen = "and";
-      if (seen !== "and" && !offendingToken) offendingToken = token;
-    }
-    if (token.type === "word" && token.lower === "or") {
-      if (isComparatorOrToken(filtered, i)) continue;
-      hasOr = true;
-      if (!seen) seen = "or";
-      if (seen !== "or" && !offendingToken) offendingToken = token;
-    }
-  }
-
-  if (hasAnd && hasOr) {
-    throw createError("SYN011", offendingToken ? offendingToken.raw : "or");
-  }
-
-  if (hasAnd) {
-    const parts = splitByOperator(filtered, "and");
-    const startToken = filtered[0];
-    const endToken = filtered[filtered.length - 1];
-    return {
-      kind: "AndChain",
-      items: parts.map((part) => parseConditionTokens(part)),
-      span: { start: startToken.start, end: endToken.end },
-    };
-  }
-
-  if (hasOr) {
-    const parts = splitByOperator(filtered, "or");
-    const startToken = filtered[0];
-    const endToken = filtered[filtered.length - 1];
-    return {
-      kind: "OrChain",
-      items: parts.map((part) => parseConditionTokens(part)),
-      span: { start: startToken.start, end: endToken.end },
-    };
-  }
-
-  const startToken = filtered[0];
-  const endToken = filtered[filtered.length - 1];
-  return {
-    kind: "AtomicCondition",
-    assertion: parseAssertionFromTokens(filtered),
-    span: { start: startToken.start, end: endToken.end },
-  };
+  return parseConditionTokensPratt(filtered, parseAssertionFromTokens, createError);
 }
 
 function parseConditionalPrefix(tokens) {

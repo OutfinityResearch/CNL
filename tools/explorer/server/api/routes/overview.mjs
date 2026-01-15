@@ -207,9 +207,10 @@ export function handleOverview(req, res, url, context) {
   if (req.method !== "GET" || url.pathname !== "/api/overview") return false;
   const kind = String(url.searchParams.get("kind") || "").toLowerCase();
   const nodeId = String(url.searchParams.get("id") || "");
+  const includeBenign = String(url.searchParams.get("includeBenign") || "").toLowerCase() === "1";
   
   if (kind === "scoped") {
-    const report = buildScopedOverview(nodeId, context);
+    const report = buildScopedOverview(nodeId, context, { includeBenign });
     if (!report) {
       json(res, 404, { ok: false, error: "Scoped overview not found." });
       return true;
@@ -218,7 +219,7 @@ export function handleOverview(req, res, url, context) {
     return true;
   }
 
-  const overview = buildOverview(kind, context);
+  const overview = buildOverview(kind, context, { includeBenign });
   if (!overview) {
     json(res, 400, { ok: false, error: "Unknown overview kind." });
     return true;
@@ -227,8 +228,20 @@ export function handleOverview(req, res, url, context) {
   return true;
 }
 
-export function buildScopedOverview(nodeId, context) {
+export function buildScopedOverview(nodeId, context, options = {}) {
   const { rawKb, idStore, ruleStore, session } = context;
+  const includeBenign = Boolean(options.includeBenign);
+
+  function filterBenign(issues) {
+    if (includeBenign) return issues;
+    return issues.filter(
+      (i) => i && i.kind !== "DuplicateTypeDeclaration" && i.kind !== "DuplicatePredicateDeclaration",
+    );
+  }
+
+  function isBenignDuplicate(issue) {
+    return issue && (issue.kind === "DuplicateTypeDeclaration" || issue.kind === "DuplicatePredicateDeclaration");
+  }
 
   function computeRuleGroupId(rule) {
     const unaryIds = rule?.deps?.unaryIds;
@@ -286,8 +299,23 @@ export function buildScopedOverview(nodeId, context) {
     const issues = [];
     
     // Dictionary warnings
+    const dictErrors = session?.state?.dictionary?.errors || [];
+    dictErrors.forEach((e, idx) => {
+      const c = e.key || e.primaryToken || "general";
+      if (c === concept) {
+        issues.push({
+          leafId: `w-issue-dict-err-${idx}`,
+          message: e.message,
+          reason: e.kind || e.code,
+          severity: "error",
+          raw: e,
+        });
+      }
+    });
+
     const dictWarnings = session?.state?.dictionary?.warnings || [];
     dictWarnings.forEach((w, idx) => {
+      if (!includeBenign && isBenignDuplicate(w)) return;
       const c = w.key || "general";
       if (c === concept) {
         issues.push({
@@ -368,7 +396,7 @@ export function buildScopedOverview(nodeId, context) {
   const sevMatch = nodeId.match(/^w-sev-(error|warning)$/);
   if (sevMatch) {
     const severity = sevMatch[1];
-    const issues = collectAllIssues().filter((i) => i.severity === severity);
+    const issues = filterBenign(collectAllIssues()).filter((i) => i.severity === severity);
     return {
       kind: "scoped-warnings",
       title: `${severity === "error" ? "Errors" : "Warnings"} (${issues.length})`,
@@ -383,7 +411,7 @@ export function buildScopedOverview(nodeId, context) {
   if (kindMatch) {
     const severity = kindMatch[1];
     const kind = decodeURIComponent(kindMatch[2]);
-    const issues = collectAllIssues().filter((i) => i.severity === severity && i.kind === kind);
+    const issues = filterBenign(collectAllIssues()).filter((i) => i.severity === severity && i.kind === kind);
     return {
       kind: "scoped-warnings",
       title: `${kind} (${issues.length})`,
@@ -399,7 +427,7 @@ export function buildScopedOverview(nodeId, context) {
     const severity = kcMatch[1];
     const kind = decodeURIComponent(kcMatch[2]);
     const concept = decodeURIComponent(kcMatch[3]);
-    const issues = collectAllIssues().filter((i) => i.severity === severity && i.kind === kind && i.key === concept);
+    const issues = filterBenign(collectAllIssues()).filter((i) => i.severity === severity && i.kind === kind && i.key === concept);
     return {
       kind: "scoped-warnings",
       title: `${kind} · ${concept} (${issues.length})`,
@@ -617,9 +645,21 @@ export function buildScopedOverview(nodeId, context) {
   return null;
 }
 
-export function buildOverview(kind, context) {
+export function buildOverview(kind, context, options = {}) {
   const k = String(kind || "").toLowerCase();
   const { rawKb, idStore, ruleStore, actionStore, session } = context;
+  const includeBenign = Boolean(options.includeBenign);
+
+  function filterBenign(issues) {
+    if (includeBenign) return issues;
+    return issues.filter(
+      (i) => i && i.kind !== "DuplicateTypeDeclaration" && i.kind !== "DuplicatePredicateDeclaration",
+    );
+  }
+
+  function isBenignDuplicate(issue) {
+    return issue && (issue.kind === "DuplicateTypeDeclaration" || issue.kind === "DuplicatePredicateDeclaration");
+  }
 
   if (k === "things") {
     const items = collectThings(rawKb, idStore);
@@ -722,8 +762,22 @@ export function buildOverview(kind, context) {
   }
   if (k === "warnings") {
     const issues = [];
+    const dictErrors = session?.state?.dictionary?.errors || [];
+    dictErrors.forEach((e, idx) => {
+      issues.push({
+        source: "dictionary",
+        leafId: `w-issue-dict-err-${idx}`,
+        severity: "error",
+        kind: e.kind || e.code || "DictionaryError",
+        key: e.key || e.primaryToken || "general",
+        message: e.message || "(no message)",
+        details: e,
+      });
+    });
+
     const dictWarnings = session?.state?.dictionary?.warnings || [];
     dictWarnings.forEach((w, idx) => {
+      if (!includeBenign && isBenignDuplicate(w)) return;
       issues.push({
         source: "dictionary",
         leafId: `w-issue-dict-${idx}`,
@@ -731,6 +785,7 @@ export function buildOverview(kind, context) {
         kind: w.kind || "DictionaryWarning",
         key: w.key || "general",
         message: w.message || "(no message)",
+        details: w,
       });
     });
 
@@ -796,6 +851,10 @@ export function buildOverview(kind, context) {
     };
   }
   if (k === "knowledge") {
+    const dictIssues = [
+      ...(session?.state?.dictionary?.errors || []),
+      ...(session?.state?.dictionary?.warnings || []).filter((w) => includeBenign || !isBenignDuplicate(w)),
+    ];
     const stats = {
       things: collectThings(rawKb, idStore).length,
       concepts: collectConcepts(rawKb, idStore).length,
@@ -803,7 +862,7 @@ export function buildOverview(kind, context) {
       rules: ruleStore.getRules().filter(r => r.kind !== "TransitionRule" && r.kind !== "TransitionRuleStatement").length,
       transitions: collectTransitions(ruleStore).length,
       actions: actionStore.getActions().length,
-      warnings: (session?.state?.dictionary?.warnings?.length || 0) + (typeof ruleStore.getDuplicateRules === "function" ? ruleStore.getDuplicateRules().length : 0)
+      warnings: dictIssues.length + (typeof ruleStore.getDuplicateRules === "function" ? ruleStore.getDuplicateRules().length : 0),
     };
     return { kind: "knowledge", title: "Knowledge Base Summary", summary: stats, items: [], raw: { stats } };
   }

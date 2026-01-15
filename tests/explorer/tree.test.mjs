@@ -69,7 +69,7 @@ Alice likes Pizza_1.
   assert.ok(Array.isArray(relations.children));
   assert.ok(relations.children.length > 0);
 
-  const likesNode = relations.children.find((n) => String(n.text).includes("likes"));
+  const likesNode = relations.children.find((n) => String(n.text).includes("like"));
   assert.ok(likesNode, "missing 'likes' predicate node");
   assert.ok(Array.isArray(likesNode.children) && likesNode.children.length > 0, "likes has no children");
 
@@ -103,4 +103,3 @@ John likes Pizza_1.
   assert.equal(overview.kind, "relation-fact");
   assert.equal(overview.summary.exists, true);
 });
-
