@@ -55,22 +55,46 @@ function unaryPairsByBase(idStore) {
 }
 
 function predPairsByBase(idStore) {
-  const pairs = new Map(); // baseRest -> { posId, negId }
+  const pairs = new Map(); // baseRest -> { posIds:Set<number>, negIds:Set<number> }
   const n = idStore?.size?.(ConceptKind.Predicate) ?? 0;
   for (let id = 0; id < n; id += 1) {
     const key = lookupKey(idStore, ConceptKind.Predicate, id);
     if (!key || !key.startsWith("P:")) continue;
+    const rest = key.startsWith("P:not|") ? key.slice("P:not|".length) : key.slice("P:".length);
+    const normalizedRest = normalizePredicateRest(rest);
+    if (!pairs.has(normalizedRest)) pairs.set(normalizedRest, { posIds: new Set(), negIds: new Set() });
+    const entry = pairs.get(normalizedRest);
     if (key.startsWith("P:not|")) {
-      const baseRest = key.slice("P:not|".length);
-      if (!pairs.has(baseRest)) pairs.set(baseRest, { posId: null, negId: null });
-      pairs.get(baseRest).negId = id;
+      entry.negIds.add(id);
       continue;
     }
-    const baseRest = key.slice("P:".length);
-    if (!pairs.has(baseRest)) pairs.set(baseRest, { posId: null, negId: null });
-    pairs.get(baseRest).posId = id;
+    entry.posIds.add(id);
   }
   return pairs;
+}
+
+function normalizeVerbLike(verb) {
+  const v = String(verb || "").trim().toLowerCase();
+  if (!v) return v;
+  if (v.endsWith("ies") && v.length > 3) return `${v.slice(0, -3)}y`;
+  if (v.endsWith("oes") && v.length > 3) return v.slice(0, -2); // "goes" -> "go"
+  if (v.endsWith("ches") || v.endsWith("shes") || v.endsWith("xes")) return v.slice(0, -2); // drop "es"
+  if (v.endsWith("sses") || v.endsWith("zzes")) return v.slice(0, -2); // "kisses" -> "kiss"
+  if (v.endsWith("s") && !v.endsWith("ss") && v.length > 1) return v.slice(0, -1);
+  return v;
+}
+
+function normalizePredicateRest(rest) {
+  const raw = String(rest || "").trim();
+  if (!raw) return raw;
+  if (raw.startsWith("passive:")) return raw; // already stable
+  const parts = raw.split("|").filter((p) => p.length > 0);
+  if (parts.length === 0) return raw;
+  const hasAux = parts[0].startsWith("aux:");
+  const verbIndex = hasAux ? 1 : 0;
+  if (verbIndex >= parts.length) return raw;
+  parts[verbIndex] = normalizeVerbLike(parts[verbIndex]);
+  return parts.join("|");
 }
 
 export function analyzeContradictoryAssertions(state, options = {}) {
@@ -117,48 +141,57 @@ export function analyzeContradictoryAssertions(state, options = {}) {
 
   // Binary contradictions: (S, P:base, O) and (S, P:not|base, O).
   const predPairs = predPairsByBase(idStore);
+  const seenBinary = new Set();
   for (const [baseRest, ids] of predPairs.entries()) {
-    const posId = ids.posId;
-    const negId = ids.negId;
-    if (!Number.isInteger(posId) || !Number.isInteger(negId)) continue;
-    const pos = rawKb.relations?.[posId];
-    const neg = rawKb.relations?.[negId];
-    if (!pos || !neg) continue;
+    const posIds = [...(ids.posIds ?? [])];
+    const negIds = [...(ids.negIds ?? [])];
+    if (posIds.length === 0 || negIds.length === 0) continue;
 
-    const rows = Math.min(pos.rows?.length ?? 0, neg.rows?.length ?? 0);
-    for (let s = 0; s < rows; s += 1) {
-      const posRow = pos.rows[s];
-      const negRow = neg.rows[s];
-      if (!posRow || !negRow) continue;
-      const both = posRow.and(negRow);
-      if (both.isEmpty()) continue;
+    for (const posId of posIds) {
+      for (const negId of negIds) {
+        if (!Number.isInteger(posId) || !Number.isInteger(negId)) continue;
+        const pos = rawKb.relations?.[posId];
+        const neg = rawKb.relations?.[negId];
+        if (!pos || !neg) continue;
 
-      const subjKey = lookupKey(idStore, ConceptKind.Entity, s);
-      const subj = displayEntityKey(subjKey) || `Entity_${s}`;
-      both.iterateSetBits((o) => {
-        const objKey = lookupKey(idStore, ConceptKind.Entity, o);
-        const obj = displayEntityKey(objKey) || `Entity_${o}`;
-        const key = `${subj}|${baseRest}|${obj}`;
-        out.push(
-          issue(
-            "ContradictoryAssertion",
-            "error",
-            `Contradiction: '${subj}' both '${baseRest.split("|").join(" ")}' and 'does not ${baseRest.split("|").join(" ")}' '${obj}'.`,
-            {
-              key,
-              details: {
-                subject: subj,
-                subjectKey: subjKey,
-                object: obj,
-                objectKey: objKey,
-                positivePredicateKey: `P:${baseRest}`,
-                negativePredicateKey: `P:not|${baseRest}`,
-              },
-              hint: "Remove one of the explicit assertions or adjust the theory to avoid explicit contradictions.",
-            },
-          ),
-        );
-      });
+        const rows = Math.min(pos.rows?.length ?? 0, neg.rows?.length ?? 0);
+        for (let s = 0; s < rows; s += 1) {
+          const posRow = pos.rows[s];
+          const negRow = neg.rows[s];
+          if (!posRow || !negRow) continue;
+          const both = posRow.and(negRow);
+          if (both.isEmpty()) continue;
+
+          const subjKey = lookupKey(idStore, ConceptKind.Entity, s);
+          const subj = displayEntityKey(subjKey) || `Entity_${s}`;
+          both.iterateSetBits((o) => {
+            const objKey = lookupKey(idStore, ConceptKind.Entity, o);
+            const obj = displayEntityKey(objKey) || `Entity_${o}`;
+            const k = `${subj}|${baseRest}|${obj}|${posId}|${negId}`;
+            if (seenBinary.has(k)) return;
+            seenBinary.add(k);
+            out.push(
+              issue(
+                "ContradictoryAssertion",
+                "error",
+                `Contradiction: '${subj}' both '${baseRest.split("|").join(" ")}' and 'does not ${baseRest.split("|").join(" ")}' '${obj}'.`,
+                {
+                  key: `${subj}|${baseRest}|${obj}`,
+                  details: {
+                    subject: subj,
+                    subjectKey: subjKey,
+                    object: obj,
+                    objectKey: objKey,
+                    positivePredicateKey: lookupKey(idStore, ConceptKind.Predicate, posId),
+                    negativePredicateKey: lookupKey(idStore, ConceptKind.Predicate, negId),
+                  },
+                  hint: "Remove one of the explicit assertions or adjust the theory to avoid explicit contradictions.",
+                },
+              ),
+            );
+          });
+        }
+      }
     }
   }
 

@@ -1,6 +1,7 @@
 import { readFile } from "fs/promises";
 import { parseProgram } from "../../src/parser/grammar.mjs";
 import { compileProgram } from "../../src/compiler/compile.mjs";
+import { CNLSession } from "../../src/session/cnl-session.mjs";
 
 const evalPath = new URL("../../evals/reasoning/compiler.v1.json", import.meta.url);
 const raw = await readFile(evalPath, "utf8");
@@ -104,45 +105,22 @@ for (const testCase of cases) {
     });
     continue;
   }
-  let ast = null;
-  try {
-    ast = parseProgram(testCase.input);
-  } catch (error) {
-    if (testCase.expectError) {
-      passed += 1;
-      rows.push({
-        status: "PASS",
-        purpose: testCase.purpose,
-        case: preview,
-        note: "parse error (expected)",
-      });
-      continue;
-    }
-    failed += 1;
-    const message = error?.message ?? "parse error";
-    rows.push({
-      status: "FAIL",
-      purpose: testCase.purpose,
-      case: preview,
-      note: `parse error: ${message}`,
-    });
-    continue;
-  }
 
-  const state = compileProgram(ast);
   if (testCase.expectError) {
-    if (state.errors.length === 0) {
+    const session = new CNLSession({ validateDictionary: false, autoloadBase: false });
+    const res = session.learnText(testCase.input, { transactional: true });
+    if (res.applied) {
       failed += 1;
       rows.push({
         status: "FAIL",
         purpose: testCase.purpose,
         case: preview,
-        note: "expected compiler error, got none",
+        note: "expected error, got applied=true",
       });
       continue;
     }
     const wantCode = testCase.expectError.code ? String(testCase.expectError.code) : null;
-    const first = state.errors[0];
+    const first = res.errors?.[0] ?? null;
     if (wantCode && String(first?.code || "") !== wantCode) {
       failed += 1;
       rows.push({
@@ -158,11 +136,27 @@ for (const testCase of cases) {
       status: "PASS",
       purpose: testCase.purpose,
       case: preview,
-      note: `compiler error (${wantCode || "any"})`,
+      note: `error (${wantCode || "any"})`,
     });
     continue;
   }
 
+  let ast = null;
+  try {
+    ast = parseProgram(testCase.input);
+  } catch (error) {
+    failed += 1;
+    const message = error?.message ?? "parse error";
+    rows.push({
+      status: "FAIL",
+      purpose: testCase.purpose,
+      case: preview,
+      note: `parse error: ${message}`,
+    });
+    continue;
+  }
+
+  const state = compileProgram(ast);
   if (state.errors.length > 0) {
     failed += 1;
     rows.push({

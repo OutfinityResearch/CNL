@@ -325,6 +325,18 @@ export function buildScopedOverview(nodeId, context) {
 
   function collectAllIssues() {
     const all = [];
+    const dictErrors = session?.state?.dictionary?.errors || [];
+    dictErrors.forEach((e, idx) => {
+      all.push({
+        source: "dictionary",
+        leafId: `w-issue-dict-err-${idx}`,
+        severity: "error",
+        kind: e.kind || e.code || "DictionaryError",
+        key: e.key || "general",
+        message: e.message || "(no message)",
+        raw: e,
+      });
+    });
     const dictWarnings = session?.state?.dictionary?.warnings || [];
     dictWarnings.forEach((w, idx) => {
       all.push({
@@ -398,6 +410,22 @@ export function buildScopedOverview(nodeId, context) {
   }
 
   // 2b. Warning leaf issue nodes
+  const dictErrIssueMatch = nodeId.match(/^w-issue-dict-err-(\d+)$/);
+  if (dictErrIssueMatch) {
+    const idx = parseInt(dictErrIssueMatch[1], 10);
+    const dictErrors = session?.state?.dictionary?.errors || [];
+    const issue = dictErrors[idx];
+    if (!issue) return null;
+    const concept = issue.key || "general";
+    return {
+      kind: "warning-issue",
+      title: "Error",
+      summary: { concept, severity: "error", kind: issue.kind || issue.code },
+      items: [{ message: issue.message }],
+      raw: { nodeId, issueIndex: idx, issue },
+    };
+  }
+
   const dictIssueMatch = nodeId.match(/^w-issue-dict-(\d+)$/);
   if (dictIssueMatch) {
     const idx = parseInt(dictIssueMatch[1], 10);
